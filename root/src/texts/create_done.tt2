@@ -1,0 +1,3 @@
+[% META title = 'Text Created' %]
+<p>Added [% text.id %] text "[% text.description %]" to [% text.genre %] genre.
+<p><a href="[% Catalyst.uri_for('/texts/list') %]">Return to list</a></p>
