@@ -114,7 +114,6 @@ sub update : Local {
 				exercise => $exerciseId,
 				player => $player,
 				blank => $id,
-				response => "unused",
 				correct => $correct });
 			}
 			else {
@@ -172,7 +171,7 @@ sub list : Local {
 
 sub index : Private {
     my ( $self, $c ) = @_;
-    $c->response->body('Matched dic::Controller::Players in Players.');
+    $c->response->body('Matched dic::Controller::Play in Play.');
 }
 
 

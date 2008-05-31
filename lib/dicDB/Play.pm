@@ -7,7 +7,7 @@ __PACKAGE__->load_components(qw/PK::Auto Core/);
 # Set the table name
 __PACKAGE__->table('play');
 # Set columns in table
-__PACKAGE__->add_columns(qw/league exercise player blank response correct/);
+__PACKAGE__->add_columns(qw/league exercise player blank correct/);
 # Set the primary key for the table
 __PACKAGE__->set_primary_key(qw/league exercise player blank/);
 
@@ -45,12 +45,12 @@ __PACKAGE__->belongs_to( player => 'dicDB::Player' );
 
 =head1 NAME
 
-dicDB::Play - A model object representing responses of players answering questions in a competition
+dicDB::Play - A model object representing players answering questions in a competition
 
 =head1 DESCRIPTION
 
 This is an object that represents a row in the 'play' table of your application
-database.  It uses DBIx::Class (aka, DBIC) to do ORM.
+database.  It uses DBIx::Class (aka, DBIC) to do ORM. 'blank' is the ID of the question and correct is the number of letters consecutively correctly answered, starting from the head of the clozed part of the word.
 
 For Catalyst, this is designed to be used through dic::Model::dicDB.
 Offline utilities may wish to use this class directly.
