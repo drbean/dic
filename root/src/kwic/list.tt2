@@ -8,19 +8,19 @@ Back to <a href="[% Catalyst.uri_for('/play/update/') _ id %]">[% title %] Exerc
 <table>
  <tr>
    <td class="pre">
-     [% FOREACH section IN originalpretext -%]
-       [% IF section.Newline -%]
+     [%- FOREACH section IN originalpretext -%]
+       [%- IF section.Newline -%]
         &nbsp;
-       [% ELSIF section.exists('unclozed') -%]
-         [%- UNLESS reversed %]
-           [% section.unclozed %][% section.answered %][%- space.repeat(section.length) -%]
+       [%- ELSIF section.exists('unclozed') -%]
+         [%- UNLESS reversed -%]
+           [%- section.unclozed %][% section.answered %][% space.repeat(section.length) -%]
          [%- ELSE -%]
            [% section.answered %][%- space.repeat(section.length) -%][% section.unclozed %]
-         [% END %]
-       [% ELSE -%]
+         [%- END -%]
+       [%- ELSE -%]
          [%- section -%]
-       [% END -%]
-     [% END -%]
+       [%- END -%]
+     [%- END -%]
    </td>
    <td class="kwic">
        [%- UNLESS reversed %]
