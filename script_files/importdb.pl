@@ -216,7 +216,7 @@ $d->do("CREATE TABLE words (genre $VARCHAR{15}, exercise $VARCHAR{15}, id $SMALL
 my $tsth = $d->table_info('','','%');
 my $tables = $tsth->fetchall_hashref('TABLE_NAME');
 
-for my $table ( qw/players leagues members roles rolebearers texts words exercises dictionaries sessions play scores/ )
+for my $table ( qw/players leagues members roles rolebearers texts words exercises dictionaries sessions play/ )
 {
 	if ( ($connect_info)->[0] =~ m/SQLite/ )
 	{

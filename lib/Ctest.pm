@@ -1,6 +1,6 @@
 package Ctest;  # assumes Some/Module.pm
 
-# Last Edit: 2008 May 28, 08:49:27 AM
+# Last Edit: 2008 May 31, 03:29:13 PM
 # $Id$
 
 use strict;
@@ -12,8 +12,6 @@ use base qw/LineParser/;
 
 use Parse::RecDescent;
 use Element;
-# use Word;
-# use Newline;
 
 =head1 NAME
 
@@ -35,8 +33,6 @@ Parse text and create cloze
 
 
 =cut
-
-our $RD_HINT=1;
 
 sub parse
 {
