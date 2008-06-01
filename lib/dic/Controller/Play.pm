@@ -45,6 +45,8 @@ sub update : Local {
 	my $league = $c->session->{league};
 	my $genre = $c->model("dicDB::LeagueGenre")->find
 			( {league => $league} )->genre;
+	my $exerciseType = $c->model('dicDB::Exercise')->find(
+			{ genre => $genre, id =>$exerciseId },)->type;
 	my $title = $c->model('dicDB::Exercise')->find(
 		{ genre => $genre, id => $exerciseId } )->description;
 	my $wordSet = $c->model('dicDB::Word')->search(
@@ -64,8 +66,10 @@ sub update : Local {
 		my $entry = $word->entry;
 		my $kwic = ($entry and $entry->count > 1)? 1: 0;
 		my $class = $word->class;
+		my $published = $word->published;
 		if ( $class eq 'Word' )
 		{
+			chop $published if $exerciseType eq "FirstLast";
 			my $previous = $playSet->find({ blank=>$id });
 			my $correct = $previous? $previous->correct: 0;
 			my $clozed = $word->clozed;
@@ -74,7 +78,7 @@ sub update : Local {
 			my $response = $questions->{$id};
 			if ( $correct == $allLetters ) {
 				$score += $allLetters;
-				push @cloze, $word->published;
+				push @cloze, $published;
 			}
 			elsif ( $response )
 			{
@@ -83,7 +87,7 @@ sub update : Local {
 				{
 					$correct += $letters;
 					$score += $correct;
-					push @cloze, $word->published;
+					push @cloze, $published;
 				}
 				else {
 					my $onewrong;
@@ -131,14 +135,12 @@ sub update : Local {
 		elsif ( $class eq 'Newline' ) {
 			push @cloze, { Newline => 1 }
 		}
-		else {push @cloze, $word->published; }
+		else {push @cloze, $published; }
 	}
 	my $name = $c->model("dicDB::Player")->find({id=>$player})->name;
 	$c->stash->{exercise_id} = $exerciseId;
 	$c->stash->{cloze} = \@cloze;
 	$c->stash->{status_msg} = "$name has $score letters correct";
-	my $exerciseType = $c->model('dicDB::Exercise')->find(
-			{ genre => $genre, id =>$exerciseId },)->type;
 	$c->stash->{reversed} = $exerciseType eq "Last"? 1: 0;
 	$c->stash->{template} = 'play/start.tt2';
 }
