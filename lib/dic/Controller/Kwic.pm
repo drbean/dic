@@ -30,6 +30,8 @@ sub list : Local {
 	my $league = $c->session->{league};
 	my $genre = $c->model("dicDB::LeagueGenre")->find
 			( {league => $league} )->genre;
+	my $exercise = $c->model('dicDB::Exercise')->find(
+				    {genre=> $genre, id=>$exerciseId});
 	my $contextlength = 16;
 	my $start = $keyId <= $contextlength? 1: $keyId - $contextlength;
 	my $end = $keyId + $contextlength;
@@ -84,8 +86,6 @@ sub list : Local {
 				id => { '!=', $keyId } ]
 			}
 		} ) ];
-    my $exercise = $c->model('dicDB::Exercise')->find(
-				    {genre=> $genre, id=>$exerciseId});
     $c->stash->{title} = $exercise->description;
     $c->stash->{id} = $exerciseId;
     $c->stash->{reversed} = $exercise->type eq "Last"? 1: 0;
