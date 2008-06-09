@@ -13,6 +13,7 @@ if ( $^O eq 'linux' ) { $connect_info = [ "dbi:SQLite:$db", '', '', ]; }
 
 elsif ( $^O eq 'MSWin32' ) {
 	$connect_info = [ "dbi:ODBC:Driver={SQL Server};Server=LocalServer;Network=DBMSSOCN;Address=127.0.0.1;Database=$name" ];
+	# $connect_info = [ "dbi:ODBC:DSN=dictation" ];
 }
 
 __PACKAGE__->config(

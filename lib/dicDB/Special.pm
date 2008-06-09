@@ -7,7 +7,7 @@ __PACKAGE__->load_components(qw/PK::Auto Core/);
 # Set the table name
 __PACKAGE__->table('specials');
 # Set columns in table
-__PACKAGE__->add_columns(qw/exercise id answer pretext posttext/);
+__PACKAGE__->add_columns(qw/exercise id answer/);
 # Set the primary key for the table
 __PACKAGE__->set_primary_key(qw/exercise id/);
 
