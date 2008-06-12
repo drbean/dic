@@ -46,15 +46,19 @@ my $connect_info = $modelmodule->config->{connect_info};
 my $d = $model->connect( @$connect_info );
 my $s = $d->resultset($ARGV[0]);
 my @columns = ($model . "::" . $ARGV[0])->columns;
+$, = "\t";
+print @columns, "\n=============================================\n";
 while ( my $r = $s->next )
 {
-	$, = "\t";
 	my @r;
 	foreach my $column ( @columns )
 	{
-		# push @r, $r->$column ;
-		if ( ref $r->$column ) { push @r, $r->$column->id; }
-		else { push @r, $r->$column ; }
+		my $value = $r->$column;
+		if ( ref $value ) { push @r, $value->id; }
+		else {
+			if (defined $value) { push @r, $value; }
+			else { push @r, 'NULL'; }
+		}
 	}
 	print @r, "\n";
 }
