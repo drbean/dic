@@ -36,7 +36,7 @@ sub default : Private {
 
 =head2 auto
 
-Check if there is a user and, if not, forward to login page
+Check if there is a user and, if not, forward (actually, redirect) to login page
 
 =cut
 

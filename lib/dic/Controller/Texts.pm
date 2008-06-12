@@ -103,10 +103,7 @@ sub delete : Local {
 	$c->model('dicDB::Text')->search({id => $id})->delete_all;
 # Set a status message to be displayed at the top of the view
 	$c->stash->{status_msg} = "Text deleted.";
-# Forward to the list action/method in this controller
-	$c->forward('list');
 # Redirect the user back to the list page instead of forward
-               # $c->response->redirect($c->uri_for('/leagues/list'));
                $c->response->redirect($c->uri_for('/texts/list',
                    {status_msg => "Text deleted."}));
 }

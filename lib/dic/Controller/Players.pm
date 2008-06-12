@@ -144,22 +144,11 @@ Delete a player
 =cut
 
 	sub delete : Local {
-# $id = primary key of book to delete
 	my ($self, $c, $id) = @_;
-
-# Search for the book and then delete it
 	$c->model('dicDB::Player')->search({id => $id})->delete_all;
-
-# Set a status message to be displayed at the top of the view
 	$c->stash->{status_msg} = "Player deleted.";
-
-# Forward to the list action/method in this controller
-	$c->forward('list');
-# Redirect the user back to the list page instead of forward
-               $c->response->redirect($c->uri_for('/players/list',
+       $c->response->redirect($c->uri_for('/players/list',
                    {status_msg => "Player deleted."}));
-
-
 }
 
 
