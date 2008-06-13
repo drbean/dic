@@ -1,6 +1,6 @@
 package Ctest;  # assumes Some/Module.pm
 
-# Last Edit: 2008 May 31, 03:29:13 PM
+# Last Edit: 2008 Jun 13, 06:10:07 PM
 # $Id$
 
 use strict;
@@ -38,6 +38,7 @@ sub parse
 {
 	my $self = shift;
 	my $unclozeables = shift;
+	chomp $unclozeables;
         our $unclozeable = $unclozeables? qr/(?:$unclozeables)/: undef;
 	our $lines = shift;
 	my @text = ();

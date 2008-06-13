@@ -1,6 +1,6 @@
 package Last;  # assumes Some/Module.pm
 
-# Last Edit: 2008 May 28, 08:22:49 AM
+# Last Edit: 2008 Jun 13, 06:02:38 PM
 # $Id$
 
 use strict;
@@ -40,6 +40,7 @@ sub parse
 {
 	my $self = shift;
 	my $unclozeables = shift;
+	chomp $unclozeables;
         our $unclozeable = $unclozeables? qr/(?:$unclozeables)/: undef;
 	our $lines = shift;
 	my @text = ();
