@@ -88,7 +88,7 @@ for my $league ( @leagues )
 	my $field = $league eq "j"? "Tourism English": 
 			$league eq "min"? "Business Negotiation":
 			$league eq 'jin'? "Business Negotiation":
-			$league eq 'visitors'? "Assorted Content": "No field";
+			$league eq 'visitors'? "Demonstration Play": "No field";
 	$lsth->execute( $id, $name, $field );
 }
 
