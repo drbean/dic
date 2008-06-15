@@ -94,7 +94,7 @@ sub questionupdate : Local {
 	{
 		my $link = $questionWord->link;
 		my $published = $questionWord->content;
-		unless ( $link or $link eq "0" )
+		if ( $link == 0 )
 		{ push @question, $published; }
 		else {
 			if ( $published !~ m/^[A-Za-z0-9]*$/ )

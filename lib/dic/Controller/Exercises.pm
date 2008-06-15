@@ -106,9 +106,10 @@ sub questioncreate : Local {
 		my $id;
 		foreach my $word ( @words )
 		{
+$DB::single=1;
 			my $cloze = $exercise->words->single(
 				{ published => $word });
-			my $link = $cloze? $cloze->id: '';
+			my $link = $cloze? $cloze->id: 0;
 			my %row;
 			$row{genre} = $genre;
 			$row{exercise} = $exerciseId;
@@ -125,7 +126,7 @@ sub questioncreate : Local {
 			
 =head2 create
 
-Take text from database and output cloze exercise
+Take text from database and output cloze exercise. We create an id for each Word of the Exercise, and the first Word has id 1, so 0 can be used as a link for unlinked QuestionWords to show there is no link. (SQL Server won't allow NULL strings in INT column.)
 
 =cut
 
@@ -144,7 +145,7 @@ sub create : Local {
 	my $newWords = $clozeObject->dictionary;
 	my (@wordRows, @dictionaryList, %wordCount);
 	my $dictionary = $c->model('dicDB::Dictionary')->search;
-	my $id = 0;
+	my $id = 1;
 	my @columns = dicDB::Word->columns;
 	foreach my $word ( @$cloze )
 	{		
