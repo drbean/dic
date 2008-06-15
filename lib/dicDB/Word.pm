@@ -33,6 +33,8 @@ __PACKAGE__->set_primary_key(qw/genre exercise id/);
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *this* table
+__PACKAGE__->belongs_to(exercise => 'dicDB::Exercise',
+	{'foreign.genre' => 'self.genre', 'foreign.id' =>'self.exercise'});
 __PACKAGE__->belongs_to(entry => 'dicDB::Dictionary',
 	{'foreign.genre' => 'self.genre', 'foreign.word' =>'self.published'});
 
