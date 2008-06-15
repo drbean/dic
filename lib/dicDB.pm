@@ -20,6 +20,6 @@ use base qw/DBIx::Class::Schema/;
 # __PACKAGE__->load_classes({ MyAppDB => [qw/Book BookAuthor Author/] });
 
 #    __PACKAGE__->load_classes(qw//);
-__PACKAGE__->load_classes({ dicDB => [qw/Player League LeagueGenre Member Text Word Exercise Play Dictionary Role RoleBearer Session/] });
+__PACKAGE__->load_classes({ dicDB => [qw/Player League LeagueGenre Member Text Question Word QuestionWord Exercise Play Quiz Dictionary Role RoleBearer Session/] });
 
 1;
