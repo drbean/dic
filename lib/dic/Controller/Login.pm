@@ -19,7 +19,7 @@ Catalyst Controller.
 
 =head2 index
 
-Login logic
+Login logic. We let "guest"s in without a password, or ID.
 
 =cut
 
@@ -28,6 +28,11 @@ sub index : Private {
     my $id       = $c->request->params->{id}       || "";
     my $name     = $c->request->params->{name}     || "";
     my $password = $c->request->params->{password} || "";
+    if ( $name eq "guest" )
+    {
+	    $id = 1;
+	    $password = 1;
+    }
     if ( $id && $name && $password ) {
         my $username = $id;
         if ( $c->login( $username, $password ) ) {
@@ -42,6 +47,7 @@ sub index : Private {
             }
             my $member = $c->model("dicDB::Member")->find( { player => $id } );
             $c->session->{league} = $member->league->id;
+            $c->session->{exercise} = undef;
             $c->response->redirect( $c->uri_for("/exercises/list") );
             return;
         }
