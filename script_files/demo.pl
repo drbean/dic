@@ -87,7 +87,7 @@ A: That's too bad. So how are they managing?
 $qsth->execute(
 	'pat-2',
 	1,
-	'Norman lost his job since he □□□ □□ □ □□□ □□□□□□□□.',
+	'Norman lost his job since he *** ** * *** ********',
 	'was in a car accident'
 );
 
