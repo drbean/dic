@@ -75,15 +75,16 @@ sub questionupdate : Local {
 			# text => $text->id,
 			correct => $correct });
 		my $nextExercise = $exercises->next;
-		$c->stash->{status_msg} = 
-				"Your answer: \"$answer\". The correct answer: \"$correctAnswer\".";
 		if ( $nextExercise )
 		{
 			$c->session->{exercise} = $nextExercise->id;
+			$c->stash->{next_exercise} = 1;
 		}
 		else {
-			$c->stash->{status_msg} .= " GAME OVER";
+			$c->stash->{status_msg} = " GAME OVER. ";
 		}
+		$c->stash->{status_msg} .= 
+				" Your answer: \"$answer\". The correct answer: \"$correctAnswer\".";
 	}
 	my $wordSet = $exercise->words;
 	my $playSet = $c->model('dicDB::Play')->search(
@@ -229,7 +230,7 @@ sub update : Local {
 	my $name = $c->model("dicDB::Player")->find({id=>$player})->name;
 	$c->stash->{exercise_id} = $exerciseId;
 	$c->stash->{cloze} = \@cloze;
-	$c->stash->{status_msg} = "$name has $score letters correct";
+	$c->stash->{status_msg} = "$name has $score letters correct. ";
 	$c->stash->{reversed} = $exerciseType eq "Last"? 1: 0;
 	$c->stash->{template} = 'play/start.tt2';
 }
