@@ -1,5 +1,28 @@
 [% META title = "Dictation exercise" -%]
 
+[% IF next_exercise %]
+<p>
+<a href="[% Catalyst.uri_for('/play/questionupdate') %]">Next Exercise</a>
+</p>
+[% END %]
+
+<form method="post" action="[% Catalyst.uri_for('/play/questionupdate/') _ exercise_id %]">
+Question:
+
+[% FOREACH word IN question -%]
+[% IF word.Newline -%]
+<br>
+[% ELSE -%]
+[%- word -%]
+[% END -%]
+[% END -%]
+
+<p>
+</p>
+Answer:
+<input type="text" name="answer" size="[% answer.length %]" maxlength="[% answer.length %]" value=""/><input type="submit" name="Submit" value="Question">
+</form>
+
 
 <form method="post" action="[% Catalyst.uri_for('/play/questionupdate/') _ exercise_id %]">
 <input type="submit" name="Submit" value="Words">
@@ -22,27 +45,6 @@
 [% END -%]
 <input type="submit" name="Submit" value="Words">
 </form>
-
-<form method="post" action="[% Catalyst.uri_for('/play/questionupdate/') _ exercise_id %]">
-Question:
-
-[% FOREACH word IN question -%]
-[% IF word.Newline -%]
-<br>
-[% ELSE -%]
-[%- word -%]
-[% END -%]
-[% END -%]
-
-<p>
-</p>
-Answer:
-<input type="text" name="answer" size="[% answer.length %]" maxlength="[% answer.length %]" value=""/><input type="submit" name="Submit" value="Question">
-</form>
-
-<p>
-<a href="[% Catalyst.uri_for('/play/questionupdate') %]">Next Exercise</a>
-</p>
 
 <p>
 Back to <a href="[% Catalyst.uri_for('/exercises/list/') _ id %]">Exercise List</a>
