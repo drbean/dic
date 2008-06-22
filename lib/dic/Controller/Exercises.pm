@@ -60,73 +60,17 @@ sub list : Local {
 	    { league => $league, player => $player },
 		{ select => [ 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/exercise/],
-		as => [ qw/exercise letters/ ],
+		as => [ qw/exercise score/ ],
 		});
-    my %letterscores = map { $_->exercise => $_->get_column('letters') } @play;
-    $c->stash->{letters} = \%letterscores;
-    my @quiz = $c->model('dicDB::Quiz')->search(
-	    { league => $league, player => $player },
-		{ select => [ 'exercise', { sum => 'correct' } ],
-		'group_by' => [qw/exercise/],
-		as => [ qw/exercise questions/ ],
-		});
-    my %quizscores = map { $_->exercise => $_->get_column('questions') } @quiz;
-    $c->stash->{questions} = \%quizscores;
+    my %scores = map { $_->exercise => $_->get_column('score') } @play;
+    $c->stash->{scores} = \%scores;
     $c->stash->{template} = 'exercises/list.tt2';
 }
 
 
-=head2 questioncreate
-
-http://server.school.edu/dic/exercises/create/textId/exerciseType/exerciseId
-
-Create comprehension questions and cloze exercise. For a set of related exercises on the same material, choose exerciseIds that have a lexicographic order that corresponds to the progression in the material through the different exercises, allowing tracking of the player through the material.
-
-=cut
-
-sub questioncreate : Local {
-	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
-	$c->forward('create');
-	my $league = $c->session->{league};
-	my $genre = $c->model("dicDB::LeagueGenre")->find
-			( {league => $league} )->genre;
-	my $exercise = $c->model('dicDB::Exercise')->find(
-		{ genre => $genre, id=>$exerciseId } );
-	my $text = $exercise->text;
-	my $questions = $text->questions;
-	my @wordRows;
-	my $questionwords = $c->model('dicDB::QuestionWord');
-	while ( my $question = $questions->next )
-	{		
-		my $questionId = $question->id;
-		my $text = $question->content;
-		my $answer = $question->answer;
-		my $punctuation = qr/([^A-Za-z0-9\\n]+)/;
-		my @words = split $punctuation, $text;
-		my $id;
-		foreach my $word ( @words )
-		{
-$DB::single=1;
-			my $cloze = $exercise->words->single(
-				{ published => $word });
-			my $link = $cloze? $cloze->id: 0;
-			my %row;
-			$row{genre} = $genre;
-			$row{exercise} = $exerciseId;
-			$row{question} = $questionId;
-			$row{id} = $id++;
-			$row{content} = $word;
-			$row{link} = $link;
-			push @wordRows, \%row;
-		}
-	}
-	$c->model('dicDB::QuestionWord')->populate( \@wordRows );
-	$c->stash->{template} = 'exercises/list.tt2';
-}
-			
 =head2 create
 
-Take text from database and output cloze exercise. We create an id for each Word of the Exercise, and the first Word has id 1, so 0 can be used as a link for unlinked QuestionWords to show there is no link. (SQL Server won't allow NULL strings in INT column.)
+Take text from database and output cloze exercise
 
 =cut
 
@@ -145,7 +89,7 @@ sub create : Local {
 	my $newWords = $clozeObject->dictionary;
 	my (@wordRows, @dictionaryList, %wordCount);
 	my $dictionary = $c->model('dicDB::Dictionary')->search;
-	my $id = 1;
+	my $id = 0;
 	my @columns = dicDB::Word->columns;
 	foreach my $word ( @$cloze )
 	{		
@@ -158,6 +102,7 @@ sub create : Local {
 			my $count = $entry? $entry->count: 0;
 			$dictionary->update_or_create({ genre => $genre,
 			word => $token, initial => $initial, count =>++$count});
+			
 		}
 		my $class = ref $word;
 		my %row = map { $_ => $word->{$_} } @columns;
@@ -185,12 +130,14 @@ sub create : Local {
 
 =head2 delete
 
-Delete an exercise. Delete of Questions and QuestionWords done here too.
+Delete an exercise
 
 =cut
 
 	sub delete : Local {
+# $id = primary key of book to delete
 	my ($self, $c, $id) = @_;
+# Search for the book and then delete it
 	my $exercise = $c->model('dicDB::Exercise');
 	my $words = $exercise->find({id => $id})->words;
 	my %entries;
@@ -205,8 +152,12 @@ Delete an exercise. Delete of Questions and QuestionWords done here too.
 		}
 	}
 	$exercise->search({id => $id})->delete_all;
+# Set a status message to be displayed at the top of the view
 	$c->stash->{status_msg} = "Exercise deleted.";
-       $c->response->redirect($c->uri_for('list',
+# Forward to the list action/method in this controller
+	$c->forward('list');
+# Redirect the user back to the list page instead of forward
+               $c->response->redirect($c->uri_for('list',
                    {status_msg => "Exercise deleted."}));
 }
 

@@ -16,7 +16,7 @@ my $modelmodule = "${name}::Model::${name}DB";
 # (my $modelmodule = $modelfile) =~ $name . "::Model::" . $name . "DB";
 require $modelfile;
 
-my @leagues = qw/j min jin visitors/;
+my @leagues = qw/j min jin/;
 
 =head1 NAME
 
@@ -70,8 +70,7 @@ for my $league ( @leagues )
 {
 	my $genre = $league eq "j"? "tourism": 
 			$league eq "min"? "negotiation":
-			$league eq 'jin'? "negotiation":
-			$league eq 'visitors'? "demo": "No genre";
+			$league eq 'jin'? "negotiation": "No genre";
 	$lsth->execute( $league, $genre );
 }
 
@@ -83,12 +82,10 @@ for my $league ( @leagues )
 	my $id = $league;
 	my $name = $league eq "j"? "96-1, AFL2": 
 			$league eq "min"? "96-1, Min4A":
-			$league eq 'jin'? "96-1, Jin4A":
-			$league eq 'visitors'? "Visitors": "No Name";
+			$league eq 'jin'? "96-1, Jin4A": "No Name";
 	my $field = $league eq "j"? "Tourism English": 
 			$league eq "min"? "Business Negotiation":
-			$league eq 'jin'? "Business Negotiation":
-			$league eq 'visitors'? "Demonstration Play": "No field";
+			$league eq 'jin'? "Business Negotiation": "No Field";
 	$lsth->execute( $id, $name, $field );
 }
 
@@ -158,10 +155,6 @@ push @{$players->{jin}}, [split] for <<JIN =~ m/^.*$/gm;
 95801018        Snoopy  Snoopy
 JIN
 
-push @{$players->{visitors}}, [split] for <<VISITORS =~ m/^.*$/gm;
-1        guest 1
-VISITORS
-
 $d->do("CREATE TABLE members (league $VARCHAR{15}, player $INT, primary key (league, player))");
 
 my $msth = $d->prepare("INSERT INTO members (league, player) VALUES  (?,?)");
@@ -176,6 +169,8 @@ for my $league ( @leagues )
 		$msth->execute( $leagueid, $member->[0] );
 	}
 }
+
+$d->do("CREATE TABLE play (league $VARCHAR{15}, exercise $VARCHAR{15}, player $INT, blank $SMALLINT, correct $TINYINT, primary key (exercise, player, blank))");
 
 $d->do("CREATE TABLE players (id $INT, name $VARCHAR{15}, password $VARCHAR{50}, primary key (id))");
 
@@ -205,21 +200,13 @@ for my $league ( @leagues )
 }
 
 
-$d->do("CREATE TABLE play (league $VARCHAR{15}, exercise $VARCHAR{15}, player $INT, blank $SMALLINT, correct $TINYINT, primary key (exercise, player, blank))");
-
-$d->do("CREATE TABLE quiz (league $VARCHAR{15}, exercise $VARCHAR{15}, player $INT, question $VARCHAR{15}, correct $TINYINT, primary key (exercise, player, question))");
-
 # SQL Server right-truncating text string!!
 # $d->do("CREATE TABLE sessions (id $CHAR{72}, session_data TEXT, expires  $INT,  primary key (id))");
 $d->do("CREATE TABLE sessions (id $CHAR{72}, session_data $VARCHAR{7500}, expires  $INT,  primary key (id))");
 
-$d->do("CREATE TABLE questions (genre $VARCHAR{15}, text $VARCHAR{15}, id $VARCHAR{15}, content $VARCHAR{500}, answer $VARCHAR{500}, primary key (genre, text, id))");
-
 # SQL Server right-truncating text string!!
 # $d->do("CREATE TABLE texts (id $VARCHAR{15}, description $VARCHAR{50}, content TEXT, unclozeables TEXT, primary key (id))");
 $d->do("CREATE TABLE texts (id $VARCHAR{15}, description $VARCHAR{50}, genre $VARCHAR{15}, content $VARCHAR{7500}, unclozeables $VARCHAR{7500}, primary key (id))");
-
-$d->do("CREATE TABLE questionwords (genre $VARCHAR{15}, exercise $VARCHAR{15}, question $VARCHAR{15}, id $SMALLINT, content $VARCHAR{50}, link $SMALLINT, primary key (genre, exercise, question, id))");
 
 $d->do("CREATE TABLE words (genre $VARCHAR{15}, exercise $VARCHAR{15}, id $SMALLINT, class $VARCHAR{15}, published $VARCHAR{500}, unclozed $VARCHAR{500}, clozed $VARCHAR{15}, pretext $CHAR{50}, posttext $CHAR{50}, primary key (genre, exercise, id))");
 
@@ -229,7 +216,7 @@ $d->do("CREATE TABLE words (genre $VARCHAR{15}, exercise $VARCHAR{15}, id $SMALL
 my $tsth = $d->table_info('','','%');
 my $tables = $tsth->fetchall_hashref('TABLE_NAME');
 
-for my $table ( qw/players leagues members roles rolebearers texts questions words questionwords exercises dictionaries sessions play quiz/ )
+for my $table ( qw/players leagues members roles rolebearers texts words exercises dictionaries sessions play/ )
 {
 	if ( ($connect_info)->[0] =~ m/SQLite/ )
 	{

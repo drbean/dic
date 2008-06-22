@@ -15,16 +15,17 @@ __PACKAGE__->set_primary_key(qw/genre id/);
 # Set relationships:
 #
 
+__PACKAGE__->has_many(words => 'dicDB::Word',
+	{ 'foreign.genre' => 'self.genre', 'foreign.exercise' => 'self.id'});
+# __PACKAGE__->has_many(specials => 'dicDB::Special', 'exercise');
+# __PACKAGE__->has_many(dictionaries => 'dicDB::Dictionary', 'exercise');
+
 # has_many():
 #   args:
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *foreign* table
-__PACKAGE__->has_many(words => 'dicDB::Word',
-	{ 'foreign.genre' => 'self.genre', 'foreign.exercise' => 'self.id'});
-__PACKAGE__->has_many(questionwords => 'dicDB::QuestionWord',
-	{ 'foreign.genre' => 'self.genre', 'foreign.exercise' => 'self.id'});
-
+# __PACKAGE__->has_many(reader => 'dicDB::Reader', 'text_id');
 
 # many_to_many():
 #   args:
@@ -34,7 +35,6 @@ __PACKAGE__->has_many(questionwords => 'dicDB::QuestionWord',
 #   You must already have the has_many() defined to use a many_to_many().
 # __PACKAGE__->many_to_many(readers => 'reader', 'reader');
 
-__PACKAGE__->belongs_to( text => 'dicDB::Text', { 'foreign.id'=>'self.text' });
 
 =head1 NAME
 

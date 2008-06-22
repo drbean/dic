@@ -1,11 +1,1 @@
-You need to have Catalyst, a perl web framework, and perl, a programming language, installed to have this web application serving cloze dictation exercises to your players.
-
-Some knowledge of web servers and system administration will also help.
-
-But even without any of these things, try running script/dic_server.pl to test the application.
-
-In case of problems, send email to dic-users at (that is, @) lists dot (that is, .) openfoundry dot org
-
-More information on the list at http://lists.openfoundry.org/wws/info/dic-users
-
-You can adjust the name of your database in the file dic.yml. At the moment it is 'finals'. Change it to the name of your database. But don't put tabs in dic.yml, while you are doing this! Use only spaces!
+Run script/dic_server.pl to test the application.

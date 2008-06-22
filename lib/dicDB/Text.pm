@@ -11,6 +11,8 @@ __PACKAGE__->add_columns(qw/genre id description content unclozeables/);
 # Set the primary key for the table
 __PACKAGE__->set_primary_key(qw/id/);
 
+# unclozeables are separated by '|'
+
 #
 # Set relationships:
 #
@@ -20,9 +22,7 @@ __PACKAGE__->set_primary_key(qw/id/);
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *foreign* table
-__PACKAGE__->has_many(questions => 'dicDB::Question',
-	{ 'foreign.genre' => 'self.genre', 'foreign.text' => 'self.id', });
-
+# __PACKAGE__->has_many(reader => 'dicDB::Reader', 'text_id');
 
 # many_to_many():
 #   args:
@@ -38,8 +38,6 @@ __PACKAGE__->has_many(questions => 'dicDB::Question',
 dicDB::Player - A model object representing a dictation text in a competition
 
 =head1 DESCRIPTION
-
-# unclozeables are separated by '|'
 
 This is an object that represents a row in the 'texts' table of your application
 database.  It uses DBIx::Class (aka, DBIC) to do ORM.

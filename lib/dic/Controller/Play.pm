@@ -33,95 +33,6 @@ sub start : Local {
 }
 
 
-=head2 questionupdate
-
-Check answers. Partly-correct answers are accepted up to the first letter that is wrong. Words correctly answered in the text that are also in a comprehension question appear in the question.
-
-=cut
- 
-sub questionupdate : Local {
-	my ($self, $c, $exerciseId) = @_;
-	my $player = $c->session->{player_id};
-	my $leagueId = $c->session->{league};
-	my $genre = $c->model("dicDB::LeagueGenre")->find(
-			{ league => $leagueId } )->genre;
-	my $exercises = $c->model('dicDB::Exercise')->search(
-			{ genre => $genre, }, { order_by => 'id' } );
-	$exerciseId = $c->session->{exercise};
-	my $exercise;
-	if ( defined $exerciseId )
-	{		
-		do { $exercise = $exercises->next }
-					until $exercise->id eq $exerciseId;
-	}
-	else {
-		$exercise = $exercises->single;
-		$c->session->{exercise} = $exercise->id;
-	}
-	$c->forward('update');
-	my $question = $exercise->text->questions->single;
-	my $questionWords = $exercise->questionwords;
-	my $answer = $c->request->params->{answer};
-	if ( $answer )
-	{
-		my $correctAnswer = $question->answer;
-		my $correct = $answer eq $correctAnswer? 1: 0;
-		my $quizplay = $c->model('dicDB::Quiz');
-		$quizplay->create({
-			league => $leagueId,
-			exercise => $exerciseId,
-			player => $player,
-			question => $question->id,
-			# text => $text->id,
-			correct => $correct });
-		my $nextExercise = $exercises->next;
-		if ( $nextExercise )
-		{
-			$c->session->{exercise} = $nextExercise->id;
-			$c->stash->{next_exercise} = 1;
-		}
-		else {
-			$c->stash->{status_msg} = " GAME OVER. ";
-		}
-		$c->stash->{status_msg} .= 
-				" Your answer: \"$answer\". The correct answer: \"$correctAnswer\".";
-	}
-	my $wordSet = $exercise->words;
-	my $playSet = $c->model('dicDB::Play')->search(
-			{player => $player, exercise => $exerciseId},
-			{ order_by => 'blank' } );
-	my @question = ( { Newline => 1 } );
-	while ( my $questionWord = $questionWords->next )
-	{
-		my $link = $questionWord->link;
-		my $published = $questionWord->content;
-		if ( $link == 0 )
-		{ push @question, $published; }
-		else {
-			if ( $published !~ m/^[A-Za-z0-9]*$/ )
-			{ push @question, $published; }
-			else {		
-				my $word = $wordSet->find({ id => $link });
-				my $cloze = $word->clozed;
-				unless ($cloze) {push @question, $published}
-				else {
-					my $played = $playSet->find(
-							{ blank => $link });
-					if ( $played and $played->correct eq 
-						length $cloze )
-					{ push @question, $published; }
-					else { push @question, '_' x
-							length($published); }
-				}
-			}
-		}
-	}
-	$c->stash->{question} = \@question;
-	$c->stash->{answer} = $question->answer;
-	$c->stash->{template} = "play/question.tt2";
-}
-
-
 =head2 update
 
 Check answers, fetch all characters and pass to characters/list.tt2 for display. Partly-correct answers are accepted up to the first letter that is wrong.
@@ -132,7 +43,6 @@ sub update : Local {
 	my ($self, $c, $exerciseId) = @_;
 	my $player = $c->session->{player_id};
 	my $league = $c->session->{league};
-	$exerciseId ||= $c->session->{exercise};
 	my $genre = $c->model("dicDB::LeagueGenre")->find
 			( {league => $league} )->genre;
 	my $exerciseType = $c->model('dicDB::Exercise')->find(
@@ -230,7 +140,7 @@ sub update : Local {
 	my $name = $c->model("dicDB::Player")->find({id=>$player})->name;
 	$c->stash->{exercise_id} = $exerciseId;
 	$c->stash->{cloze} = \@cloze;
-	$c->stash->{status_msg} = "$name has $score letters correct. ";
+	$c->stash->{status_msg} = "$name has $score letters correct";
 	$c->stash->{reversed} = $exerciseType eq "Last"? 1: 0;
 	$c->stash->{template} = 'play/start.tt2';
 }
