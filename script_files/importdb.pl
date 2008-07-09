@@ -60,7 +60,7 @@ else {
 	($BIT, $TINYINT, $SMALLINT, $INT, $BIGINT) = @ints;
 }
 
-$d->do("CREATE TABLE dictionaries (genre $VARCHAR{15}, word $VARCHAR{25}, initial $CHAR{1}, count $SMALLINT, primary key (genre, word))");
+$d->do("CREATE TABLE dictionaries (genre $VARCHAR{15}, word $VARCHAR{25}, initial $CHAR{1}, stem $VARCHAR{25}, suffix $VARCHAR{15}, count $SMALLINT, primary key (genre, word))");
 
 $d->do("CREATE TABLE exercises (genre $VARCHAR{15}, id $VARCHAR{15}, text $VARCHAR{15}, description $VARCHAR{50}, type $VARCHAR{15}, primary key (genre, id))");
 

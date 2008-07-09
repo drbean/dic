@@ -35,7 +35,7 @@ __PACKAGE__->set_primary_key(qw/genre exercise id/);
 #     3) Column name in *this* table
 __PACKAGE__->belongs_to(exercise => 'dicDB::Exercise',
 	{'foreign.genre' => 'self.genre', 'foreign.id' =>'self.exercise'});
-__PACKAGE__->belongs_to(entry => 'dicDB::Dictionary',
+__PACKAGE__->belongs_to(dictionary => 'dicDB::Dictionary',
 	{'foreign.genre' => 'self.genre', 'foreign.word' =>'self.published'});
 
 =head1 NAME
