@@ -1,6 +1,6 @@
 ---
 name: dic
-database: finals
+database: demo
 authentication:
   dbic:
     user_class: dicDB::Player

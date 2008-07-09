@@ -9,6 +9,7 @@ use Ctest;
 use Total;
 use Kwic;
 use Last;
+use Lingua::Stem qw/stem/;
 
 =head1 NAME
 
@@ -106,7 +107,6 @@ sub questioncreate : Local {
 		my $id;
 		foreach my $word ( @words )
 		{
-$DB::single=1;
 			my $cloze = $exercise->words->single(
 				{ published => $word });
 			my $link = $cloze? $cloze->id: 0;
@@ -143,7 +143,7 @@ sub create : Local {
 	my $clozeObject = $exerciseType->parse($unclozeables, $content);
 	my $cloze = $clozeObject->cloze;
 	my $newWords = $clozeObject->dictionary;
-	my (@wordRows, @dictionaryList, %wordCount);
+	my (@wordRows, @dictionaryList, %wordCount, @wordstemRows);
 	my $dictionary = $c->model('dicDB::Dictionary')->search;
 	my $id = 1;
 	my @columns = dicDB::Word->columns;
@@ -156,8 +156,22 @@ sub create : Local {
 			my $entry = $dictionary->find(
 				{ genre => $genre, word => $token });
 			my $count = $entry? $entry->count: 0;
-			$dictionary->update_or_create({ genre => $genre,
-			word => $token, initial => $initial, count =>++$count});
+			my $stem = (stem $token)->[0];
+			my $suffix;
+			if ( $stem =~ m/.i$/ )
+			{
+				my $istem = $stem;
+				chop $istem;
+				($suffix = lc $token) =~ s/^$istem.(.*)$/$1/;
+			}
+			else { ($suffix = lc $token) =~ s/^$stem(.*)$/$1/; }
+			$dictionary->update_or_create({
+				genre => $genre,
+				word => $token,
+				initial => $initial,
+				stem => $stem || '',
+				suffix => $suffix || '',
+				count =>++$count});
 		}
 		my $class = ref $word;
 		my %row = map { $_ => $word->{$_} } @columns;
@@ -197,7 +211,7 @@ Delete an exercise. Delete of Questions and QuestionWords done here too.
 	while (my $word = $words->next)
 	{
 		my $token = $word->published;
-		my $entry = $word->entry;
+		my $entry = $word->dictionary;
 		if ( $entry )
 		{
 			my $count = $entry->count;

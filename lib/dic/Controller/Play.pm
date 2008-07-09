@@ -153,7 +153,7 @@ sub update : Local {
 	{
 		my $id = $word->id;
 		my $unclozed = $word->unclozed;
-		my $entry = $word->entry;
+		my $entry = $word->dictionary;
 		my $kwic = ($entry and $entry->count > 1)? 1: 0;
 		my $class = $word->class;
 		my $published = $word->published;

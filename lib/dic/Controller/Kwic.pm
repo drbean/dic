@@ -20,7 +20,7 @@ Catalyst Controller.
 
 =head2 list
 
-Fetch all KWIC entries. Will be called only if there are other instances (and for links within 50 characters of the original link?). Show only cloze for entry leading us here.
+Fetch all KWIC entries. Will be called only if there are other instances (except for links within 50 characters of the original link?). Show only cloze for entry leading us here. Show KWIC entries for other words with the same stems.
 
 =cut
  
@@ -35,17 +35,16 @@ sub list : Local {
 	my $contextlength = 16;
 	my $start = $keyId <= $contextlength? 1: $keyId - $contextlength;
 	my $end = $keyId + $contextlength;
-	#my $keyword = $c->model('dicDB::Word')->find( { id => $keyId,
-	#		    genre => $genre, exercise => $exerciseId} );
-	my $words= $c->model('dicDB::Word')->search(
-			    {genre => $genre, exercise => $exerciseId},
+	my $words= $c->model('dicDB::Word')->search
+			    ({genre => $genre, exercise => $exerciseId});
+	my $keywordContext = $words->search( undef,
 				{ where => { id => [ $start .. $end ] },
 				order_by => 'id' } );
 	my $playSet = $c->model('dicDB::Play')->search(
 			{player => $player, exercise => $exerciseId},
 			{ order_by => 'blank' } );
-	my %context; my $prepost = "prekeyword"; my $keyword;
-	while ( my $word = $words->next )
+	my %context; my $prepost = "prekeyword";
+	while ( my $word = $keywordContext->next )
 	{
 		my $id = $word->id;
 		my $class = $word->class;
@@ -53,7 +52,6 @@ sub list : Local {
 		{
 			$c->stash->{originalpretext} = $context{prekeyword};
 			$prepost = "postkeyword";
-			$keyword = $word->published;
 			$c->stash->{keyword} = { clozed => $word->clozed,
 						unclozed => $word->unclozed };
 		}
@@ -76,16 +74,25 @@ sub list : Local {
 		else { push @{$context{$prepost}}, $word->published; }
 	}
     $c->stash->{originalposttext} = $context{postkeyword};
-    $c->stash->{kwics} = [ $c->model('dicDB::Word')->search( {},
-		{ select => [ qw/pretext posttext/,  ],
-			where => {  class => "Word",
-				genre => $genre,
-				published => $keyword,
-				-nest => [
-				exercise => { '!=', $exerciseId },
-				id => { '!=', $keyId } ]
-			}
-		} ) ];
+    my $keyword = $words->find( {id => $keyId} );
+    my $stem = $keyword->dictionary->stem;
+    my $conflates = $c->model( 'dicDB::Dictionary' )->search({stem => $stem});
+    my @kwics;
+    while ( my $conflate = $conflates->next )
+    {
+	    my $id = $conflate->id;
+	    my $word = $words->find({ id => $keyId });
+$DB::single=1;
+	    push @kwics,  $words->search( {},
+        	{ select => [ qw/pretext posttext/,  ],
+        		where => {  class => "Word",
+        			genre => $genre,
+        			published => $word->published,
+        			-nest => [
+        			exercise => { '!=', $exerciseId },
+        			id => { '!=', $keyId } ] } } );
+    }
+    $c->stash->{kwics} = \@kwics;
     $c->stash->{title} = $exercise->description;
     $c->stash->{id} = $exerciseId;
     $c->stash->{reversed} = $exercise->type eq "Last"? 1: 0;
