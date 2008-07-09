@@ -5,6 +5,8 @@ use warnings;
 use base 'Catalyst::Controller';
 use FirstLast;
 
+use List::Util qw/reduce/;
+
 =head1 NAME
 
 dic::Controller::Kwic - Catalyst Controller
@@ -36,8 +38,8 @@ sub list : Local {
 	my $start = $keyId <= $contextlength? 1: $keyId - $contextlength;
 	my $end = $keyId + $contextlength;
 	my $words= $c->model('dicDB::Word')->search
-			    ({genre => $genre, exercise => $exerciseId});
-	my $keywordContext = $words->search( undef,
+			    ({genre => $genre, });
+	my $keywordContext = $words->search( {exercise => $exerciseId},
 				{ where => { id => [ $start .. $end ] },
 				order_by => 'id' } );
 	my $playSet = $c->model('dicDB::Play')->search(
@@ -74,24 +76,52 @@ sub list : Local {
 		else { push @{$context{$prepost}}, $word->published; }
 	}
     $c->stash->{originalposttext} = $context{postkeyword};
-    my $keyword = $words->find( {id => $keyId} );
+    my $keyword = $words->find( {id => $keyId, exercise => $exerciseId} );
     my $stem = $keyword->dictionary->stem;
-    my $conflates = $c->model( 'dicDB::Dictionary' )->search({stem => $stem});
-    my @kwics;
-    while ( my $conflate = $conflates->next )
+    my @conflates = $c->model( 'dicDB::Dictionary' )->search({stem => $stem});
+    my (@kwics, %tokenCounts, %tokensUnclozed);
+    foreach my $conflate ( @conflates )
     {
-	    my $id = $conflate->id;
-	    my $word = $words->find({ id => $keyId });
-$DB::single=1;
-	    push @kwics,  $words->search( {},
-        	{ select => [ qw/pretext posttext/,  ],
+	    my $token = $conflate->word;
+	    $tokenCounts{ $token } = $conflate->count;
+	    my $suffix = $conflate->suffix;
+	    my $kwics =  $words->search( {},
+        	{ select => [ qw/pretext unclozed clozed posttext/,  ],
         		where => {  class => "Word",
         			genre => $genre,
-        			published => $word->published,
+        			published => $token,
         			-nest => [
-        			exercise => { '!=', $exerciseId },
-        			id => { '!=', $keyId } ] } } );
+					exercise => { '!=', $exerciseId },
+					id => { '!=', $keyId } ] } } );
+	my $unclozed;
+	while ( my $kwic = $kwics->next )
+	{
+		$unclozed ||= $kwic->unclozed;
+		$tokensUnclozed{$token} ||= $unclozed;
+		push @kwics, { pretext => $kwic->pretext,
+				unclozed => $unclozed,
+				clozed => $kwic->clozed,
+				suffix => $suffix,
+				posttext => $kwic->posttext };
+	}
     }
+    my $representativeToken = reduce {
+	    if ($tokenCounts{$a} > $tokenCounts{$b}) {$a}
+	    elsif ($tokenCounts{$a} == $tokenCounts{$b}) {
+		    if ( length $a <= length $b ) { $a }
+		    else { $b }
+		    }
+	    else { $b }
+	    } keys %tokenCounts;
+    my $replength = length $tokensUnclozed{$representativeToken};
+    @kwics = map {
+	    my $unclozeshortening = length($_->{unclozed}) - $replength;
+	    $_->{clozed} = substr($_->{unclozed}, -$unclozeshortening,
+				    $unclozeshortening, '') . $_->{clozed};
+	    my $clozeshortening = length $_->{suffix};
+	    substr($_->{clozed}, -$clozeshortening, $clozeshortening, '');
+	    $_;
+    } @kwics;
     $c->stash->{kwics} = \@kwics;
     $c->stash->{title} = $exercise->description;
     $c->stash->{id} = $exerciseId;
