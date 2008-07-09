@@ -50,9 +50,15 @@ Back to <a href="[% Catalyst.uri_for('/play/update/') _ id %]">[% title %] Exerc
  <tr>
    <td class="pre">[% kwic.pretext %]</td>
    <td class="kwic">
-   [%- UNLESS reversed %][% keyword.unclozed %][% END -%]
-   [%- space.repeat(keyword.clozed.length) -%]
-   [%- IF reversed %][% keyword.unclozed %][% END -%]
+   [%- UNLESS reversed %]
+    [%- kwic.unclozed -%]
+    [%- space.repeat(kwic.clozed.length) -%]
+    [%- kwic.suffix -%]
+   [% END -%]
+   [%- IF reversed %]
+    [%- space.repeat(kwic.clozed.length) -%]
+    [%- representative.unclozed %]
+   [% END -%]
    </td>
    <td class="post">[% kwic.posttext %]</td>
  </tr>
