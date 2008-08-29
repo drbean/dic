@@ -19,7 +19,7 @@ my $modelmodule = "${name}::Model::DB";
 # (my $modelmodule = $modelfile) =~ $name . "::Model::" . $name . "DB";
 require $modelfile;
 
-my @leagues = qw/j min jin visitors/;
+my @leagues = qw/access beginners intermediate visitors/;
 
 =head1 NAME
 
@@ -72,9 +72,9 @@ $d->do("CREATE TABLE leaguegenre (league $VARCHAR{15}, genre $VARCHAR{15}, prima
 my $lsth = $d->prepare("INSERT INTO leaguegenre (league, genre) VALUES  (?,?)");
 for my $league ( @leagues )
 {
-	my $genre = $league eq "j"? "tourism": 
-			$league eq "min"? "negotiation":
-			$league eq 'jin'? "negotiation":
+	my $genre = $league eq "beginners"? "JUST RIGHT Elementary":
+			$league eq  'intermediate'? "JUST RIGHT Pre-intermediate":
+			$league eq "access"? "thematic":
 			$league eq 'visitors'? "demo": "No genre";
 	$lsth->execute( $league, $genre );
 }
@@ -85,19 +85,19 @@ $lsth = $d->prepare("INSERT INTO leagues (id, name, field) VALUES  (?,?,?)");
 for my $league ( @leagues )
 {
 	my $id = $league;
-	my $name = $league eq "j"? "96-1, AFL2": 
-			$league eq "min"? "96-1, Min4A":
-			$league eq 'jin'? "96-1, Jin4A":
-			$league eq 'visitors'? "Visitors": "No Name";
-	my $field = $league eq "j"? "Tourism English": 
-			$league eq "min"? "Business Negotiation":
-			$league eq 'jin'? "Business Negotiation":
-			$league eq 'visitors'? "Demonstration Play": "No field";
+	my $name = $league eq "beginners"? "小級英文聽說訓鍊": 
+		$league eq "intermediate"? "中級英文聽說訓鍊":
+		$league eq 'access'? "英語自學室":
+		$league eq 'visitors'? "Visitors": "No Name";
+	my $field = $league eq "beginners"? "Names, Places, Jobs & Family": 
+		$league eq "intermediate"? "English, Stress, Media & Jobs":
+		$league eq 'access'? "Student Life, Moon Festival":
+		$league eq 'visitors'? "Demonstration Play": "No field";
 	$lsth->execute( $id, $name, $field );
 }
 
 my $players;
-push @{$players->{j}}, [split] for <<J =~ m/^.*$/gm;
+push @{$players->{beginners}}, [split] for <<BEGINNERS =~ m/^.*$/gm;
 9351155	Queen	Queen
 9430220	Jason	Jason
 9438148	Viola	Viola
@@ -127,9 +127,9 @@ push @{$players->{j}}, [split] for <<J =~ m/^.*$/gm;
 9530130 April   April
 9530131 Angela  Angela
 9530135 Kevin   Kevin
-J
+BEGINNERS
 
-push @{$players->{min}}, [split] for <<MIN =~ m/^.*$/gm;
+push @{$players->{intermediate}}, [split] for <<INTERMEDIATE =~ m/^.*$/gm;
 95641002        Cliff   Cliff
 95641003        Sylvia  Sylvia
 95641004        Jenming Jenming
@@ -146,9 +146,9 @@ push @{$players->{min}}, [split] for <<MIN =~ m/^.*$/gm;
 95641020        Simon   Simon
 95641021        Kyle    Kyle
 95641022        Joanne  Joanne
-MIN
+INTERMEDIATE
 
-push @{$players->{jin}}, [split] for <<JIN =~ m/^.*$/gm;
+push @{$players->{access}}, [split] for <<ACCESS =~ m/^.*$/gm;
 95801001        Michael Michael
 95801002        Corinna Corinna
 95801003        Eki     Eki
@@ -160,7 +160,7 @@ push @{$players->{jin}}, [split] for <<JIN =~ m/^.*$/gm;
 95801014        Jason   Jason
 95801017        Alice   Alice
 95801018        Snoopy  Snoopy
-JIN
+ACCESS
 
 push @{$players->{visitors}}, [split] for <<VISITORS =~ m/^.*$/gm;
 1        guest 1
