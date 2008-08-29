@@ -1,15 +1,25 @@
-package dicDB::League;
+package dic::Schema::League;
 
-use base qw/DBIx::Class/;  
+use strict;
+use warnings;
 
-# Load required DBIC stuff
-__PACKAGE__->load_components(qw/PK::Auto Core/);
-# Set the table name
-__PACKAGE__->table('leagues');
-# Set columns in table
-__PACKAGE__->add_columns(qw/id name field/);
-# Set the primary key for the table
-__PACKAGE__->set_primary_key(qw/id/);
+use base 'DBIx::Class';
+
+__PACKAGE__->load_components("Core");
+__PACKAGE__->table("leagues");
+__PACKAGE__->add_columns(
+  "id",
+  { data_type => "VARCHAR", is_nullable => 0, size => 15 },
+  "name",
+  { data_type => "VARCHAR", is_nullable => 0, size => 25 },
+  "field",
+  { data_type => "VARCHAR", is_nullable => 0, size => 25 },
+);
+__PACKAGE__->set_primary_key("id");
+
+
+# Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-08-26 18:19:13
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/5o//066/F807YLrv/lB0w
 
 #
 # Set relationships:
@@ -20,14 +30,14 @@ __PACKAGE__->set_primary_key(qw/id/);
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *this* table
-__PACKAGE__->belongs_to(genre => 'dicDB::LeagueGenre', 'id');
+#__PACKAGE__->belongs_to(league => 'dic::Schema::League', 'league');
 
 # has_many():
 #   args:
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *foreign* table
-__PACKAGE__->has_many(members => 'dicDB::Member', 'league');
+__PACKAGE__->has_many(members => 'dic::Schema::Member', 'league');
 
 # many_to_many():
 #   args:
@@ -37,19 +47,5 @@ __PACKAGE__->has_many(members => 'dicDB::Member', 'league');
 #   You must already have the has_many() defined to use a many_to_many().
 __PACKAGE__->many_to_many(players => 'members', 'player');
 
-
-=head1 NAME
-
-dicDB::League - A model object representing a league
-
-=head1 DESCRIPTION
-
-This is an object that represents a row in the 'leagues' table of your application
-database.  It uses DBIx::Class (aka, DBIC) to do ORM.
-
-For Catalyst, this is designed to be used through dic::Model::dicDB.
-Offline utilities may wish to use this class directly.
-
-=cut
-
+# You can replace this text with custom content, and it will be preserved on regeneration
 1;
