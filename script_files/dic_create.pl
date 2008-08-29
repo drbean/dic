@@ -39,6 +39,7 @@ dic_create.pl [options] model|view|controller name [helper] [options]
 
  Examples:
    dic_create.pl controller My::Controller
+   dic_create.pl controller My::Controller BindLex
    dic_create.pl -mechanize controller My::Controller
    dic_create.pl view My::View
    dic_create.pl view MyView TT
