@@ -68,21 +68,20 @@ $sth->execute(
         "The color pink",
         "Miller: And your favorite color?
 Eden: Pink.
-Miller: Okay. You're not wearing any pink. Ha-ha-ha!
-Eden: Ha-ha-ha!
+Miller: Okay. You're not wearing any pink! (laughs)
+Eden: (laughs)
 Miller: Okay, pink sneakers.
 Eden: Yup.
 Miller: Okay? You got it.
-Eden: Ha-ha-ha!
-Miller: And you said before when you were talking that uh, your whole
-room is, is done in pink.
+Eden: (laughs)
+Miller: And you said before when you were talking that uh, your whole room is, is done in pink.
 Eden: Yeh. Mmh-hmm.
 Miller: Does your roommate like pink too?
 Eden: I think she likes it, but she doesn't have any pink.
 Miller: She also didn't have any choice.
 Eden: Right. (laughs)
-Miller: Ha! Ha! Ha!
-Eden: My half of the room is pink, and hers is whatever color she wants it to be. I don't know. Ha-ha.
+Miller: (laughs)
+Eden: My half of the room is pink, and hers is whatever color she wants it to be. I don't know. (laughs)
 Miller: I see you guys worked that out beforehand.
 Eden: Yeh.
 
