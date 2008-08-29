@@ -40,10 +40,10 @@ sub list : Local {
     # that make up the application
     my ($self, $c) = @_;
     my $league = $c->session->{league};
-    my $genre = $c->model("dicDB::LeagueGenre")->find({league=>$league})->genre;
+    my $genre = $c->model("DB::Leaguegenre")->find({league=>$league})->genre;
     # Retrieve all of the text records as text model objects and store in
     # stash where they can be accessed by the TT template
-    $c->stash->{texts} = [$c->model('dicDB::Text')->search({genre => $genre})];
+    $c->stash->{texts} = [$c->model('DB::Text')->search({genre => $genre})];
     # Set the TT template to use.  You will almost always want to do this
     # in your action methods (actions methods respond to user input in
     # your controllers).
@@ -78,7 +78,7 @@ sub form_create_do : Local {
 	my $content    = $c->request->params->{content}    || 'N/A';
 	my $unclozeables = $c->request->params->{unclozeables} || '1';
 	$unclozeables =~ s/\r\n/|/g;
-	my $text = $c->model('dicDB::Text')->create({
+	my $text = $c->model('DB::Text')->create({
 		id => $id,
 	       genre   => $genre,
 	       description   => $description,
@@ -100,7 +100,7 @@ sub delete : Local {
 # $id = primary key of book to delete
 	my ($self, $c, $id) = @_;
 # Search for the book and then delete it
-	$c->model('dicDB::Text')->search({id => $id})->delete_all;
+	$c->model('DB::Text')->search({id => $id})->delete_all;
 # Set a status message to be displayed at the top of the view
 	$c->stash->{status_msg} = "Text deleted.";
 # Redirect the user back to the list page instead of forward

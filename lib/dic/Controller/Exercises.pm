@@ -48,16 +48,16 @@ sub list : Local {
     # that make up the application
     my ($self, $c) = @_;
     my $league = $c->session->{league};
-    my $genre = $c->model('dicDB::LeagueGenre')->find({league=>$league})->genre;
+    my $genre = $c->model('DB::Leaguegenre')->find({league=>$league})->genre;
     # Retrieve all of the text records as text model objects and store in
     # stash where they can be accessed by the TT template
-    $c->stash->{exercises} = [$c->model('dicDB::Exercise')->search(
+    $c->stash->{exercises} = [$c->model('DB::Exercise')->search(
 	    { genre => $genre })];
     # Set the TT template to use.  You will almost always want to do this
     # in your action methods (actions methods respond to user input in
     # your controllers).
     my $player = $c->session->{player_id};
-    my @play = $c->model('dicDB::Play')->search(
+    my @play = $c->model('DB::Play')->search(
 	    { league => $league, player => $player },
 		{ select => [ 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/exercise/],
@@ -65,7 +65,7 @@ sub list : Local {
 		});
     my %letterscores = map { $_->exercise => $_->get_column('letters') } @play;
     $c->stash->{letters} = \%letterscores;
-    my @quiz = $c->model('dicDB::Quiz')->search(
+    my @quiz = $c->model('DB::Quiz')->search(
 	    { league => $league, player => $player },
 		{ select => [ 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/exercise/],
@@ -89,14 +89,14 @@ sub questioncreate : Local {
 	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
 	$c->forward('create');
 	my $league = $c->session->{league};
-	my $genre = $c->model("dicDB::LeagueGenre")->find
+	my $genre = $c->model("DB::Leaguegenre")->find
 			( {league => $league} )->genre;
-	my $exercise = $c->model('dicDB::Exercise')->find(
+	my $exercise = $c->model('DB::Exercise')->find(
 		{ genre => $genre, id=>$exerciseId } );
 	my $text = $exercise->text;
 	my $questions = $text->questions;
 	my @wordRows;
-	my $questionwords = $c->model('dicDB::QuestionWord');
+	my $questionwords = $c->model('DB::Questionword');
 	while ( my $question = $questions->next )
 	{		
 		my $questionId = $question->id;
@@ -120,35 +120,35 @@ sub questioncreate : Local {
 			push @wordRows, \%row;
 		}
 	}
-	$c->model('dicDB::QuestionWord')->populate( \@wordRows );
+	$c->model('DB::Questionword')->populate( \@wordRows );
 	$c->stash->{template} = 'exercises/list.tt2';
 }
 			
 =head2 create
 
-Take text from database and output cloze exercise. We create an id for each Word of the Exercise, and the first Word has id 1, so 0 can be used as a link for unlinked QuestionWords to show there is no link. (SQL Server won't allow NULL strings in INT column.)
+Take text from database and output cloze exercise. We create an id for each Word of the Exercise, and the first Word has id 1, so 0 can be used as a link for unlinked Questionwords to show there is no link. (SQL Server won't allow NULL strings in INT column.)
 
 =cut
 
 sub create : Local {
 	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
-	my $text = $c->model('dicDB::Text')->find( { id=>$textId } );
+	my $text = $c->model('DB::Text')->find( { id=>$textId } );
 	my $description = $text->description;
 	my $content = $text->content;
 	my $unclozeables = $text->unclozeables;
 	my $league = $c->session->{league};
-	my $genre = $c->model('dicDB::LeagueGenre')->find(
+	my $genre = $c->model('DB::Leaguegenre')->find(
 				{ league => $league })->genre;
 	my $index=0;
 	my $clozeObject = $exerciseType->parse($unclozeables, $content);
 	my $cloze = $clozeObject->cloze;
 	my $newWords = $clozeObject->dictionary;
 	my (@wordRows, @dictionaryList, %wordCount, @wordstemRows);
-	my $dictionary = $c->model('dicDB::Dictionary')->search;
+	my $dictionary = $c->model('DB::Dictionary')->search;
 	my $id = 1;
-	my @columns = dicDB::Word->columns;
+	my @columns = DB::Word->columns;
 	foreach my $word ( @$cloze )
-	{		
+	{
 		my $token = $word->{published};
 		if ( $token and $newWords->{$token} )
 		{
@@ -181,11 +181,11 @@ sub create : Local {
 		$row{class} = $class;
 		push @wordRows, \%row;
 	}
-	$c->model('dicDB::Word')->populate( \@wordRows );
+	$c->model('DB::Word')->populate( \@wordRows );
 	#@dictionaryList = map { m/^(.).*$/;
 	#		{ exercise => $exerciseId, word => $_, initial => $1,
 	#		count => $newWords->{$_} } } keys %$newWords;
-	$c->model('dicDB::Exercise')->create({
+	$c->model('DB::Exercise')->create({
 				id => $exerciseId,
 				text => $textId,
 				genre => $genre,
@@ -199,13 +199,13 @@ sub create : Local {
 
 =head2 delete
 
-Delete an exercise. Delete of Questions and QuestionWords done here too.
+Delete an exercise. Delete of Questions and Questionwords done here too.
 
 =cut
 
 	sub delete : Local {
 	my ($self, $c, $id) = @_;
-	my $exercise = $c->model('dicDB::Exercise');
+	my $exercise = $c->model('DB::Exercise');
 	my $words = $exercise->find({id => $id})->words;
 	my %entries;
 	while (my $word = $words->next)

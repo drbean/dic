@@ -31,7 +31,7 @@ sub list : Local {
 
     # Retrieve all of the Player records as Player model objects and store in
     # stash where they can be accessed by the TT template
-    $c->stash->{players} = [$c->model('dicDB::Player')->all];
+    $c->stash->{players} = [$c->model('DB::Player')->all];
     
     # Set the TT template to use.  You will almost always want to do this
     # in your action methods (actions methods respond to user input in
@@ -55,7 +55,7 @@ sub url_create : Local {
 
 # Call create() on the book model object. Pass the table
 # columns/field values we want to set as hash values
-	my $player = $c->model('dicDB::Player')->create({
+	my $player = $c->model('DB::Player')->create({
 	       id => $id,
 		name  => $name,
 	       password => $password
@@ -117,7 +117,7 @@ sub form_create_do : Local {
 	my $league    = $c->request->params->{league}    || 'N/A';
 
 # Create the player
-	my $player = $c->model('dicDB::Player')->create({
+	my $player = $c->model('DB::Player')->create({
 		id => $id,
 	       name   => $name,
 	       password => $password,
@@ -145,7 +145,7 @@ Delete a player
 
 	sub delete : Local {
 	my ($self, $c, $id) = @_;
-	$c->model('dicDB::Player')->search({id => $id})->delete_all;
+	$c->model('DB::Player')->search({id => $id})->delete_all;
 	$c->stash->{status_msg} = "Player deleted.";
        $c->response->redirect($c->uri_for('/players/list',
                    {status_msg => "Player deleted."}));

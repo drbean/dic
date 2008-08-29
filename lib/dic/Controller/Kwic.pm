@@ -30,19 +30,19 @@ sub list : Local {
 	my ($self, $c, $exerciseId, $keyId) = @_;
 	my $player = $c->session->{player_id};
 	my $league = $c->session->{league};
-	my $genre = $c->model("dicDB::LeagueGenre")->find
+	my $genre = $c->model("DB::Leaguegenre")->find
 			( {league => $league} )->genre;
-	my $exercise = $c->model('dicDB::Exercise')->find(
+	my $exercise = $c->model('DB::Exercise')->find(
 				    {genre=> $genre, id=>$exerciseId});
 	my $contextlength = 16;
 	my $start = $keyId <= $contextlength? 1: $keyId - $contextlength;
 	my $end = $keyId + $contextlength;
-	my $words= $c->model('dicDB::Word')->search
+	my $words= $c->model('DB::Word')->search
 			    ({genre => $genre, });
 	my $keywordContext = $words->search( {exercise => $exerciseId},
 				{ where => { id => [ $start .. $end ] },
 				order_by => 'id' } );
-	my $playSet = $c->model('dicDB::Play')->search(
+	my $playSet = $c->model('DB::Play')->search(
 			{player => $player, exercise => $exerciseId},
 			{ order_by => 'blank' } );
 	my %context; my $prepost = "prekeyword";
@@ -78,7 +78,7 @@ sub list : Local {
     $c->stash->{originalposttext} = $context{postkeyword};
     my $keyword = $words->find( {id => $keyId, exercise => $exerciseId} );
     my $stem = $keyword->dictionary->stem;
-    my @conflates = $c->model( 'dicDB::Dictionary' )->search({stem => $stem});
+    my @conflates = $c->model( 'DB::Dictionary' )->search({stem => $stem});
     my (@kwics, %tokenCounts, %tokensUnclozed);
     foreach my $conflate ( @conflates )
     {

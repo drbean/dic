@@ -42,7 +42,7 @@ sub list : Local {
 
     # Retrieve all of the leauge records as leauge model objects and store in
     # stash where they can be accessed by the TT template
-    $c->stash->{leagues} = [$c->model('dicDB::League')->all];
+    $c->stash->{leagues} = [$c->model('DB::League')->all];
     
     # Set the TT template to use.  You will almost always want to do this
     # in your action methods (actions methods respond to user input in
@@ -65,7 +65,7 @@ sub url_create : Local {
 
 # Call create() on the book model object. Pass the table
 # columns/field values we want to set as hash values
-	my $league = $c->model('dicDB::League')->create({
+	my $league = $c->model('DB::League')->create({
 	       id => $id,
 		name  => $name,
 	       field => $field
@@ -113,7 +113,7 @@ sub form_create_do : Local {
 	my @player_ids = split ' ', $player_ids;
 
 # Create the league
-	my $league = $c->model('dicDB::League')->create({
+	my $league = $c->model('DB::League')->create({
 		id => $id,
 	       name   => $name,
 	       field  => $field,
@@ -140,7 +140,7 @@ Delete a league
 
 	sub delete : Local {
 	my ($self, $c, $id) = @_;
-	$c->model('dicDB::League')->search({id => $id})->delete_all;
+	$c->model('DB::League')->search({id => $id})->delete_all;
 	$c->stash->{status_msg} = "League deleted.";
 	# $c->forward('list');
 	# $c->response->redirect($c->uri_for('/leagues/list'));

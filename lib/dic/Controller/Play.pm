@@ -26,7 +26,7 @@ Show a created exercise from the exercises database.
  
 sub start : Local {
 	my ($self, $c, $exerciseId) = @_;
-	my $resultset = $c->model('dicDB::Exercise')->find($exerciseId);
+	my $resultset = $c->model('DB::Exercise')->find($exerciseId);
 	$c->stash->{exercise_id} = $exerciseId;
 	$c->stash->{cloze} = $resultset->cloze;
     $c->stash->{template} = 'play/start.tt2';
@@ -43,9 +43,9 @@ sub questionupdate : Local {
 	my ($self, $c, $exerciseId) = @_;
 	my $player = $c->session->{player_id};
 	my $leagueId = $c->session->{league};
-	my $genre = $c->model("dicDB::LeagueGenre")->find(
+	my $genre = $c->model("DB::Leaguegenre")->find(
 			{ league => $leagueId } )->genre;
-	my $exercises = $c->model('dicDB::Exercise')->search(
+	my $exercises = $c->model('DB::Exercise')->search(
 			{ genre => $genre, }, { order_by => 'id' } );
 	$exerciseId = $c->session->{exercise};
 	my $exercise;
@@ -66,7 +66,7 @@ sub questionupdate : Local {
 	{
 		my $correctAnswer = $question->answer;
 		my $correct = $answer eq $correctAnswer? 1: 0;
-		my $quizplay = $c->model('dicDB::Quiz');
+		my $quizplay = $c->model('DB::Quiz');
 		$quizplay->create({
 			league => $leagueId,
 			exercise => $exerciseId,
@@ -87,7 +87,7 @@ sub questionupdate : Local {
 				" Your answer: \"$answer\". The correct answer: \"$correctAnswer\".";
 	}
 	my $wordSet = $exercise->words;
-	my $playSet = $c->model('dicDB::Play')->search(
+	my $playSet = $c->model('DB::Play')->search(
 			{player => $player, exercise => $exerciseId},
 			{ order_by => 'blank' } );
 	my @question = ( { Newline => 1 } );
@@ -133,20 +133,20 @@ sub update : Local {
 	my $player = $c->session->{player_id};
 	my $league = $c->session->{league};
 	$exerciseId ||= $c->session->{exercise};
-	my $genre = $c->model("dicDB::LeagueGenre")->find
+	my $genre = $c->model("DB::Leaguegenre")->find
 			( {league => $league} )->genre;
-	my $exerciseType = $c->model('dicDB::Exercise')->find(
+	my $exerciseType = $c->model('DB::Exercise')->find(
 			{ genre => $genre, id =>$exerciseId },)->type;
-	my $title = $c->model('dicDB::Exercise')->find(
+	my $title = $c->model('DB::Exercise')->find(
 		{ genre => $genre, id => $exerciseId } )->description;
-	my $wordSet = $c->model('dicDB::Word')->search(
+	my $wordSet = $c->model('DB::Word')->search(
 			{genre => $genre, exercise => $exerciseId},
 			{ order_by => 'id' } );
-	my $playSet = $c->model('dicDB::Play')->search(
+	my $playSet = $c->model('DB::Play')->search(
 			{player => $player, exercise => $exerciseId},
 			{ order_by => 'blank' } );
 	my $questions = $c->request->params;
-	my $play =  $c->model('dicDB::Play');
+	my $play =  $c->model('DB::Play');
 	my $score = 0;
 	my @cloze = ( $title, { Newline => 1 }, { Newline => 1 } );
 	while (my $word = $wordSet->next)
@@ -227,7 +227,7 @@ sub update : Local {
 		}
 		else {push @cloze, $published; }
 	}
-	my $name = $c->model("dicDB::Player")->find({id=>$player})->name;
+	my $name = $c->model("DB::Player")->find({id=>$player})->name;
 	$c->stash->{exercise_id} = $exerciseId;
 	$c->stash->{cloze} = \@cloze;
 	$c->stash->{status_msg} = "$name has $score letters correct. ";
@@ -249,7 +249,7 @@ sub list : Local {
     my ($self, $c) = @_;
     # Retrieve all of the text records as text model objects and store in
     # stash where they can be accessed by the TT template
-    $c->stash->{exercises} = [$c->model('dicDB::Exercise')->all];
+    $c->stash->{exercises} = [$c->model('DB::Exercise')->all];
     # Set the TT template to use.  You will almost always want to do this
     # in your action methods (actions methods respond to user input in
     # your controllers).

@@ -33,7 +33,6 @@ sub default : Private {
     $c->response->body( $c->welcome_message );
 }
 
-
 =head2 auto
 
 Check if there is a user and, if not, forward (actually, redirect) to login page

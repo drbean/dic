@@ -29,7 +29,7 @@ Fetch all Score objects (in a league) and pass to scores/list.tt2 in stash to be
 sub list : Local {
     my ($self, $c) = @_;
 	my $league = $c->session->{league};
-    my $play = $c->model('dicDB::Play')->search({ league => $league },
+    my $play = $c->model('DB::Play')->search({ league => $league },
 		{ select => [ 'player', 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/player exercise/],
 		as => [ qw/player exercise score/ ],

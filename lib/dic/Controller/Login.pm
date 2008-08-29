@@ -41,11 +41,11 @@ sub index : Private {
                 $c->stash->{id}      = $id;
                 $c->stash->{name}    = $name;
                 $c->stash->{leagues} =
-                  [ $c->model('dicDB::League')->search( {} ) ];
+                  [ $c->model('DB::League')->search( {} ) ];
                 $c->stash->{template} = 'official.tt2';
                 return;
             }
-            my $member = $c->model("dicDB::Member")->find( { player => $id } );
+            my $member = $c->model("DB::Member")->find( { player => $id } );
             $c->session->{league} = $member->league->id;
             $c->session->{exercise} = undef;
             $c->response->redirect( $c->uri_for("/exercises/list") );
