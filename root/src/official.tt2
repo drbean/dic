@@ -9,5 +9,14 @@
       <option value="[% league.id %]">[% league.name %] [% league.field %]</option>
       [% END -%]
   </select>
+
+<p>
+Type password again:
+  <input type="password" name="password" size="40" />
+</p>
+
+<p>
   <INPUT type="submit" value="Submit">
+</p>
+
 </form>
