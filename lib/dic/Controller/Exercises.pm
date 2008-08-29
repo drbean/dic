@@ -2,7 +2,7 @@ package dic::Controller::Exercises;
 
 use strict;
 use warnings;
-use base 'Catalyst::Controller';
+use parent 'Catalyst::Controller';
 use Dictionary;
 use FirstLast;
 use Ctest;

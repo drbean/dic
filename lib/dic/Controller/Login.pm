@@ -2,7 +2,7 @@ package dic::Controller::Login;
 
 use strict;
 use warnings;
-use base 'Catalyst::Controller';
+use parent 'Catalyst::Controller';
 
 =head1 NAME
 
@@ -23,7 +23,7 @@ Login logic. We let "guest"s in without a password, or ID.
 
 =cut
 
-sub index : Private {
+sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
     my $id       = $c->request->params->{id}       || "";
     my $name     = $c->request->params->{name}     || "";
@@ -65,7 +65,7 @@ Set league official is organizing
 
 =cut
 
-sub official : Local {
+sub official : Path : Args(0) {
 	my ($self, $c) = @_;
 	my $league = $c->request->params->{league} || "";
        if ( $c->check_user_roles("official") )

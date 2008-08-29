@@ -2,7 +2,7 @@ package dic::Controller::Dictionary;
 
 use strict;
 use warnings;
-use base 'Catalyst::Controller';
+use parent 'Catalyst::Controller';
 use FirstLast;
 
 =head1 NAME

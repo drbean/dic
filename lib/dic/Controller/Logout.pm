@@ -2,7 +2,7 @@ package dic::Controller::Logout;
 
 use strict;
 use warnings;
-use base 'Catalyst::Controller';
+use parent 'Catalyst::Controller';
 
 =head1 NAME
 
@@ -23,7 +23,7 @@ Logout logic
 
 =cut
 
-sub index : Private {
+sub index : Path : Args(0) {
     my ($self, $c) = @_;
 
     # Clear the user’s state

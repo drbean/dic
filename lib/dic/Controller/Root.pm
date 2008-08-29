@@ -2,7 +2,7 @@ package dic::Controller::Root;
 
 use strict;
 use warnings;
-use base 'Catalyst::Controller';
+use parent 'Catalyst::Controller';
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -22,16 +22,24 @@ dic::Controller::Root - Root Controller for dic
 
 =cut
 
-=head2 default
+=head2 index
 
 =cut
 
-sub default : Private {
+sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
     # Hello World
     $c->response->body( $c->welcome_message );
 }
+
+sub default :Path {
+    my ( $self, $c ) = @_;
+    $c->response->body( 'Page not found' );
+    $c->response->status(404);
+    
+}
+
 
 =head2 auto
 

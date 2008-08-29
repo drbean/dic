@@ -2,7 +2,7 @@ package dic::Controller::Kwic;
 
 use strict;
 use warnings;
-use base 'Catalyst::Controller';
+use parent 'Catalyst::Controller';
 use FirstLast;
 
 use List::Util qw/reduce/;

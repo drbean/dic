@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use List::Util qw/sum/;
 use List::MoreUtils qw/any/;
-use base 'Catalyst::Controller';
+use parent 'Catalyst::Controller';
 use FirstLast;
 
 =head1 NAME
