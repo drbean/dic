@@ -8,28 +8,46 @@ use Catalyst::Runtime '5.70';
 # Set flags and add plugins for the application
 #
 #         -Debug: activates the debug mode for very useful log messages
-#   ConfigLoader: will load the configuration from a YAML file in the
+#   ConfigLoader: will load the configuration from a Config::General file in the
 #                 application's home directory
 # Static::Simple: will serve static files from the application's root 
 #                 directory
 
-BEGIN { my @plugins = qw/ConfigLoader Static::Simple 
-                   Authentication
-                   Authentication::Store::DBIC
-                   Authentication::Credential::Password
-		   Authorization::Roles
-                   Session
-                   Session::State::Cookie
-			/;
-	if ( $^O eq 'linux' ) { push @plugins, 'Session::Store::FastMmap'; }
-	else { push @plugins, 'Session::Store::DBIC'; }
-	require Catalyst; Catalyst->import(@plugins);
-}
+use Catalyst qw/
+    -Debug 
+    ConfigLoader 
+    Static::Simple
+    
+    StackTrace
+
+    Authentication
+    Authorization::Roles
+            
+    Session
+    Session::Store::FastMmap
+    Session::State::Cookie
+    /;
+
+    # Authorization::ACL
+
+#BEGIN { my @plugins = qw/ConfigLoader Static::Simple 
+#                   Authentication
+#                   Authentication::Credential::Password
+#		   Authorization::Roles
+#                   Session
+#                   Session::State::Cookie
+#			/;
+#		   # Authentication::Store::DBIC
+#	if ( $^O eq 'linux' ) { push @plugins, 'Session::Store::FastMmap'; }
+#	# else { push @plugins, 'Session::Store::DBIC'; }
+#	require Catalyst; Catalyst->import(@plugins);
+#}
+
 our $VERSION = '0.02';
 
 # Configure the application. 
 #
-# Note that settings in dic.yml (or other external
+# Note that settings in dic.conf (or other external
 # configuration file that you set up manually) take precedence
 # over this when using ConfigLoader. Thus configuration
 # details given here can function as a default configuration,
@@ -40,6 +58,22 @@ __PACKAGE__->config( name => 'dic' );
 
 # Start the application
 __PACKAGE__->setup;
+
+## Authorization::ACL Rules
+#__PACKAGE__->deny_access_unless(
+#        "/books/form_create",
+#        [qw/admin/],
+#    );
+#__PACKAGE__->deny_access_unless(
+#        "/books/form_create_do",
+#        [qw/admin/],
+#    );
+#__PACKAGE__->deny_access_unless(
+#        "/books/delete",
+#        [qw/user admin/],
+#    );
+
+
 
 
 =head1 NAME
