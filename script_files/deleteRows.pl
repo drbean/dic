@@ -2,17 +2,17 @@
 
 =head1 NAME
 
-dicDB.pl - Emulate cli db tool, dbtool.pl with dicDB schema
+deleteRows.pl - Emulate cli db tool, dbtool.pl with DB schema
 
 =head1 SYNOPSIS
 
-./dicDB.pl players
+script_files/deleteRows.pl players
 95801001 Tom
 95801002 Jack
 
 =head1 DESCRIPTION
 
-Dumps tables known by dicDB schema
+Dumps tables known by DB schema
 
 =head1 AUTHOR
 
@@ -30,17 +30,19 @@ use strict;
 use warnings;
 use lib 'lib';
 
-use YAML qw/LoadFile/;
+use Config::General;
 
-my $yaml = (glob '*.yml')[0];
-my $app = LoadFile $yaml;
-my $name = $app->{name};
+use Cwd;
+
+( my $MyAppDir = getcwd ) =~ s|^.+/([^/]+)$|$1|;
+my $app = lc $MyAppDir;
+my %config = Config::General->new("$app.conf")->getall;
+my $name = $config{name};
 require $name . ".pm";
-my $model = $name . "DB";
-my $modelfile = $name . "/Model/" . $name . "DB.pm";
-my $modelmodule = $name . "::Model::" . $name . "DB";
-# (my $modelmodule = $modelfile) =~ $name . "::Model::" . $name . "DB";
-require $modelfile;
+my $model = "${name}::Schema";
+my $modelfile = "$name/Model/DB.pm";
+my $modelmodule = "${name}::Model::DB";
+# require $modelfile;
 
 my $connect_info = $modelmodule->config->{connect_info};
 my $d = $model->connect( @$connect_info );

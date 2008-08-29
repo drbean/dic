@@ -5,14 +5,17 @@ use warnings;
 use lib 'lib';
 
 use DBI;
-use YAML qw/LoadFile/;
+use Config::General;
 
-my $yaml = (glob '*.yml')[0];
-my $app = LoadFile $yaml;
-my $name = $app->{name};
+use Cwd;
+
+( my $MyAppDir = getcwd ) =~ s|^.+/([^/]+)$|$1|;
+my $app = lc $MyAppDir;
+my %config = Config::General->new("$app.conf")->getall;
+my $name = $config{name};
 require "$name.pm";
-my $modelfile = "$name/Model/${name}DB.pm";
-my $modelmodule = "${name}::Model::${name}DB";
+my $modelfile = "$name/Model/DB.pm";
+my $modelmodule = "${name}::Model::DB";
 # (my $modelmodule = $modelfile) =~ $name . "::Model::" . $name . "DB";
 require $modelfile;
 
@@ -43,6 +46,7 @@ it under the same terms as Perl itself.
 =cut
 
 my $connect_info = $modelmodule->config->{connect_info};
+# my $connect_info = [ 'dbi:SQLite:db/demo','','' ];
 my $d = DBI->connect( @$connect_info );
 
 my (%CHAR, %VARCHAR, $BIT, $TINYINT, $SMALLINT, $INT, $BIGINT);
