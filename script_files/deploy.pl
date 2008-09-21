@@ -4,106 +4,53 @@ use strict;
 use warnings;
 use lib 'lib';
 
-use DBI;
 use Config::General;
 
 use Cwd;
 
+BEGIN {
+
 ( my $MyAppDir = getcwd ) =~ s|^.+/([^/]+)$|$1|;
 my $app = lc $MyAppDir;
 my %config = Config::General->new("$app.conf")->getall;
-my $name = $config{name};
-require "$name.pm";
-my $modelfile = "$name/Model/DB.pm";
-my $modelmodule = "${name}::Model::DB";
-# (my $modelmodule = $modelfile) =~ $name . "::Model::" . $name . "DB";
-require $modelfile;
+$::name = $config{name};
+require "$::name.pm"; $::name->import;
+require "$::name/Schema.pm"; $::name->import;
+
+}
 
 my @leagues = qw/access GL CLA FLB0008 FLA0005 FLA0018 visitors/;
 
-=head1 NAME
-
-importdb.pl - Set up dic db
-
-=head1 SYNOPSIS
-
-perl importdb.pl
-
-=head1 DESCRIPTION
-
-'CREATE TABLE texts (id text, description text, content text, unclozeables text, primary key (id))'
-
-=head1 AUTHOR
-
-Sebastian Riedel, C<sri@oook.de>
-
-=head1 COPYRIGHT
-
-
-This library is free software, you can redistribute it and/or modify
-it under the same terms as Perl itself.
-
-=cut
-
-my $connect_info = $modelmodule->config->{connect_info};
+no strict qw/subs refs/;
+my $connect_info = "${::name}::Model::DB"->config->{connect_info};
 # my $connect_info = [ 'dbi:SQLite:db/demo','','' ];
-my $d = DBI->connect( @$connect_info );
+my $schema = "${::name}::Schema"->connect( @$connect_info );
+use strict;
 
-my (%CHAR, %VARCHAR, $BIT, $TINYINT, $SMALLINT, $INT, $BIGINT);
-my @lengths = qw/1 5 15 25 50 72 500 7500/;
-my @ints = qw/BIT TINYINT SMALLINT INT BIGINT/;
-if ( $connect_info =~ m/SQLite/ )
-{
-	@CHAR{@lengths} = (qw/TEXT/) x @lengths;
-	@VARCHAR{@lengths} = (qw/TEXT/) x @lengths;
-	($BIT, $TINYINT, $SMALLINT, $INT, $BIGINT) = (qw/INTEGER/) x @ints;
-}
-else {
-	%CHAR = map { $_ => "CHAR($_)" } @lengths;
-	%VARCHAR = map { $_ => "VARCHAR($_)" } @lengths;
-	($BIT, $TINYINT, $SMALLINT, $INT, $BIGINT) = @ints;
-}
+$schema->deploy;
 
-$d->do("CREATE TABLE dictionaries (genre $VARCHAR{15}, word $VARCHAR{25}, initial $CHAR{1}, stem $VARCHAR{25}, suffix $VARCHAR{15}, count $SMALLINT, primary key (genre, word))");
+my $leagues = [
+		[ qw/id name field/ ],
+		[ "GL", "初中級英文聽說訓練", "English Conversation" ],
+		[ "CLA", "日華文大學二甲", "英文聽力" ],
+		[ "FLB0008", "夜應外四技四甲", "高階英文寫作" ],
+		[ "FLA0005", "夜應外大學三甲", "跨文化溝通" ],
+		[ "FLA0018", "夜應外大學二甲", "英語會話(一)" ],
+		[ "access", "英語自學室", "Student Life, Moon Festival" ],
+		[ "visitors", "Visitors", "Demonstration Play" ],
+	];
+$schema->populate( 'League', $leagues );
 
-$d->do("CREATE TABLE exercises (genre $VARCHAR{15}, id $VARCHAR{15}, text $VARCHAR{15}, description $VARCHAR{50}, type $VARCHAR{15}, primary key (genre, id))");
-
-$d->do("CREATE TABLE leaguegenre (league $VARCHAR{15}, genre $VARCHAR{15}, primary key (league, genre))");
-my $lsth = $d->prepare("INSERT INTO leaguegenre (league, genre) VALUES  (?,?)");
-for my $league ( @leagues )
-{
-	my $genre = $league eq "GL"? "JUST RIGHT":
-			$league eq "CLA"? "日華文大學二，三甲":
-			$league eq "FLA0005"? "夜應外大學三甲":
-			$league eq "FLA0018"? "夜應外大學二甲":
-			$league eq "access"? "thematic":
-			$league eq 'visitors'? "demo": "No genre";
-	$lsth->execute( $league, $genre );
-}
-
-$d->do("CREATE TABLE leagues (id $VARCHAR{15}, name $VARCHAR{25}, field $VARCHAR{25}, primary key (id))");
-
-$lsth = $d->prepare("INSERT INTO leagues (id, name, field) VALUES  (?,?,?)");
-for my $league ( @leagues )
-{
-	my $id = $league;
-	my $name = $league eq "GL"? "初中級英文聽說訓練": 
-		$league eq "CLA"? "日華文大學二,三甲":
-		$league eq "FLB0008"? "夜應外四技四甲":
-		$league eq "FLA0005"? "夜應外大學三甲":
-		$league eq "FLA0018"? "夜應外大學二甲":
-		$league eq "Chinese"? "":
-		$league eq 'access'? "英語自學室":
-		$league eq 'visitors'? "Visitors": "No Name";
-	my $field = $league eq "GL"? "English Conversation": 
-		$league eq "CLA"? "英文聽力":
-		$league eq "FLB0008"? "高階英文寫作":
-		$league eq "FLA0005"? "跨文化溝通":
-		$league eq "FLA0018"? "英語會話(一)":
-		$league eq 'access'? "Student Life, Moon Festival":
-		$league eq 'visitors'? "Demonstration Play": "No field";
-	$lsth->execute( $id, $name, $field );
-}
+my $leaguegenres = [
+			[ qw/league genre/ ],
+			[ "GL",	"JUST RIGHT" ],
+			[ "CLA",	"日華文大學二甲" ],
+			[ "FLA0005",	"夜應外大學三甲" ],
+			[ "FLA0018",	"夜應外大學二甲" ],
+			[ "access",	"thematic" ],
+			[ 'visitors',	"demo" ],
+		];
+$schema->populate( 'Leaguegenre', $leaguegenres );
 
 my $players;
 
@@ -114,11 +61,34 @@ U9413029	陳筱復	Aprilita
 M9723021	簡秀金	Tina
 U9623007	薛峻凱	Tony
 U9523028	丁維遵	Victor
+U9424031	白睿中	Rui
+U9414040	黃怡菁	Yi	
+U9414020	黃鉦致	Zheng
+9533220	許雅菱	Ya
+9533202	蔡奇融	Qi
+9531206	莊君緌	JUn
+9533203	黃偉珉	Wei
+9533216	羅心伶	Xin
+9533244	張瑋真	Wei
+U9616910	陳鴻品	Hong
+U9616018	李洵	XUn
+9411298	鄭又綸	You
+9433237	吳佳馨	Jia
+M9714001	葉俊宏	JUn
+U9411082	趙巡漢	XUn
+U9416008	吳國彬	Guo
+U9417029	李家銘	Jia
+U9417039	李怡瑩	Yi
+U9423044	江全緒	QUan
+U9531034	溫佳蓉	Jia
+U9531043	張雯鈞	Wen
+U9531058	黃柔瑄	Rou
+U9718023	陳家音	Jia
+U9722113	潘志良	Zhi
+U9722122	藍嘉祥	Jia
+U9722129	何宗承	Zong
 GL
 
-# in CLA, but also in FLA0005
-# N9561725	吳凱婷	Kai
-# N9561713	袁敏萱	Min
 push @{$players->{CLA}}, [split] for <<CLA =~ m/^.*$/gm;
 U9693001	沈佳其	Jia
 U9693002	江佩珊	Pei
@@ -168,6 +138,11 @@ U9693052	中山成華	Cheng
 U9693053	張綺玲	Qi
 U9693054	陳偉生	Wei
 U9693055	羅文聰	Wen
+N9561713	袁敏萱	Min
+N9561725	吳凱婷	Kai
+N9561741	林麗佳	Li
+N9561759	古嘉珮	Jia
+N9561761	林家伶	Jia
 CLA
 
 push @{$players->{FLA0005}}, [split] for <<FLA0005 =~ m/^.*$/gm;
@@ -254,102 +229,64 @@ push @{$players->{visitors}}, [split] for <<VISITORS =~ m/^.*$/gm;
 1        guest 1
 VISITORS
 
-$d->do("CREATE TABLE members (league $VARCHAR{15}, player $INT, primary key (league, player))");
+push @{$players->{officials}}, [split] for <<OFFICIALS =~ m/^.*$/gm;
+193001	DrBean	ok
+OFFICIALS
 
-my $msth = $d->prepare("INSERT INTO members (league, player) VALUES  (?,?)");
-for my $league ( @leagues )
+my %players;
+foreach my $league ( 'officials', @leagues )
 {
-	# my $data = LoadFile "/home/greg/class/$league/li/league.yaml";
-	my $leagueid = $league;
-	# my $members = $data->{member};
-	my $members = $players->{$league};
-	for my $member ( @$members )
+	next unless $players->{$league} and ref $players->{$league} eq "ARRAY";
+	my @players = @{$players->{$league}};
+	foreach ( @players )
 	{
-		$msth->execute( $leagueid, $member->[0] );
+		$players{$_->[0]} = [ $_->[0], $_->[1], $_->[2] ];
 	}
 }
+my $playerpopulator = [ [ qw/id name password/ ], values %players ];
+$schema->populate( 'Player', $playerpopulator );
 
-$d->do("CREATE TABLE players (id $INT, name $VARCHAR{15}, password $VARCHAR{50}, primary key (id))");
-
-my $psth = $d->prepare("INSERT INTO players (id, name, password) VALUES  (?,?,?)");
-$psth->execute( 193001, "DrBean", "ok" );
-for my $league ( @leagues )
+my (%members, %rolebearers);
+foreach my $league ( @leagues )
 {
-	my $members = $players->{$league};
-	for my $member ( @$members )
+	next unless $players->{$league} and ref $players->{$league} eq "ARRAY";
+	my @players = @{$players->{$league}};
+	foreach my $player ( @players )
 	{
-		$psth->execute( $member->[0], $member->[1], $member->[2], );
+		$members{$player->[0]} =  [ $league, $player->[0] ];
+		$rolebearers{$player->[0]} =  [ $player->[0], 2 ];
 	}
 }
+$schema->populate( 'Member', [ [ qw/league player/ ], values %members ] );
 
-$d->do("CREATE TABLE roles ( id $INT PRIMARY KEY, role $VARCHAR{15})");
-my $rsth = $d->prepare("INSERT INTO roles (id, role) VALUES  (?,?)");
-$rsth->execute( 1, "official" );
-$rsth->execute( 2, "player" );
+$schema->populate( 'Role', [ [ qw/id role/ ], 
+[ 1, "official" ],
+[ 2, "player" ] ] );
 
-$d->do("CREATE TABLE rolebearers (player $INT, role $INT, primary key (player, role))");
-my $rbsth = $d->prepare("INSERT INTO rolebearers (player, role) VALUES  (?,?)");
-$rbsth->execute( 193001, 1 );
-for my $league ( @leagues )
-{
-	my $members = $players->{$league};
-	for my $member ( @$members ) { $rbsth->execute( $member->[0], 2 ); }
-}
+$schema->populate( 'Rolebearer', [ [ qw/player role/ ], 
+				[ 193001, 1 ], values %rolebearers ] );
+
+=head1 NAME
+
+deploy.pl - Set up db
+
+=head1 SYNOPSIS
+
+perl script_files/deploy.pl
+
+=head1 DESCRIPTION
+
+'CREATE TABLE players (id text, name text, password text, primary key (id))'
+
+=head1 AUTHOR
+
+Dr Bean, C<drbean at (@) cpan dot, yes a dot, org>
+
+=head1 COPYRIGHT
 
 
-$d->do("CREATE TABLE play (league $VARCHAR{15}, exercise $VARCHAR{15}, player $INT, blank $SMALLINT, correct $TINYINT, primary key (exercise, player, blank))");
+This library is free software, you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
-$d->do("CREATE TABLE quiz (league $VARCHAR{15}, exercise $VARCHAR{15}, player $INT, question $VARCHAR{15}, correct $TINYINT, primary key (exercise, player, question))");
+=cut
 
-# SQL Server right-truncating text string!!
-# $d->do("CREATE TABLE sessions (id $CHAR{72}, session_data TEXT, expires  $INT,  primary key (id))");
-$d->do("CREATE TABLE sessions (id $CHAR{72}, session_data $VARCHAR{7500}, expires  $INT,  primary key (id))");
-
-$d->do("CREATE TABLE questions (genre $VARCHAR{15}, text $VARCHAR{15}, id $VARCHAR{15}, content $VARCHAR{500}, answer $VARCHAR{500}, primary key (genre, text, id))");
-
-# SQL Server right-truncating text string!!
-# $d->do("CREATE TABLE texts (id $VARCHAR{15}, description $VARCHAR{50}, content TEXT, unclozeables TEXT, primary key (id))");
-$d->do("CREATE TABLE texts (id $VARCHAR{15}, description $VARCHAR{50}, genre $VARCHAR{15}, content $VARCHAR{7500}, unclozeables $VARCHAR{7500}, primary key (id))");
-
-$d->do("CREATE TABLE questionwords (genre $VARCHAR{15}, exercise $VARCHAR{15}, question $VARCHAR{15}, id $SMALLINT, content $VARCHAR{50}, link $SMALLINT, primary key (genre, exercise, question, id))");
-
-$d->do("CREATE TABLE words (genre $VARCHAR{15}, exercise $VARCHAR{15}, id $SMALLINT, class $VARCHAR{15}, published $VARCHAR{500}, unclozed $VARCHAR{500}, clozed $VARCHAR{15}, pretext $CHAR{50}, posttext $CHAR{50}, primary key (genre, exercise, id))");
-
-#$sth = $d->prepare("INSERT INTO texts (id, description, content, unclozeables)
-#                                        VALUES  (?,?,?,?)");
-
-my $tsth = $d->table_info('','','%');
-my $tables = $tsth->fetchall_hashref('TABLE_NAME');
-
-for my $table ( qw/players leagues members roles rolebearers texts questions words questionwords exercises dictionaries sessions play quiz/ )
-{
-	if ( ($connect_info)->[0] =~ m/SQLite/ )
-	{
-		print "$table: $tables->{$table}->{sqlite_sql}\n";
-	}
-	else {
-		print "$table: $tables->{$table}->{'TABLE_NAME'}\n";
-
-	}
-}
-
-#while ( my $id = <STDIN> )
-#{
-#       chop $id;
-#       $sth->execute($id);
-#       while (my @r = $sth->fetchrow_array)
-#       {
-#               $, = "\t";
-#               print @r, "\n";
-#       }
-#       print "\n";
-#}
-
-$lsth->finish;
-$msth->finish;
-$psth->finish;
-$rsth->finish;
-$rbsth->finish;
-$tsth->finish;
-
-$d->disconnect;
