@@ -114,11 +114,39 @@ U9413029	陳筱復	Aprilita
 M9723021	簡秀金	Tina
 U9623007	薛峻凱	Tony
 U9523028	丁維遵	Victor
+U9424031	白睿中	Rui
+U9414040	黃怡菁	Yi	
+U9414020	黃鉦致	Zheng
+9533220	許雅菱	Ya
+9533202	蔡奇融	Qi
+9531206	莊君緌	JUn
+9533203	黃偉珉	Wei
+9533216	羅心伶	Xin
+9533244	張瑋真	Wei
+U9616910	陳鴻品	Hong
+U9616018	李洵	XUn
+9411298	鄭又綸	You
+9433237	吳佳馨	Jia
+M9714001	葉俊宏	JUn
+U9411082	趙巡漢	XUn
+U9416008	吳國彬	Guo
+U9417029	李家銘	Jia
+U9417039	李怡瑩	Yi
+U9423044	江全緒	QUan
+U9531034	溫佳蓉	Jia
+U9531043	張雯鈞	Wen
+U9531058	黃柔瑄	Rou
+U9718023	陳家音	Jia
+U9722113	潘志良	Zhi
+U9722122	藍嘉祥	Jia
+U9722129	何宗承	Zong
 GL
 
-# in CLA, but also in FLA0005
+# in CLA, and also in FLA0005
 # N9561725	吳凱婷	Kai
 # N9561713	袁敏萱	Min
+# N9561741	林麗佳	Li
+# N9561759	古嘉珮	Jia
 push @{$players->{CLA}}, [split] for <<CLA =~ m/^.*$/gm;
 U9693001	沈佳其	Jia
 U9693002	江佩珊	Pei
@@ -168,6 +196,11 @@ U9693052	中山成華	Cheng
 U9693053	張綺玲	Qi
 U9693054	陳偉生	Wei
 U9693055	羅文聰	Wen
+N9561713	袁敏萱	Min
+N9561725	吳凱婷	Kai
+N9561741	林麗佳	Li
+N9561759	古嘉珮	Jia
+N9561761	林家伶	Jia
 CLA
 
 push @{$players->{FLA0005}}, [split] for <<FLA0005 =~ m/^.*$/gm;
