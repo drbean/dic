@@ -35,10 +35,10 @@ sub index :Path :Args(0) {
     }
     if ( $id && $name && $password ) {
         my $username = $id;
-        if ( $c->authenticate( {username=>$username, password=>$password} ) ) {
+        if ( $c->authenticate( {id=>$username, password=>$password} ) ) {
             $c->session->{player_id} = $id;
-		my $officialrole = "official";
-		# my $officialrole = 1;
+		# my $officialrole = "official";
+		my $officialrole = 1;
 	    if ( $c->check_user_roles($officialrole) ) {
 	        $c->stash->{id}      = $id;
                 $c->stash->{name}    = $name;
@@ -73,7 +73,8 @@ sub official : Local {
 	my $password = $c->request->params->{password} || "";
         my $username = $c->session->{player_id};
         if ( $c->authenticate( {username=>$username, password=>$password} ) ) {
-		my $officialrole = "official"; # 1; # 
+		# my $officialrole = "official";
+		my $officialrole = 1;
 		if ( $c->check_user_roles($officialrole) ) {
 			$c->session->{league} = $league;
 			$c->response->redirect($c->uri_for("/exercises/list"));
