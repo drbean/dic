@@ -17,15 +17,15 @@ __PACKAGE__->add_columns(
   "class",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "published",
-  { data_type => "VARCHAR", is_nullable => 0, size => 500 },
+  { data_type => "VARCHAR", is_nullable => 1, size => 500 },
   "unclozed",
-  { data_type => "VARCHAR", is_nullable => 0, size => 500 },
+  { data_type => "VARCHAR", is_nullable => 1, size => 500 },
   "clozed",
-  { data_type => "VARCHAR", is_nullable => 0, size => 15 },
+  { data_type => "VARCHAR", is_nullable => 1, size => 15 },
   "pretext",
-  { data_type => "CHAR", is_nullable => 0, size => 50 },
+  { data_type => "CHAR", is_nullable => 1, size => 50 },
   "posttext",
-  { data_type => "CHAR", is_nullable => 0, size => 50 },
+  { data_type => "CHAR", is_nullable => 1, size => 50 },
 );
 __PACKAGE__->set_primary_key("genre", "exercise", "id");
 
