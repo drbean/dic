@@ -47,8 +47,10 @@ sub list : Local {
     # 'Context' that's used to 'glue together' the various components
     # that make up the application
     my ($self, $c) = @_;
-    my $league = $c->session->{league};
-    my $genre = $c->model('DB::Leaguegenre')->find({league=>$league})->genre;
+    my $leagueid = $c->session->{league};
+    my $league = $c->model('DB::League')->find({id=>$leagueid});
+    my $genre = $c->model('DB::Leaguegenre')->find({league=>$leagueid})->genre;
+    # my $genre = $league->genre->genre;
     # Retrieve all of the text records as text model objects and store in
     # stash where they can be accessed by the TT template
     $c->stash->{exercises} = [$c->model('DB::Exercise')->search(
@@ -65,6 +67,7 @@ sub list : Local {
 		});
     my %scores = map { $_->exercise => $_->get_column('score') } @play;
     $c->stash->{scores} = \%scores;
+    $c->stash->{league} = $league->name;
     $c->stash->{template} = 'exercises/list.tt2';
 }
 
