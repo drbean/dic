@@ -9,7 +9,7 @@ __PACKAGE__->load_components("Core");
 __PACKAGE__->table("players");
 __PACKAGE__->add_columns(
   "id",
-  { data_type => "INT", is_nullable => 0, size => undef },
+  { data_type => "VARCHAR", is_nullable => 0, size => 10 },
   "name",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "password",
