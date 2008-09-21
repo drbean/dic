@@ -4,54 +4,33 @@ use strict;
 use warnings;
 use lib 'lib';
 
-use DBI;
 use Config::General;
 
 use Cwd;
 
+BEGIN {
+
 ( my $MyAppDir = getcwd ) =~ s|^.+/([^/]+)$|$1|;
 my $app = lc $MyAppDir;
 my %config = Config::General->new("$app.conf")->getall;
-my $name = $config{name};
-require $name . ".pm";
-my $model = "${name}::Schema";
-my $modelfile = "$name/Model/DB.pm";
-my $modelmodule = "${name}::Model::DB";
-# require $modelfile;
+$::name = $config{name};
+require "$::name.pm"; $::name->import;
+require "$::name/Schema.pm"; $::name->import;
 
-=head1 NAME
+}
 
-studentlife.pl - Set up dic db
+no strict qw/subs refs/;
+my $connect_info = "${::name}::Model::DB"->config->{connect_info};
+# my $connect_info = [ 'dbi:SQLite:db/demo','','' ];
+my $schema = "${::name}::Schema"->connect( @$connect_info );
+use strict;
 
-=head1 SYNOPSIS
-
-perl studentlife.pl
-
-=head1 DESCRIPTION
-
-'CREATE TABLE texts (id text, description text, content text, unclozeables text, primary key (id))'
-
-=head1 AUTHOR
-
-Sebastian Riedel, C<sri@oook.de>
-
-=head1 COPYRIGHT
-
-
-This library is free software, you can redistribute it and/or modify
-it under the same terms as Perl itself.
-
-=cut
-
-my $connect_info = $modelmodule->config->{connect_info};
-my $d = DBI->connect( @$connect_info );
-
-my $sth = $d->prepare("INSERT INTO texts (id, description, genre, content, unclozeables)
-                                        VALUES  (?,?,'access',?,?)");
-
-$sth->execute(
+my $texts = [
+	[ qw(id description genre content unclozeables) ],
+	[
         "date",
         "15th Day of the 8th Month",
+	"intercultural",
         "00:00 Last night was the fifteenth day of the eighth month in the Lunar Calendar.
 00:05 Obviously, this was .. it was the sixth day of the tenth month in the regular calendar. It was October the sixth last night.
 00:12 Now what does it mean? The fifteenth day of the eighth month of the Lunar Calendar.
@@ -65,11 +44,13 @@ $sth->execute(
 00:47 I think the Japanese do too.
 
 ",
-"Doh|er" );
+"Doh|er"
+	],
 
-$sth->execute(
+	[
         "background",
         "Shang[3]yUe[4]",
+	"intercultural",
         "00:00 Um, so, what does this mean?
 00:02 Anyway, in Taiwan, people usually celebrate the Moon Festival by having barbecues.
 00:07 Now a long time ago, like, you know, in the past, ancient times, whatever,
@@ -94,11 +75,13 @@ $sth->execute(
 00:59 People like ..
 
 ",
-"shang|yUe|Shang|shot glasses|intriguing|back story" );
+"shang|yUe|Shang|shot glasses|intriguing|back story"
+	],
 
-$sth->execute(
+	[
         "barbecue",
         "Barbecue",
+	"intercultural",
         "00:00 But in Taiwan, a special, like, celebration thing is the barbecue.
 00:04 People, like, ...
 00:06 Okay, what I mean barbecue, I actually mean, like grilling.
@@ -127,33 +110,33 @@ $sth->execute(
 01:07 Just simple stuff.
 
 ",
-"metal|plate|skewers|lamb chops|kim|bu|lai|solid" );
+"metal|plate|skewers|lamb chops|kim|bu|lai|solid"
+	],
 
-$sth = $d->table_info('','','%');
-my $tables = $sth->fetchall_hashref('TABLE_NAME');
+	];
 
-for my $table ( qw/texts / )
-{
-	if ( ($connect_info)->[0] =~ m/SQLite/ )
-	{
-		print "$table: $tables->{$table}->{sqlite_sql}\n";
-	}
-	else {
-		print "$table: $tables->{$table}->{'TABLE_NAME'}\n";
-	}
-}
+$schema->populate( 'Text', $texts );
 
-#while ( my $id = <STDIN> )
-#{
-#       chop $id;
-#       $sth->execute($id);
-#       while (my @r = $sth->fetchrow_array)
-#       {
-#               $, = "\t";
-#               print @r, "\n";
-#       }
-#       print "\n";
-#}
+=head1 NAME
 
-$sth->finish;
-$d->disconnect;
+studentlife.pl - Set up dic db
+
+=head1 SYNOPSIS
+
+perl studentlife.pl
+
+=head1 DESCRIPTION
+
+'CREATE TABLE texts (id text, description text, genre text, content text, unclozeables text, primary key (id))'
+
+=head1 AUTHOR
+
+Sebastian Riedel, C<sri@oook.de>
+
+=head1 COPYRIGHT
+
+
+This library is free software, you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
