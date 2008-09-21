@@ -1,6 +1,6 @@
 package Ctest;  # assumes Some/Module.pm
 
-# Last Edit: 2008 Jun 13, 06:10:07 PM
+# Last Edit: 2008  9月 20, 19時05分10秒
 # $Id$
 
 use strict;
@@ -29,7 +29,7 @@ Number of clozed letters in odd-numbered-lettered words is rounded up, excluding
 
 =head2 parse
 
-Parse text and create cloze
+Parse text and create cloze. The context around the word has to alter length if it's at the start or end of the line, I think.
 
 
 =cut
