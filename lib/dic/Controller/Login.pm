@@ -72,7 +72,7 @@ sub official : Local {
 	my $league = $c->request->params->{league} || "";
 	my $password = $c->request->params->{password} || "";
         my $username = $c->session->{player_id};
-        if ( $c->authenticate( {username=>$username, password=>$password} ) ) {
+        if ( $c->authenticate( {id =>$username, password=>$password} ) ) {
 		# my $officialrole = "official";
 		my $officialrole = 1;
 		if ( $c->check_user_roles($officialrole) ) {
