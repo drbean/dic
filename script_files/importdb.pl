@@ -19,7 +19,7 @@ my $modelmodule = "${name}::Model::DB";
 # (my $modelmodule = $modelfile) =~ $name . "::Model::" . $name . "DB";
 require $modelfile;
 
-my @leagues = qw/access beginners intermediate visitors/;
+my @leagues = qw/access GL CLA FLB0008 FLA0005 FLA0018 visitors/;
 
 =head1 NAME
 
@@ -72,8 +72,10 @@ $d->do("CREATE TABLE leaguegenre (league $VARCHAR{15}, genre $VARCHAR{15}, prima
 my $lsth = $d->prepare("INSERT INTO leaguegenre (league, genre) VALUES  (?,?)");
 for my $league ( @leagues )
 {
-	my $genre = $league eq "beginners"? "JUST RIGHT Elementary":
-			$league eq  'intermediate'? "JUST RIGHT Pre-intermediate":
+	my $genre = $league eq "GL"? "JUST RIGHT":
+			$league eq "CLA"? "日華文大學二，三甲":
+			$league eq "FLA0005"? "夜應外大學三甲":
+			$league eq "FLA0018"? "夜應外大學二甲":
 			$league eq "access"? "thematic":
 			$league eq 'visitors'? "demo": "No genre";
 	$lsth->execute( $league, $genre );
@@ -85,82 +87,168 @@ $lsth = $d->prepare("INSERT INTO leagues (id, name, field) VALUES  (?,?,?)");
 for my $league ( @leagues )
 {
 	my $id = $league;
-	my $name = $league eq "beginners"? "小級英文聽說訓鍊": 
-		$league eq "intermediate"? "中級英文聽說訓鍊":
+	my $name = $league eq "GL"? "初中級英文聽說訓練": 
+		$league eq "CLA"? "日華文大學二,三甲":
+		$league eq "FLB0008"? "夜應外四技四甲":
+		$league eq "FLA0005"? "夜應外大學三甲":
+		$league eq "FLA0018"? "夜應外大學二甲":
+		$league eq "Chinese"? "":
 		$league eq 'access'? "英語自學室":
 		$league eq 'visitors'? "Visitors": "No Name";
-	my $field = $league eq "beginners"? "Names, Places, Jobs & Family": 
-		$league eq "intermediate"? "English, Stress, Media & Jobs":
+	my $field = $league eq "GL"? "English Conversation": 
+		$league eq "CLA"? "英文聽力":
+		$league eq "FLB0008"? "高階英文寫作":
+		$league eq "FLA0005"? "跨文化溝通":
+		$league eq "FLA0018"? "英語會話(一)":
 		$league eq 'access'? "Student Life, Moon Festival":
 		$league eq 'visitors'? "Demonstration Play": "No field";
 	$lsth->execute( $id, $name, $field );
 }
 
 my $players;
-push @{$players->{beginners}}, [split] for <<BEGINNERS =~ m/^.*$/gm;
-9351155	Queen	Queen
-9430220	Jason	Jason
-9438148	Viola	Viola
-9530101 Cindy   Cindy
-9530102 Vicky   Vicky
-9530103 Michelle        Michelle
-9530104 Ivy     Ivy
-9530105 Terry   Terry
-9530106 Kelly   Kelly
-9530108 Angel   Angel
-9530109 Lena    Lena
-9530111 Jocelyn Jocelyn
-9530112 Joyce   Joyce
-9530114 Rose    Rose
-9530115 Eva     Eva
-9530116 Emily   Emily
-9530117 Jackson Jackson
-9530118 Ken     Ken
-9530120 Jill    Jill
-9530121 Joseph  Joseph
-9530122 Batty   Batty
-9530125 Tracy   Tracy
-9530126 Vera    Vera
-9530127 Kenny   Kenny
-9530128 Wen     Wen
-9530129 Jack    Jack
-9530130 April   April
-9530131 Angela  Angela
-9530135 Kevin   Kevin
-BEGINNERS
 
-push @{$players->{intermediate}}, [split] for <<INTERMEDIATE =~ m/^.*$/gm;
-95641002        Cliff   Cliff
-95641003        Sylvia  Sylvia
-95641004        Jenming Jenming
-95641007        Vivi    Vivi
-95641008        Vickey  Vickey
-95641010        Chanel  Chanel
-95641011        Jessica Jessica
-95641013        Eddie   Eddie
-95641014        James   James
-95641015        Ginger  Ginger
-95641016        Kevin   Kevin
-95641017        Wendy   Wendy
-95641018        Nicole  Nicole
-95641020        Simon   Simon
-95641021        Kyle    Kyle
-95641022        Joanne  Joanne
-INTERMEDIATE
+push @{$players->{GL}}, [split] for <<GL =~ m/^.*$/gm;
+U9743028	江秉鈞	Jim
+U9721010	林文聲	Vincent
+U9413029	陳筱復	Aprilita
+M9723021	簡秀金	Tina
+U9623007	薛峻凱	Tony
+U9523028	丁維遵	Victor
+GL
 
-push @{$players->{access}}, [split] for <<ACCESS =~ m/^.*$/gm;
-95801001        Michael Michael
-95801002        Corinna Corinna
-95801003        Eki     Eki
-95801005        Kyo     Kyo
-95801008        Unknown Unknown
-95801009        Risky   Risky
-95801012        Unknown1        Unknown1
-95801013        Steven  Steven
-95801014        Jason   Jason
-95801017        Alice   Alice
-95801018        Snoopy  Snoopy
-ACCESS
+# in CLA, but also in FLA0005
+# N9561725	吳凱婷	Kai
+# N9561713	袁敏萱	Min
+push @{$players->{CLA}}, [split] for <<CLA =~ m/^.*$/gm;
+U9693001	沈佳其	Jia
+U9693002	江佩珊	Pei
+U9693003	葉亭妤	Ting
+U9693004	葉依柔	Yi
+U9693005	葉佳元	Jia
+U9693006	官志皇	Zhi
+U9693007	吳佩儒	Pei
+U9693008	林漢萭	Han
+U9693009	劉佳綺	Jia
+U9693011	胡譯文	Yi
+U9693012	林貞婷	Zhen
+U9693013	吳莉欣	Li
+U9693015	鍾秉成	Bing
+U9693016	吳純芳	Chun
+U9693017	莊雅婷	Ya
+U9693018	童建爵	Jian
+U9693020	楊鈞茜	JUn
+U9693021	鄧舒帆	Shu
+U9693022	周育慈	YU
+U9693023	吳馨宜	Xin
+U9693024	李明翰	Ming
+U9693025	李庭萱	Ting
+U9693028	王祥垣	Xiang
+U9693029	陳婕妤	Jie
+U9693030	賴?岑	?
+U9693031	余宛錚	Wan
+U9693032	李孟頻	Meng
+U9693033	林鈺心	YU
+U9693034	彭湘華	Xiang
+U9693035	翁君儀	JUn
+U9693036	吳姵儀	Pei
+U9693037	李明濬	Ming
+U9693038	賴逸平	Yi
+U9693039	陳姵穎	Pei
+U9693040	池采逸	Cai
+U9693041	李欣蔓	Xin
+U9693042	陳柔妤	Rou
+U9693043	盧蕙芳	Hui
+U9693044	彭希柔	Xi
+U9693045	林怡君	Yi
+U9693046	蔡逸璇	Yi
+U9693047	張舒涵	Shu
+U9693048	林琇瑩	Xiu
+U9693050	黃昱傑	YU
+U9693052	中山成華	Cheng
+U9693053	張綺玲	Qi
+U9693054	陳偉生	Wei
+U9693055	羅文聰	Wen
+CLA
+
+push @{$players->{FLA0005}}, [split] for <<FLA0005 =~ m/^.*$/gm;
+N9361748	徐銘鴻	Ming
+N9361759	陳潔意	Jie
+N9561706	江依璇	Yi
+N9561709	謝佳妡	Jia
+N9561711	蔣佳宜	Jia
+N9561712	廖彧貞	Yu
+N9561713	袁敏萱	Min
+N9561714	江吉泰	Ji
+N9561715	廖重生	Chong
+N9561717	陳怡吟	Yi
+N9561719	駱文義	Wen
+N9561722	李欣怡	Xin
+N9561724	張玉珮	YU
+N9561725	吳凱婷	Kai
+N9561726	鄭百芬	Bai
+N9561729	張雅婷	Ya
+N9561730	姚佩伶	Pei
+N9561731	邱士珍	Shi
+N9561735	林夢瑩	Meng
+N9561736	鄭汝幸	Ru
+N9561741	林麗佳	Li
+N9561743	蔡嘉瑋	Jia
+N9561748	傅龍三	Long
+N9561756	徐珮翎	Pei
+N9561757	蔣堰婷	Yan
+N9561759	古嘉珮	Jia
+FLA0005
+
+# N9361748	徐銘鴻	Ming in both FLA 0005, 0018
+push @{$players->{FLA0018}}, [split] for <<FLA0018 =~ m/^.*$/gm;
+N9461734	張雅臻	Ya
+N9461736	彭珠蓮	Zhu
+N9461738	劉佳佳	Jia
+N9461753	葉又寧	You
+N9461756	許芷菱	Zhi
+N9661701	賴淑惠	Shu
+N9661702	周品嫻	Pin
+N9661704	?琮婷	Cong
+N9661705	吳嘉怡	Jia
+N9661706	葉雅婷	Ya
+N9661707	鄧雅雯	Ya
+N9661708	邱于芳	YU
+N9661709	徐曉彤	Xiao
+N9661712	胡語倫	YU
+N9661714	劉軒齊	XUan
+N9661715	陳奕學	Yi
+N9661716	周雅雯	Ya
+N9661717	黃路加	Ru
+N9661718	鍾明諺	Ming
+N9661719	周于婷	YU
+N9661720	林碧珍	Bi
+N9661722	廖婉秀	Wan
+N9661723	謝文秀	Wen
+N9661724	林逸喬	Yi
+N9661725	吳采薇	Cai
+N9661727	賴恩聖	En
+N9661728	黃聖昱	Sheng
+N9661730	劉芯惠	Xin
+N9661731	林庭萱	Ting
+N9661733	陳家洋	Jia
+N9661734	曾佩茹	Pei
+N9661737	廖政福	Zheng
+N9661738	鄭淑鈴	Shu
+N9661740	汪大智	Da
+N9661741	林妤容	Hao
+N9661742	吳筱涵	Xiao
+N9661743	羅惠娟	Hui
+N9661744	劉惠蓉	Hui
+N9661745	吳桂麗	Jia
+N9661746	吳書儀	Shu
+N9661747	邱靖棋	Jing
+N9661748	楊妙雲	Miao
+N9661750	王育祥	YU
+N9661751	周啟揚	Qi
+FLA0018
+
+# push @{$players->{access}}, [split] for <<ACCESS =~ m/^.*$/gm;
+# ACCESS
 
 push @{$players->{visitors}}, [split] for <<VISITORS =~ m/^.*$/gm;
 1        guest 1
@@ -184,7 +272,7 @@ for my $league ( @leagues )
 $d->do("CREATE TABLE players (id $INT, name $VARCHAR{15}, password $VARCHAR{50}, primary key (id))");
 
 my $psth = $d->prepare("INSERT INTO players (id, name, password) VALUES  (?,?,?)");
-$psth->execute( 88201, "DrBean", "nok" );
+$psth->execute( 193001, "DrBean", "ok" );
 for my $league ( @leagues )
 {
 	my $members = $players->{$league};
@@ -201,7 +289,7 @@ $rsth->execute( 2, "player" );
 
 $d->do("CREATE TABLE rolebearers (player $INT, role $INT, primary key (player, role))");
 my $rbsth = $d->prepare("INSERT INTO rolebearers (player, role) VALUES  (?,?)");
-$rbsth->execute( 88201, 1 );
+$rbsth->execute( 193001, 1 );
 for my $league ( @leagues )
 {
 	my $members = $players->{$league};
