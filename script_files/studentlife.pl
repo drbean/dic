@@ -111,30 +111,21 @@ Eden: Coheed and Cambria. Mmh-hmm. I just, I really like their music. And my boy
 Miller: And I need to ask about your favorite movie?
 Eden: The Nightmare Before Christmas.
 Miller: Your hobbies.
-Eden: My hobbies. I've danced for fourteen years. Everything, ballet, tap,
-jazz. And I did a lot of acting in school. And I have horses. So I ride
-horseback. And I do a lot of like, crafting. I knit and sew, and crochet.
+Eden: My hobbies. I've danced for fourteen years. Everything, ballet, tap, jazz. And I did a lot of acting in school. And I have horses. So I ride horseback. And I do a lot of like, crafting. I knit and sew, and crochet.
 Miller: How do you fit all that stuff in.
 Eden: I don't know. (laughs)
 Miller: Ha-ha-ha!
 
 ",
-"Miller|Eden|Coheed and Cambria|hooked|Nightmare|crafting|knit|sew|crochet" );
+"Miller|Eden|Coheed and Cambria|hooked|Nightmare|ballet|tap|jazz|crafting|knit|sew|crochet" );
 
 $sth->execute(
         "eden-5",
         "Saying goodbye",
-        "Miller: The first day that you came here, that your mother brought you
-here.
+        "Miller: The first day that you came here, that your mother brought you here.
 Eden: Yeh.
-Miller: And she drove away, and you were on your own. What, what were your
-feelings, right at that point?
-Eden: The whole situation wasn't as hard for me, because I'd been an exchange
-student last year. So I had already gone through having to be alone and
-without my parents. So I guess it wasn't as hard as it could have been. But I
-did get sad when my mom drove away, and she tapped on her brakes. Because she
-always did that to say goodbye when she left me at the baby sitter. So that
-was kind of heart-touching. (laughs)
+Miller: And she drove away, and you were on your own. What, what were your feelings, right at that point?
+Eden: The whole situation wasn't as hard for me, because I'd been an exchange student last year. So I had already gone through having to be alone and without my parents. So I guess it wasn't as hard as it could have been. But I did get sad when my mom drove away, and she tapped on her brakes. Because she always did that to say goodbye when she left me at the baby sitter. So that was kind of heart-touching. (laughs)
 Miller: Yeh.
 
 ",
