@@ -19,7 +19,7 @@ require "$::name/Schema.pm"; $::name->import;
 
 }
 
-my @leagues = qw/access GL CLA FLB0008 FLA0005 FLA0018 visitors/;
+my @leagues = qw/access GL CLA FLA0005 FLA0018 visitors/;
 
 no strict qw/subs refs/;
 my $connect_info = "${::name}::Model::DB"->config->{connect_info};
@@ -31,9 +31,8 @@ $schema->deploy;
 
 my $leagues = [
 		[ qw/id name field/ ],
-		[ "GL", "初中級英文聽說訓練", "English Conversation" ],
-		[ "CLA", "日華文大學二甲", "英文聽力" ],
-		[ "FLB0008", "夜應外四技四甲", "高階英文寫作" ],
+		[ "GL", "日語文共同學制虛擬班二", "初中級英文聽說訓練" ],
+		[ "CLA", "日華文大學二甲", "英文聽力及會話" ],
 		[ "FLA0005", "夜應外大學三甲", "跨文化溝通" ],
 		[ "FLA0018", "夜應外大學二甲", "英語會話(一)" ],
 		[ "access", "英語自學室", "Student Life, Moon Festival" ],
@@ -55,7 +54,48 @@ $schema->populate( 'Leaguegenre', $leaguegenres );
 my $players;
 
 push @{$players->{GL}}, [split] for <<GL =~ m/^.*$/gm;
+M9723009	張耀仁	Yao
+U9216005	張復嘉	Fu
+U9413029	陳筱蘋	Xiao
+U9523028	丁維遵	Wei
+U9621113	陳昆宏	Kun
+U9621114	劉昱汝	YU
+U9623005	林承賢	Cheng
+U9623007	薛峻凱	JUn
+U9624009	邱于哲	YU
+U9624034	陳志屏	Zhi
+U9624046	薛欣亞	Xin
+U9634043	陳則安	Ze
+U9721010	林文聲	Wen
+U9743019	游智閎	Zhi
 U9743028	江秉鈞	Jim
+9311248	林福星	Fu
+9413243	李育函	YU
+9413249	賴春甫	Chun
+9413250	紀哲民	Zhe
+9422301	郭清厚	Qing
+9431219	邱莉潔	Li
+9431234	江梅玲	Mei
+9611202	張煒騰	Wei
+9611292	余沛錡	Pei
+9616224	宋甘麒	Gan
+9616229	蔡莉婷	Li
+9616242	林季甫	Ji
+T9716005	林艷虹	Yan
+T9716044	江佩茹	Pei
+T9716050	陳芯俞	Xin
+U9422076	顏浚原	JUn
+U9422103	陳紀榮	Ji
+U9424002	伍孟儒	Meng
+U9433028	施伯融	Bo
+U9516051	廖川頤	Chuan
+U9516059	李育函	YU
+U9516060	林育安	YU
+U9622077	黃湘淳	Xiang
+U9622086	施雅文	Ya
+U9622111	張閔淑	Min
+U9631019	陳曉萱	Xiao
+U9631025	孫蔓萍	Man
 U9721010	林文聲	Vincent
 U9413029	陳筱復	Aprilita
 M9723021	簡秀金	Tina
