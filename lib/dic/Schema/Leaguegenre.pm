@@ -40,10 +40,11 @@ __PACKAGE__->belongs_to(getleague => 'dic::Schema::League', 'league');
 
 =head1 NAME
 
-DB::Member - A model object representing the JOIN between a league and 
-a player
+DB::LeagueGenre - A model object representing the genre a league belongs to
 
 =head1 DESCRIPTION
+
+Note this is not a represenation of the JOIN between a league table and a genre table. There is no genre table.
 
 =cut
 
