@@ -9,9 +9,9 @@ __PACKAGE__->load_components("Core");
 __PACKAGE__->table("leaguegenre");
 __PACKAGE__->add_columns(
   "league",
-  { data_type => "VARCHAR", is_nullable => 0, size => 15 },
+  { data_type => "VARCHAR", is_nullable => 0, size => 25 },
   "genre",
-  { data_type => "VARCHAR", is_nullable => 0, size => 15 },
+  { data_type => "VARCHAR", is_nullable => 0, size => 25 },
 );
 __PACKAGE__->set_primary_key("league", "genre");
 
