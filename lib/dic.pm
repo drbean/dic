@@ -1,5 +1,7 @@
 package dic;
 
+# $Id$
+
 use strict;
 use warnings;
 
