@@ -6,17 +6,14 @@ use lib 'lib';
 
 use Config::General;
 
-use Cwd;
-
 BEGIN {
-
-( my $MyAppDir = getcwd ) =~ s|^.+/([^/]+)$|$1|;
-my $app = lc $MyAppDir;
-my %config = Config::General->new("$app.conf")->getall;
-$::name = $config{name};
-require "$::name.pm"; $::name->import;
-require "$::name/Schema.pm"; $::name->import;
-
+	my @MyAppConf = glob( '*.conf' );
+	die "Which of @MyAppConf is the configuration file?"
+				unless @MyAppConf == 1;
+	my %config = Config::General->new($MyAppConf[0])->getall;
+	$::name = $config{name};
+	require "$::name.pm"; $::name->import;
+	require "$::name/Schema.pm"; $::name->import;
 }
 
 no strict qw/subs refs/;
