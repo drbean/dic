@@ -6,13 +6,11 @@ use lib 'lib';
 
 use Config::General;
 
-use Cwd;
-
 BEGIN {
 
-( my $MyAppDir = getcwd ) =~ s|^.+/([^/]+)$|$1|;
-my $app = lc $MyAppDir;
-my %config = Config::General->new("$app.conf")->getall;
+( my @MyAppConf = glob( '*.conf' );
+die "Which of @MyAppConf is the configuration file?" unless @MyAppConf == 1;
+my %config = Config::General->new(@MyAppconf[0])->getall;
 $::name = $config{name};
 require "$::name.pm"; $::name->import;
 require "$::name/Schema.pm"; $::name->import;
@@ -53,11 +51,12 @@ $schema->populate( 'Leaguegenre', $leaguegenres );
 
 my $players;
 
-push @{$players->{GL}}, [split] for <<GL =~ m/^.*$/gm;
-M9723009	張耀仁	Yao
-U9216005	張復嘉	Fu
+push @{$players->{GL}}, [split] for <<GL0036 =~ m/^.*$/gm;
+9633203	周怡慧	Yi
+9633206	游宜蓉	Yi
 U9413029	陳筱蘋	Xiao
 U9523028	丁維遵	Wei
+U9593050	焦紹茹	Shao
 U9621113	陳昆宏	Kun
 U9621114	劉昱汝	YU
 U9623005	林承賢	Cheng
@@ -66,9 +65,15 @@ U9624009	邱于哲	YU
 U9624034	陳志屏	Zhi
 U9624046	薛欣亞	Xin
 U9634043	陳則安	Ze
+U9714005	張宇涵	YU
 U9721010	林文聲	Wen
 U9743019	游智閎	Zhi
-U9743028	江秉鈞	Jim
+U9743028	江秉鈞	Bing
+GL00036
+
+push @{$players->{GL}}, [split] for <<GL =~ m/^.*$/gm;
+M9723009	張耀仁	Yao
+U9216005	張復嘉	Fu
 9311248	林福星	Fu
 9413243	李育函	YU
 9413249	賴春甫	Chun
@@ -96,11 +101,11 @@ U9622086	施雅文	Ya
 U9622111	張閔淑	Min
 U9631019	陳曉萱	Xiao
 U9631025	孫蔓萍	Man
-U9721010	林文聲	Vincent
-U9413029	陳筱復	Aprilita
-M9723021	簡秀金	Tina
-U9623007	薛峻凱	Tony
-U9523028	丁維遵	Victor
+U9721010	林文聲	Wen
+U9413029	陳筱復	Xiao
+M9723021	簡秀金	Xiu
+U9623007	薛峻凱	JUn
+U9523028	丁維遵	Wei
 U9424031	白睿中	Rui
 U9414040	黃怡菁	Yi	
 U9414020	黃鉦致	Zheng
