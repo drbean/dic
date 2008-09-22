@@ -50,7 +50,7 @@ $schema->populate( 'Leaguegenre', $leaguegenres );
 
 my $players;
 
-push @{$players->{GL}}, [split] for <<GL0036 =~ m/^.*$/gm;
+push @{$players->{GL}}, [split] for <<GL00036 =~ m/^.*$/gm;
 9633203	周怡慧	Yi
 9633206	游宜蓉	Yi
 U9413029	陳筱蘋	Xiao
