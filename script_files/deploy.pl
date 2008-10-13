@@ -298,6 +298,7 @@ FLA0018
 
 push @{$players->{access}}, [split] for <<ACCESS =~ m/^.*$/gm;
 U9424017	黃季雯	Ji
+U9621048	劉志偉	Zhi
 ACCESS
 
 push @{$players->{visitors}}, [split] for <<VISITORS =~ m/^.*$/gm;
