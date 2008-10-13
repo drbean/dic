@@ -90,6 +90,23 @@ sub official : Local {
 }
 
 
+=head2 membership
+
+Set league multi-membership player is participating in.
+
+=cut
+
+sub membership : Local {
+	my ($self, $c) = @_;
+	my $league = $c->request->params->{league} || "";
+	my $password = $c->request->params->{password} || "";
+	$c->session->{league} = $league;
+	$c->session->{exercise} = undef;
+	$c->response->redirect( $c->uri_for("/exercises/list") );
+	return;
+}
+
+
 =head1 AUTHOR
 
 Dr Bean,,,
