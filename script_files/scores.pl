@@ -90,4 +90,4 @@ for my $id ( sort @leagueids )
 	}
 	print "\n";
 }
-DumpFile 'scores.yaml', $scores;
+DumpFile 'standings.yaml', $scores;
