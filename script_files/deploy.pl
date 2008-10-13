@@ -70,7 +70,35 @@ U9743019	游智閎	Zhi
 U9743028	江秉鈞	Bing
 GL00036
 
+push @{$players->{GL}}, [split] for <<GL00040 =~ m/^.*$/gm;
+U9533047	溫立欣	Li
+GL00040
+
+push @{$players->{GL}}, [split] for <<GL00032 =~ m/^.*$/gm;
+9331202	郭妍蓁	Yan
+9531202	彭奕達	Yi
+9531206	莊君緌	JUn
+9533202	蔡奇融	Qi
+9533203	黃偉珉	Wei
+9533214	周立夫	Li
+9533216	羅心伶	Xin
+9533220	許雅菱	Ya
+9533224	簡均玲	JUn
+9533227	鄭鈺姮	YU
+9533244	張瑋真	Wei
+T9711003	余吉承	Ji
+U9414040	黃怡菁	Yi	
+U9424031	白睿中	Rui
+U9616010	陳鴻品	Hong
+U9616018	李洵	XUn
+U9631006	陳新慶	Xin
+U9631008	廖峻凱	JUn
+U9716011	陳奕銘	Yi
+U9716053	李芩芳	Qin
+GL00032
+
 push @{$players->{GL}}, [split] for <<GL =~ m/^.*$/gm;
+U9414020	黃鉦致	Zheng
 M9723009	張耀仁	Yao
 U9216005	張復嘉	Fu
 9311248	林福星	Fu
@@ -105,17 +133,6 @@ U9413029	陳筱復	Xiao
 M9723021	簡秀金	Xiu
 U9623007	薛峻凱	JUn
 U9523028	丁維遵	Wei
-U9424031	白睿中	Rui
-U9414040	黃怡菁	Yi	
-U9414020	黃鉦致	Zheng
-9533220	許雅菱	Ya
-9533202	蔡奇融	Qi
-9531206	莊君緌	JUn
-9533203	黃偉珉	Wei
-9533216	羅心伶	Xin
-9533244	張瑋真	Wei
-U9616910	陳鴻品	Hong
-U9616018	李洵	XUn
 9411298	鄭又綸	You
 9433237	吳佳馨	Jia
 M9714001	葉俊宏	JUn
@@ -187,6 +204,7 @@ N9561725	吳凱婷	Kai
 N9561741	林麗佳	Li
 N9561759	古嘉珮	Jia
 N9561761	林家伶	Jia
+N9561764	郭政勳	Zheng
 CLA
 
 push @{$players->{FLA0005}}, [split] for <<FLA0005 =~ m/^.*$/gm;
@@ -264,10 +282,13 @@ N9661747	邱靖棋	Jing
 N9661748	楊妙雲	Miao
 N9661750	王育祥	YU
 N9661751	周啟揚	Qi
+U9533039	蕭郁玲	YU
+N9561721	劉芳君	Fang
 FLA0018
 
-# push @{$players->{access}}, [split] for <<ACCESS =~ m/^.*$/gm;
-# ACCESS
+push @{$players->{access}}, [split] for <<ACCESS =~ m/^.*$/gm;
+U9424017	黃季雯	Ji
+ACCESS
 
 push @{$players->{visitors}}, [split] for <<VISITORS =~ m/^.*$/gm;
 1        guest 1
