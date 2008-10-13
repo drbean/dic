@@ -31,6 +31,8 @@ __PACKAGE__->set_primary_key("id");
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *this* table
 # __PACKAGE__->belongs_to(genre => 'dic::Schema::Leaguegenre', 'id');
+__PACKAGE__->has_one(genre => 'dic::Schema::Leaguegenre',
+        { 'foreign.league' => 'self.id'});
 
 # has_many():
 #   args:
