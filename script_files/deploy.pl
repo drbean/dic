@@ -16,7 +16,7 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagues = qw/access GL CLA FLA0005 FLA0018 visitors/;
+my @leagueids = qw/access GL CLA FLA0005 FLA0018 visitors/;
 
 no strict qw/subs refs/;
 my $connect_info = "${::name}::Model::DB"->config->{connect_info};
@@ -70,10 +70,6 @@ U9743019	游智閎	Zhi
 U9743028	江秉鈞	Bing
 GL00036
 
-push @{$players->{GL}}, [split] for <<GL00040 =~ m/^.*$/gm;
-U9533047	溫立欣	Li
-GL00040
-
 push @{$players->{GL}}, [split] for <<GL00032 =~ m/^.*$/gm;
 9331202	郭妍蓁	Yan
 9531202	彭奕達	Yi
@@ -97,58 +93,72 @@ U9716011	陳奕銘	Yi
 U9716053	李芩芳	Qin
 GL00032
 
-push @{$players->{GL}}, [split] for <<GL =~ m/^.*$/gm;
-U9414020	黃鉦致	Zheng
-M9723009	張耀仁	Yao
-U9216005	張復嘉	Fu
-9311248	林福星	Fu
-9413243	李育函	YU
-9413249	賴春甫	Chun
-9413250	紀哲民	Zhe
-9422301	郭清厚	Qing
-9431219	邱莉潔	Li
-9431234	江梅玲	Mei
-9611202	張煒騰	Wei
-9611292	余沛錡	Pei
-9616224	宋甘麒	Gan
-9616229	蔡莉婷	Li
-9616242	林季甫	Ji
-T9716005	林艷虹	Yan
-T9716044	江佩茹	Pei
-T9716050	陳芯俞	Xin
-U9422076	顏浚原	JUn
-U9422103	陳紀榮	Ji
-U9424002	伍孟儒	Meng
-U9433028	施伯融	Bo
-U9516051	廖川頤	Chuan
-U9516059	李育函	YU
-U9516060	林育安	YU
-U9622077	黃湘淳	Xiang
-U9622086	施雅文	Ya
-U9622111	張閔淑	Min
-U9631019	陳曉萱	Xiao
-U9631025	孫蔓萍	Man
-U9721010	林文聲	Wen
-U9413029	陳筱復	Xiao
-M9723021	簡秀金	Xiu
-U9623007	薛峻凱	JUn
-U9523028	丁維遵	Wei
+push @{$players->{GL}}, [split] for <<GL00040 =~ m/^.*$/gm;
 9411298	鄭又綸	You
 9433237	吳佳馨	Jia
-M9714001	葉俊宏	JUn
 U9411082	趙巡漢	XUn
 U9416008	吳國彬	Guo
 U9417029	李家銘	Jia
 U9417039	李怡瑩	Yi
 U9423044	江全緒	QUan
-U9531034	溫佳蓉	Jia
-U9531043	張雯鈞	Wen
-U9531058	黃柔瑄	Rou
+U9433002	李統一	Tong
+U9462038	黃琦涵	Qi
+U9533047	溫立欣	Li
+U9631044	林羽辰	YU
+U9631050	吳曼榕	Man
 U9718023	陳家音	Jia
 U9722113	潘志良	Zhi
 U9722122	藍嘉祥	Jia
 U9722129	何宗承	Zong
-GL
+GL00040
+
+push @{$players->{GL}}, [split] for <<GL00037 =~ m/^.*$/gm;
+9413249	賴春甫	Chun
+9413250	紀哲民	Zhe
+9431219	邱莉潔	Li
+9431234	江梅玲	Mei
+9611202	張煒騰	Wei
+9613212	李美樺	Mei
+9613262	薛偉凡	Wei
+9616210	黃慧瑜	Hui
+9616242	林季甫	Ji
+T9716005	林艷虹	Yan
+T9716050	陳芯俞	Xin
+U9422076	顏浚原	JUn
+U9422103	陳紀榮	Ji
+U9424002	伍孟儒	Ming
+U9433028	施伯融	Bo
+U9516051	廖川頤	Chuan
+U9516059	李育函	YU
+U9516060	林育安	YU
+U9622055	高健紘	Jian
+U9714127	謝妙宜	Mia
+U9714131	黃世慈	Shi
+U9721147	陳顧文	Gu
+U9721149	葉啟倫	Qi
+GL00037
+
+push @{$players->{GL}}, [split] for <<GL00042 =~ m/^.*$/gm;
+9631251	紀旻岱	Min
+U9316016	黃慧?	Hui
+U9414001	黃采薇	Cai
+U9418023	廖婉如	Wan
+U9514074	邱秀穎	Xiu
+U9524011	卓峻瑋	JUn
+U9524018	楊欣蓓	Xin
+U9533015	池易昌	Yi
+U9533016	郭蓮瑩	Lian
+U9593021	曾淑玲	Shu
+U9593034	伍麗儒	Li
+U9611090	劉志隆	Zhi
+U9613047	林俊男	JUn
+U9618029	余恆安	Heng
+U9621086	王彥棋	Yan
+U9621087	蔡豐任	Feng
+U9722104	鄭龍家	Long
+U9722108	王嘉俊	Jia
+U9722110	鄭煜叡	YU
+GL00042
 
 push @{$players->{CLA}}, [split] for <<CLA =~ m/^.*$/gm;
 U9693001	沈佳其	Jia
@@ -236,8 +246,8 @@ N9561757	蔣堰婷	Yan
 N9561759	古嘉珮	Jia
 FLA0005
 
-# N9361748	徐銘鴻	Ming in both FLA 0005, 0018
 push @{$players->{FLA0018}}, [split] for <<FLA0018 =~ m/^.*$/gm;
+N9361748	徐銘鴻	Ming
 N9461734	張雅臻	Ya
 N9461736	彭珠蓮	Zhu
 N9461738	劉佳佳	Jia
@@ -276,7 +286,7 @@ N9661741	林妤容	Hao
 N9661742	吳筱涵	Xiao
 N9661743	羅惠娟	Hui
 N9661744	劉惠蓉	Hui
-N9661745	吳桂麗	Jia
+N9661745	吳桂麗	Gui
 N9661746	吳書儀	Shu
 N9661747	邱靖棋	Jing
 N9661748	楊妙雲	Miao
@@ -299,7 +309,7 @@ push @{$players->{officials}}, [split] for <<OFFICIALS =~ m/^.*$/gm;
 OFFICIALS
 
 my %players;
-foreach my $league ( 'officials', @leagues )
+foreach my $league ( 'officials', @leagueids )
 {
 	next unless $players->{$league} and ref $players->{$league} eq "ARRAY";
 	my @players = @{$players->{$league}};
@@ -311,25 +321,26 @@ foreach my $league ( 'officials', @leagues )
 my $playerpopulator = [ [ qw/id name password/ ], values %players ];
 $schema->populate( 'Player', $playerpopulator );
 
-my (%members, %rolebearers);
-foreach my $league ( @leagues )
+my (@members, %rolebearers);
+foreach my $league ( @leagueids )
 {
 	next unless $players->{$league} and ref $players->{$league} eq "ARRAY";
 	my @players = @{$players->{$league}};
 	foreach my $player ( @players )
 	{
-		$members{$player->[0]} =  [ $league, $player->[0] ];
+		push @members,  [ $league, $player->[0] ];
 		$rolebearers{$player->[0]} =  [ $player->[0], 2 ];
 	}
 }
-$schema->populate( 'Member', [ [ qw/league player/ ], values %members ] );
+$schema->populate( 'Member', [ [ qw/league player/ ], @members ] );
 
 $schema->populate( 'Role', [ [ qw/id role/ ], 
 [ 1, "official" ],
 [ 2, "player" ] ] );
 
 $schema->populate( 'Rolebearer', [ [ qw/player role/ ], 
-				[ 193001, 1 ], values %rolebearers ] );
+				[ 193001, 1 ],
+				values %rolebearers ] );
 
 =head1 NAME
 
