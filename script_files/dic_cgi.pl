@@ -1,4 +1,4 @@
-#!perl -w
+#!/usr/bin/perl -w
 
 BEGIN { $ENV{CATALYST_ENGINE} ||= 'CGI' }
 

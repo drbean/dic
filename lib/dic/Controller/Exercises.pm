@@ -63,10 +63,18 @@ sub list : Local {
 	    { league => $league, player => $player },
 		{ select => [ 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/exercise/],
-		as => [ qw/exercise score/ ],
+		as => [ qw/exercise letters/ ],
 		});
-    my %scores = map { $_->exercise => $_->get_column('score') } @play;
-    $c->stash->{scores} = \%scores;
+    my %letterscores = map { $_->exercise => $_->get_column('letters') } @play;
+    $c->stash->{letters} = \%letterscores;
+    my @quiz = $c->model('DB::Quiz')->search(
+	    { league => $league, player => $player },
+		{ select => [ 'exercise', { sum => 'correct' } ],
+		'group_by' => [qw/exercise/],
+		as => [ qw/exercise questions/ ],
+		});
+    my %quizscores = map { $_->exercise => $_->get_column('questions') } @quiz;
+    $c->stash->{questions} = \%quizscores;
     $c->stash->{league} = $league->name;
     $c->stash->{template} = 'exercises/list.tt2';
 }
@@ -74,26 +82,47 @@ sub list : Local {
 
 =head2 create
 
-Take text from database and output cloze exercise
+http://server.school.edu/dic/exercises/create/textId/exerciseType/exerciseId
+
+Create comprehension questions and cloze exercise. If 2 different leagues have the same genre, ie their texts are the same, will creating an exercise for one league also create it for the other? Also, can leagues with different genres use the same texts? Remember texts have genres assigned to them.
 
 =cut
 
 sub create : Local {
 	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
+	my $league = $c->session->{league};
+	my $genre = $c->model("DB::Leaguegenre")->find
+			( {league => $league} )->genre;
+	$c->stash->{genre} = $genre;
 	my $text = $c->model('DB::Text')->find( { id=>$textId } );
+	$c->stash->{text} = $text;
+	$c->forward('clozecreate');
+	$c->forward('questioncreate');
+	$c->stash->{exercise_id} = $exerciseId;
+	$c->stash->{template} = 'exercises/list.tt2';
+}
+			
+=head2 clozecreate
+
+Take text from database and output cloze exercise. We create an id for each Word of the Exercise, and the first Word has id 1, so 0 can be used as a link for unlinked Questionwords to show there is no link. (SQL Server wasn't allow NULL strings in INT column.)
+
+=cut
+
+sub clozecreate : Local {
+	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
+	my $text = $c->stash->{text};
 	my $description = $text->description;
 	my $content = $text->content;
 	my $unclozeables = $text->unclozeables;
 	my $league = $c->session->{league};
-	my $genre = $c->model('DB::Leaguegenre')->find(
-				{ league => $league })->genre;
+	my $genre = $c->stash->{genre};
 	my $index=0;
 	my $clozeObject = $exerciseType->parse($unclozeables, $content);
 	my $cloze = $clozeObject->cloze;
 	my $newWords = $clozeObject->dictionary;
 	my (@wordRows, @dictionaryList, %wordCount, @wordstemRows);
 	my $dictionary = $c->model('DB::Dictionary')->search;
-	my $id = 0;
+	my $id = 1;
 	my @columns = $c->model('DB::Word')->result_source->columns;
 	foreach my $word ( @$cloze )
 	{
@@ -133,26 +162,68 @@ sub create : Local {
 	#@dictionaryList = map { m/^(.).*$/;
 	#		{ exercise => $exerciseId, word => $_, initial => $1,
 	#		count => $newWords->{$_} } } keys %$newWords;
-	$c->model('DB::Exercise')->create({
+	my $exercise = $c->model('DB::Exercise')->create({
 				id => $exerciseId,
 				text => $textId,
 				genre => $genre,
 				description => $description,
 				type => $exerciseType
 			});
-	$c->stash->{exercise_id} = $exerciseId;
-	$c->stash->{template} = 'exercises/create_done.tt2';
+	$c->stash->{exercise} = $exercise;
 }
 
 
+=head2 questioncreate
+
+http://server.school.edu/dic/exercises/create/textId/exerciseType/exerciseId
+
+Create comprehension questions. NOT NECESSARY. WILL TRACK LATER: For a set of related exercises on the same material, choose exerciseIds that have a lexicographic order that corresponds to the progression in the material through the different exercises, allowing tracking of the player through the material.
+
+=cut
+
+sub questioncreate : Local {
+	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
+	my $genre = $c->stash->{genre};
+	my $text = $c->stash->{text};
+	my $exercise = $c->stash->{exercise};
+	my $questions = $text->questions;
+	my @wordRows;
+	my $questionwords = $c->model('DB::Questionword');
+$DB::single=1;
+	while ( my $question = $questions->next )
+	{		
+		my $questionId = $question->id;
+		die unless defined $questionId;
+		my $content = $question->content;
+		my $answer = $question->answer;
+		my $punctuation = qr/([^A-Za-z0-9\\n]+)/;
+		my @words = split $punctuation, $content;
+		my $id;
+		foreach my $word ( @words )
+		{
+			my $cloze = $exercise->words->single(
+				{ published => $word });
+			my $link = $cloze? $cloze->id: 0;
+			my %row;
+			$row{genre} = $genre;
+			$row{text} = $textId;
+			$row{question} = $questionId;
+			$row{id} = $id++;
+			$row{content} = $word;
+			$row{link} = $link;
+			push @wordRows, \%row;
+		}
+	}
+	$questionwords->populate( \@wordRows );
+}
+			
 =head2 delete
 
-Delete an exercise
+Delete an exercise. Delete of Questions and Questionwords done here too. TODO But delete of Questionwords not appearing to be done!
 
 =cut
 
 	sub delete : Local {
-# $id = primary key of book to delete
 	my ($self, $c, $id) = @_;
 	my $exercise = $c->model('DB::Exercise');
 	my $words = $exercise->find({id => $id})->words;
@@ -168,12 +239,8 @@ Delete an exercise
 		}
 	}
 	$exercise->search({id => $id})->delete_all;
-# Set a status message to be displayed at the top of the view
 	$c->stash->{status_msg} = "Exercise deleted.";
-# Forward to the list action/method in this controller
-	$c->forward('list');
-# Redirect the user back to the list page instead of forward
-               $c->response->redirect($c->uri_for('list',
+       $c->response->redirect($c->uri_for('list',
                    {status_msg => "Exercise deleted."}));
 }
 

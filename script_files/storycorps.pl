@@ -28,7 +28,7 @@ my $texts = [
 	[
 	"kroenke-1",
         "Tuning a piano at a nursing home",
-	"access",
+	"all",
         "00:20 Welcome to the StoryCorps podcast.
 00:22 I'm Michael Garofalo, a producer here at StoryCorps. 
 00:25 In this episode a story from Ron Kroenke.
@@ -46,7 +46,7 @@ my $texts = [
 	[
 	"kroenke-2",
         "No music for the audience",
-	"access",
+	"all",
         "00:49 And I’m kind of working along happily and I’m smiling at people. 
 00:54 And a few of them were looking at me like, What in the world is he doing? 
 00:58 One lady was just glaring at me. 
@@ -63,7 +63,7 @@ my $texts = [
 	[
 	"kroenke-3",
         "Mixed reactions of the audience",
-	"access",
+	"all",
         "01:22 About a third of the people looked highly disappointed. 
 01:25 and they were murmuring to each other, trying to tell each other what had happened.
 01:30 The angry lady barked at me and said, you know: \"Haven't you ever heard if isn't broke, don't fix it?\" 
@@ -78,7 +78,7 @@ my $texts = [
 	[
 	"kroenke-4",
         "Appreciation of tuning work",
-	"access",
+	"all",
         "01:50 And I looked. And she was very close to me.
 01:54 And she told me very sincerely,
 01:57 I've been sitting here the whole time and 
@@ -95,7 +95,7 @@ my $texts = [
 	[
 	"trinka-1",
         "Ed Trinka, Plaza Hotel doorman",
-	"access",
+	"all",
         "00:20 Welcome to the StoryCorps podcast.
 00:23 In this episode, a story from New York City. 
 00:25 The Plaza Hotel first opened its doors at the foot of Central Park a hundred years ago this week. 
@@ -110,7 +110,7 @@ my $texts = [
 	[
 	"trinka-2",
         "Getting the doorman job",
-	"access",
+	"all",
         "00:46 Debra: How did you get the job as doorman at the Plaza Hotel.
 00:50 Ed: Well, my father was a garage manager at the Plaza for thirty years.
 00:54 And he was friends with all the doormen.
@@ -130,7 +130,7 @@ my $texts = [
 	[
 	"trinka-3",
         "Tip story",
-	"access",
+	"all",
         "01:10 Debra: What was the best tip you ever got? 
 01:13 Ed: Well, I was always tell the story about Jackie Gleason, for Christmas time. 
 01:15 He says to me, What was the biggest tip you ever got.
@@ -146,7 +146,7 @@ my $texts = [
 	[
 	"trinka-4",
         "Treating guests",
-	"access",
+	"all",
         "01:26 Debra: Now, I got to know you because I walk to work every morning, and I cut by the Plaza, and you made my day. \"Good morning, young lady.\" \"Beautiful day.\"
 01:32 Ed: Eh, that's what it's all about.
 01:35 Out being in front there and smiling. 
@@ -162,7 +162,7 @@ my $texts = [
 	[
 	"trinka-5",
         "Shoeshine story and how to treat people",
-	"access",
+	"all",
         "01:45 I had a guest come in one morning, 6:30 in the morning.
 01:49 And he had to go to a very important meeting.
 01:51 And he asked me where he could get his shoes shined.
@@ -185,7 +185,7 @@ my $texts = [
 	[
         "jackson-1",
 	"Charles on his mom with Alzheimers",
-	"access",
+	"all",
         "00:41 My brother Stanley and I came home from school.
 00:45 And Mom told us that our aunt wanted to talk to us. 
 00:50 So we went out and got in the old pick up and drove over there. 
@@ -214,7 +214,7 @@ my $texts = [
 	[
         "jackson-2",
 	"Charles' own Alzheimers",
-	"access",
+	"all",
         "02:01 I was diagnosed in 2004 with Alzheimers. 
 02:06 I was 50. 
 02:07 A friend of mine sent me an email right after my diagnosis. 
@@ -239,7 +239,7 @@ my $texts = [
 	[
         "clay-1",
         "Life with Frank Mixon",
-	"access",
+	"all",
         "00:37 I was pregnant when I met him.
 00:40 And he saw me, and walked over towards me, and he said, You're going to be my wife.
 00:45 And a year later, we just one day went down to City Hall and got married. 
@@ -266,7 +266,7 @@ my $texts = [
 	[
         "clay-2",
         "Remembering Frank",
-	"access",
+	"all",
         "02:06 I was married to him for seventeen years, and we separated. And he moved to Michigan. 
 02:11 I don't know the details, but Frank got into an altercation. 
 02:17 They say that this woman was a \"damsel in distress.\" 
@@ -286,6 +286,28 @@ my $texts = [
 
 $schema->populate( 'Text', $texts );
 
+my $questions = [
+			[ qw/genre text id content answer/ ],
+
+[ "all", "kroenke-1", 1, "A group at a nursing home had gathered to tune a piano", "False" ],
+[ "all", "kroenke-2", 1, "Ron was tuning the piano, so people couldn't have the concert.", "True" ],
+[ "all", "kroenke-3", 1, "Many people were hurt, because of what had happened", "True" ],
+[ "all", "kroenke-4", 1, "It didn't mean a thing to Ron that someone did tell him he did things right.", "False" ],
+
+[ "all", "trinka-1", 1, "Ed Trinka has worked for nearly a hundred years at the Plaza.", "False" ],
+[ "all", "trinka-2", 1, "When Ed got sick, they put a hat and coat on him.", "False" ],
+[ "all", "trinka-3", 1, "Jackie Gleason got the best tip from Ed Trinka, a hundred and fifty dollars.", "False" ],
+[ "all", "trinka-4", 1, "Ed Trinka made Debra's day by smiling and being happy.", "True" ],
+[ "all", "trinka-5", 1, "Ed Trinka shined a guest's shoes with his shoeshine kit.", "True" ],
+
+[ "all", "jackson-1", 1, "Charles' mom screamed at him, after he got home after dark.", "False" ],
+[ "all", "jackson-2", 1, "Charles doesn't like his family treating him as different.", "True" ],
+[ "all", "clay-1", 1, "Frank gave Rebia some rings when they got married.", "False" ],
+[ "all", "clay-2", 1, "Rebia had four children with Frank.", "False" ],
+
+	];
+
+$schema->populate( 'Question', $questions );
 =head1 NAME
 
 studentlife.pl - Set up dic db
