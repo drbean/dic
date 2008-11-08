@@ -28,8 +28,6 @@ my $connect_info = "${::name}::Model::DB"->config->{connect_info};
 my $schema = "${::name}::Schema"->connect( @$connect_info );
 use strict;
 
-$schema->deploy( { add_drop_table => 1 } );
-
 my $leagues = [
 		[ qw/id name field/ ],
 	[ "GL00032", "GL00032日語文共同學制虛擬班二", "初級英文聽說訓練" ],
@@ -366,15 +364,15 @@ $schema->populate( 'Rolebearer', [ [ qw/player role/ ],
 
 =head1 NAME
 
-deploy.pl - Set up db
+script_files/playerleagues.pl.pl - populate leagues, players, members, roles, rolebrarer tables
 
 =head1 SYNOPSIS
 
-perl script_files/deploy.pl
+perl script_files/playerleagues.pl
 
 =head1 DESCRIPTION
 
-'CREATE TABLE players (id text, name text, password text, primary key (id))'
+INSERT INTO players (id, name, password) VALUES (?, ?, ?)
 
 =head1 AUTHOR
 
