@@ -136,7 +136,7 @@ Learner chef: What about salt?
 Chef: No salt. The cheese is salty so you really don't need any extra salt. Okay, now we're ready to cook! Look at that. A perfect cheese omelette. All you need now is a salad: three or four tomatoes and lots of olive oil. Mmm, delicious!
 
 ",
-"ounce|omelette"
+"Chef|Learner chef|ounce|omelette"
 	]
 	];
 
