@@ -96,9 +96,9 @@ Chinese communicate negatives and disagreements indirectly. Now the Chinese disa
         "smiling",
         "The meaning of smiles in the US and Germany",
 	"intercultural",
-        "Gingerich: What form of non-verbal communication matters most in business?
+        "Erica Gingerich: What form of non-verbal communication matters most in business?
 
-Gibson: Just to take one example, perhaps, um, it'd be good to talk about smiling. This seems very simple. Human beings smile all over the world. But they actually smile at different times and the smiling has a different meaning in different countries.
+Robert Gibson: Just to take one example, perhaps, um, it'd be good to talk about smiling. This seems very simple. Human beings smile all over the world. But they actually smile at different times and the smiling has a different meaning in different countries.
 
 One has to avoid over-generalization, but there's a frequently-experienced difference between the USA and Germany, as to when people smile.
 
