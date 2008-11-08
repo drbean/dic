@@ -54,8 +54,8 @@ while ( my $r = $s->next )
 	my @r;
 	foreach my $column ( @columns )
 	{
-		my $value = $r->$column;
-		if ( ref $value ) { push @r, $value->get_column('id'); }
+		my $value = $r->get_column($column);
+		if ( ref $value ) { push @r, $value->id; }
 		else {
 			if (defined $value) { push @r, $value; }
 			else { push @r, 'NULL'; }
