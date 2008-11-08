@@ -73,6 +73,24 @@ Steve
 ",
 "San Jose|Mexican|Steve|Paula"
 	],
+	
+	[
+        "mobile",
+        "Phonewiz",
+	"elementary",
+       "Nicole is a busy person. She works for a magazine. She writes articles about fashion. She has important meetings every day.
+
+Today, Nicole is in bed with a cold. So, is she just having a rest? No, she's working. She's writing a new article. She's making phone calls, texting people, sending emails and choosing photos on the Internet--all from her comfortable bed.
+
+And she's even listening to music, too!
+
+With Phonewhiz you are always in contact.
+
+Phonewhiz--because life doesn't stop when you are not in the office.
+
+",
+"Nicole|Phonewhiz|texting|articles"
+	],
 
 	[
         "destinations",
@@ -170,12 +188,19 @@ my $questions = [
 [ "elementary", "pilot", 5, "Alan is in London for five days.", "False" ],
 [ "elementary", "pilot", 6, "Pilots have an easy job.", "False" ],
 
-[ "elementary", "postcard", 1, "Steve and Paula are both eating and writing.", "True" ],
+[ "elementary", "postcard", 1, ", "True" ],
 [ "elementary", "postcard", 2, "Paula isn't having fun, but Steve is having fun.", "True" ],
 [ "elementary", "postcard", 3, "Paula and Steve are both sitting in the sun.", "False" ],
 [ "elementary", "postcard", 4, "Paula and Steve are both writing a postcard.", "True" ],
 [ "elementary", "postcard", 5, "Paula and Steve are in Mexico.", "False" ],
 [ "elementary", "postcard", 6, "Paula's job is easy and she has a lot of free time.", "False" ],
+
+[ "elementary", "mobile", 1, "Nicole is in bed with a cold, and she is busy.", "True" ],
+[ "elementary", "mobile", 2, "Nicole is not in the office. She is in contact with the office from her bed.", "True" ],
+[ "elementary", "mobile", 3, "Because Nicole has a cold, she is not working today.", "False" ],
+[ "elementary", "mobile", 4, "Nicole is working from her bed just today. Every other day she is in the office.", "True" ],
+[ "elementary", "mobile", 5, "Nicole always has time to listen to music.", "False" ],
+[ "elementary", "mobile", 6, "In her life, Nicole is not in contact with people .", "False" ],
 
 [ "intermediate", "destinations", 1, "Fran'd rather go to the beach in Orlando and Sonia'd rather go to museums in Seattle.", "True" ],
 [ "intermediate", "destinations", 2, "Orlando's sunnier, more relaxing and cheaper than Seattle. Seattle's rainier and not as cheap as Orlando.", "True" ],
