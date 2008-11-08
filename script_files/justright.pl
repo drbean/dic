@@ -156,9 +156,10 @@ Chef: No salt. The cheese is salty so you really don't need any extra salt. Okay
 ",
 "Chef|Learner chef|ounce|omelette"
 	],
+
 	[
-        "media",
-        "The media--a bad influence?",
+        "media1",
+        "The media--a bad influence? (Part 1)",
 	"intermediate",
         "Kirsty is fifteen years old. She likes doing what every other girl her age enjoys. She goes to school, she watches TV, and goes shopping with her friends. But Kirsty has an ambition: She wants to be a model. Every week, she saves her allowance to buy magazines. She studies the photos of famous models. They are her role models.
 
@@ -166,6 +167,20 @@ Kirsty's mother, Stella, is not happy. \"It's okay to have ambitions,\", she say
 
 ",
 "Kirsty|Stella|ambition|obsession|disorder|media"
+	],
+	
+	[
+        "media2",
+        "The media--a bad influence? (Part 2)",
+	"intermediate",
+        " \"The media are responsible for this situation,\" her mom says. \"All the teen magazines and teen programs on TV tell children that the only important thing is how you look--your appearance. They say, 'You want to be happy? Then be thin!'\"
+
+Are the media really responsible for situations like Kirsty's? Kirsty's big sister Donna, 18, disagrees. \"I buy lots of magazines but I don't want to be like the people in them,\" says Donna. \"Magazines show you all kinds of people, not just celebrities. They give information and have nice pictures. That's why I like them.\"
+
+So, who is right? Do the media decide how we look and how we live? Are we all becoming obsessed with celebrities and their lifestyles?
+
+",
+"Kirsty|Donna|celebrities|obsessed"
 	]
 	];
 
@@ -224,12 +239,19 @@ my $questions = [
 [ "intermediate", "recipe", 5, "There a lot of tomatoes and a little olive oil in the salad.", "False" ],
 [ "intermediate", "recipe", 6, "A little cream really makes a difference to the omelette.", "True" ],
 
-[ "intermediate", "media", 1, "Kirsty needs to diet because she does not have a healthy diet.", "False" ],
-[ "intermediate", "media", 2, "Kirsty's mother, Stella, does not want Kirsty to think about becoming a model all the time.", "True" ],
-[ "intermediate", "media", 3, "Kirsty exercises more than normal so her diet is not a problem.", "False" ],
-[ "intermediate", "media", 4, "Kirsty's mother Stella thinks the media (TV and magazines) is not having a healthy influence on her.", "True" ],
-[ "intermediate", "media", 5, "Kirsty's role models are photos of famous models in magazines.", "False" ],
-[ "intermediate", "media", 6, "Kirsty's mother thinks Kirsty has an obsession because she studies photos all the time and she does not have a healthy diet.", "True" ],
+[ "intermediate", "media1", 1, "Kirsty needs to diet because she does not have a healthy diet.", "False" ],
+[ "intermediate", "media1", 2, "Kirsty's mother, Stella, does not want Kirsty to think about becoming a model all the time.", "True" ],
+[ "intermediate", "media1", 3, "Kirsty exercises more than normal so her diet is not a problem.", "False" ],
+[ "intermediate", "media1", 4, "Kirsty's mother Stella thinks the media (TV and magazines) is not having a healthy influence on her.", "True" ],
+[ "intermediate", "media1", 5, "Kirsty's role models are photos of famous models in magazines.", "False" ],
+[ "intermediate", "media1", 6, "Kirsty's mother thinks Kirsty has an obsession because she studies photos all the time and she does not have a healthy diet.", "True" ],
+
+[ "intermediate", "media2", 1, "Kirsty's mom wants the media to tell children how to look and to become thin.", "False" ],
+[ "intermediate", "media2", 2, "Kirsty's big sister, Donna, does not think the media is responsible for Kirsty becoming obsessed with her appearance.", "True" ],
+[ "intermediate", "media2", 3, "Kirsty's big sister, Donna is obsessed with celebrities and their lifestyles.", "False" ],
+[ "intermediate", "media2", 4, "Kirsty's mother wants Kirsty not to be obsessed with appearance.", "True" ],
+[ "intermediate", "media2", 5, "Kirsty's mother and big sister agree the media is responsible for Kirsty's situation.", "False" ],
+[ "intermediate", "media2", 6, "Kirsty's big sister buys lots of magazines, but she is not obsessed with becoming like the celebrities in them.", "True" ],
 
 	];
 
