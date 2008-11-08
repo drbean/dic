@@ -228,6 +228,13 @@ my $questions = [
 [ "elementary", "mobile", 5, "Nicole always has time to listen to music.", "False" ],
 [ "elementary", "mobile", 6, "In her life, Nicole is not in contact with people .", "False" ],
 
+[ "elementary", "rent1", 1, "The apartment has more bathrooms than the house in the country.", "True" ],
+[ "elementary", "rent1", 2, "The apartment and the large house both have large kitchens.", "True" ],
+[ "elementary", "rent1", 3, "The large house is more expensive than the apartment on the sixth floor.", "False" ],
+[ "elementary", "rent1", 4, "The large house has a larger dining room than the apartment.", "True" ],
+[ "elementary", "rent1", 5, "The large house is two thousand five hundred dollars per month.", "False" ],
+[ "elementary", "rent1", 6, "The large house has more bedroom than the apartment on the sixth floor.", "False" ],
+
 [ "intermediate", "destinations", 1, "Fran'd rather go to the beach in Orlando and Sonia'd rather go to museums in Seattle.", "True" ],
 [ "intermediate", "destinations", 2, "Orlando's sunnier, more relaxing and cheaper than Seattle. Seattle's rainier and not as cheap as Orlando.", "True" ],
 [ "intermediate", "destinations", 3, "Fran and Sonia decide to go to different places.", "False" ],
