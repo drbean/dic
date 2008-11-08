@@ -12,7 +12,7 @@ script_files/deleteRows.pl Player name Jack
 
 =head1 DESCRIPTION
 
-Deletes all rows from the table associated with the Player schema which have Jack in the name column. Delete ALL rows if no column name and value. Not using DBIC::ResultSet's delete_all, because play needs to be kept even after players are gone. They will come back.
+Deletes all rows from the table associated with the Player schema which have Jack in the name column. Delete ALL rows if no column name and value. Not using DBIC::ResultSet's delete_all, because play needs to be kept even after players are gone. Players will come back.
 
 =head1 AUTHOR
 
@@ -50,4 +50,4 @@ $s = $d->resultset($ARGV[0])->search( { $ARGV[1] => $ARGV[2] } ) if @ARGV==3;
 $s = $d->resultset($ARGV[0]) if @ARGV==1;
 my $deletions = $s->count;
 print "Deleting $deletions rows ...\n";
-$s->delete_all;
+$s->delete;
