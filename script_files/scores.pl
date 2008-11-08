@@ -61,7 +61,7 @@ my $scores;
 for my $id ( sort @leagueids )
 {
 	my $league = $leagueset->find({ id => $id });
-	my $genre = $league->genre->genre;
+	my $genre = $league->get_column('genre');
 	my @exerciseList = uniq $schema->resultset('Exercise')->search({ genre => $genre });
     my @exerciseIds = sort { lc($a) cmp lc($b) } map { $_->id } @exerciseList;
     # my @exerciseHeaders = map { s/-/ /g; s/\b(\w)/\u$1/g; $_ } @exerciseIds;
