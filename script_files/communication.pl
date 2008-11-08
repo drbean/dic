@@ -51,6 +51,45 @@ Actually, there's a, a, bigger rule. Anything other than Yes, means No.
 
 ",
 "Chen|Smith|yeh|Hey|on board"
+	],
+	
+	[
+        "questions",
+        "Western-Chinese Business: Questioning Practices",
+	"intercultural",
+        "Welcome to Greg Bissky, our next presentation.
+
+Different cultures develop different rules of communication, way of using language in order to be polite, in order to be clear, in order to transfer messages. Called rules of communication.
+
+Now, as you can see at the top there, the Western rule is, Ask questions if you don't understand. Is this important? How many of you have children? We teach our children to ask questions. We teach students to ask questions. And, you know, how many of you have heard the old saw, The only stupid question is one you don't ask.
+
+Why? Well, asking questions is important to Westerners, because we are measuring efficiency and effectiveness and if you don't know what you should be doing, you're probably going to make a mistake. Murphy's Law. Ask the questions first, and that now we stop the mistake before it starts.
+
+Well, the Chinese have the rule. The rule is, Don't let people know you don't (And there's another word at the far end) understand.
+
+Huh? Don't let people know you don't understand?
+
+Well, I could spend all day, just talking about that one rule.
+
+What it means is that it means the Chinese will not ask the question. How many of you have been in a meeting. The meeting's over and you go, All right, are there any questions, and you just get this nice smile. Well, thank you very much, clap, clap, clap and they leave, and you leave.
+
+And then, now you think, Well, nobody asked the questions. Therefore, they all understand. Well, I tell you, if it's a Chinese audience, I can almost guarantee that there are questions. It's no-one will ask the question. No-one...
+
+The Chinese are never trained from childhood up to ask questions. Does it mean the Chinese won't ask questions? No, they certainly will ask questions. However, you have to now XXXXX (phrase them/approach them?) in a different way. You have to create an environment where the Chinese feel comfortable in asking questions.
+
+The short rule here is, is that, Never do anything in groups. How big is a group? Three or more people. And if you want to find out what Chinese know, what their opinions are, whether they've got any questions, the easiest way to do it is arrange one-on-ones. Takes up your time, you know, but, you know, your time is not valuable. When you're in Chinese Asia, the only thing that's valuable is the results that you achieve. And you're going to have to recognize that you're going to have to put in beggar factor inputs.
+
+Here's another one, State your honest opinion, even if you disagree. This is quite important, once again in Western culture. Western culture is based on disagreements. 
+
+We now have a meeting, and we all sit together and we now talk, and all of us agree. How boring. XXXXX What are we here for? We're just wasting time. The only interesting meetings are meetings where people disagree.
+
+[cut]
+
+Chinese communicate negatives and disagreements indirectly. Now the Chinese disagree? Damn right, they do. However, they will do everything they can not to disagree openly, to disagree indirectly.
+
+
+",
+"Greg Bissky|presentation|transfer messages|saw|efficiency|effectiveness|Murphy's Law|far end|guarantee|trained|XXXXX|phrase them/approach them|valuable|results|achieve|recognize|beggar factor inputs|cut|negatives|Damn right"
 	]
 	];
 
@@ -65,6 +104,13 @@ my $questions = [
 [ "intercultural", "no", 4, "Chen doesn't answer when Smith satisfies his objection. This means he agrees that they should do X.", "False" ],
 [ "intercultural", "no", 5, "Smith doesn't say, \"We are now doing X,\" because he thinks Chen might disagree with X.", "False" ],
 [ "intercultural", "no", 6, "When Chen is silent or his objection is satisfied,  Smith thinks Chen is on board, but Chen thinks he communicated his disagreement.", "True" ],
+
+[ "intercultural", "questions", 1, "Bissky's rule is: 'Chinese people will ask questions if they don't understand you.'", "False" ],
+[ "intercultural", "questions", 2, "Bissky's rule is: 'Chinese people will not ask questions if they are in a big group.'", "True" ],
+[ "intercultural", "questions", 3, "A Bissky rule is: 'Chinese people will not state their disagreement honestly.'", "True" ],
+[ "intercultural", "questions", 4, "A Bissky rule is: 'It is better to deal with Chinese people in groups of three or more people.'", "False" ],
+[ "intercultural", "questions", 5, "A Bissky rule is: 'Westerners don't like to have meetings where people will disagree.'", "False" ],
+[ "intercultural", "questions", 6, "A Bissky rule is: 'One-on-ones are the best way to get Chinese to state their honest opinion.'", "True" ],
 
 	];
 
