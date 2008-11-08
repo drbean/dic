@@ -8,11 +8,11 @@ script_files/scores.pl - Dump scores of players in leagues
 
 script_files/scores.pl
 
-FLA0018		eden-1	eden-2	Total
-============================================
-N9461736	80	155	235	
-N9461738	106	219	325	
-
+ FLA0018		eden-1	eden-2	Total
+ ============================================
+ N9461736	80	155	235	
+ N9461738	106	219	325	
+ 
 =head1 DESCRIPTION
 
 Dumps scores to scores.yaml in present directory and prints to STDOUT. Needs to be refactored when Genre schema is produced.
@@ -36,9 +36,11 @@ use lib 'lib';
 use Config::General;
 use List::MoreUtils qw/uniq/;
 use YAML qw/DumpFile/;
+use Cwd;
 
+my $dir = getcwd;
 my @MyAppConf = glob( '*.conf' );
-die "Which of @MyAppConf is the configuration file?"
+die "Which of @MyAppConf is the configuration file in $dir?"
 			unless @MyAppConf == 1;
 my %config = Config::General->new($MyAppConf[0])->getall;
 my $name = $config{name};
@@ -54,6 +56,7 @@ my $playset = $schema->resultset('Play');
 my $leagueset = $schema->resultset('League');
 my @leagueids = uniq $playset->get_column('league')->all;
 $, = "\t";
+print "In $dir directory:\n";
 my $scores;
 for my $id ( sort @leagueids )
 {
@@ -74,17 +77,17 @@ for my $id ( sort @leagueids )
 		my $player = $result->player->id;
 		my $exercise = $result->exercise;
 		my $score = $result->get_column('score');
-		$scores->{$league}->{$player}->{$exercise} = $score;
-		$scores->{$league}->{$player}->{Total} += $score;
+		$scores->{$id}->{$player}->{$exercise} = $score;
+		$scores->{$id}->{$player}->{Total} += $score;
 	}
 	for my $player ( uniq $play->get_column('player')->all )
 	{
 		print $player . "\t";
 		for my $exercise ( @exerciseIds , "Total")
 		{
-			$scores->{$league}->{$player}->{$exercise} = '-' if not
-				exists $scores->{$league}->{$player}->{$exercise};
-			print $scores->{$league}->{$player}->{$exercise} . "\t"; # if defined $scores->{$league}->{$player}->{$exercise};
+			$scores->{$id}->{$player}->{$exercise} = '-' if not
+				exists $scores->{$id}->{$player}->{$exercise};
+			print $scores->{$id}->{$player}->{$exercise} . "\t";
 		}
 		print "\n";
 	}
