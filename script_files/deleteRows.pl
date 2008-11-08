@@ -50,4 +50,4 @@ $s = $d->resultset($ARGV[0])->search( { $ARGV[1] => $ARGV[2] } ) if @ARGV==3;
 $s = $d->resultset($ARGV[0]) if @ARGV==1;
 my $deletions = $s->count;
 print "Deleting $deletions rows ...\n";
-$s->delete;
+$s->delete_all;
