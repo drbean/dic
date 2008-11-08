@@ -268,7 +268,6 @@ N9561761	林家伶	Jia
 N9561762	許莉昀	Li
 N9561765	簡慧琦	Hui
 N9561766	劉發州	Fa
-
 FLA0005
 
 push @{$players->{FLA0018}}, [split] for <<FLA0018 =~ m/^.*$/gm;
