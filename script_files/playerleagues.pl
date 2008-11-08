@@ -237,7 +237,6 @@ CLA
 
 push @{$players->{FLA0005}}, [split] for <<FLA0005 =~ m/^.*$/gm;
 N9361748	徐銘鴻	Ming
-N9361759	陳潔意	Jie
 N9561706	江依璇	Yi
 N9561709	謝佳妡	Jia
 N9561711	蔣佳宜	Jia
@@ -259,10 +258,17 @@ N9561736	鄭汝幸	Ru
 N9561741	林麗佳	Li
 N9561743	蔡嘉瑋	Jia
 N9561748	傅龍三	Long
+N9561754	張馨云	Xin
 N9561756	徐珮翎	Pei
 N9561757	蔣堰婷	Yan
+N9561758	劉育呈	YU
 N9561759	古嘉珮	Jia
 N9561760	楊建邦	Jian
+N9561761	林家伶	Jia
+N9561762	許莉昀	Li
+N9561765	簡慧琦	Hui
+N9561766	劉發州	Fa
+
 FLA0005
 
 push @{$players->{FLA0018}}, [split] for <<FLA0018 =~ m/^.*$/gm;
