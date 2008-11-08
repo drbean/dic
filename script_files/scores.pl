@@ -66,7 +66,8 @@ print "In $dir directory:\n";
 my $scores;
 for my $id ( sort @leagueids )
 {
-	push @exerciseIds, @newExerciseList if $dir eq $id and $league;
+	my @leagueExercises = @exerciseIds;
+	push @leagueExercises, @newExerciseList if $dir eq $id and $league;
 	print $id . "\t", @exerciseIds , "Total\n";
 	print "============================================\n";
     my $play = $playset->search({ league => $id },
