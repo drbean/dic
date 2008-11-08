@@ -18,10 +18,6 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/access GL00032 GL00037 GL00036 GL00040 GL00042 CLA FLA0005 FLA0018 visitors/;
-my $dir = ( File::Spec->splitdir(getcwd) )[-1];
-@leagueids = grep m/$dir/, @leagueids;
-
 no strict qw/subs refs/;
 my $connect_info = "${::name}::Model::DB"->config->{connect_info};
 # my $connect_info = [ 'dbi:SQLite:db/demo','','' ];
