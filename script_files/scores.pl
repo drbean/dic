@@ -15,7 +15,7 @@ script_files/scores.pl
  
 =head1 DESCRIPTION
 
-Dumps scores to scores.yaml in present directory and prints to STDOUT. Needs to be refactored when Genre schema is produced.
+Dumps scores to scores.yaml in present directory and prints to STDOUT. No attention is paid to what the League schema tells us about what leagues exists at present. Old leagues may have been deleted, but their players remain. Needs to be refactored when Genre schema is produced.
 
 =head1 AUTHOR
 
@@ -53,18 +53,13 @@ my $modelmodule = "${name}::Model::DB";
 my $connect_info = $modelmodule->config->{connect_info};
 my $schema = $model->connect( @$connect_info );
 my $playset = $schema->resultset('Play');
-my $leagueset = $schema->resultset('League');
 my @leagueids = uniq $playset->get_column('league')->all;
+my @exerciseIds = uniq $playset->get_column('exercise')->all;
 $, = "\t";
 print "In $dir directory:\n";
 my $scores;
 for my $id ( sort @leagueids )
 {
-	my $league = $leagueset->find({ id => $id });
-	my $genre = $league->genre->get_column('genre');
-	my @exerciseList = uniq $schema->resultset('Exercise')->search({ genre => $genre });
-    my @exerciseIds = sort { lc($a) cmp lc($b) } map { $_->id } @exerciseList;
-    # my @exerciseHeaders = map { s/-/ /g; s/\b(\w)/\u$1/g; $_ } @exerciseIds;
 	print $id . "\t", @exerciseIds , "Total\n";
 	print "============================================\n";
     my $play = $playset->search({ league => $id },
