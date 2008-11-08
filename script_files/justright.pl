@@ -188,7 +188,7 @@ my $questions = [
 [ "elementary", "pilot", 5, "Alan is in London for five days.", "False" ],
 [ "elementary", "pilot", 6, "Pilots have an easy job.", "False" ],
 
-[ "elementary", "postcard", 1, ", "True" ],
+[ "elementary", "postcard", 1, "Steve and Paula are both eating and writing.", "True" ],
 [ "elementary", "postcard", 2, "Paula isn't having fun, but Steve is having fun.", "True" ],
 [ "elementary", "postcard", 3, "Paula and Steve are both sitting in the sun.", "False" ],
 [ "elementary", "postcard", 4, "Paula and Steve are both writing a postcard.", "True" ],
