@@ -74,7 +74,7 @@ for my $id ( sort @leagueids )
 		'order_by' => 'player' });
 	while ( my $result = $play->next )
 	{
-		my $player = $result->player->id;
+		my $player = $result->get_column('player');
 		my $exercise = $result->exercise;
 		my $score = $result->get_column('score');
 		$scores->{$id}->{$player}->{$exercise} = $score;
