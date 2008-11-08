@@ -39,7 +39,7 @@ use YAML qw/DumpFile/;
 use Cwd;
 use File::Spec;
 
-my $dir = getcwd;
+my $dir = ( File::Spec->splitpath(getcwd) )[-1];
 my @MyAppConf = glob( '*.conf' );
 die "Which of @MyAppConf is the configuration file in $dir?"
 			unless @MyAppConf == 1;
@@ -54,6 +54,10 @@ my $modelmodule = "${name}::Model::DB";
 my $connect_info = $modelmodule->config->{connect_info};
 my $schema = $model->connect( @$connect_info );
 my $playset = $schema->resultset('Play');
+my $league = $schema->resultset('League')->find({ id => $dir });
+my $genre = $league->genre->get_column('genre') if $league;
+my @newExerciseList = uniq $schema->resultset('Exercise')->search({ genre => $genre })->get_column('id')->all if $league;
+			 
 my @leagueids = uniq $playset->get_column('league')->all;
 my @exerciseIds = $playset->get_column('exercise')->all;
 @exerciseIds = uniq sort @exerciseIds;
@@ -62,13 +66,7 @@ print "In $dir directory:\n";
 my $scores;
 for my $id ( sort @leagueids )
 {
-	my $league = $schema->resultset('League')->find({ id => $id });
-	my $genre;
-	$genre = $league->genre->genre if $league;
-	my @extraExercises;
-	@extraExercises = $schema->resultset('Exercise')->search({ id => $id })->get_column('id')->all if $genre;
-	@extraExercises = uniq @extraExercises;
-	push @exerciseIds, @extraExercises;
+	push @exerciseIds, @newExerciseList if $dir eq $id and $league;
 	print $id . "\t", @exerciseIds , "Total\n";
 	print "============================================\n";
     my $play = $playset->search({ league => $id },
