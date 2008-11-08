@@ -86,7 +86,7 @@ for my $id ( sort @leagueids )
 	for my $player ( uniq $play->get_column('player')->all )
 	{
 		print $player . "\t";
-		for my $exercise ( @exerciseIds , "Total")
+		for my $exercise ( @leagueExercises, "Total")
 		{
 			$scores->{$id}->{$player}->{$exercise} = '-' if not
 				exists $scores->{$id}->{$player}->{$exercise};
