@@ -5,6 +5,7 @@ use warnings;
 use lib 'lib';
 
 use Config::General;
+use Cwd;
 
 BEGIN {
 	my @MyAppConf = glob( '*.conf' );
@@ -16,7 +17,9 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/access GL1 GL2 CLA FLA0005 FLA0018 visitors/;
+my @leagueids = qw/access GL00032 GL00037 GL00036 GL00040 GL00042 CLA FLA0005 FLA0018 visitors/;
+my $dir = getcwd;
+@leagueids = grep m/$dir/, @leagueids;
 
 no strict qw/subs refs/;
 my $connect_info = "${::name}::Model::DB"->config->{connect_info};
@@ -28,8 +31,11 @@ $schema->deploy;
 
 my $leagues = [
 		[ qw/id name field/ ],
-		[ "GL1", "日語文共同學制虛擬班二", "初級英文聽說訓練" ],
-		[ "GL2", "日語文共同學制虛擬班二", "中級英文聽說訓練" ],
+	[ "GL00032", "GL00032日語文共同學制虛擬班二", "初級英文聽說訓練" ],
+	[ "GL00037", "GL00037日語文共同學制虛擬班二", "初級英文聽說訓練" ],
+	[ "GL00036", "GL00036日語文共同學制虛擬班二", "中級英文聽說訓練" ],
+	[ "GL00040", "GL00040日語文共同學制虛擬班二", "中級英文聽說訓練" ],
+	[ "GL00042", "GL00042日語文共同學制虛擬班二", "中級英文聽說訓練" ],
 		[ "CLA", "日華文大學二甲", "英文聽力及會話" ],
 		[ "FLA0005", "夜應外大學三甲", "跨文化溝通" ],
 		[ "FLA0018", "夜應外大學二甲", "英語會話(一)" ],
@@ -40,8 +46,11 @@ $schema->populate( 'League', $leagues );
 
 my $leaguegenres = [
 			[ qw/league genre/ ],
-			[ "GL1",	"elementary" ],
-			[ "GL2",	"intermediate" ],
+			[ "GL00032",	"elementary" ],
+			[ "GL00037",	"elementary" ],
+			[ "GL00036",	"intermediate" ],
+			[ "GL00040",	"intermediate" ],
+			[ "GL00042",	"intermediate" ],
 			[ "CLA",	"elementary" ],
 			[ "FLA0005",	"interculture" ],
 			[ "FLA0018",	"intermediate" ],
@@ -52,7 +61,7 @@ $schema->populate( 'Leaguegenre', $leaguegenres );
 
 my $players;
 
-push @{$players->{GL2}}, [split] for <<GL00036 =~ m/^.*$/gm;
+push @{$players->{GL00036}}, [split] for <<GL00036 =~ m/^.*$/gm;
 9633203	周怡慧	Yi
 9633206	游宜蓉	Yi
 U9413029	陳筱蘋	Xiao
@@ -75,7 +84,7 @@ U9743028	江秉鈞	Bing
 U9731020	陳彥兆	Yan
 GL00036
 
-push @{$players->{GL1}}, [split] for <<GL00032 =~ m/^.*$/gm;
+push @{$players->{GL00032}}, [split] for <<GL00032 =~ m/^.*$/gm;
 9531202	彭奕達	Yi
 9531206	莊君緌	JUn
 9533202	蔡奇融	Qi
@@ -100,7 +109,7 @@ U9716011	陳奕銘	Yi
 U9716053	李芩芳	Qin
 GL00032
 
-push @{$players->{GL2}}, [split] for <<GL00040 =~ m/^.*$/gm;
+push @{$players->{GL00040}}, [split] for <<GL00040 =~ m/^.*$/gm;
 9411298	鄭又綸	You
 9433237	吳佳馨	Jia
 U9411082	趙巡漢	XUn
@@ -119,7 +128,7 @@ U9722122	藍嘉祥	Jia
 U9722129	何宗承	Zong
 GL00040
 
-push @{$players->{GL1}}, [split] for <<GL00037 =~ m/^.*$/gm;
+push @{$players->{GL00037}}, [split] for <<GL00037 =~ m/^.*$/gm;
 9413249	賴春甫	Chun
 9413250	紀哲民	Zhe
 9431219	邱莉潔	Li
@@ -145,7 +154,7 @@ U9721147	陳顧文	Gu
 U9721149	葉啟倫	Qi
 GL00037
 
-push @{$players->{GL2}}, [split] for <<GL00042 =~ m/^.*$/gm;
+push @{$players->{GL00042}}, [split] for <<GL00042 =~ m/^.*$/gm;
 9631251	紀旻岱	Min
 U9316016	黃慧?	Hui
 U9414001	黃采薇	Cai
