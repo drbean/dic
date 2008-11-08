@@ -6,6 +6,7 @@ use lib 'lib';
 
 use Config::General;
 use Cwd;
+use File::Spec;
 
 BEGIN {
 	my @MyAppConf = glob( '*.conf' );
