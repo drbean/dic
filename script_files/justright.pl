@@ -137,6 +137,17 @@ Chef: No salt. The cheese is salty so you really don't need any extra salt. Okay
 
 ",
 "Chef|Learner chef|ounce|omelette"
+	],
+	[
+        "media",
+        "The media--a bad influence",
+	"intermediate",
+        "Kirsty is fifteen years old. She likes doing what every other girl her age enjoys. She goes to school, she watches TV, and goes shopping with her friends. But Kirsty has an ambition: She wants to be a model. Every week, she saves her allowance to buy magazines. She studies the photos of famous models. They are her role models.
+
+Kirsty's mother, Stella, is not happy. \"It's okay to have ambitions,\", she says. But in Kirsty's case it's becoming an obsession. She thinks about it all the time.\" According to Stella, Kirsty does not have a healthy diet and she exercises more than normal because she wants to be thin. She worries that Kirsty is developing an eating disorder. \"The media are responsible for this situation,\" her mom says.
+
+",
+"Kirsty|Stella|ambition|obsession|disorder|media"
 	]
 	];
 
@@ -187,6 +198,13 @@ my $questions = [
 [ "intermediate", "recipe", 4, "There is a lot of cheese and a little butter and cream in the omelette.", "True" ],
 [ "intermediate", "recipe", 5, "There a lot of tomatoes and a little olive oil in the salad.", "False" ],
 [ "intermediate", "recipe", 6, "A little cream really makes a difference to the omelette.", "True" ],
+
+[ "intermediate", "media", 1, "Kirsty needs to diet because she does not have a healthy diet.", "False" ],
+[ "intermediate", "media", 2, "Kirsty's mother, Stella, does not want Kirsty to think about becoming a model all the time.", "True" ],
+[ "intermediate", "media", 3, "Kirsty exercises more than normal so her diet is not a problem.", "False" ],
+[ "intermediate", "media", 4, "Kirsty's mother Stella thinks the media (TV and magazines) is not having a healthy influence on her.", "True" ],
+[ "intermediate", "media", 5, "Kirsty's role models are photos of famous models in magazines.", "False" ],
+[ "intermediate", "recipe", 6, "Kirsty's mother thinks Kirsty has an obsession because she studies photos all the time and she does not have a healthy diet.", "True" ],
 
 	];
 
