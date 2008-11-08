@@ -68,7 +68,7 @@ for my $id ( sort @leagueids )
 {
 	my @leagueExercises = @exerciseIds;
 	push @leagueExercises, @newExerciseList if $dir eq $id and $league;
-	print $id . "\t", @exerciseIds , "Total\n";
+	print $id . "\t", @leagueExercises , "Total\n";
 	print "============================================\n";
     my $play = $playset->search({ league => $id },
 		{ select => [ 'player', 'exercise', { sum => 'correct' } ],
