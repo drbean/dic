@@ -48,4 +48,4 @@ my $d = $model->connect( @$connect_info );
 my $s = $d->resultset($ARGV[0])->search( { $ARGV[1] => $ARGV[2] } );
 my $deletions = $s->count;
 print "Deleting $deletions rows ...\n";
-$s->delete;
+$s->delete_all;
