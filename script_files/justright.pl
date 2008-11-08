@@ -115,6 +115,28 @@ Talk about your problems.
 
 ",
 "stressor|athletes|caffeine"
+	],
+	
+	[
+        "recipe",
+        "Perfect for new cooks",
+	"intermediate",
+        "Chef: Today's recipe is really easy--perfect for new cooks. First, get your ingredients ready--all the things you need, To start with, we need eggs of course.
+
+Learner chef: Okay, how many?
+
+Chef: Just a few. Six, I think. Okay? Then we need some butter. Just a little. About one ounce.
+
+Learner chef: Okay. What's next?
+
+Chef: Cheese, lots of it. About eight ounces. That's it. And finally, a little cream, just about, uh, two tablespoons? It's not much, but it really makes a difference.
+
+Learner chef: What about salt?
+
+Chef: No salt. The cheese is salty so you really don't need any extra salt. Okay, now we're ready to cook! Look at that. A perfect cheese omelette. All you need now is a salad: three or four tomatoes and lots of olive oil. Mmm, delicious!
+
+",
+"ounce|omelette"
 	]
 	];
 
@@ -158,6 +180,13 @@ my $questions = [
 [ "intermediate", "stress", 4, "Stress is bad if you have different feelings about the situation than your family.", "False" ],
 [ "intermediate", "stress", 5, "Coffee is good if you are feeling stressed.", "False" ],
 [ "intermediate", "stress", 6, "Chocolate is good for people who feel nervous. It helps them get ready.", "False" ],
+
+[ "intermediate", "recipe", 1, "There is lots of olive oil in the omelette.", "False" ],
+[ "intermediate", "recipe", 2, "There is no extra salt in the omelette, just the salt in the cheese.", "True" ],
+[ "intermediate", "recipe", 3, "The recipe is not easy for new cooks. You need to be a perfect cook.", "False" ],
+[ "intermediate", "recipe", 4, "There is a lot of cheese and a little butter and cream in the omelette.", "True" ],
+[ "intermediate", "recipe", 5, "There a lot of tomatoes and a little olive oil in the salad.", "False" ],
+[ "intermediate", "recipe", 6, "A little cream really makes a difference to the omelette.", "True" ],
 
 	];
 
