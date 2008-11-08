@@ -37,6 +37,7 @@ use Config::General;
 use List::MoreUtils qw/uniq/;
 use YAML qw/DumpFile/;
 use Cwd;
+use File::Spec;
 
 my $dir = getcwd;
 my @MyAppConf = glob( '*.conf' );
@@ -54,12 +55,20 @@ my $connect_info = $modelmodule->config->{connect_info};
 my $schema = $model->connect( @$connect_info );
 my $playset = $schema->resultset('Play');
 my @leagueids = uniq $playset->get_column('league')->all;
-my @exerciseIds = uniq $playset->get_column('exercise')->all;
+my @exerciseIds = $playset->get_column('exercise')->all;
+@exerciseIds = uniq sort @exerciseIds;
 $, = "\t";
 print "In $dir directory:\n";
 my $scores;
 for my $id ( sort @leagueids )
 {
+	my $league = $schema->resultset('League')->find({ id => $id });
+	my $genre;
+	$genre = $league->genre->genre if $league;
+	my @extraExercises;
+	@extraExercises = $schema->resultset('Exercise')->search({ id => $id })->get_column('id')->all if $genre;
+	@extraExercises = uniq @extraExercises;
+	push @exerciseIds, @extraExercises;
 	print $id . "\t", @exerciseIds , "Total\n";
 	print "============================================\n";
     my $play = $playset->search({ league => $id },
