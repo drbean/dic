@@ -46,7 +46,7 @@ my $modelmodule = "${name}::Model::DB";
 my $connect_info = $modelmodule->config->{connect_info};
 my $d = $model->connect( @$connect_info );
 my $s = $d->resultset($ARGV[0]);
-my @columns = ($model . "::" . $ARGV[0])->result_source->columns;
+my @columns = $s->result_source->columns;
 $, = "\t";
 print @columns, "\n=============================================\n";
 while ( my $r = $s->next )
