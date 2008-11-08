@@ -140,7 +140,7 @@ Chef: No salt. The cheese is salty so you really don't need any extra salt. Okay
 	],
 	[
         "media",
-        "The media--a bad influence",
+        "The media--a bad influence?",
 	"intermediate",
         "Kirsty is fifteen years old. She likes doing what every other girl her age enjoys. She goes to school, she watches TV, and goes shopping with her friends. But Kirsty has an ambition: She wants to be a model. Every week, she saves her allowance to buy magazines. She studies the photos of famous models. They are her role models.
 
@@ -204,7 +204,7 @@ my $questions = [
 [ "intermediate", "media", 3, "Kirsty exercises more than normal so her diet is not a problem.", "False" ],
 [ "intermediate", "media", 4, "Kirsty's mother Stella thinks the media (TV and magazines) is not having a healthy influence on her.", "True" ],
 [ "intermediate", "media", 5, "Kirsty's role models are photos of famous models in magazines.", "False" ],
-[ "intermediate", "recipe", 6, "Kirsty's mother thinks Kirsty has an obsession because she studies photos all the time and she does not have a healthy diet.", "True" ],
+[ "intermediate", "media", 6, "Kirsty's mother thinks Kirsty has an obsession because she studies photos all the time and she does not have a healthy diet.", "True" ],
 
 	];
 
