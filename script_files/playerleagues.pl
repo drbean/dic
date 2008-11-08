@@ -18,7 +18,7 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/access GL00032 GL00037 GL00036 GL00040 GL00042 CLA FLA0005 FLA0018 visitors/;
+my @leagueids = qw/GL00032 GL00037 GL00036 GL00040 GL00042 CLA FLA0005 FLA0018 access visitors dic/;
 my $dir = ( File::Spec->splitdir(getcwd) )[-1];
 @leagueids = grep m/$dir/, @leagueids;
 
@@ -40,6 +40,7 @@ my $leagues = [
 		[ "FLA0018", "夜應外大學二甲", "英語會話(一)" ],
 		[ "access", "英語自學室", "Listening" ],
 		[ "visitors", "Visitors", "Demonstration Play" ],
+		[ "dic", "Dictation", "Testing" ],
 	];
 $schema->populate( 'League', $leagues );
 
@@ -55,6 +56,7 @@ my $leaguegenres = [
 			[ "FLA0018",	"intermediate" ],
 			[ "access",	"all" ],
 			[ 'visitors',	"demo" ],
+			[ 'dic',	"all" ],
 		];
 $schema->populate( 'Leaguegenre', $leaguegenres );
 
@@ -326,6 +328,8 @@ push @{$players->{visitors}}, [split] for <<VISITORS =~ m/^.*$/gm;
 1        guest 1
 VISITORS
 
+@{$players->{dic}} = map { @{$players->{$_}} } keys %$players;
+
 push @{$players->{officials}}, [split] for <<OFFICIALS =~ m/^.*$/gm;
 193001	DrBean	ok
 OFFICIALS
@@ -343,18 +347,20 @@ foreach my $league ( 'officials', @leagueids )
 my $playerpopulator = [ [ qw/id name password/ ], values %players ];
 $schema->populate( 'Player', $playerpopulator );
 
-my (@members, %rolebearers);
+my (%members, %rolebearers);
 foreach my $league ( @leagueids )
 {
 	next unless $players->{$league} and ref $players->{$league} eq "ARRAY";
 	my @players = @{$players->{$league}};
 	foreach my $player ( @players )
 	{
-		push @members,  [ $league, $player->[0] ];
+		$members{$player->[0]} =  [ $league, $player->[0] ];
 		$rolebearers{$player->[0]} =  [ $player->[0], 2 ];
 	}
+	$members{193001} = [ $league, 193001 ];
 }
-$schema->populate( 'Member', [ [ qw/league player/ ], @members ] );
+$schema->populate( 'Member', [ [ qw/league player/ ], 
+				values %members ] );
 
 $schema->populate( 'Role', [ [ qw/id role/ ], 
 [ 1, "official" ],
