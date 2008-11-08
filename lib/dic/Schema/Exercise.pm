@@ -49,6 +49,7 @@ __PACKAGE__->has_many(words => 'dic::Schema::Word',
 # __PACKAGE__->many_to_many(questions => 'questions', 'questions');
 
 __PACKAGE__->belongs_to( text => 'dic::Schema::Text', { 'foreign.id'=>'self.text' });
+# __PACKAGE__->belongs_to( leagueGenre => 'dic::Schema::Leaguegenre', { 'foreign.id'=>'self.genre' });
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 1;

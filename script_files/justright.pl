@@ -91,6 +91,17 @@ Phonewhiz--because life doesn't stop when you are not in the office.
 ",
 "Nicole|Phonewhiz|texting|articles"
 	],
+	
+	[
+        "rent1",
+        "Renting",
+	"elementary",
+       "One. Great apartment on the sixth floor. Large kitchen, small dining room, living room, four bedrooms and three bathrooms. Deck. Only three thousand five hundred dollars per month. No pets. Call (217) 364-728 to see it.
+       Two. Large house in the country for rent. Four bedrooms, two bathrooms, large dining room, large kitchen. Perfect for a family. Two thousand five hundred dollars per month. Get keys from J. Beal Office, 9:00am to 5:00pm.
+
+",
+"Deck|pets|keys|J. Beal Office"
+	],
 
 	[
         "destinations",
