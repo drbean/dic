@@ -68,6 +68,7 @@ for my $id ( sort @leagueids )
 {
 	my @leagueExercises = @exerciseIds;
 	push @leagueExercises, @newExerciseList if $dir eq $id and $league;
+	@leagueExercises = uniq @leagueExercises;
 	print $id . "\t", @leagueExercises , "Total\n";
 	print "============================================\n";
     my $play = $playset->search({ league => $id },
