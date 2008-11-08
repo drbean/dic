@@ -45,8 +45,9 @@ my $modelmodule = "${name}::Model::DB";
 
 my $connect_info = $modelmodule->config->{connect_info};
 my $d = $model->connect( @$connect_info );
-my $s = $d->resultset($ARGV[0])->search( { $ARGV[1] => $ARGV[2] } ) if @ARGV==3;
-my $s = $d->resultset($ARGV[0]) if @ARGV==1;
+my $s;
+$s = $d->resultset($ARGV[0])->search( { $ARGV[1] => $ARGV[2] } ) if @ARGV==3;
+$s = $d->resultset($ARGV[0]) if @ARGV==1;
 my $deletions = $s->count;
 print "Deleting $deletions rows ...\n";
 $s->delete;
