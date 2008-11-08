@@ -50,6 +50,29 @@ Track 1:
 ",
 "Pilots|Alan|Alder"
 	],
+	
+	[
+        "postcard",
+        "A cool place",
+	"elementary",
+       "Dear Ed,
+
+I'm writing this postcard at my desk at the office with a sandwich in my hand. I'm learning a lot about the company but I don't have time for any fun! San Jose is cool. Wish you were here!
+
+Paula
+
+
+Hi!
+
+This place is fun! I'm sitting in the sun, watching the sea and having a delicious Mexican meal. And I'm thinking of you!
+
+Take care!
+
+Steve
+
+",
+"San Jose|Mexican|Steve|Paula"
+	],
 
 	[
         "destinations",
@@ -113,6 +136,13 @@ my $questions = [
 [ "elementary", "pilot", 4, "Alan goes out on Tuesday night.", "False" ],
 [ "elementary", "pilot", 5, "Alan is in London for five days.", "False" ],
 [ "elementary", "pilot", 6, "Pilots have an easy job.", "False" ],
+
+[ "elementary", "postcard", 1, "Steve and Paula are both eating and writing.", "True" ],
+[ "elementary", "postcard", 2, "Paula isn't having fun, but Steve is having fun.", "True" ],
+[ "elementary", "postcard", 3, "Paula and Steve are both sitting in the sun.", "False" ],
+[ "elementary", "postcard", 4, "Paula and Steve are both writing a postcard.", "True" ],
+[ "elementary", "postcard", 5, "Paula and Steve are in Mexico.", "False" ],
+[ "elementary", "postcard", 6, "Paula's job is easy and she has a lot of free time.", "False" ],
 
 [ "intermediate", "destinations", 1, "Fran'd rather go to the beach in Orlando and Sonia'd rather go to museums in Seattle.", "True" ],
 [ "intermediate", "destinations", 2, "Orlando's sunnier, more relaxing and cheaper than Seattle. Seattle's rainier and not as cheap as Orlando.", "True" ],
