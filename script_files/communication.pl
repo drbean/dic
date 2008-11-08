@@ -90,6 +90,30 @@ Chinese communicate negatives and disagreements indirectly. Now the Chinese disa
 
 ",
 "Greg Bissky|presentation|transfer messages|saw|efficiency|effectiveness|Murphy's Law|far end|guarantee|trained|XXXXX|phrase them/approach them|valuable|results|achieve|recognize|beggar factor inputs|cut|negatives|Damn right"
+	],
+	
+	[
+        "smiling",
+        "The meaning of smiles in the US and Germany",
+	"intercultural",
+        "Gingerich: What form of non-verbal communication matters most in business?
+
+Gibson: Just to take one example, perhaps, um, it'd be good to talk about smiling. This seems very simple. Human beings smile all over the world. But they actually smile at different times and the smiling has a different meaning in different countries.
+
+One has to avoid over-generalization, but there's a frequently-experienced difference between the USA and Germany, as to when people smile.
+
+Researchers say that actually there's a different attitude to smiling. Let's just look at what smiling really means in those two countries.
+
+I think in Germany, people smile for a reason. And they often say about the Americans, Ah, people smile all the time. This is superficial. This is actually insincere, or maybe even dishonest.
+
+And if you talk to Americans about Germans, they can often say, Ah, the Germans are really unfriendly. When I go in the service encounter, a shop or I'm doing business, they never seem to smile.
+
+Now, what's the reason for this? I think in Germany, the smile is something reserved for a particular occasion, or has a particular cause. There is a reason for the smile. 
+
+In America, researchers talk about the 'contact smile.' You smile when you meet someone, before you even say something. So, if you understand that, that there is a different reason for the smile, then I think you can avoid this misinterpretation of the situation.
+
+",
+"Erica Gingerich|Robert Gibson|particular occasion"
 	]
 	];
 
@@ -111,6 +135,13 @@ my $questions = [
 [ "intercultural", "questions", 4, "A Bissky rule is: 'It is better to deal with Chinese people in groups of three or more people.'", "False" ],
 [ "intercultural", "questions", 5, "A Bissky rule is: 'Westerners don't like to have meetings where people will disagree.'", "False" ],
 [ "intercultural", "questions", 6, "A Bissky rule is: 'One-on-ones are the best way to get Chinese to state their honest opinion.'", "True" ],
+
+[ "intercultural", "smiling", 1, "People in Germany maybe think people in the US are dishonest when they smile.", "True" ],
+[ "intercultural", "smiling", 2, "Shop people in Germany often don't smile when they talk.", "True" ],
+[ "intercultural", "smiling", 3, "Americans think Germans are unfriendly in service encounters.", "True" ],
+[ "intercultural", "smiling", 4, "People in Germany and the US have similar attitudes to smiling.", "False" ],
+[ "intercultural", "smiling", 5, "Germans think Americans are very friendly because they smile a lot.", "False" ],
+[ "intercultural", "smiling", 6, "The contact smile is a smile for when you misinterpret a situation.", "True" ],
 
 	];
 
