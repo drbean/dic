@@ -259,6 +259,7 @@ N9561748	傅龍三	Long
 N9561756	徐珮翎	Pei
 N9561757	蔣堰婷	Yan
 N9561759	古嘉珮	Jia
+N9561760	楊建邦	Jian
 FLA0005
 
 push @{$players->{FLA0018}}, [split] for <<FLA0018 =~ m/^.*$/gm;
