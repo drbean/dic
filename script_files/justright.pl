@@ -385,6 +385,24 @@ Kim: Fine. See you there.
 
 ",
 "Q|A|short-term memory|brain|filing cabinet|drawers|episodic"
+	],
+	
+	[
+        "memory2",
+        "Long-term memory",
+	"intermediate",
+        "A: This is your episodic memory.
+
+It stores the episodes that make up your life. You don't think about these things all the time. But then something, like a smell or a song, brings that memory back and suddenly you remember everything about it.
+
+Another drawer is your semantic memory. In this drawer keep information like important historical dates and facts about your country. Your brain only opens this drawer when you need to use the information, for example in a test.
+
+Q: People say that you never forget how to do things like riding a bicycle. Is this true?
+
+A: Yes. This is called procedural memory because it stores procedures, or the way to do things. It helps you remember skills you learned in your life, things like how to ride a bike or how to use a cellphone. These memories stay in the brain all your life.
+
+",
+"Q|A|episodic|semantic|historical|procedural"
 	]
 
 	];
@@ -551,6 +569,13 @@ my $questions = [
 [ "intermediate", "memory1", 4, "Things in short-term memory are remembered better than those in long-term memory.'", "False" ],
 [ "intermediate", "memory1", 5, "A memory of your first day in school is in short-term memory.'", "False" ],
 [ "intermediate", "memory1", 6, "Episodic memory is remembering where things are in the different drawers of a filing cabinet.'", "False" ],
+
+[ "intermediate", "memory2", 1, "Memory for facts are in another drawer than memories of episodes in your life.'", "True" ],
+[ "intermediate", "memory2", 2, "Semantic memory can be useful in exams.'", "True" ],
+[ "intermediate", "memory2", 3, "A smell can bring back memories.'", "True" ],
+[ "intermediate", "memory2", 4, "Procedural memory allows you to bring back telephone numbers you remember.'", "False" ],
+[ "intermediate", "memory2", 5, "Semantic memories are like pictures, or feelings of past events.'", "False" ],
+[ "intermediate", "memory2", 6, "A smell or a song can bring back memories of how to ride a bicycle.'", "False" ],
 
 	];
 
