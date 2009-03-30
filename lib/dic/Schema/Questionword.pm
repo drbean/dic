@@ -28,6 +28,7 @@ __PACKAGE__->set_primary_key("genre", "text", "question", "id");
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xdh5AAQpLC8Xg9MZVkOoJg
 
 __PACKAGE__->belongs_to( get_question => 'dic::Schema::Question', { 'foreign.id'=>'self.question', 'foreign.genre'=>'self.genre', 'foreign.text'=>'self.text', });
+__PACKAGE__->belongs_to( get_text => 'dic::Schema::Text', { 'foreign.id'=>'self.question', 'foreign.genre'=>'self.genre', });
 # __PACKAGE__->many_to_many(readers => 'reader', 'reader');
 # __PACKAGE__->has_many(questionwords => 'dic::Schema::Questionword',
 
