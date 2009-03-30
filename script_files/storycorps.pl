@@ -295,6 +295,9 @@ my $questions = [
 [ "intermediate", "jackson-1", 4, "all", "Charles' mom screamed at him, after he got home after dark.", "False" ],
 
 [ "intermediate", "jackson-2", 1, "all", "Charles doesn't like his family treating him as different.", "True" ],
+1 "intermediate", "jackson-2", 2, "all", "Charles' family don't like to see him forget everybody's name.", "True" ],
+[ "intermediate", "jackson-2", 3, "all", "Charles thinks he isn't having fun with his family.", "False" ],
+[ "intermediate", "jackson-2", 4, "all", "Charles wants his family to treat him differently, because of his failings.", "False" ],
 
 [ "all", "clay-1", 1, "all", "Frank gave Rebia some rings when they got married.", "False" ],
 [ "all", "clay-2", 1, "all", "Rebia had four children with Frank.", "False" ],
