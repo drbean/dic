@@ -19,7 +19,7 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/GL00003 GL00022 CLA0013 FLA0015 FLB0002 MIA0012 access visitors/;
+my @leagueids = qw/GL00003 GL00022 GL00031 CLA0013 FLA0015 FLB0002 MIA0012 access visitors/;
 my $dir = ( File::Spec->splitdir(getcwd) )[-1];
 $dir = qr/^(GL000|CLA|FLA|MIA)/ if $dir eq 'dic';
 @leagueids = grep m/$dir/, @leagueids;
