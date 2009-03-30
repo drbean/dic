@@ -256,7 +256,7 @@ push @{$players->{FLB0002}}, [split] for <<FLB0002 =~ m/^.*$/gm;
 N9361738 江映霖	ying
 N9361749 覃少穎	shao
 N9361750 曾思萍	si
-N9461708 張佩玲	pie
+N9461708 張佩玲	pei
 N9461709 陳詩旻	shi
 N9461710 羅亞萍	ya
 N9461719 劉昭驊	zhao
