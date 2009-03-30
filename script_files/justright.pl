@@ -167,6 +167,28 @@ Louise and Shimran also have interesting poses. Louise's head is turned in Shimr
 ",
 "Colin|David|poses|artist|Paul|Mary|Danny|Louise|Shimran"
 	],
+	
+	[
+        "dubai",
+        "Desert meeting",
+	"elementary",
+       "Sally drives onto the ferry in Iran or Iraq, somewhere. And then she drives off the ferry in Dubai. And she drives to the airport in Dubai. And uh, meets her friend, who's, uh, uh,  come from somewhere like, uh, Europe, or America, or, um, ah, uh, the Soviet Union, Russia somewhere.
+
+And, uh, then, they drive along the coast, and suddenly, Sally turns into the desert, and drives up a sand dune and down the other side. And there are, uh, two men and three camels waiting for them.
+
+We don't know what's happening here. Why are they, why are they, uh, why are the men waiting for them? Uh, what do, uh, Sally and her friend uh, intend to do?
+
+One scenario is that, uh, Sally and, uh, uh, her friend are members of the CIA and they've come to get information from these two men about, ah, where bin Laden is.
+
+Another scenario is that, ah, the camels are sick and Sally's friend is a doctor, but she doesn't speak any Arabic, so Sally has come with her to talk to the men in Arabic. 
+
+A third scenario is that they're, uh, on a, uh a, uh, tourist vacation and they want to ride the camels around in the desert.
+
+What do you think is happening in this story? It's kind of, uh, uhm, curious, isn't it. Curious story. 
+
+",
+"Sally|Iran|Iraq|Dubai|Europe|America|Soviet Union|Russia|scenario|CIA|bin Laden|Arabic|tourist vacation|curious"
+	],
 
 	[
         "destinations",
@@ -436,7 +458,14 @@ my $questions = [
 [ "elementary", "picture2", 3, "The woman sitting at the table at the back is wearing green.", "True" ],
 [ "elementary", "picture2", 4, "Paul is looking at Claire.", "False" ],
 [ "elementary", "picture2", 5, "Danny is sitting in front of Shimran.", "False" ],
-[ "elementary", "picture2", 6, "Shimran is looking at Louise.", "False" ],
+[ "elementary", "dubai", 6, "Shimran is looking at Louise.", "False" ],
+
+[ "elementary", "dubai", 1, "In the story, Sally came from somewhere like Iran or Iraq.", "True" ],
+[ "elementary", "dubai", 2, "In one scenario, the two friends are on a vacation in the desert.", "True" ],
+[ "elementary", "dubai", 3, "In one scenario, Sally speaks Arabic, but Sally's friend doesn't.", "True" ],
+[ "elementary", "dubai", 4, "In one scenario, Sally's friend is a doctor who is on vacation.", "False" ],
+[ "elementary", "dubai", 5, "In one scenario, Sally is a friend of bin Laden, and bin Laden is waiting for them.", "False" ],
+[ "elementary", "dubai", 6, "In one scenario, Sally has information for the men about bin Laden's camels.", "False" ],
 
 [ "intermediate", "destinations", 1, "Fran'd rather go to the beach in Orlando and Sonia'd rather go to museums in Seattle.", "True" ],
 [ "intermediate", "destinations", 2, "Orlando's sunnier, more relaxing and cheaper than Seattle. Seattle's rainier and not as cheap as Orlando.", "True" ],
