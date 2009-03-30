@@ -87,12 +87,12 @@ uptodatepopulate( 'Text', $texts );
 my $questions = [
 			[ qw/genre text id content answer/ ],
 
-[ "access", "strang1", 1, "An equal number of equations and unknowns is the normal case.'", "True" ],
-[ "access", "strang1", 2, "Strang starts with examples and then sees what's involved with them.'", "True" ],
-[ "access", "strang1", 3, "A matrix is just a rectangular array of numbers.'", "True" ],
-[ "access", "strang1", 4, "Strang starts with the column picture.'", "False" ],
-[ "access", "strang1", 5, "The algebra way is the column picture.'", "False" ],
-[ "access", "strang1", 6, "The right hand side goes into the coefficient matrix.'", "False" ],
+[ "all", "strang1", 1, "An equal number of equations and unknowns is the normal case.", "True" ],
+[ "all", "strang1", 2, "Strang starts with examples and then sees what's involved with them.", "True" ],
+[ "all", "strang1", 3, "A matrix is just a rectangular array of numbers.", "True" ],
+[ "all", "strang1", 4, "Strang starts with the column picture.", "False" ],
+[ "all", "strang1", 5, "The algebra way is the column picture.", "False" ],
+[ "all", "strang1", 6, "The right hand side goes into the coefficient matrix.", "False" ],
 
 	];
 
