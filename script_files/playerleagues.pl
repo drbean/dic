@@ -115,6 +115,9 @@ U9721133 何盈宗 ying
 U9742009 鄭惠云 hui
 U9742011 蔡秀艾 ying
 U9631013 吳依婷	yi
+U9611083 吳昶均 chang
+U9721150 楊宗融 zong
+U9522075 林士雄 shi
 GL00003
 
 push @{$players->{GL00022}}, [split] for <<GL00022 =~ m/^.*$/gm;
