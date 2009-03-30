@@ -121,12 +121,12 @@ Four. Apartment for rent: Two hundred dollars per week for one bedroom, perfect 
 	"elementary",
        "Meet Larry Frazier. He's twenty-eight years old, from Oakland, and he's a taxi driver. His hobby is football and he loves the Oakland Raiders. He always goes to the games at the Oakland Coliseum.
 
-What about his family? \"He usually plays with us on Saturday, but he never spends Sunday with us,\" say his children, Eric (five) and Amanda (eight). HIs wife doesn't like football and she usually stays with the children when Larry is at the game.
+What about his family? \"He usually plays with us on Saturday, but he never spends Sunday with us,\" say his children, Eric (five) and Amanda (eight). His wife, Liz, doesn't like football and she usually stays with the children when Larry is at the game.
 
-Are Eric and Amanda football fans like their dad? No! They don't like football--they both love watching TV and doing puzzles."
+Are Eric and Amanda football fans like their dad? No! They don't like football--they both love watching TV and doing puzzles.
 
 ",
-""
+"Larry Frazier|Oakland Raiders|Coliseum|Eric|Amanda|Liz"
 	],
 
 	[
