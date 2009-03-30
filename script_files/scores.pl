@@ -72,7 +72,7 @@ for my $id ( sort @leagueids )
 		push @leagueExercises, @newExerciseList;
 	}
 	elsif ( $dir eq 'dic' or $dir eq 'target' or $dir eq 'access' ) {
-		my $league = $schema->resultset('League')->find({ id => $dir });
+		my $league = $schema->resultset('League')->find({ id => $id });
 		my $genre = $league->genre->get_column('genre') if $league;
 		my @newExerciseList = uniq $schema->resultset('Exercise')
 			->search({ genre => $genre })->get_column('id')->all;
