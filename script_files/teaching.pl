@@ -152,6 +152,41 @@ push @$questions,
 [ "teaching", "100percent", 5, "all", "He doesn't think his job is fun.", "False" ],
 [ "teaching", "100percent", 6, "all", "A lot of people lost their jobs because they were in a big fight.", "False" ];
 
+push @$texts, [
+        "mad",
+        "Upset teacher",
+	"teaching",
+	"all",
+	"Teacher: You stop talking when I tell you to stop talking. You've got a complaint for the teacher across the hall. (inaudible) I've been, did, busy doing something. You've been getting out of hand here. You WILL settle down now and you will STAY that way. You're disrespectful to the class across the hall. So when I tell you to stop talking, that means stop whistling and stop acting like an idiot. Okay? You're in grade ten. Act like you're in grade ten.
+(Waves to camera)
+Students: (laughter)
+Teacher: Okay?
+Students (inaudible)
+Teacher: Grown-up people.
+Students: (laughter, whistle, inaudible)
+Teacher: I don't want to hear that whistling anymore. From whoever's doing it. It's one of you three. Okay?
+Students, Teacher: (action, inaudible)
+Teacher: You get out.
+Student: You get out of my face.
+Teacher: You, go.
+Students: Stay. (inaudible)
+Teacher: (Student's name), shut that off.
+Teacher: It's kind of hard to keep quiet, when you just don't seem to want to be quiet. That's your problem, okay? You just sit there, and (whistle) Quiet.
+Student: Sir. When you've been sitting here for like half an hour. And you're not saying anything. And you're just standing up, staring at everybody. Obviously (inaudible) important, somebody's going to talk.
+Teacher: (telephones)
+
+",
+"Teacher|Student|Students"
+	];
+
+push @$questions,
+[ "teaching", "mad", 1, "all", "The teacher wants the students to stop getting out of hand.", "True" ],
+[ "teaching", "mad", 2, "all", "The students want to talk. They don't want to settle down", "True" ],
+[ "teaching", "mad", 3, "all", "It seems kind of hard for the teacher to stop the students getting out of hand.", "True" ],
+[ "teaching", "mad", 4, "all", "The student tells the teacher to get out and go in the hall.", "False" ],
+[ "teaching", "mad", 5, "all", "The students don't want the student who goes to stay.", "False" ],
+[ "teaching", "mad", 6, "all", "Obviously, the teacher is telephoning the student who went, to tell him to stay.", "False" ];
+
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
 
