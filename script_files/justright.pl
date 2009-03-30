@@ -301,10 +301,10 @@ Kim: Fine. See you there.
 	],
 	
 	[
-        "vowels",
+        "vowel",
         "Cop/Cap/Cup",
 	"intermediate",
-        "Amelie back clock drop front hang jump ladder mud opposite plank platform scanned someone son top tunnel under
+        "Amelie back clock drop front hang jump ladder mud opposite plank platform scanned someone son top tunnel under.
 
 ",
 ""
