@@ -41,6 +41,7 @@ Questionwords belong to Exercises, and may be blankable. They will be blanked fo
 
 Questionwords belong to Exercises, which belong to Texts, which have many Questions. Because Questions belong to Texts, and the Questionwords in them belong to Exercises, the relationship between Text and Exercise is needed to retrieve all the data about a Questionword, and specifically which Question and Text a Questionword comes from.
 
+Be careful that the genre of the League to which the Exercise belongs is the same as the genre of the Text to which the Questions belong.
 =cut
 
 # You can replace this text with custom content, and it will be preserved on regeneration
