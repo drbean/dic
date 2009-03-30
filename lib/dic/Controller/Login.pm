@@ -36,12 +36,35 @@ sub index : Path : Args(0) {
         my $username = $id;
         if ( $c->authenticate( { id => $username, password => $password } ) ) {
             $c->session->{player_id} = $id;
-            $c->session->{question}  = undef;
-            $c->session->{league} =
-              $c->model("DB::Member")->find( { player => $id } )->league->id;
-            $c->session->{exercise} = undef;
-            $c->response->redirect( $c->uri_for("/exercises/list") );
-            return;
+            $c->session->{question} = undef;
+            my $officialrole = 1;
+            if ( $c->check_user_roles($officialrole) ) {
+                $c->stash->{id}   = $id;
+                $c->stash->{name} = $name;
+                $c->stash->{leagues} =
+                  [ $c->model('DB::League')->search( {} ) ];
+                $c->stash->{template} = 'official.tt2';
+                return;
+            }
+            my @memberships =
+              $c->model("DB::Member")->search( { player => $id } );
+            my @leagues;
+            for my $membership (@memberships) {
+                push @leagues, $membership->league;
+            }
+            unless ( @leagues == 1 ) {
+                $c->stash->{id}         = $id;
+                $c->stash->{name}       = $name;
+                $c->stash->{leagues}   = \@leagues;
+                $c->stash->{template}   = 'membership.tt2';
+                return;
+            }
+            else {
+                $c->session->{league}   = $leagues[0]->id;
+                $c->session->{exercise} = undef;
+                $c->response->redirect( $c->uri_for("/exercises/list") );
+                return;
+            }
         }
         else {
             $c->stash->{error_msg} = "Bad username or password.";
@@ -52,6 +75,52 @@ sub index : Path : Args(0) {
     }
     $c->stash->{template} = 'login.tt2';
 }
+
+=head2 official
+
+Set league official is organizing. Use session player_id to authenticate the participant.
+
+=cut
+
+sub official : Local {
+	my ($self, $c) = @_;
+	my $league = $c->request->params->{league} || "";
+	my $password = $c->request->params->{password} || "";
+        my $username = $c->session->{player_id};
+        if ( $c->authenticate( {id =>$username, password=>$password} ) ) {
+		# my $officialrole = "official";
+		my $officialrole = 1;
+		if ( $c->check_user_roles($officialrole) ) {
+			$c->session->{league} = $league;
+			$c->response->redirect($c->uri_for("/exercises/list"));
+			return;
+		}
+		else {
+		# Set an error message
+		$c->stash->{error_msg} = "Bad username or password?";
+		$c->stash->{template} = 'login.tt2';
+		}
+	}
+	$c->stash->{template} = 'login.tt2';
+}
+
+
+=head2 membership
+
+Set league multi-membership player is participating in.
+
+=cut
+
+sub membership : Local {
+	my ($self, $c) = @_;
+	my $league = $c->request->params->{league} || "";
+	my $password = $c->request->params->{password} || "";
+	$c->session->{league} = $league;
+	$c->session->{exercise} = undef;
+	$c->response->redirect( $c->uri_for("/exercises/list") );
+	return;
+}
+
 
 =head1 AUTHOR
 
