@@ -328,7 +328,7 @@ U9424017	黃季雯	Ji
 U9424014	莊詠竹	Yong
 U9621048	劉志偉	Zhi
 U9511049	黃湛明	Zhan
-U9717047	ChenYuanWen  YU
+U9717047	陳YuanWen  YU
 ACCESS
 
 push @{$players->{visitors}}, [split] for <<VISITORS =~ m/^.*$/gm;
