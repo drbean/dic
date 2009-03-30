@@ -1,6 +1,6 @@
 package Ctest;  # assumes Some/Module.pm
 
-# Last Edit: 2008  9月 20, 19時05分10秒
+# Last Edit: 2009  2月 28, 12時52分10秒
 # $Id$
 
 use strict;
@@ -95,7 +95,7 @@ sub parse
 	if ( $unclozeables )
 	{
 		$letterGrammar .= q[
-		pass: <reject: $inWord> m/($Ctest::unclozeable|$letter|\\d+:\\d+)(?=$punctuation|$)/m
+		pass: <reject: $inWord> m/($Ctest::unclozeable|$letter|\d+\:\d+)(?=$punctuation|$)/m
 			{ push @Ctest::clozeline, Unclozeable->new
 						({published => $item[2]});
 				$Ctest::dic{$item[2]}++ if $item[2] =~m/^\w+$/;}
@@ -103,7 +103,7 @@ sub parse
 	}
 	else {
 		$letterGrammar .= q[
-		pass: <reject: $inWord> m/($letter|\\d+:\\d+)(?=$punctuation|$)/m
+		pass: <reject: $inWord> m/($letter|\d+\:\d+)(?=$punctuation|$)/m
 			{ push @Ctest::clozeline, Unclozeable->new
 						({published => $item[2]});
 				$Ctest::dic{$item[2]}++ if $item[2] =~m/^\w+$/;}
