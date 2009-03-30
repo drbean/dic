@@ -6,7 +6,7 @@ script_files/newExercise.pl - Do updating db, creating new exercise
 
 =head1 SYNOPSIS
 
-./script_files/newExercise.pl leaguename genrename textname
+./script_files/newExercise.pl textname
 
 =head1 DESCRIPTION
 
@@ -41,13 +41,12 @@ my $name = $config{name};
 require $name . ".pm";
 
 my $c = $name->prepare;
-my $league = $dir;
-my $genre = $c->model('DB::League')->find({id=>$league})->genre->genre;
-my $text = $ARGV[0];
-$c->session->{exercise} = $league;
+my $textId = $ARGV[0];
+my $text = $c->model('DB::Text')->find({id=>$textId}) or die "$textId text?";
+my $genre = $text->genre;
+$c->stash->{text} = $text;
 $c->stash->{genre} = $genre;
-$c->stash->{text} = $c->model('DB::Text')->find({id=>$text});
 
 require "$name/Controller/Exercises.pm";
-"${name}::Controller::Exercises"->clozecreate($c, $text, 'Ctest', $text);
-"${name}::Controller::Exercises"->questioncreate($c, $text, 'Ctest', $text);
+"${name}::Controller::Exercises"->clozecreate($c, $textId, 'Ctest', $textId);
+"${name}::Controller::Exercises"->questioncreate($c, $textId, 'Ctest', $textId);

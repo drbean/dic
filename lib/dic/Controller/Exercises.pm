@@ -90,12 +90,10 @@ Create comprehension questions and cloze exercise. If 2 different leagues have t
 
 sub create : Local {
 	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
-	my $league = $c->session->{league};
-	my $genre = $c->model("DB::Leaguegenre")->find
-			( {league => $league} )->genre;
-	$c->stash->{genre} = $genre;
 	my $text = $c->model('DB::Text')->find( { id=>$textId } );
+	my $genre = $text->genre;
 	$c->stash->{text} = $text;
+	$c->stash->{genre} = $genre;
 	$c->forward('clozecreate');
 	$c->forward('questioncreate');
 	$c->stash->{exercise_id} = $exerciseId;
@@ -114,7 +112,6 @@ sub clozecreate : Local {
 	my $description = $text->description;
 	my $content = $text->content;
 	my $unclozeables = $text->unclozeables;
-	my $league = $c->session->{league};
 	my $genre = $c->stash->{genre};
 	my $index=0;
 	my $clozeObject = $exerciseType->parse($unclozeables, $content);
