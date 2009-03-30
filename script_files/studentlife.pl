@@ -158,6 +158,32 @@ my $texts = [
 ",
 "Miller|Eden|exchange|tapped"
 	],
+	
+	[
+        "family2",
+        "Two different households",
+	"elementary",
+        "Here are 2 stories about people living in two different houses. How are the people similar and how are they different?
+
+In the first house, Stanley, Peter, Irene and Alice are all living in the same house. They are all students, and like other students, they do some good things, like studying, and some bad things, like playing computer games when they should be studying.
+
+One of the bad things is: Peter and Stanley often drink in their rooms. even though Irene and Alice never drink. 
+
+They also do some good things, which is good, even if they don't always do them very often.
+
+None of the people in the house ever smokes, which is good. And, Peter and Irene sometimes exercise. That's good. Stanley and Alice exercise, but less often than Peter and Irene.
+
+And, they also often eat vegetables, though Stanley only eats vegetables occasionally.
+
+In another house, Emma, Carrie, Donna and Cindy are living together. They are also students and they also do some good things and some bad things. 
+
+They never do any housework, so the house is very untidy. And Emma and Carrie play a lot of computer games. The others only occasionally play computer games.
+
+All of them also often eat vegetables, which is good. They also all study, but less often than they eat vegetables.
+
+",
+"Stanley|Peter|Irene|Alice|Emma|Carrie|Donna|Cindy"
+	],
 
 	];
 
@@ -180,6 +206,15 @@ my $questions = [
 [ "JUST RIGHT", "eden-2-GL", 5, "Eden thinks her roomate doesn't like pink.", "False" ],
 [ "JUST RIGHT", "eden-2-GL", 6, "Eden decorated her half of the room the way she wanted it to be and her roommate decorated her half of the room the way she wanted it to be.", "True" ],
 [ "JUST RIGHT", "eden-2-GL", 7, "The two halves of the room are decorated differently.", "True" ],
+
+[ "elementary", "family2", 1, "Students in both houses often eat vegetables.", "True" ],
+[ "elementary", "family2", 2, "None of the people in the second house do housework.", "True" ],
+[ "elementary", "family2", 3, "Two of the people in one of the houses drink.", "True" ],
+[ "elementary", "family2", 4, "The people in the first house sometimes exercise.", "True" ],
+[ "elementary", "family2", 5, "Two of the people in one of the houses play computer games.", "True" ],
+[ "elementary", "family2", 6, "One of the people in the first house smokes.", "False" ],
+[ "elementary", "family2", 7, "The people in the second house sometimes study.", "True" ],
+[ "elementary", "family2", 8, "In both houses, some of the people do some good things and some bad things.", "True" ],
 
 	];
 
