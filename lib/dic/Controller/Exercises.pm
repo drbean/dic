@@ -189,7 +189,6 @@ sub questioncreate : Local {
 	my $questions = $text->questions;
 	my @wordRows;
 	my $questionwords = $c->model('DB::Questionword');
-$DB::single=1;
 	while ( my $question = $questions->next )
 	{		
 		my $questionId = $question->id;
