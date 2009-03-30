@@ -170,6 +170,46 @@ push @$questions,
 [ "speaking", "message", 5, "all", "In the presentation, Baldoni used stories to communicate to people how to define their message.", "False" ],
 [ "speaking", "message", 6, "all", "Baldoni translates his message for the benefit of people not included in the audience.", "False" ];
 
+push @$texts, [
+        "feng",
+        "Eric Feng stage fright interview",
+	"speaking",
+	"all",
+	"Pauline Oliveiro: Welcome to the F-CUBE interview. Now, does the thought of public speaking immediately make you break out in sweat, or give you a sort of panic attack?
+
+Well, hopefully, we can help in the next ten minutes or so. Welcome to the F-CUBE interview. With me, Melanie Oliveiro and authors of the book, Kelvin Lim and Eric Feng.
+
+Now, they have written the FAQ, or Frequently Asked Questions Book on Public Speaking. It aims to answer all your questions about speaking to a large or small crowd. And hopefully help you become a confident, credible, and compelling speaker.
+
+...
+
+1:05 Now guys, I've got to ask you, Now, why do people suffer from stage fright before making a public speech? Where does this fear come from? And why do we have this fear in common, all of us.
+
+Eric Feng: All right. Hello, good evening. My name's Eric. So, let me attempt to answer the question. 
+
+I think over the years, I've realized that it's not public speaking that people are afraid of. It's public humiliation. And that itself is a source of a lot of stage fright for speakers. 
+
+And, um, I think another reason as well is the uncertainty. Uncertainty of the topic. They do not know what to say. They do not know who the audience are, and whether the audience will accept them. or their speeches. So that itself are some of the causes for the stage fright.
+
+Pauline Oliveiro: So they are presupposing failure as opposed to facing it head-on on the day itself.
+
+Eric Feng: Right, correct.
+
+Pauline Oliveiro: I see, okay.
+
+",
+"Pauline Oliveiro|F-CUBE|sweat|panic attack|Kelvin Lim|Eric Feng|Frequently Asked Questions Book on|confident|credible|compelling|1:05|humiliation|presupposing"
+	];
+
+push @$questions,
+
+[ "speaking", "feng", 1, "all", "Feng says speakers face uncertainty giving a speech and this is a source of stage fright.", "True" ],
+[ "speaking", "feng", 2, "all", "Feng says speakers fear being humiliated before an audience, not speaking itself.", "True" ],
+[ "speaking", "feng", 3, "all", "Oliveiro says speakers are not hopeful and think they will fail, before they give the speech.", "True" ],
+[ "speaking", "feng", 4, "all", "In this first minute of the interview, Feng answers speakers' questions how they can get over their fear.", "False" ],
+[ "speaking", "feng", 5, "all", "Feng says speakers do not know their topics well, so they are afraid of humiliation.", "False" ],
+[ "speaking", "feng", 6, "all", "Oliveiro asks Feng why he is afraid of answering her question about public speaking", "False" ];
+
 
 
 uptodatepopulate( 'Text', $texts );
