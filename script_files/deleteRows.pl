@@ -46,8 +46,7 @@ my $modelmodule = "${name}::Model::DB";
 
 my $connect_info = $modelmodule->config->{connect_info};
 my $d = $model->connect( @$connect_info );
-my $s;
-$s = $d->resultset(shift @ARGV);
+my $s = $d->resultset(shift @ARGV);
 my @columns = $s->result_source->columns;
 $, = "\t";
 print "Columns: ", @columns,
