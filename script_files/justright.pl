@@ -171,7 +171,7 @@ Louise and Shimran also have interesting poses. Louise's head is turned in Shimr
 	[
         "dubai",
         "Desert meeting",
-	"elementary",
+	"intermediate",
        "Sally drives onto the ferry in Iran or Iraq, somewhere. And then she drives off the ferry in Dubai. And she drives to the airport in Dubai. And uh, meets her friend, who's, uh, uh,  come from somewhere like, uh, Europe, or America, or, um, ah, uh, the Soviet Union, Russia somewhere.
 
 And, uh, then, they drive along the coast, and suddenly, Sally turns into the desert, and drives up a sand dune and down the other side. And there are, uh, two men and three camels waiting for them.
