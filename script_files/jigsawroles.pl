@@ -7,6 +7,7 @@ use lib 'lib';
 use Config::General;
 use Cwd;
 use File::Spec;
+use List::Util qw/first/;
 use List::MoreUtils qw/all/;
 use YAML qw/LoadFile/;
 
@@ -36,6 +37,7 @@ my @roleIds = ( 'A'..'D' );
 
 for my $id ( @leagueids ) {
 	my $league = LoadFile "/home/$ENV{USER}/class/$id/league.yaml";
+	my $members = $league->{member};
 	my $lastsession = $league->{series}->[-1];
 	my $groups = LoadFile "/home/$ENV{USER}/class/$id/$lastsession/groups.yaml";
 	my $players = $schema->resultset('Player');
@@ -43,9 +45,11 @@ for my $id ( @leagueids ) {
 	for my $group ( keys %$groups ) {
 		for my $n ( 0..3 ) {
 			my $name = $groups->{$group}->[$n];
-			my $count = $players->count( {name=>$name} );
+			my $member = first { $_->{name} eq $name } @$members;
+			my $Chinese = $member->{Chinese};
+			my $count = $players->count( { name=>$Chinese } );
 			die "$count ${name}s in $id league" unless $count==1;
-			my $player = $players->find( { name => $name } );
+			my $player = $players->find( { name => $Chinese } );
 			my $id = $player->id;
 			die "2 ${name}s in $id league, 1 in $group" if
 							$rolebearers{$id};
