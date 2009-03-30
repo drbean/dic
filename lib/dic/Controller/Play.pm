@@ -209,7 +209,7 @@ sub questionupdate : Local {
 			exercise => $exerciseId,
 			player => $player,
 			question => $question->id,
-			# text => $text->id,
+			answer => $answer,
 			correct => $correct });
 		if ( $correct ) {
 		$c->stash->{status_msg} .= 
