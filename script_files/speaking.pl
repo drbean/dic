@@ -38,13 +38,13 @@ And, I think that's probably the biggest mistake.
 So that's one of the things we talked about here today.
 I think it's both. It's both content and connection.
 And I think presenters need to think about how they're going to .. their material relates to the audience.
-1:09 I also need .. I think that people need to be a little bit more mindful of there's different types of learning styles.
+01:09 I also need .. I think that people need to be a little bit more mindful of there's different types of learning styles.
 There's some people who like to listen to things. There's some people who like to watch, and there's some people who like to do.
 And if you saw my presentation today, you'd see that I incorporate all three modalities.
 So that's something else to focus on, not so much on your expertise, but focus on how people will get your message.
 01:32 And what I try to do, as opposed to speak, like the traditional speaker, I try to create a memorable experience that people talk about.
 ",
-"Tate|Griffin|incorporate|modalities"
+"00:30|00:32|00:41|00:48|01:09|01:32|Tate|Griffin|incorporate|modalities"
 	],
 	
 	];
