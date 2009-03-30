@@ -111,12 +111,46 @@ Bill: Don and Dawn.
 	];
 
 push @$questions,
-[ "teaching", "accent", 1, "all", "For Kevin from Chicago, the sounds in 'cot' and 'caught' are quite different.", "True" ],
-[ "teaching", "accent", 2, "all", "For Bill and Robert, the sounds in 'cot' and 'caught' are more similar than for Kevin.", "True" ],
+[ "teaching", "accent", 1, "all", "For Kevin from Chicago, the sounds in 'cot' a
+nd 'caught' are quite different.", "True" ],
+[ "teaching", "accent", 2, "all", "For Bill and Robert, the sounds in 'cot' and
+'caught' are more similar than for Kevin.", "True" ],
 [ "teaching", "accent", 3, "all", "For Bill and Robert the sounds in 'Don' and 'Dawn' are very similar.", "True" ],
 [ "teaching", "accent", 4, "all", "For Kevin from Chicago, the sounds in 'Don' and 'Dawn' are almost the same.", "False" ],
 [ "teaching", "accent", 5, "all", "For Bill and Robert, the sounds in 'cot' and 'caught' are quite different.", "False" ],
 [ "teaching", "accent", 6, "all", "For Kevin, the sounds in 'Don' and 'Dawn' are very similar.", "False" ];
+
+push @$texts, [
+        "100percent",
+        "Giving 100percent",
+	"teaching",
+	"all",
+	"2:49 Slade: In previous years, you knew as a principal, that you didn't have to make the playoffs and you would still have your job. But she set the tone. XXX I expect the playoffs, the Super Bowl. And if you don't do that, then I will take action. And she delivered on that. A lot of folks lost their jobs. And these were people who would do nothing. As far as I'm concerned, they wouldn't give a 100 percent. This is a job, if you don't give a 100 percent in one play, it could have a major effect on your job. If you don't go outside after school, you could have a big gang fight.
+
+6:30 Merrow: I've heard talk of your legendary commute. Tell me about your commute.
+Slade: Oh, I live in um, I live in Pennsylvania. So it's a two-hour commute. By car, yeh, two hours. It's a hundred miles.
+Merrow: What do you do? Books on tape?
+Slade: Well, you basically, I usually have the radio off. I just .. It gives me a chance to think about what to do when I come in...
+
+7:20 Merrow: So you spend your time thinking.
+Slade: Basically, I mean .. This is a very .. exciting, fun job for me, I mean, I'm not in my job XXX, but it's a very complex job. So that's why some people don't do well XXX
+Merrow: So what time .. time of day do you get up?
+Slade: I get up at four-thirty. And I only go to sleep like at twelve. But the adrenalin's flowing so much that you stay excited. You stay up. I don't start getting tired until like, about nine o'clock.
+Merrow: When do you head for home?
+Slade: I leave here like at seven-thirty, eight o'clock. At night. So, it's a twelve-hour day.
+Merrow: Wow.
+
+",
+"2:49|Slade|previous|years|principal|playoffs|job|set the tone|Super Bowl|action|delivered|folks|nothing|As far as I'm concerned|play|major effect|outside|gang|fight|DC|issue|legendary commute|Pennsylvania|adrenalin|flowing|XXX"
+	];
+
+push @$questions,
+[ "teaching", "100percent", 1, "all", "Slade commutes two hours to the job and two hours home.", "True" ],
+[ "teaching", "100percent", 2, "all", "In the car, he thinks about the job and what to do on the job.", "True" ],
+[ "teaching", "100percent", 3, "all", "He thinks a lot of people don't give 100 percent.", "True" ],
+[ "teaching", "100percent", 4, "all", "He gets up at seven-thirty and heads home at four-thirty.", "False" ],
+[ "teaching", "100percent", 5, "all", "He doesn't think his job is fun.", "False" ],
+[ "teaching", "100percent", 6, "all", "A lot of people lost their jobs because they were in a big fight.", "False" ];
 
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
