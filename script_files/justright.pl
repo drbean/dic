@@ -232,6 +232,42 @@ So are you interested in reptiles? Are you looking for an exciting occupation. T
 
 ",
 "crocodiles|leather|Salvador|educational|colleagues|Steve|Irwin|Australian|fantastic|reptiles|herpetologist"
+	],
+	
+	[
+        "story1",
+        "Strange Encounter (Part 1)",
+	"intermediate",
+        "When he came into the station, Ferdy looked down at all the people below him. Ah yes. There she was. Amelie. the beautiful Amelie, with her long black hair and her incredible blue, blue eyes. She was waiting for him.
+
+Ferdy's eyes scanned the scene in front of him, and then he looked up. Above him, two men were working on the roof. He could see them through the glass. what were they doing there? Perhaps they were cleaning the glass. But perhaps they weren't.
+
+He tried to act normally. He got onto the escalator and went down towards the platforms just like any other normal person. But that was the problem. He wasn't normal. He was different from other people.
+
+Opposite him was the entrance to the platform--her platfrom. Amelie was standing under the number Seven. Perhaps everything was okay.
+
+",
+"Ferdy|Amelie|incredible|escalator|platforms"
+	],
+	
+	[
+        "story2",
+        "Strange Encounter (Part 2)",
+	"intermediate",
+        "But then he saw two young women in yellow hard hats. They were standing by the coffee bar. He noticed something. They weren't talking or drinking coffee. They were watching everyone in the station, but when he looked at them, they looked away.
+
+Suddently he heard a noise. Someone inside the ticket office was shouting into a cellphone. He turned his head. IT was an old man, and next to him was a woman. His wife? Nothing to worry about. But then the old man saw him. He stopped shouting. He took his cellphone from his ear. He just stared.
+
+Platform 7 was in front of him now. Amelie saw him. She smiled.
+
+Suddenly a woman walked between him and Amelie. She didn't look happy. Then he knew. He was in danger.
+
+Ferdy looked behind him. There was no one. He turned around and ran back up the escalator and into the street. He heard Amelie call his name.
+
+There were three men standing outside and they were waiting for him.
+
+",
+"Ferdy|Amelie|incredible|escalator|platforms|stared"
 	]
 
 	];
@@ -280,7 +316,7 @@ my $questions = [
 [ "elementary", "rent2", 2, "The apartment and the small house both have large kitchens.", "False" ],
 [ "elementary", "rent2", 3, "The apartment is perfect for transportation.", "True" ],
 [ "elementary", "rent2", 4, "The small house has a small kitchen. The apartment has a large kitchen.", "False" ],
-[ "elementary", "rent2", 5, "The small house is one thousand five hundred dollars per month.", "True" ],
+[ "elementary", "rent2", 5, "The small house is one thousand five hundred dollars per week.", "True" ],
 [ "elementary", "rent2", 6, "The small house has one bedroom. The apartment has two bedrooms.", "False" ],
 
 [ "intermediate", "destinations", 1, "Fran'd rather go to the beach in Orlando and Sonia'd rather go to museums in Seattle.", "True" ],
@@ -332,6 +368,20 @@ my $questions = [
 [ "intermediate", "crocodile2", 4, "Salvador's hero is a famous Australian crocodile called Steve Irwin.", "False" ],
 [ "intermediate", "crocodile2", 5, "Salvador is sad about Steve Irwin's death.He respected his work.", "True" ],
 [ "intermediate", "crocodile2", 6, "People were teaching crocodiles to respect them, but crocodiles killed them.", "False" ],
+
+[ "intermediate", "story1", 1, "Ferdy looked up at the roof and could see two men there.", "True" ],
+[ "intermediate", "story1", 2, "Amelie was waiting for Ferdy on Platform Seven.", "True" ],
+[ "intermediate", "story1", 3, "Ferdy went down the escalator to the platform where Amelie was standing.", "True" ],
+[ "intermediate", "story1", 4, "Amelie was standing on the escalator looking down at Ferdy.", "False" ],
+[ "intermediate", "story1", 5, "Ferdy was waiting on the platform for Amelie, working on the roof.", "False" ],
+[ "intermediate", "story1", 6, "Ferdy tried to get on the escalator, but it was different. The opposite one was the normal one.", "False" ],
+
+[ "intermediate", "story2", 1, "When he looked at the young women who were looking at everyone, they stopped looking at him.", "True" ],
+[ "intermediate", "story2", 2, "When he looked at the old man in the ticket office, the old man stared at him.", "True" ],
+[ "intermediate", "story2", 3, "He was worried when an unhappy woman walked in front of him.", "True" ],
+[ "intermediate", "story2", 4, "The women wearing hard hats were at the coffee bar, drinking coffee.", "False" ],
+[ "intermediate", "story2", 5, "Amelie wasn't happy, but Ferdy wasn't worried.", "False" ],
+[ "intermediate", "story2", 6, "Ferdy heard three men call him outside. He was waiting for them", "False" ],
 
 	];
 
