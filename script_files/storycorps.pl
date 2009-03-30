@@ -267,8 +267,10 @@ my $questions = [
 
 [ "intermediate", "kroenke-1", 1, "A group at a nursing home had gathered to tune a piano", "False" ],
 [ "intermediate", "kroenke-1", 2, "Ron was tuning the piano, so people couldn't have the concert.", "True" ],
-[ "intermediate", "kroenke-2", 1, "Many people were hurt, because of what had happened", "True" ],
-[ "intermediate", "kroenke-3", 1, "It didn't mean a thing to Ron that someone did tell him he did things right.", "False" ],
+[ "intermediate", "kroenke-2", 1, "Many people were hurt, because of what had happened.", "True" ],
+[ "intermediate", "kroenke-2", 2, "The angry lady thought Ron shouldn't have been trying to fix the piano, because it wasn't broken.", "True" ],
+[ "intermediate", "kroenke-2", 3, "It didn't mean a thing to Ron that someone did tell him he did things right.", "False" ],
+[ "intermediate", "kroenke-2", 4, "Rose tells Ron: \"You're kind for fixing the piano.\"", "False" ],
 
 [ "all", "trinka-1", 1, "Ed Trinka has worked for nearly a hundred years at the Plaza.", "False" ],
 [ "all", "trinka-2", 1, "When Ed got sick, they put a hat and coat on him.", "False" ],
