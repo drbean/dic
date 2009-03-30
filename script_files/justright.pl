@@ -282,6 +282,32 @@ There were three men standing outside and they were waiting for him.
 
 ",
 "Ferdy|Amelie|incredible|escalator|platforms|stared"
+	],
+	
+	[
+        "meeting",
+        "Arranging when and where to meet",
+	"intermediate",
+        "Kim: What time shall we meet, Max?
+Max: I could be there by about 11.
+Kim: Okay, where do you suggest?
+Max: Well, Kim, I could wait at the top of the escalator, you know, by the entrance.
+Kim: I've got a better idea. How about under the clock by Platform Three?
+Max: Okay, that sounds good. Eleven o'clock it is then. Under the clock.
+Kim: Fine. See you there.
+
+",
+"Kim|Max"
+	],
+	
+	[
+        "vowels",
+        "Cop/Cap/Cup",
+	"intermediate",
+        "Amelie back clock drop front hang jump ladder mud opposite plank platform scanned someone son top tunnel under
+
+",
+""
 	]
 
 	];
@@ -406,6 +432,20 @@ my $questions = [
 [ "intermediate", "story2", 4, "The women wearing hard hats were at the coffee bar, drinking coffee.", "False" ],
 [ "intermediate", "story2", 5, "Amelie wasn't happy, but Ferdy wasn't worried.", "False" ],
 [ "intermediate", "story2", 6, "Ferdy heard three men call him outside. He was waiting for them", "False" ],
+
+[ "intermediate", "meeting", 1, "Max suggests eleven o'clock is okay.", "True" ],
+[ "intermediate", "meeting", 2, "Max suggests meeting at the top of the escalator by the entrance.", "True" ],
+[ "intermediate", "meeting", 3, "Kim suggests meeting under the clock by Platform Three.", "True" ],
+[ "intermediate", "meeting", 4, "Max suggests eleven o'clock is not okay.", "False" ],
+[ "intermediate", "meeting", 5, "Kim's better idea is to wait at the top of the escalator.", "False" ],
+[ "intermediate", "meeting", 6, "Max suggests it is better to meet under the clock.", "False" ],
+
+[ "intermediate", "vowel", 1, "The vowels in 'someone' are the same sound as the vowel in 'mud.'", "True" ],
+[ "intermediate", "vowel", 2, "The vowel in 'hang' is the same sound as the vowel in 'back.'", "True" ],
+[ "intermediate", "vowel", 3, "The vowel in 'drop' is the same sound as the vowel in 'clock.'", "True" ],
+[ "intermediate", "vowel", 4, "The vowel in 'clock' is the same sound as the vowel in 'front.'", "False" ],
+[ "intermediate", "vowel", 5, "The vowel in 'son' is the same sound as the vowel in 'top.'", "False" ],
+[ "intermediate", "vowel", 6, "The vowels in 'someone' are the same sound as the vowel in 'drop.'", "False" ],
 
 	];
 
