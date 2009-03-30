@@ -279,7 +279,7 @@ Ferdy's eyes scanned the scene in front of him, and then he looked up. Above him
 
 He tried to act normally. He got onto the escalator and went down towards the platforms just like any other normal person. But that was the problem. He wasn't normal. He was different from other people.
 
-Opposite him was the entrance to the platform--her platfrom. Amelie was standing under the number Seven. Perhaps everything was okay.
+Opposite him was the entrance to the platform--her platform. Amelie was standing under the number Seven. Perhaps everything was okay.
 
 ",
 "Ferdy|Amelie|incredible|escalator|platforms"
@@ -291,7 +291,7 @@ Opposite him was the entrance to the platform--her platfrom. Amelie was standing
 	"intermediate",
         "But then he saw two young women in yellow hard hats. They were standing by the coffee bar. He noticed something. They weren't talking or drinking coffee. They were watching everyone in the station, but when he looked at them, they looked away.
 
-Suddently he heard a noise. Someone inside the ticket office was shouting into a cellphone. He turned his head. IT was an old man, and next to him was a woman. His wife? Nothing to worry about. But then the old man saw him. He stopped shouting. He took his cellphone from his ear. He just stared.
+Suddenly he heard a noise. Someone inside the ticket office was shouting into a cellphone. He turned his head. It was an old man, and next to him was a woman. His wife? Nothing to worry about. But then the old man saw him. He stopped shouting. He took his cellphone from his ear. He just stared.
 
 Platform 7 was in front of him now. Amelie saw him. She smiled.
 
@@ -329,6 +329,22 @@ Kim: Fine. See you there.
 
 ",
 ""
+	],
+	
+	[
+        "memory1",
+        "Short-term memory",
+	"intermediate",
+        "Q: I met a guy at a party. We met again a few days later and I couldn't remember his name! I felt bad. What's wrong with my memory?
+
+	A: We all forget things. We throw away information that we don't need any more. You put the man's name in your short-term memory. That's the bit of your brain that keeps things you don't need to remember for very long--like a telephone number you only use once. You forgot the man's name because it wasn't very important to you.
+
+	Q: What is long-term memory?
+
+	A: Long-term memory is where we keep information we need to remember for a long time. It is like a filing cabinet with different drawers. One drawer contains memories of things that happened to you a long time ago, like your first day at school or a summer vacation. This is your episodic memory. It stores the episodes that make up your life.
+
+",
+"Q|A|short-term memory|brain|filing cabinet|drawers|episodic"
 	]
 
 	];
@@ -474,6 +490,13 @@ my $questions = [
 [ "intermediate", "vowel", 4, "The vowel in 'clock' is the same sound as the vowel in 'front.'", "False" ],
 [ "intermediate", "vowel", 5, "The vowel in 'son' is the same sound as the vowel in 'top.'", "False" ],
 [ "intermediate", "vowel", 6, "The vowels in 'someone' are the same sound as the vowel in 'drop.'", "False" ],
+
+[ "intermediate", "memory1", 1, "Everybody forgets things.'", "True" ],
+[ "intermediate", "memory1", 2, "We forget things that we don't need anymore.'", "True" ],
+[ "intermediate", "memory1", 3, "The women would have remembered the name of the man if it had been very important.'", "True" ],
+[ "intermediate", "memory1", 4, "Things in short-term memory are remembered better than those in long-term memory.'", "False" ],
+[ "intermediate", "memory1", 5, "A memory of your first day in school is in short-term memory.'", "False" ],
+[ "intermediate", "memory1", 6, "Episodic memory is remembering where things are in the different drawers of a filing cabinet.'", "False" ],
 
 	];
 
