@@ -337,11 +337,7 @@ uptodatepopulate( 'Member', [ [ qw/league player/ ],
 
 uptodatepopulate( 'Role', [ [ qw/id role/ ], 
 [ 1, "official" ],
-[ 2, "player" ],
-[ 3, "playerA" ],
-[ 4, "playerB" ],
-[ 5, "playerC" ],
-[ 6, "playerD" ] ] );
+[ 2, "player" ], ] );
 
 uptodatepopulate( 'Rolebearer', [ [ qw/player role/ ], 
 				[ 193001, 1 ],
