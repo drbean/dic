@@ -64,63 +64,6 @@ uptodatepopulate( 'Leaguegenre', $leaguegenres );
 
 my ($leaguefile, $players);
 
-push @{$players->{GL00003}}, [split] for <<GL00003 =~ m/^.*$/gm;
-9411218 鐘得源	de
-9411245 石世丞	shi
-9411294 邱暐翔	wei
-9423234 楊馥源	fu
-9431208 梁筑君	zhu
-9431215 李卉羚	hui
-9431223 鄒惠鈞	hui
-9521220 張家瑋	jia
-9521224 林琨淵	kun
-9521263 曾嘉農	jia
-9521265 蘇柏元	bo
-9521286 吳冠陞	guan
-9522239 王仁宇	ren
-9522287 張玉郎	yu
-9613220 徐仁泰	ren
-9622205 黃勁傑	jing
-9622231 郭濬銘	jun
-9623202 詹之嶢	zhi
-9623210 張榮華	rong
-T9721138 陳羿銘 yi
-U9410003 陳柏翰 bo
-U9415049 蕭羽婷 yu
-U9416039 黃耀慶 yao
-U9422014 王彥倫 yan
-U9422033 鄭禮寶 li
-U9422103 陳紀榮 ji
-U9510004 徐嘉駿 jia
-U9516002 陳琪樺 qi
-U9531008 陳妍妃 yan
-U9531010 楊雅惠 ya
-U9611062 簡崇名 chong
-U9611092 薛安順 an
-U9611102 謝奕辰 yi
-U9611112 趙紹棠 shao
-U9611114 周逸人 yi
-U9617037 陳冠融 guan
-U9617045 謝舒嵐 shu
-U9621063 陳昱全 yu
-U9621073 張鈺暘 yu
-U9621109 張文瑄 wen
-U9623003 洪會嘉 hui
-U9631012 洪偉勛 wei
-U9631029 曾姵綺 pei
-U9631045 何怡如 yi
-U9721107 林鈺為 yu
-U9721119 黃聖弼 sheng
-U9721126 汪孟庭 meng
-U9721133 何盈宗 ying
-U9742009 鄭惠云 hui
-U9742011 蔡秀艾 ying
-U9631013 吳依婷	yi
-U9611083 吳昶均 chang
-U9721150 楊宗融 zong
-U9522075 林士雄 shi
-GL00003
-
 push @{$players->{GL00022}}, [split] for <<GL00022 =~ m/^.*$/gm;
 9421235  林奕廷 yi
 9433230  陳瑋茹 wei
@@ -152,7 +95,7 @@ N9461708 張佩玲	pei
 N9461709 陳詩旻	shi
 N9461710 羅亞萍	ya
 N9461719 劉昭驊	zhao
-N9461725 張□明	ming
+N9461725 張□明	jiong
 N9461729 蔡純茹	chun
 N9461734 張雅臻	ya
 N9461735 張琨耀	kun
@@ -172,7 +115,7 @@ N9461766 劉毓汶	yu
 U9533039 蕭郁玲	yu
 FLB0002
 
-for my $league ( 'FLA0015', 'MIA0012', 'CLA0013', 'GL00031' ) {
+for my $league ( 'FLA0015', 'MIA0012', 'CLA0013', 'GL00003', 'GL00031' ) {
 	$leaguefile = LoadFile "/home/drbean/class/$league/league.yaml";
 	push @{$players->{$league}}, map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
 					@{$leaguefile->{member}};
