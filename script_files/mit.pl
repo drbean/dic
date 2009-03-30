@@ -28,7 +28,7 @@ my $texts = [
 	[
         "strang1",
         "Linear Algebra Lecture 1 Strang",
-	"access",
+	"all",
         "Hi. This is the first lecture in MIT's course 18.06, linear algebra, and I'm Gilbert Strang. The text for the course is this book, Introduction to Linear Algebra.
 
 And the course web page, which has got a lot of exercises from the past, MatLab codes, the syllabus for the course, is web.mit.edu/18.06.
