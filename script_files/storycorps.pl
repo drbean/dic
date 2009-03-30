@@ -48,23 +48,14 @@ my $texts = [
 	[
 	"kroenke-2",
         "Mixed reactions of the audience",
-	"all",
+	"intermediate",
         "01:22 About a third of the people looked highly disappointed. 
 01:25 and they were murmuring to each other, trying to tell each other what had happened.
 01:30 The angry lady barked at me and said, you know: \"Haven't you ever heard if isn't broke, don't fix it?\" 
 01:37 And she stormed off. 
 01:38 I had scooted over on my seat out of the view of Rose because she looked so hurt.
 01:44 And suddenly, she touched my arm, and it startled me. 
-
-",
-"disappointed|murmuring|barked|stormed|scooted|startled"
-	],
-
-	[
-	"kroenke-3",
-        "Appreciation of tuning work",
-	"all",
-        "01:50 And I looked. And she was very close to me.
+01:50 And I looked. And she was very close to me.
 01:54 And she told me very sincerely,
 01:57 I've been sitting here the whole time and 
 02:00 I've been watching what you do and I can tell that you're the kind of person 
@@ -74,7 +65,7 @@ my $texts = [
 02:17 And it did mean something to me.
 
 ",
-"sincerely|out of the blue"
+"disappointed|murmuring|barked|stormed|scooted|startled|sincerely|out of the blue"
 	],
 
 	[
