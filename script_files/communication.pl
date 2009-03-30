@@ -114,6 +114,24 @@ In America, researchers talk about the 'contact smile.' You smile when you meet 
 
 ",
 "Erica Gingerich|Robert Gibson|particular occasion"
+	],
+	
+	[
+        "secondlife",
+        "Don't Stand So Close To Me",
+	"intercultural",
+        "This feels pretty wierd, doesn't it. It's like I'm breaking some unwritten rule, right? Well, psychologists would say I'm breaking about two or three at once.
+
+Too much staring, too little personal space. Put them together and suddenly something's got to give. You've got to break eye contact, or get away.
+
+It's actually called the Elevator Effect. Funny thing is, it's not confined to elevators. It happens in all sorts of places. Even in a place where almost all the other unwritten rules don't apply.
+
+4:50 Rosenfeld: But why do we follow these rules in a virtual world? Why should things like interpersonal distance and eye contact even matter?
+
+Yi: So there's probably both a hard-wired innate component to it, as well as a social component to it. And we're so used to these norms, you know, as we're growing up, that, you know, when someone violates them unexpectedly, it's incredibly, uh, psychologically uncomfortable when they do that.
+
+",
+"Elevator Effect|confined|virtual|hard-wired innate component|social|norms|violates"
 	]
 	];
 
@@ -142,6 +160,13 @@ my $questions = [
 [ "intercultural", "smiling", 4, "People in Germany and the US have similar attitudes to smiling.", "False" ],
 [ "intercultural", "smiling", 5, "Germans think Americans are very friendly because they smile a lot.", "False" ],
 [ "intercultural", "smiling", 6, "The contact smile is a smile for when you misinterpret a situation.", "True" ],
+
+[ "intercultural", "secondlife", 1, "Too much staring and too little personal space is psychologically uncomfortable.", "True" ],
+[ "intercultural", "secondlife", 2, "The Elevator Effect is an unwritten rule about breaking eye contact or being too confined.", "True" ],
+[ "intercultural", "secondlife", 3, "People growing up get used to interpersonal distance and eye contact rules.", "True" ],
+[ "intercultural", "secondlife", 4, "People are comfortable when someone violates their personal space.", "False" ],
+[ "intercultural", "secondlife", 5, "Personal space and eye contact rules don't apply where there is no space.", "False" ],
+[ "intercultural", "secondlife", 6, "Staring rules are not followed in elevators and virtual worlds.", "False" ],
 
 	];
 
