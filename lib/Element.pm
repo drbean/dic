@@ -1,6 +1,6 @@
 package Element;
 
-# Last Edit: 2008 Apr 09, 10:42:47 PM
+# Last Edit: 2008 12月 23, 08時19分57秒
 # $Id$
 
 
@@ -16,6 +16,11 @@ sub new {
 	my $self = shift;
 	my $args = shift() || {};
 	$args->{class} = $self;
+	$args->{published} ||= '';
+	$args->{clozed} ||= '';
+	$args->{unclozed} ||= '';
+	$args->{pretext} ||= '';
+	$args->{posttext} ||= '';
 	return bless $args, $self;
 }
 
