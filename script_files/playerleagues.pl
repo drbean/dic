@@ -51,7 +51,7 @@ my $leaguegenres = [
 			[ "GL00003",	"intermediate" ],
 			[ "GL00022",	"intermediate" ],
 			[ "GL00031",	"intermediate" ],
-			[ "CLA0013",	"elementary" ],
+			[ "CLA0013",	"teaching" ],
 			[ "FLA0015",	"intermediate" ],
 			[ "FLB0002",	"speaking" ],
 			[ "MIA0012",	"business" ],
