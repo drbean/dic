@@ -168,7 +168,7 @@ my $texts = [
 	[
         "jackson-1",
 	"Charles on his mom with Alzheimers",
-	"all",
+	"intermediate",
 	"all",
         "00:41 My brother Stanley and I came home from school.
 00:45 And Mom told us that our aunt wanted to talk to us. 
@@ -198,7 +198,7 @@ my $texts = [
 	[
         "jackson-2",
 	"Charles' own Alzheimers",
-	"all",
+	"intermediate",
 	"all",
         "02:01 I was diagnosed in 2004 with Alzheimers. 
 02:06 I was 50. 
@@ -289,8 +289,13 @@ my $questions = [
 [ "all", "trinka-4", 1, "all", "Ed Trinka made Debra's day by smiling and being happy.", "True" ],
 [ "all", "trinka-5", 1, "all", "Ed Trinka shined a guest's shoes with his shoeshine kit.", "True" ],
 
-[ "all", "jackson-1", 1, "all", "Charles' mom screamed at him, after he got home after dark.", "False" ],
-[ "all", "jackson-2", 1, "all", "Charles doesn't like his family treating him as different.", "True" ],
+[ "intermediate", "jackson-1", 1, "all", "Charles had to care for his mom when his mother got Alzheimers.", "True" ],
+[ "intermediate", "jackson-1", 2, "all", "Charles' Mom and Dad fought with each other, when she couldn't tell him where Charles was.", "True" ],
+[ "intermediate", "jackson-1", 3, "all", "Charles started running away when his mother told him she wanted to die.", "False" ],
+[ "intermediate", "jackson-1", 4, "all", "Charles' mom screamed at him, after he got home after dark.", "False" ],
+
+[ "intermediate", "jackson-2", 1, "all", "Charles doesn't like his family treating him as different.", "True" ],
+
 [ "all", "clay-1", 1, "all", "Frank gave Rebia some rings when they got married.", "False" ],
 [ "all", "clay-2", 1, "all", "Rebia had four children with Frank.", "False" ],
 
