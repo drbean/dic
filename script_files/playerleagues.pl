@@ -59,7 +59,7 @@ uptodatepopulate( 'Leaguegenre', $leaguegenres );
 
 my $players;
 
-push @{$players->{GL000003}}, [split] for <<GL00003 =~ m/^.*$/gm;
+push @{$players->{GL00003}}, [split] for <<GL00003 =~ m/^.*$/gm;
 9411218 鐘得源	de
 9411245 石世丞	shi
 9411294 邱暐翔	wei
