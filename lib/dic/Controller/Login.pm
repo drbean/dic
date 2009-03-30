@@ -27,7 +27,7 @@ sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
     my $id       = $c->request->params->{id}       || "";
     my $name     = $c->request->params->{name}     || "";
-    my $password = $c->request->params->{password} || "";
+    my $password = lc $c->request->params->{password} || "";
     if ( $name eq "guest" ) {
         $id       = 1;
         $password = 1;
@@ -85,7 +85,7 @@ Set league official is organizing. Use session player_id to authenticate the par
 sub official : Local {
 	my ($self, $c) = @_;
 	my $league = $c->request->params->{league} || "";
-	my $password = $c->request->params->{password} || "";
+	my $password = lc $c->request->params->{password} || "";
         my $username = $c->session->{player_id};
         if ( $c->authenticate( {id =>$username, password=>$password} ) ) {
 		# my $officialrole = "official";
