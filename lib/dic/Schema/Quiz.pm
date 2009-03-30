@@ -16,6 +16,8 @@ __PACKAGE__->add_columns(
   { data_type => "INT", is_nullable => 0, size => undef },
   "question",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
+  "answer",
+  { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "correct",
   { data_type => "TINYINT", is_nullable => 0, size => undef },
 );
