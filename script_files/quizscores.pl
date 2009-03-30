@@ -76,6 +76,7 @@ for my $id ( sort @leagueids )
 		my $exercise = $result->exercise;
 		my $score = $result->get_column('correct');
 		$scores->{$id}->{$player}->{$exercise} = $score;
+		$scores->{$id}->{$player}->{Total}++ if $score;
 	}
 	for my $player ( uniq $quizSet->get_column('player')->all )
 	{
