@@ -149,6 +149,24 @@ Are Eric and Amanda football fans like their dad? No! They don't like football--
 ",
 "George Clooney"
 	],
+	
+	[
+        "picture2",
+        "Describing second picture",
+	"elementary",
+       "The picture at the bottom of page fifty-nine is interesting. I like the poses that the artist has given Colin and David, at the back on the left.
+
+Colin has his head thrown back, as if he is laughing, or as if he doesn't take David seriously. David has his head turned away, but is looking at Colin, as if he doesn't like what Colin is saying.
+
+Paul, the older guy on the right, is also interesting. He is sitting up very straight. He is holding his hands together. He is smiling, as if he knows someone is taking his picture.
+
+Mary and Danny at the front look like they have been drawn by a different artist. They are looking at each other. What are those pieces of white paper they are eating?
+
+Louise and Shimran also have interesting poses. Louise's head is turned in Shimran's direction but she is not looking at Shimran. Shimran is not looking at Louise either. Her head is thrown back. I think she has something wrong with her neck. What is she holding in her hand? It looks like a white plate with little red, yellow and green balls on it.
+
+",
+"Colin|David|artist|Paul|Mary|Danny|Louise|Shimran"
+	],
 
 	[
         "destinations",
@@ -412,6 +430,13 @@ my $questions = [
 [ "elementary", "picture1", 4, "The man sitting at the front believes the man is George Clooney.", "False" ],
 [ "elementary", "picture1", 5, "George Clooney is sitting at the table at the front.", "False" ],
 [ "elementary", "picture1", 6, "The woman standing behind the sign is a fashion model.", "False" ],
+
+[ "elementary", "picture2", 1, "David is looking at Colin.", "True" ],
+[ "elementary", "picture2", 2, "The woman sitting at the table in the front on the left looks like she is eating a piece of paper.", "True" ],
+[ "elementary", "picture2", 3, "The woman sitting at the table at the back is wearing green.", "True" ],
+[ "elementary", "picture2", 4, "Paul is looking at Claire.", "False" ],
+[ "elementary", "picture2", 5, "Danny is sitting in front of Shimran.", "False" ],
+[ "elementary", "picture2", 6, "Shimran is looking at Louise.", "False" ],
 
 [ "intermediate", "destinations", 1, "Fran'd rather go to the beach in Orlando and Sonia'd rather go to museums in Seattle.", "True" ],
 [ "intermediate", "destinations", 2, "Orlando's sunnier, more relaxing and cheaper than Seattle. Seattle's rainier and not as cheap as Orlando.", "True" ],
