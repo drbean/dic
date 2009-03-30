@@ -56,7 +56,8 @@ my $schema = $model->connect( @$connect_info );
 my $playset = $schema->resultset('Play');
 my $league = $schema->resultset('League')->find({ id => $dir });
 my $genre = $league->genre->get_column('genre') if $league;
-my @newExerciseList = uniq $schema->resultset('Exercise')->search({ genre => $genre })->get_column('id')->all if $league;
+my @newExerciseList;
+@newExerciseList = uniq $schema->resultset('Exercise')->search({ genre => $genre })->get_column('id')->all if $league;
 			 
 my @leagueids = uniq $playset->get_column('league')->all;
 my @exerciseIds = $playset->get_column('exercise')->all;
@@ -66,6 +67,7 @@ print "In $dir directory:\n";
 my $scores;
 for my $id ( sort @leagueids )
 {
+	my $leagueplay = $playset->search({ league => $id });
 	# my @leagueExercises = @exerciseIds;
 	my @leagueExercises;
 	if ( $dir eq $id and $league ) {
@@ -74,14 +76,13 @@ for my $id ( sort @leagueids )
 	elsif ( $dir eq 'dic' or $dir eq 'target' or $dir eq 'access' ) {
 		my $league = $schema->resultset('League')->find({ id => $id });
 		my $genre = $league->genre->get_column('genre') if $league;
-		my @newExerciseList = $playset
-			->search({ genre => $genre })->get_column('id')->all;
+		my @newExerciseList = $leagueplay->get_column('exercise')->all;
 		push @leagueExercises, @newExerciseList;
 	}
 	@leagueExercises = uniq @leagueExercises;
 	print $id . "\t", @leagueExercises , "Total\n";
 	print "============================================\n";
-    my $play = $playset->search({ league => $id },
+    my $play = $leagueplay->search( undef,
 		{ select => [ 'player', 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/player exercise/],
 		as => [ qw/player exercise score/ ],
