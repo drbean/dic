@@ -7,6 +7,7 @@ use lib 'lib';
 use Config::General;
 use Cwd;
 use File::Spec;
+use List::MoreUtils qw/all/;
 
 BEGIN {
 	my @MyAppConf = glob( '*.conf' );
@@ -18,8 +19,9 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/GL00032 GL00037 GL00036 GL00040 GL00042 CLA FLA0005 FLA0018 access visitors dic/;
+my @leagueids = qw/GL00032 GL00037 GL00036 GL00040 GL00042 CLA FLA0005 FLA0018 access visitors/;
 my $dir = ( File::Spec->splitdir(getcwd) )[-1];
+$dir = qr/^(GL000|CLA|FLA)/ if $dir eq 'dic';
 @leagueids = grep m/$dir/, @leagueids;
 
 no strict qw/subs refs/;
