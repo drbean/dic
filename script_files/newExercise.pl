@@ -6,11 +6,11 @@ script_files/newExercise.pl - Do updating db, creating new exercise
 
 =head1 SYNOPSIS
 
-./script_files/newExercise.pl rent1
+./script_files/newExercise.pl leaguename genrename textname
 
 =head1 DESCRIPTION
 
-Dumps tables known by DB schema
+Create exercise with same name as textname, using create method of dic::Controller::Exercises
 
 =head1 AUTHOR
 
@@ -27,19 +27,23 @@ it under the same terms as Perl itself.
 use strict;
 use warnings;
 use lib 'lib';
+use File::Spec;
+use Cwd;
 
 use Config::General;
 
+my $dir = ( File::Spec->splitpath(getcwd) )[-1];
 my @MyAppConf = glob( '*.conf' );
-die "Which of @MyAppConf is the configuration file?"
+die "Which of @MyAppConf is the configuration file in $dir?"
 			unless @MyAppConf == 1;
 my %config = Config::General->new($MyAppConf[0])->getall;
 my $name = $config{name};
 require $name . ".pm";
-# require "$name/Schema.pm"; $name->import;
 
 my $c = $name->prepare;
-my ($league, $genre, $text) = @ARGV[0..2];
+my $league = $dir;
+my $genre = $c->model('DB::League')->find({id=>$league})->genre->genre;
+my $text = $ARGV[0];
 $c->session->{exercise} = $league;
 $c->stash->{genre} = $genre;
 $c->stash->{text} = $c->model('DB::Text')->find({id=>$text});
@@ -47,5 +51,3 @@ $c->stash->{text} = $c->model('DB::Text')->find({id=>$text});
 require "$name/Controller/Exercises.pm";
 "${name}::Controller::Exercises"->clozecreate($c, $text, 'Ctest', $text);
 "${name}::Controller::Exercises"->questioncreate($c, $text, 'Ctest', $text);
-
-sleep;
