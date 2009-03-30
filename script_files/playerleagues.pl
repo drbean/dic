@@ -8,6 +8,7 @@ use Config::General;
 use Cwd;
 use File::Spec;
 use List::MoreUtils qw/all/;
+use YAML qw/LoadFile/;
 
 BEGIN {
 	my @MyAppConf = glob( '*.conf' );
@@ -61,7 +62,7 @@ my $leaguegenres = [
 		];
 uptodatepopulate( 'Leaguegenre', $leaguegenres );
 
-my $players;
+my ($leaguefile, $players);
 
 push @{$players->{GL00003}}, [split] for <<GL00003 =~ m/^.*$/gm;
 9411218 鐘得源	de
@@ -247,57 +248,9 @@ N9561761	林家伶	jia
 N9561764	郭政勳	zheng
 CLA0013
 
-push @{$players->{FLA0015}}, [split] for <<FLA0015 =~ m/^.*$/gm;
-N9361748	徐銘鴻	ming
-N9461734	張雅臻	ya
-N9461736	彭珠蓮	zhu
-N9461738	劉佳佳	jia
-N9461753	葉又寧	you
-N9461756	許芷菱	zhi
-N9532037	邱錦玉	jin
-N9561721	劉芳君	fang
-N9561737	唐淑芬	shu
-N9561766	劉發州	fa
-N9661701	賴淑惠	shu
-N9661702	周品嫻	pin
-N9661704	?琮婷	cong
-N9661705	吳嘉怡	jia
-N9661706	葉雅婷	ya
-N9661707	鄧雅雯	ya
-N9661708	邱于芳	yu
-N9661709	徐曉彤	xiao
-N9661712	胡語倫	yu
-N9661714	劉軒齊	xuan
-N9661715	陳奕學	yi
-N9661716	周雅雯	ya
-N9661717	黃路加	lu
-N9661718	鍾明諺	ming
-N9661719	周于婷	yu
-N9661720	林碧珍	bi
-N9661722	廖婉秀	wan
-N9661723	謝文秀	wen
-N9661724	林逸喬	yi
-N9661725	吳采薇	cai
-N9661727	賴恩聖	en
-N9661728	黃聖昱	sheng
-N9661730	劉芯惠	xin
-N9661731	林庭萱	ting
-N9661733	陳家洋	jia
-N9661734	曾佩茹	pei
-N9661737	廖政福	zheng
-N9661738	鄭淑鈴	shu
-N9661740	汪大智	da
-N9661741	林妤容	yu
-N9661742	吳筱涵	xiao
-N9661743	羅惠娟	hui
-N9661744	劉惠蓉	hui
-N9661745	吳桂麗	gui
-N9661746	吳書儀	shu
-N9661747	邱靖棋	jing
-N9661748	楊妙雲	miao
-N9661750	王育祥	yu
-U9533039	蕭郁玲	yu
-FLA0015
+$leaguefile = LoadFile "/home/drbean/class/FLA0015/league.yaml";
+push @{$players->{FLA0015}}, map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
+				@{$leaguefile->{member}};
 
 push @{$players->{FLB0002}}, [split] for <<FLB0002 =~ m/^.*$/gm;
 N9361738 江映霖	ying
@@ -327,56 +280,9 @@ N9461766 劉毓汶	yu
 U9533039 蕭郁玲	yu
 FLB0002
 
-push @{$players->{MIA0012}}, [split] for <<MIA0012 =~ m/^.*$/gm;
-U9633001 林祐年	you
-U9633002 李政道	zheng
-U9633003 劉家凱	jia
-U9633004 王妙如	miao
-U9633005 莊政憲	zheng
-U9633006 張羽萱	yu
-U9633007 楊少杰	shao
-U9633009 李泉泰	quan
-U9633011 郭虹吟	hong
-U9633012 劉家豪	jia
-U9633013 羅士涵	shi
-U9633014 劉釆怡	cai
-U9633015 陳鈺澧	yu
-U9633016 張如君	ru
-U9633017 陳俊豪	jun
-U9633019 蔡宗祐	zong
-U9633020 江蘊倫	yun
-U9633021 詹國廷	guo
-U9633022 邱詩文	shi
-U9633023 林暐□ 	wei
-U9633024 江采芬	cai
-U9633025 李宗曄	zong
-U9633026 劉治廷	zhi
-U9633027 劉家宏	jia
-U9633028 張孟淞	meng
-U9633029 楊麗燕	li
-U9633030 謝誌紘	zhi
-U9633031 吳孟螢	meng
-U9633033 鄧善鴻	shan
-U9633034 林　群	qun
-U9633035 鄭盟穎	meng
-U9633036 曾昱文	yu
-U9633038 莊惠棋	hui
-U9633039 黃仁旗	ren
-U9633040 陳恩輝	en
-U9633041 顏誌君	zhi
-U9633042 李雅茹	ya
-U9633043 洪惠菁	hui
-U9633044 徐千淳	qian
-U9633045 張毅民	yi
-U9633046 蘇文煜	wen
-U9633047 卜弘成	hong
-U9633048 湛洪鈞	hong
-U9633049 黃聖萍	sheng
-U9633050 王國權	guo
-U9633051 洪　寧	ning
-U9633052 金詣耘	yi
-U9633053 邱紹豐	shao
-MIA0012
+$leaguefile = LoadFile "/home/drbean/class/MIA0012/league.yaml";
+push @{$players->{MIA0012}}, map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
+				@{$leaguefile->{member}};
 
 push @{$players->{access}}, [split] for <<ACCESS =~ m/^.*$/gm;
 U9424017	黃季雯	Ji
