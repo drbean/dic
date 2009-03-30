@@ -15,7 +15,7 @@ script_files/scores.pl
  
 =head1 DESCRIPTION
 
-Dumps scores to scores.yaml in present directory and prints to STDOUT. No attention is paid to what the League schema tells us about what leagues exists at present. Old leagues may have been deleted, but their players remain. Needs to be refactored when Genre schema is produced.
+Dumps scores to standings.yaml in present directory and prints to STDOUT. No attention is paid to what the League schema tells us about what leagues and what exercises exist at present. Old leagues and exercises may have been deleted, but their players and exercise play results remain (unless a different exercise with the same name as a deleted one is added later?). A schema exercise without scores will still be included in the computed scores. Needs to be refactored when Genre schema is produced.
 
 =head1 AUTHOR
 
