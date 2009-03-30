@@ -102,6 +102,18 @@ Phonewhiz--because life doesn't stop when you are not in the office.
 ",
 "Deck|pets|keys|J. Beal Office"
 	],
+	
+	[
+        "rent2",
+        "Renting (Part2)",
+	"elementary",
+       "Three. For rent: small house downtown--two bedrooms, kitchen, living room/dining room, bathroom. Near the stores. One thousand five hundred dollars per week. Write to rent\@accomodation.net for appointment.
+
+Four. Apartment for rent: Two hundred dollars per week for one bedroom, perfect for a couple. Small kitchen, living room/dining room, bathroom. Near transportation. Call (0510) 463-849.
+
+",
+""
+	],
 
 	[
         "destinations",
@@ -263,6 +275,13 @@ my $questions = [
 [ "elementary", "rent1", 4, "The large house has a larger dining room than the apartment.", "True" ],
 [ "elementary", "rent1", 5, "The large house is three thousand five hundred dollars per month.", "False" ],
 [ "elementary", "rent1", 6, "The large house has more bedrooms than the apartment on the sixth floor.", "False" ],
+
+[ "elementary", "rent2", 1, "The house downtown is perfect for going to the stores.", "True" ],
+[ "elementary", "rent2", 2, "The apartment and the small house both have large kitchens.", "False" ],
+[ "elementary", "rent2", 3, "The apartment is perfect for transportation.", "True" ],
+[ "elementary", "rent2", 4, "The small house has a small kitchen. The apartment has a large kitchen.", "False" ],
+[ "elementary", "rent2", 5, "The small house is one thousand five hundred dollars per month.", "True" ],
+[ "elementary", "rent2", 6, "The small house has one bedroom. The apartment has two bedrooms.", "False" ],
 
 [ "intermediate", "destinations", 1, "Fran'd rather go to the beach in Orlando and Sonia'd rather go to museums in Seattle.", "True" ],
 [ "intermediate", "destinations", 2, "Orlando's sunnier, more relaxing and cheaper than Seattle. Seattle's rainier and not as cheap as Orlando.", "True" ],
