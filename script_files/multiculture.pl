@@ -134,6 +134,24 @@ The main idea, or, or my take on culture shock is, basically, that you move from
 ",
 "XXXX|sources|show notes|impact|familiar|sounds|symbols|social intercourse|disorientation|operate|Kalvero Oberg|credited|coining the phrase|symptoms|cure|take|province"
 	],
+	
+	[
+        "shock2",
+        "What is culture shock? (Part 2)",
+	"intercultural",
+        "Mostly, I'm talking about culture shock moving from one country to a new country. And you lose all your social cue, cues. All the ideas you had, ways of interacting with people.
+
+Even if the, the language is the same, there's, there's different body language. There's different values and norms and different ways of doing things. Even things that might seem the same are different. Hand gestures are different. And some countries, you might, er, use one very, er, vulgar hand sign and in another country it might be acceptable, or a way of greeting, or saying good luck famously. 
+
+So, there's a lot of different things that contribute to it, but it's basically the idea that, and I've had this before (I've traveled extensively). And I've had this before: When you arrive in a new country and you initially, it's cool, or whatever. But after a while, you get struck by feelings of depression and loneliness, or whatever.
+
+And it's that, you're taken out of your own environment, out of where you are safe, and you feel .. safe, and uh, uh, uh, secure, basically. And now suddenly, you're, you're ... the ground has been taken from underneath you. 
+
+You don't know how to, how things work necessarily. You don't know where to ...
+
+",
+"cue|norms|vulgar|famously"
+	],
 	];
 	
 uptodatepopulate( 'Text', $texts );
@@ -175,6 +193,13 @@ my $questions = [
 [ "intercultural", "shock1", 4, "Culture shock is different to the feelings felt when you move from one state to another.", "False" ],
 [ "intercultural", "shock1", 5, "Oberg's main idea was that there is no cure for culture shock.", "False" ],
 [ "intercultural", "shock1", 6, "The impact of moving from one culture to another is differnt from culture shock.", "False" ],
+
+[ "intercultural", "shock2", 1, "Hand gestures that might seem the same are different.", "True" ],
+[ "intercultural", "shock2", 2, "When you travel, if there's different language, it might be a shock.", "True" ],
+[ "intercultural", "shock2", 3, "When you're taken out of a safe, secure environment, the new country might after a while depress you.", "True" ],
+[ "intercultural", "shock2", 4, "Even if you don't know how things work, interacting with people is cool, or the same.", "False" ],
+[ "intercultural", "shock2", 5, "Even if the language is different, the body language and hand gestures are the same in different countries.", "False" ],
+[ "intercultural", "shock2", 6, "When you move to a new environment, initially you feel depression, but after a while, it is cool.", "False" ],
 
 	];
 
