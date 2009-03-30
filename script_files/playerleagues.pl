@@ -144,116 +144,6 @@ U9731139 吳詩玉 shi
 U9692021 溫惠喻 hui
 GL00022
 
-push @{$players->{GL00031}}, [split] for <<GL00031 =~ m/^.*$/gm;
-9422264 郭健宏  jian
-9531222 詹凡儀  fan
-9431228 曹曼萱	man
-9521270 鄭智遠	zhi
-9522291 李宗賢	zong
-9531202 彭奕達	yi
-9531234 邱鈺婷	yu
-9531243 丁亭云	ting
-9531249 許博雅	bo
-9611218 黃世杰	shi
-9616208 陳珮熏	pei
-9616211 江柏緯	bo
-9621244 謝宇恆	yu
-9622215 劉欣怡	xin
-9622245 王萬慶	wan
-9622271 黃裕恩  yu
-T9731047 朱英鳳	ying
-U9410005 黃彥綾	yan
-U9410022 許楷青	kai
-U9413010 陳美華	mei
-U9415058 劉子豪	zi
-U9417037 顏凡鈞	fan
-U9422070 鄒銘珊	ming
-U9424014 莊詠竹	yong
-U9513015 劉美芬	mei
-U9513041 陳妍君	yan
-U9513044 林憶伶	yi
-U9513046 陳麗萍	li
-U9513049 葉政忠	zheng
-U9514016 李昇儒	sheng
-U9521110 郭忻柔	xin
-U9522019 張　騰	teng
-U9522061 趙士豪	shi
-U9522063 林書平	shu
-U9522079 張勝傑	sheng
-U9522104 陳泱銓	yang
-U9592050 陳宜萱	yi
-U9611100 柯建賢	jian
-U9613031 戴昀杏	yun
-U9613032 許　彤	tong
-U9621107 董冠緯	guan
-U9622075 周　杰	jie
-U9633036 曾昱文	yu
-U9633049 黃聖萍	sheng
-U9633050 王國權	guo
-U9724028 唐虹琳	hong
-U9731046 黃　旻	yu
-U9416004 鄭美蓉 mei
-U9621092 李允傑 yun
-U9621107 董冠緯 guan
-GL00031
-
-push @{$players->{CLA0013}}, [split] for <<CLA0013 =~ m/^.*$/gm;
-U9693001	沈佳其	jia
-U9693002	江佩珊	pei
-U9693003	葉亭妤	ting
-U9693004	葉依柔	yi
-U9693005	葉佳元	jia
-U9693006	官志皇	zhi
-U9693007	吳佩儒	pei
-U9693008	林漢萭	han
-U9693009	劉佳綺	jia
-U9693011	胡譯文	yi
-U9693012	林貞婷	zhen
-U9693013	吳莉欣	li
-U9693015	鍾秉成	bing
-U9693016	吳純芳	chun
-U9693017	莊雅婷	ya
-U9693018	童建爵	jian
-U9693020	楊鈞茜	jun
-U9693021	鄧舒帆	shu
-U9693022	周育慈	yu
-U9693023	吳馨宜	xin
-U9693024	李明翰	ming
-U9693025	李庭萱	ting
-U9693028	王祥垣	xiang
-U9693029	陳婕妤	jie
-U9693030	賴?岑	?
-U9693031	余宛錚	wan
-U9693032	李孟頻	meng
-U9693033	林鈺心	yu
-U9693034	彭湘華	xiang
-U9693035	翁君儀	jun
-U9693036	吳姵儀	pei
-U9693037	李明濬	ming
-U9693038	賴逸平	yi
-U9693039	陳姵穎	pei
-U9693040	池采逸	cai
-U9693041	李欣蔓	xin
-U9693042	陳柔妤	rou
-U9693043	盧蕙芳	hui
-U9693044	彭希柔	xi
-U9693045	林怡君	yi
-U9693046	蔡逸璇	yi
-U9693047	張舒涵	shu
-U9693048	林琇瑩	xiu
-U9693050	黃昱傑	yu
-U9693052	中山成華	cheng
-U9693053	張綺玲	qi
-U9693054	陳偉生	wei
-U9693055	羅文聰	wen
-N9561713	袁敏萱	min
-N9561725	吳凱婷	kai
-N9561741	林麗佳	li
-N9561759	古嘉珮	jia
-N9561761	林家伶	jia
-N9561764	郭政勳	zheng
-CLA0013
-
 push @{$players->{FLB0002}}, [split] for <<FLB0002 =~ m/^.*$/gm;
 N9361738 江映霖	ying
 N9361749 覃少穎	shao
@@ -282,7 +172,7 @@ N9461766 劉毓汶	yu
 U9533039 蕭郁玲	yu
 FLB0002
 
-for my $league ( 'FLA0015', 'MIA0012' ) {
+for my $league ( 'FLA0015', 'MIA0012', 'CLA0013', 'GL00031' ) {
 	$leaguefile = LoadFile "/home/drbean/class/$league/league.yaml";
 	push @{$players->{$league}}, map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
 					@{$leaguefile->{member}};
