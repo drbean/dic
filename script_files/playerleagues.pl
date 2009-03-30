@@ -332,6 +332,7 @@ U9621048	劉志偉	Zhi
 U9511049	黃湛明	Zhan
 U9717047	陳YuanWen  YU
 P220513110	程小芳	Xiao
+U9734022	廖子瑜	Zi
 ACCESS
 
 push @{$players->{visitors}}, [split] for <<VISITORS =~ m/^.*$/gm;
