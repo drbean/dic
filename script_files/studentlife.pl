@@ -57,11 +57,12 @@ my $eden2 =
 ";
 
 my $texts = [
-	[ qw(id description genre content unclozeables) ],
+	[ qw(id description genre target content unclozeables) ],
 	[
         "eden-1",
         "Eden",
 	"access",
+	"all",
 	$eden1,
 	"Dennis Miller|Miller|forensics|Eden|Hartwell|Upton|spaghetti|sauce"
 	],
@@ -70,6 +71,7 @@ my $texts = [
         "eden-1-GL",
         "Eden",
 	"JUST RIGHT",
+	"all",
 	$eden1,
 	"Dennis Miller|Miller|forensics|Eden|Hartwell|Upton|spaghetti|sauce"
 	],
@@ -78,6 +80,7 @@ my $texts = [
         "eden-2",
         "The color pink",
 	"access",
+	"all",
 	$eden2,
 	"Miller|Eden|sneakers"
 	],
@@ -86,6 +89,7 @@ my $texts = [
         "eden-2-GL",
         "The color pink",
 	"JUST RIGHT",
+	"all",
 	$eden2,
 	"Miller|Eden|sneakers"
 	],
@@ -94,6 +98,7 @@ my $texts = [
         "eden-3",
         "Getting to know roommate",
 	"access",
+	"all",
         "00:55 Miller: Now you were telling me that you got to know your roommate through uh, email during the summer, 
 01:01 Eden: Yeh.
 01:01 Miller: which struck me as a really good way to do things.
@@ -119,6 +124,7 @@ my $texts = [
         "eden-4",
         "Music and hobbies",
 	"access",
+	"all",
         "01:52 Miller: Your favorite band.
 01:54 Eden: Coheed and Cambria. Mmh-hmm. I just, I really like their music. And my boyfriend introduced them to me and I've been hooked ever since.
 02:03 Miller: And I need to ask about your favorite movie?
@@ -143,6 +149,7 @@ my $texts = [
         "eden-5",
         "Saying goodbye",
 	"access",
+	"all",
         "02:35 Miller: The first day that you came here, that your mother brought you here.
 02:39 Eden: Yeh.
 02:40 Miller: And she drove away, and you were on your own.
@@ -163,6 +170,7 @@ my $texts = [
         "family2",
         "Two different households",
 	"elementary",
+	"all",
         "Here are 2 stories about people living in two different houses. How are the people similar and how are they different?
 
 In the first house, Stanley, Peter, Irene and Alice are all living in the same house. They are all students, and like other students, they do some good things, like studying, and some bad things, like playing computer games when they should be studying.
@@ -190,31 +198,31 @@ All of them also often eat vegetables, which is good. They also all study, but l
 $schema->populate( 'Text', $texts );
 
 my $questions = [
-			[ qw/genre text id content answer/ ],
+			[ qw/genre text id target content answer/ ],
 
-[ "JUST RIGHT", "eden-1-GL", 1, "The first student Miller talked with was Eden.", "True" ],
-[ "JUST RIGHT", "eden-1-GL", 2, "Eden's favorite food is the spaghetti her mom makes.", "True" ],
-[ "JUST RIGHT", "eden-1-GL", 3, "Eden thinks her mom's spaghetti is the best because she makes the best sauce.", "True" ],
-[ "JUST RIGHT", "eden-1-GL", 4, "Miller doesn't want to try the spaghetti Eden's mom makes.", "False" ],
-[ "JUST RIGHT", "eden-1-GL", 5, "Eden doesn't like the spaghetti her mom makes", "False" ],
-[ "JUST RIGHT", "eden-1-GL", 6, "Miller hasn't tried the spaghetti Eden's mom makes.", "True" ],
+[ "JUST RIGHT", "eden-1-GL", 1, "all", "The first student Miller talked with was Eden.", "True" ],
+[ "JUST RIGHT", "eden-1-GL", 2, "all", "Eden's favorite food is the spaghetti her mom makes.", "True" ],
+[ "JUST RIGHT", "eden-1-GL", 3, "all", "Eden thinks her mom's spaghetti is the best because she makes the best sauce.", "True" ],
+[ "JUST RIGHT", "eden-1-GL", 4, "all", "Miller doesn't want to try the spaghetti Eden's mom makes.", "False" ],
+[ "JUST RIGHT", "eden-1-GL", 5, "all", "Eden doesn't like the spaghetti her mom makes", "False" ],
+[ "JUST RIGHT", "eden-1-GL", 6, "all", "Miller hasn't tried the spaghetti Eden's mom makes.", "True" ],
 
-[ "JUST RIGHT", "eden-2-GL", 1, "Eden isn't wearing any pink.", "False" ],
-[ "JUST RIGHT", "eden-2-GL", 2, "Eden is wearing pink sneakers.", "True" ],
-[ "JUST RIGHT", "eden-2-GL", 3, "Eden's roommate decorated her half of the room in pink.", "False" ],
-[ "JUST RIGHT", "eden-2-GL", 4, "Eden and her roommate worked out how to decorate the room beforehand.", "True" ],
-[ "JUST RIGHT", "eden-2-GL", 5, "Eden thinks her roomate doesn't like pink.", "False" ],
-[ "JUST RIGHT", "eden-2-GL", 6, "Eden decorated her half of the room the way she wanted it to be and her roommate decorated her half of the room the way she wanted it to be.", "True" ],
-[ "JUST RIGHT", "eden-2-GL", 7, "The two halves of the room are decorated differently.", "True" ],
+[ "JUST RIGHT", "eden-2-GL", 1, "all", "Eden isn't wearing any pink.", "False" ],
+[ "JUST RIGHT", "eden-2-GL", 2, "all", "Eden is wearing pink sneakers.", "True" ],
+[ "JUST RIGHT", "eden-2-GL", 3, "all", "Eden's roommate decorated her half of the room in pink.", "False" ],
+[ "JUST RIGHT", "eden-2-GL", 4, "all", "Eden and her roommate worked out how to decorate the room beforehand.", "True" ],
+[ "JUST RIGHT", "eden-2-GL", 5, "all", "Eden thinks her roomate doesn't like pink.", "False" ],
+[ "JUST RIGHT", "eden-2-GL", 6, "all", "Eden decorated her half of the room the way she wanted it to be and her roommate decorated her half of the room the way she wanted it to be.", "True" ],
+[ "JUST RIGHT", "eden-2-GL", 7, "all", "The two halves of the room are decorated differently.", "True" ],
 
-[ "elementary", "family2", 1, "Students in both houses often eat vegetables.", "True" ],
-[ "elementary", "family2", 2, "None of the people in the second house do housework.", "True" ],
-[ "elementary", "family2", 3, "Two of the people in one of the houses drink.", "True" ],
-[ "elementary", "family2", 4, "The people in the first house sometimes exercise.", "True" ],
-[ "elementary", "family2", 5, "Two of the people in one of the houses play computer games.", "True" ],
-[ "elementary", "family2", 6, "One of the people in the first house smokes.", "False" ],
-[ "elementary", "family2", 7, "The people in the second house sometimes study.", "True" ],
-[ "elementary", "family2", 8, "In both houses, some of the people do some good things and some bad things.", "True" ],
+[ "elementary", "family2", 1, "all", "Students in both houses often eat vegetables.", "True" ],
+[ "elementary", "family2", 2, "all", "None of the people in the second house do housework.", "True" ],
+[ "elementary", "family2", 3, "all", "Two of the people in one of the houses drink.", "True" ],
+[ "elementary", "family2", 4, "all", "The people in the first house sometimes exercise.", "True" ],
+[ "elementary", "family2", 5, "all", "Two of the people in one of the houses play computer games.", "True" ],
+[ "elementary", "family2", 6, "all", "One of the people in the first house smokes.", "False" ],
+[ "elementary", "family2", 7, "all", "The people in the second house sometimes study.", "True" ],
+[ "elementary", "family2", 8, "all", "In both houses, some of the people do some good things and some bad things.", "True" ],
 
 	];
 
