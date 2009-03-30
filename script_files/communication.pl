@@ -135,7 +135,7 @@ Yi: So there's probably both a hard-wired innate component to it, as well as a s
 	]
 	];
 
-$schema->populate( 'Text', $texts );
+uptodatepopulate( 'Text', $texts );
 
 my $questions = [
 			[ qw/genre text id content answer/ ],
@@ -159,7 +159,7 @@ my $questions = [
 [ "intercultural", "smiling", 3, "Americans think Germans are unfriendly in service encounters.", "True" ],
 [ "intercultural", "smiling", 4, "People in Germany and the US have similar attitudes to smiling.", "False" ],
 [ "intercultural", "smiling", 5, "Germans think Americans are very friendly because they smile a lot.", "False" ],
-[ "intercultural", "smiling", 6, "The contact smile is a smile for when you misinterpret a situation.", "True" ],
+[ "intercultural", "smiling", 6, "The contact smile is a smile for when you misinterpret a situation.", "False" ],
 
 [ "intercultural", "secondlife", 1, "Too much staring and too little personal space is psychologically uncomfortable.", "True" ],
 [ "intercultural", "secondlife", 2, "The Elevator Effect is an unwritten rule about breaking eye contact or being too confined.", "True" ],
@@ -170,7 +170,21 @@ my $questions = [
 
 	];
 
-$schema->populate( 'Question', $questions );
+uptodatepopulate( 'Question', $questions );
+
+sub uptodatepopulate
+{
+	my $class = $schema->resultset(shift);
+	my $entries = shift;
+	my $columns = shift @$entries;
+	foreach my $row ( @$entries )
+	{
+		my %hash;
+		@hash{@$columns} = @$row;
+		$class->update_or_create(\%hash);
+	}
+}
+
 
 =head1 NAME
 
