@@ -61,6 +61,7 @@ my $questions = [
 [ "speaking", "tate", 6, "all", "Tate says speakers need to be more mindful of their speaking style and their expertise as speakers.", "False" ],
 
 	];
+
 push @$texts, [
         "chasm",
         "The effect of mispronouncing 'chasm'",
@@ -104,6 +105,30 @@ push @$questions,
 [ "speaking", "chasm", 4, "all", "Everyone makes mistakes, so people don't think you are stupid if you mispronounce words.", "False" ],
 [ "speaking", "chasm", 5, "all", "To avoid pronunciation mistakes, Winograd should have written her words down.", "False" ],
 [ "speaking", "chasm", 6, "all", "Practicing beforehand with other people will not cause you to correct your mistakes.", "False" ];
+
+push @$texts, [
+        "fright",
+        "Stage fright on podium",
+	"speaking",
+	"all",
+	"0:55 Relax. Here are some tips for overcoming stage fright. Think quiet thoughts. Before you take the podium, think calming thoughts. Pretend you are at the beach, or gently rocking in a boat. Breathe deeply. Walk slowly. As you move toward the podium, walk slowly. Keep breathing calmly. Smile. When you come to the podium, or the center of the room, smile at the audience. Pause for a moment and make eye contact. The people in the room are not vampires.
+
+Focus on your message. Deliver your speech either from a script or note cards. Focus on what you want to say, not what you think people want to hear.
+
+As helpful as these tips are, they will not take away all your butterflies. They will simply ground most of them. And that's a good thing. Many a veteran actor or musician has lost his cookies before a performance. Your challenge is to channel that nervousness into energy that you can put into your words, your voice and your gestures. So go for it. You have nothing to lose but your fears. Break a leg.
+
+",
+"0:55|tips|rocking in a boat|vampires|ground|veteran|actor|musician|lost his cookies"
+	];
+
+push @$questions,
+
+[ "speaking", "fright", 1, "all", "Nervousness is good if you can channel that energy into delivering your speech.", "True" ],
+[ "speaking", "fright", 2, "all", "If you can focus on what to say, you will channel some energy into your message.", "True" ],
+[ "speaking", "fright", 3, "all", "It is a good thing to have some butterflies before a performance.", "True" ],
+[ "speaking", "fright", 4, "all", "He says the tips are not very good for overcoming for stage fright.", "False" ],
+[ "speaking", "fright", 5, "all", "You can take butterflies or cookies and deliver them to the audience to overcome stage fright.", "False" ],
+[ "speaking", "fright", 6, "all", "You can overcome all your fears with the tips. And that's a good thing.", "False" ];
 
 
 
