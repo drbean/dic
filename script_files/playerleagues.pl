@@ -55,7 +55,7 @@ my $leaguegenres = [
 			[ "GL00040",	"intermediate" ],
 			[ "GL00042",	"intermediate" ],
 			[ "CLA",	"elementary" ],
-			[ "FLA0005",	"interculture" ],
+			[ "FLA0005",	"intercultural" ],
 			[ "FLA0018",	"intermediate" ],
 			[ "access",	"all" ],
 			[ 'visitors',	"demo" ],
@@ -357,9 +357,10 @@ foreach my $league ( 'officials', @leagueids )
 my $playerpopulator = [ [ qw/id name password/ ], values %players ];
 uptodatepopulate( 'Player', $playerpopulator );
 
-my (%members, %rolebearers);
+my (@allLeaguerolebearers, @allLeaguePlayers);
 foreach my $league ( @leagueids )
 {
+	my (%members, %rolebearers);
 	next unless $players->{$league} and ref $players->{$league} eq "ARRAY";
 	my @players = @{$players->{$league}};
 	foreach my $player ( @players )
@@ -367,10 +368,12 @@ foreach my $league ( @leagueids )
 		$members{$player->[0]} =  [ $league, $player->[0] ];
 		$rolebearers{$player->[0]} =  [ $player->[0], 2 ];
 	}
+	push @allLeaguePlayers, values %members;
+	push @allLeaguerolebearers, values %rolebearers;
 	$members{193001} = [ $league, 193001 ];
 }
 uptodatepopulate( 'Member', [ [ qw/league player/ ], 
-				values %members ] );
+				@allLeaguePlayers ] );
 
 uptodatepopulate( 'Role', [ [ qw/id role/ ], 
 [ 1, "official" ],
@@ -378,7 +381,7 @@ uptodatepopulate( 'Role', [ [ qw/id role/ ],
 
 uptodatepopulate( 'Rolebearer', [ [ qw/player role/ ], 
 				[ 193001, 1 ],
-				values %rolebearers ] );
+				@allLeaguerolebearers ] );
 
 sub uptodatepopulate
 {
