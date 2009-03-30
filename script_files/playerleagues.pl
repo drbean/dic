@@ -19,7 +19,7 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/GL00003 GL00022 CLA FLA0015 access visitors/;
+my @leagueids = qw/GL00003 GL00022 CLA0013 FLA0015 access visitors/;
 my $dir = ( File::Spec->splitdir(getcwd) )[-1];
 $dir = qr/^(GL000|CLA|FLA)/ if $dir eq 'dic';
 @leagueids = grep m/$dir/, @leagueids;
@@ -35,7 +35,7 @@ my $leagues = [
 	[ "GL00003", "GL00003日語文共同學制虛擬班二", "中級英文聽說訓練" ],
 	[ "GL00022", "GL00022日語文共同學制虛擬班二", "中級英文聽說訓練" ],
 	[ "GL00031", "GL00031日語文共同學制虛擬班二", "中級英文聽說訓練" ],
-		[ "CLA", "日華文大學二甲", "英文聽力及會話" ],
+		[ "CLA0013", "日華文大學二甲", "英文聽力及會話" ],
 		[ "FLA0015", "夜應外大學二甲", "英語會話(二)" ],
 		[ "access", "英語自學室", "Listening" ],
 		[ "visitors", "Visitors", "Demonstration Play" ],
@@ -49,7 +49,7 @@ my $leaguegenres = [
 			[ "GL00003",	"intermediate" ],
 			[ "GL00022",	"intermediate" ],
 			[ "GL00031",	"intermediate" ],
-			[ "CLA",	"elementary" ],
+			[ "CLA0013",	"elementary" ],
 			[ "FLA0015",	"intermediate" ],
 			[ "access",	"all" ],
 			[ 'visitors',	"demo" ],
@@ -133,7 +133,7 @@ GL00022
 push @{$players->{GL00031}}, [split] for <<GL00031 =~ m/^.*$/gm;
 GL00031
 
-push @{$players->{CLA}}, [split] for <<CLA =~ m/^.*$/gm;
+push @{$players->{CLA0013}}, [split] for <<CLA0013 =~ m/^.*$/gm;
 U9693001	沈佳其	Jia
 U9693002	江佩珊	Pei
 U9693003	葉亭妤	Ting
@@ -188,7 +188,7 @@ N9561741	林麗佳	Li
 N9561759	古嘉珮	Jia
 N9561761	林家伶	Jia
 N9561764	郭政勳	Zheng
-CLA
+CLA0013
 
 push @{$players->{FLA0015}}, [split] for <<FLA0015 =~ m/^.*$/gm;
 N9361748	徐銘鴻	Ming
@@ -295,7 +295,11 @@ uptodatepopulate( 'Member', [ [ qw/league player/ ],
 
 uptodatepopulate( 'Role', [ [ qw/id role/ ], 
 [ 1, "official" ],
-[ 2, "player" ] ] );
+[ 2, "player" ],
+[ 3, "playerA" ],
+[ 4, "playerB" ],
+[ 5, "playerC" ],
+[ 6, "playerD" ] ] );
 
 uptodatepopulate( 'Rolebearer', [ [ qw/player role/ ], 
 				[ 193001, 1 ],
