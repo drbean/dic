@@ -22,7 +22,7 @@ BEGIN {
 
 my @leagueids = qw/GL00003 GL00022 GL00031 CLA0013 FLA0015 FLB0002 MIA0012 access visitors/;
 my $dir = ( File::Spec->splitdir(getcwd) )[-1];
-$dir = qr/^(GL000|CLA|FL|MIA)/ if $dir eq 'dic';
+$dir = qr/^(GL000|CLA|FL|MIA|access)/ if $dir eq 'dic';
 @leagueids = grep m/$dir/, @leagueids;
 
 no strict qw/subs refs/;
@@ -127,6 +127,7 @@ push @{$players->{GL00022}}, [split] for <<GL00022 =~ m/^.*$/gm;
 9633250  呂孟慈 meng
 T9731044 張凱建 kai
 U9316005 劉嘉蕙 jia
+U9316009 陳婷君 ting
 U9316045 鄭宇軒 yu
 U9416012 劉宇溱 yu
 U9522028 林沿昌 yan
@@ -295,6 +296,7 @@ U9511049	黃湛明	Zhan
 U9717047	陳YuanWen  YU
 P220513110	程小芳	Xiao
 U9734022	廖子瑜	Zi
+U9734050	黃靖瑋	jing
 ACCESS
 
 push @{$players->{visitors}}, [split] for <<VISITORS =~ m/^.*$/gm;
