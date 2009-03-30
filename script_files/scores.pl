@@ -66,8 +66,18 @@ print "In $dir directory:\n";
 my $scores;
 for my $id ( sort @leagueids )
 {
-	my @leagueExercises = @exerciseIds;
-	push @leagueExercises, @newExerciseList if $dir eq $id and $league;
+	# my @leagueExercises = @exerciseIds;
+	my @leagueExercises;
+	if ( $dir eq $id and $league ) {
+		push @leagueExercises, @newExerciseList;
+	}
+	elsif ( $dir eq 'dic' or $dir eq 'target' or $dir eq 'access' ) {
+		my $league = $schema->resultset('League')->find({ id => $dir });
+		my $genre = $league->genre->get_column('genre') if $league;
+		my @newExerciseList = uniq $schema->resultset('Exercise')
+			->search({ genre => $genre })->get_column('id')->all;
+		push @leagueExercises, @newExerciseList;
+	}
 	@leagueExercises = uniq @leagueExercises;
 	print $id . "\t", @leagueExercises , "Total\n";
 	print "============================================\n";
