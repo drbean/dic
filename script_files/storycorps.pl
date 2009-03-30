@@ -28,7 +28,7 @@ my $texts = [
 	[
 	"kroenke-1",
         "Tuning a piano at a nursing home",
-	"all",
+	"intermediate",
 	"00:38 A group gathered around in chairs.
 00:42 And they were all wearing their nice Christmas clothing, 
 00:43 and I thought, Well, how nice, you know, they have no idea that I'm going to bore them to sleep with my tuning. 
