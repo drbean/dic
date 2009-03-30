@@ -114,6 +114,7 @@ U9721126 汪孟庭 meng
 U9721133 何盈宗 ying
 U9742009 鄭惠云 hui
 U9742011 蔡秀艾 ying
+U9631013 吳依婷	yi
 GL00003
 
 push @{$players->{GL00022}}, [split] for <<GL00022 =~ m/^.*$/gm;
@@ -132,6 +133,8 @@ U9592036 蘇木春 mu
 U9715024 簡□彥  ?
 U9731102 陳衣采 yi
 U9731143 林孝芸 xiao
+9422221	 張家偉	jia
+U9731139 吳詩玉 shi
 GL00022
 
 push @{$players->{GL00031}}, [split] for <<GL00031 =~ m/^.*$/gm;
