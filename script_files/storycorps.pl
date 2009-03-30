@@ -100,44 +100,35 @@ And I says, Well, that was you last year.
 	],
 
 	[
-	"trinka-4",
-        "Treating guests",
+	"trinka-2",
+        "How to treat people",
 	"intermediate",
 	"all",
-        "01:26 Debra: Now, I got to know you because I walk to work every morning, and I cut by the Plaza, and you made my day. \"Good morning, young lady.\" \"Beautiful day.\"
-01:32 Ed: Eh, that's what it's all about.
-01:35 Out being in front there and smiling. 
-01:36 And just making everybody happy.
-01:38 And that's the whole thing of it.
-01:39 You know, anybody that comes in here is a VIP.
-01:42 And when they tell me, Treat them like a VIP, I say I already do.
+        "Debra: Now, I got to know you because I walk to work every morning, and I cut by the Plaza, and you made my day. \"Good morning, young lady.\" \"Beautiful day.\"
+Ed: Eh, that's what it's all about.
+Out being in front there and smiling. 
+And just making everybody happy.
+And that's the whole thing of it.
+You know, anybody that comes in here is a VIP.
+And when they tell me, Treat them like a VIP, I say I already do.
+
+I had a guest come in one morning, six-thirty in the morning.
+And he had to go to a very important meeting.
+And he asked me where he could get his shoes shined.
+And I says, It don't open till eight o'clock. Our barber shop.
+So I said, I tell you what. Give me the shoes and you come back in a half an hour or so and I'll have them done.
+I ran down to my locker, got my shoeshine kit, which I have in my locker to shine my shoes,
+shined them up for him,
+come back up. He come by, put his shoes on,
+and he went to the meeting, and he's one of my best friends.
+Matter of fact, he comes back to the Plaza all the time.
+You know, my father told me years ago,
+He said, Be such a man, and live such a life, that if,
+Everybody lived a life like yours, this would be God's paradise.
+And I go by that.
 
 ",
-"Plaza|VIP|Ed|Debra"
-	],
-
-	[
-	"trinka-5",
-        "Shoeshine story and how to treat people",
-	"intermediate",
-	"all",
-        "01:45 I had a guest come in one morning, 6:30 in the morning.
-01:49 And he had to go to a very important meeting.
-01:51 And he asked me where he could get his shoes shined.
-01:53 And I says, It don't open till eight o'clock. Our barber shop.
-01:56 So I said, I tell you what. Give me the shoes and you come back in a half an hour or so and I'll have them done.
-02:01 I ran down to my locker, got my shoeshine kit, which I have in my locker to shine my shoes,
-02:06 shined them up for him,
-02:07 come back up. He come by, put his shoes on,
-02:09 and he went to the meeting, and he's one of my best friends.
-02:12 Matter of fact, he comes back to the Plaza all the time.
-02:14 You know, my father told me years ago,
-02:16 He said, Be such a man, and live such a life, that if,
-02:19 Everybody lived a life like yours, this would be God's paradise.
-02:23 And I go by that.
-
-",
-"shined|barber|locker|shoeshine|kit|paradise"
+"Plaza|Ed|Debra|shined|barber|locker|shoeshine|kit|paradise"
 	],
 
 	[
@@ -265,8 +256,15 @@ my $questions = [
 [ "intermediate", "trinka-1", 5, "all", "Jackie Gleason got the best tip from Ed Trinka, one hundred and fifty dollars.", "False" ],
 [ "intermediate", "trinka-1", 6, "all", "Jackie Gleason, a garage manager at the Plaza, was Ed's father.", "False" ],
 
-[ "intermediate", "trinka-4", 1, "all", "Ed Trinka made Debra's day by smiling and being happy.", "True" ],
-[ "intermediate", "trinka-5", 1, "all", "Ed Trinka shined a guest's shoes with his shoeshine kit.", "True" ],
+[ "intermediate", "trinka-2", 1, "all", "Ed shone the shoes of a guest at the Plaza because the barber shop wasn't open.", "True" ],
+[ "intermediate", "trinka-2", 2, "all", "Ed's thing is to treat guests like VIPs and make them happy, because they are VIPs.", "True" ],
+[ "intermediate", "trinka-2", 3, "all", "Ed's father told him to live the life he is living and treat people very well.", "True" ],
+[ "intermediate", "trinka-2", 4, "all", "Ed Trinka made Debra's day by smiling and being happy.", "True" ],
+[ "intermediate", "trinka-2", 5, "all", "Ed Trinka shined a guest's shoes with his shoeshine kit.", "True" ],
+[ "intermediate", "trinka-2", 6, "all", "Debra met Ed when she was working at the Plaza Hotel as a VIP and he shone her shoes.", "False" ],
+[ "intermediate", "trinka-2", 7, "all", "Ed shone his shoes because he had an important meeting with a guest.", "False" ],
+[ "intermediate", "trinka-2", 8, "all", "Ed shines his shoes every morning because he has an important meeting with Debra.", "False" ],
+
 
 [ "intermediate", "jackson-1", 1, "all", "Charles had to care for his mom when his mother got Alzheimers.", "True" ],
 [ "intermediate", "jackson-1", 2, "all", "Charles' Mom and Dad fought with each other, when she couldn't tell him where Charles was.", "True" ],
