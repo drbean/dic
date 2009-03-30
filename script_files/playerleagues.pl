@@ -19,7 +19,7 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/GL00003 GL00022 CLA0013 FLA0015 MIA0012 access visitors/;
+my @leagueids = qw/GL00003 GL00022 CLA0013 FLA0015 FLB0002 MIA0012 access visitors/;
 my $dir = ( File::Spec->splitdir(getcwd) )[-1];
 $dir = qr/^(GL000|CLA|FLA|MIA)/ if $dir eq 'dic';
 @leagueids = grep m/$dir/, @leagueids;
@@ -35,8 +35,9 @@ my $leagues = [
 	[ "GL00003", "GL00003日語文共同學制虛擬班二", "中級英文聽說訓練" ],
 	[ "GL00022", "GL00022日語文共同學制虛擬班二", "中級英文聽說訓練" ],
 	[ "GL00031", "GL00031日語文共同學制虛擬班二", "中級英文聽說訓練" ],
-		[ "CLA0013", "日華文大學二甲", "英文聽力及會話" ],
-		[ "FLA0015", "夜應外大學二甲", "英語會話(二)" ],
+		[ "CLA0013", "CLA0013日華文大學二甲", "英文聽力及會話" ],
+		[ "FLA0015", "FLA0015夜應外大學二甲", "英語會話(二)" ],
+		[ "FLB0002", "FLB0002夜應外四技四甲", "英語演說" ],
 		[ "MIA0012", "MIA0012日資管大學二甲", "商用英文實務(二)" ],
 		[ "access", "英語自學室", "Listening" ],
 		[ "visitors", "Visitors", "Demonstration Play" ],
@@ -52,6 +53,7 @@ my $leaguegenres = [
 			[ "GL00031",	"intermediate" ],
 			[ "CLA0013",	"elementary" ],
 			[ "FLA0015",	"intermediate" ],
+			[ "FLB0002",	"speaking" ],
 			[ "MIA0012",	"business" ],
 			[ "access",	"all" ],
 			[ 'visitors',	"demo" ],
@@ -133,6 +135,49 @@ U9731143 林孝芸 xiao
 GL00022
 
 push @{$players->{GL00031}}, [split] for <<GL00031 =~ m/^.*$/gm;
+9431228 曹曼萱	x
+9521270 鄭智遠	x
+9522291 李宗賢	x
+9531234 邱鈺婷	x
+9531243 丁亭云	x
+9531249 許博雅	x
+9611218 黃世杰	x
+9616208 陳珮熏	x
+9616211 江柏緯	x
+9621244 謝宇恆	x
+9622215 劉欣怡	x
+9622245 王萬慶	x
+T9731047 朱英鳳	x
+U9410005 黃彥綾	x
+U9410022 許楷青	x
+U9413010 陳美華	x
+U9417037 顏凡鈞	x
+U9422070 鄒銘珊	x
+U9424014 莊詠竹	x
+U9513015 劉美芬	x
+U9513041 陳妍君	x
+U9513044 林憶伶	x
+U9513046 陳麗萍	x
+U9513049 葉政忠	x
+U9514016 李昇儒	x
+U9521110 郭忻柔	x
+U9522019 張　騰	x
+U9522061 趙士豪	x
+U9522063 林書平	x
+U9522079 張勝傑	x
+U9522104 陳泱銓	x
+U9592050 陳宜萱	x
+U9611100 柯建賢	x
+U9613031 戴昀杏	yun
+U9613032 許　彤	x
+U9621107 董冠緯	x
+U9622075 周　杰	x
+U9633036 曾昱文	x
+U9633049 黃聖萍	x
+U9633050 王國權	x
+U9724028 唐虹琳	x
+U9731046 黃　旻	x
+9531202 彭奕達	x
 GL00031
 
 push @{$players->{CLA0013}}, [split] for <<CLA0013 =~ m/^.*$/gm;
@@ -243,6 +288,35 @@ N9661748	楊妙雲	Miao
 N9661750	王育祥	YU
 U9533039	蕭郁玲	YU
 FLA0015
+
+push @{$players->{FLB0002}}, [split] for <<FLB0002 =~ m/^.*$/gm;
+N9361738 江映霖	ying
+N9361749 覃少穎	shao
+N9361750 曾思萍	si
+N9461708 張佩玲	pie
+N9461709 陳詩旻	shi
+N9461710 羅亞萍	ya
+N9461719 劉昭驊	zhao
+N9461725 張□明	ming
+N9461729 蔡純茹	chun
+N9461734 張雅臻	ya
+N9461735 張琨耀	kun
+N9461736 彭珠蓮	zhu
+N9461739 林佳汭	jia
+N9461745 陳怡蓁	yi
+N9461747 李安倫	an
+N9461748 陳思羽	si
+N9461751 黃芝鈴	zhi
+N9461753 葉又寧	you
+N9461754 李蕙丞	hui
+N9461756 許芷菱	zhi
+N9461760 吳雲禎	yun
+N9461762 陳震宇	zhen
+N9461764 林俊華	jun
+N9461766 劉毓汶	yu
+U9533039 蕭郁玲	yu
+
+FLB0002
 
 push @{$players->{MIA0012}}, [split] for <<MIA0012 =~ m/^.*$/gm;
 U9633001 林祐年	you
