@@ -72,62 +72,37 @@ my $texts = [
 
 	[
 	"trinka-1",
-        "Ed Trinka, Plaza Hotel doorman",
-	"all",
-	"all",
-        "00:20 Welcome to the StoryCorps podcast.
-00:23 In this episode, a story from New York City. 
-00:25 The Plaza Hotel first opened its doors at the foot of Central Park a hundred years ago this week. 
-00:30 For nearly 45 of those years, Plaza Hotel doorman Ed Trinka has greeted hotel guests and passers-by.
-00:37 That's how Debra Goodman met him.
-00:40 They struck up a friendship and Debra brought Ed to StoryCorps to talk about working at a New York landmark for nearly half a century.
-
-",
-"StoryCorps|podcast|episode|Plaza|greeted|Ed|Trinka|Debra|Goodman|landmark|century"
-	],
-
-	[
-	"trinka-2",
         "Getting the doorman job",
+	"intermediate",
 	"all",
-	"all",
-        "00:46 Debra: How did you get the job as doorman at the Plaza Hotel.
-00:50 Ed: Well, my father was a garage manager at the Plaza for thirty years.
-00:54 And he was friends with all the doormen.
-00:55 And when I graduated from high school, he said,
-00:57 There's a nice job for you over there.
-00:58 Just go over and talk to somebody.
-01:00 One of the doormen was sick and they put the hat and coat on me, which fit very well.
-01:03 And they put me on the door right away.
-01:06 And I got outside and started working.
-01:07 That was my first job.
-01:09 And then, uh, it was great.
+        "Debra: How did you get the job as doorman at the Plaza Hotel.
+Ed: Well, my father was a garage manager at the Plaza for thirty years.
+And he was friends with all the doormen.
+And when I graduated from high school, he said,
+There's a nice job for you over there.
+Just go over and talk to somebody.
+One of the doormen was sick and they put the hat and coat on me, which fit very well.
+And they put me on the door right away.
+And I got outside and started working.
+That was my first job.
+And then, uh, it was great.
+
+Debra: What was the best tip you ever got? 
+Ed: Well, I was always tell the story about Jackie Gleason, for Christmas time. 
+He says to me, What was the biggest tip you ever got.
+And I says, Well, a hundred dollars.
+And he says, Here's a hundred and fifty dollars. Merry Christmas.
+And he says, By the way, who was the one who gave you a hundred?
+And I says, Well, that was you last year.
 
 ",
-"Debra|Ed|graduated"
-	],
-
-	[
-	"trinka-3",
-        "Tip story",
-	"all",
-	"all",
-        "01:10 Debra: What was the best tip you ever got? 
-01:13 Ed: Well, I was always tell the story about Jackie Gleason, for Christmas time. 
-01:15 He says to me, What was the biggest tip you ever got.
-01:17 And I says, Well, a hundred dollars.
-01:19 And he says, Here's a hundred and fifty dollars. Merry Christmas.
-01:22 And he says, By the way, who was the one who gave you a hundred?
-01:24 And I says, Well, that was you last year.
-
-",
-"Debra|Ed|Jackie|Gleason|Christmas|Merry"
+"Debra|Ed|graduated|tip|Jackie|Gleason|Merry Christmas"
 	],
 
 	[
 	"trinka-4",
         "Treating guests",
-	"all",
+	"intermediate",
 	"all",
         "01:26 Debra: Now, I got to know you because I walk to work every morning, and I cut by the Plaza, and you made my day. \"Good morning, young lady.\" \"Beautiful day.\"
 01:32 Ed: Eh, that's what it's all about.
@@ -144,7 +119,7 @@ my $texts = [
 	[
 	"trinka-5",
         "Shoeshine story and how to treat people",
-	"all",
+	"intermediate",
 	"all",
         "01:45 I had a guest come in one morning, 6:30 in the morning.
 01:49 And he had to go to a very important meeting.
@@ -224,7 +199,7 @@ my $texts = [
 	[
         "clay-1",
         "Life with Frank Mixon",
-	"all",
+	"intermediate",
 	"all",
         "00:37 I was pregnant when I met him.
 00:40 And he saw me, and walked over towards me, and he said, You're going to be my wife.
@@ -252,7 +227,7 @@ my $texts = [
 	[
         "clay-2",
         "Remembering Frank",
-	"all",
+	"intermediate",
 	"all",
         "02:06 I was married to him for seventeen years, and we separated. And he moved to Michigan. 
 02:11 I don't know the details, but Frank got into an altercation. 
@@ -283,11 +258,15 @@ my $questions = [
 [ "intermediate", "kroenke-2", 3, "all", "It didn't mean a thing to Ron that someone did tell him he did things right.", "False" ],
 [ "intermediate", "kroenke-2", 4, "all", "Rose tells Ron: \"You're kind for fixing the piano.\"", "False" ],
 
-[ "all", "trinka-1", 1, "all", "Ed Trinka has worked for nearly a hundred years at the Plaza.", "False" ],
-[ "all", "trinka-2", 1, "all", "When Ed got sick, they put a hat and coat on him.", "False" ],
-[ "all", "trinka-3", 1, "all", "Jackie Gleason got the best tip from Ed Trinka, a hundred and fifty dollars.", "False" ],
-[ "all", "trinka-4", 1, "all", "Ed Trinka made Debra's day by smiling and being happy.", "True" ],
-[ "all", "trinka-5", 1, "all", "Ed Trinka shined a guest's shoes with his shoeshine kit.", "True" ],
+[ "intermediate", "trinka-1", 1, "all", "Ed started working at the Plaza after he graduated from high school.", "True" ],
+[ "intermediate", "trinka-1", 2, "all", "Ed got his first job at the Plaza when one of the doormen was sick.", "True" ],
+[ "intermediate", "trinka-1", 3, "all", "Jackie Gleason gave Ed his biggest tip of one hundred and fifty dollars.", "True" ],
+[ "intermediate", "trinka-1", 4, "all", "When Ed got sick, they put a hat and coat on him.", "False" ],
+[ "intermediate", "trinka-1", 5, "all", "Jackie Gleason got the best tip from Ed Trinka, one hundred and fifty dollars.", "False" ],
+[ "intermediate", "trinka-1", 6, "all", "Jackie Gleason, a garage manager at the Plaza, was Ed's father.", "False" ],
+
+[ "intermediate", "trinka-4", 1, "all", "Ed Trinka made Debra's day by smiling and being happy.", "True" ],
+[ "intermediate", "trinka-5", 1, "all", "Ed Trinka shined a guest's shoes with his shoeshine kit.", "True" ],
 
 [ "intermediate", "jackson-1", 1, "all", "Charles had to care for his mom when his mother got Alzheimers.", "True" ],
 [ "intermediate", "jackson-1", 2, "all", "Charles' Mom and Dad fought with each other, when she couldn't tell him where Charles was.", "True" ],
@@ -299,8 +278,8 @@ my $questions = [
 [ "intermediate", "jackson-2", 3, "all", "Charles thinks he isn't having fun with his family.", "False" ],
 [ "intermediate", "jackson-2", 4, "all", "Charles wants his family to treat him differently, because of his failings.", "False" ],
 
-[ "all", "clay-1", 1, "all", "Frank gave Rebia some rings when they got married.", "False" ],
-[ "all", "clay-2", 1, "all", "Rebia had four children with Frank.", "False" ],
+[ "intermediate", "clay-1", 1, "all", "Frank gave Rebia some rings when they got married.", "False" ],
+[ "intermediate", "clay-2", 1, "all", "Rebia had four children with Frank.", "False" ],
 
 	];
 
