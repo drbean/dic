@@ -269,7 +269,7 @@ my $texts = [
 
 	];
 
-$schema->populate( 'Text', $texts );
+uptodatepopulate( 'Text', $texts );
 
 my $questions = [
 			[ qw/genre text id content answer/ ],
@@ -292,7 +292,22 @@ my $questions = [
 
 	];
 
-$schema->populate( 'Question', $questions );
+uptodatepopulate( 'Question', $questions );
+
+sub uptodatepopulate
+{
+	my $class = $schema->resultset(shift);
+	my $entries = shift;
+	my $columns = shift @$entries;
+	foreach my $row ( @$entries )
+	{
+		my %hash;
+		@hash{@$columns} = @$row;
+		$class->update_or_create(\%hash);
+	}
+}
+
+
 =head1 NAME
 
 studentlife.pl - Set up dic db
