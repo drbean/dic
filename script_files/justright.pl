@@ -165,7 +165,7 @@ Mary and Danny at the front look like they have been drawn by a different artist
 Louise and Shimran also have interesting poses. Louise's head is turned in Shimran's direction but she is not looking at Shimran. Shimran is not looking at Louise either. Her head is thrown back. I think she has something wrong with her neck. What is she holding in her hand? It looks like a white plate with little red, yellow and green balls on it.
 
 ",
-"Colin|David|artist|Paul|Mary|Danny|Louise|Shimran"
+"Colin|David|poses|artist|Paul|Mary|Danny|Louise|Shimran"
 	],
 
 	[
