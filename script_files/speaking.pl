@@ -210,6 +210,62 @@ push @$questions,
 [ "speaking", "feng", 5, "all", "Feng says speakers do not know their topics well, so they are afraid of humiliation.", "False" ],
 [ "speaking", "feng", 6, "all", "Oliveiro asks Feng why he is afraid of answering her question about public speaking", "False" ];
 
+push @$texts, [
+        "garrett",
+        "Speech start",
+	"speaking",
+	"all",
+	"1:36 Thank you, Claire. That's really the nicest introduction I've ever had.
+
+And I, I really do need to say how very .. grateful and touched I was to be invited to do this. 
+
+Recordist: (inaudible)
+
+Garrett: This? I've got something on.
+
+Recordist: Yeah, but (inaudible)
+
+Garrett: What am I supposed to be doing? I can talk loud too. I used to be an actress, you know. ... Rumble, rumble. ... Am I live? 
+
+Recordist: Yeah. (inaudible)
+
+Garrett: (inaudible) I've already got something on my belt.
+
+Recordists: (inaudible)
+
+Garrett: Oh, I need two.
+
+Audience: (laughter)
+
+Garrett: Yeah, I'm technologically challenged. In a major way. Claire and her Twitter account. Let me tell you. Rotsa Ruck.
+
+Okay. So I was just starting to get sentimental. And say, how very much appreciated this, the honor of being asked to speak to CALICO, is.
+
+And CALICO usually gets outside speakers for the, for the, uh, the keynotes. And, and, uhm, they give us lots of interesting perspectives from outside the field. And some of them tend to talk down to us. And I really liked what Claire said about, you know, I'm, I'm one of us.
+
+So, you could, you could, at least be sure that I won't do that.
+
+But I'm very humble about speaking to this audience, because, uhm, all of you who know me (and I think that's probably a fair number of you) know perfectly well that all I can do is sort of talk in general terms about things that I can't do but that you can. 
+
+And that makes me feel very diffident and very hesitant. But as long as, sort of, the big-picture discussions are of any use to anybody, well, that seems to be the kind of thing that I'm relatively good at.
+
+Maybe we should form a new version of the old bromide, you know, Those who can do, those who can't give keynotes.
+
+Audience: (Some laughter)
+
+",
+"Recordist|Garrett|Audience|1:36|major way|Claire|Twitter account|sentimental|CALICO|perspectives|diffident|hesitant|bromide"
+	];
+
+push @$questions,
+
+[ "speaking", "garrett", 1, "all", "Garrett thinks she may not need two things on her belt, but she is 'technologically challenged.'", "True" ],
+[ "speaking", "garrett", 2, "all", "Garrett appreciates the honor of being asked to give a keynote at CALICO.", "True" ],
+[ "speaking", "garrett", 3, "all", "Garrett feels diffident and hesitant because the audience is more technologically able than her.", "True" ],
+[ "speaking", "garrett", 4, "all", "The recordists are hesitant and diffident about giving Garrett things for her belt.", "False" ],
+[ "speaking", "garrett", 5, "all", "Garrett is very good at technology, but not very good at big-picture discussions.", "False" ],
+[ "speaking", "garrett", 6, "all", "Garrett says speakers have talked down to the audience, and she will too, because she is one of them.", "False" ];
+
 
 
 uptodatepopulate( 'Text', $texts );
