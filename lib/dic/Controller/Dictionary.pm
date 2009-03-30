@@ -25,9 +25,11 @@ Fetch all dictionary entries and output frequency counts (in each exercise?). Se
 =cut
  
 sub list : Local {
-    my ($self, $c, $league) = @_;
+    my ($self, $c) = @_;
+    my $leagueid = $c->session->{league};
+    my $genre = $c->model('DB::Leaguegenre')->find({league=>$leagueid})->genre;
     $c->stash->{words} = [$c->model('DB::Dictionary')->search(
-		{ league => $league },
+		{ genre => $genre },
 		{ select => [ 'word', { sum => 'count' } ],
 		'group_by' => 'word',
 		as => [ qw/word sum/ ],
