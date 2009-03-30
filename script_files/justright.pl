@@ -114,6 +114,20 @@ Four. Apartment for rent: Two hundred dollars per week for one bedroom, perfect 
 ",
 ""
 	],
+	
+	[
+        "family1",
+        "A football fan",
+	"elementary",
+       "Meet Larry Frazier. He's twenty-eight years old, from Oakland, and he's a taxi driver. His hobby is football and he loves the Oakland Raiders. He always goes to the games at the Oakland Coliseum.
+
+What about his family? \"He usually plays with us on Saturday, but he never spends Sunday with us,\" say his children, Eric (five) and Amanda (eight). HIs wife doesn't like football and she usually stays with the children when Larry is at the game.
+
+Are Eric and Amanda football fans like their dad? No! They don't like football--they both love watching TV and doing puzzles."
+
+",
+""
+	],
 
 	[
         "destinations",
@@ -318,6 +332,16 @@ my $questions = [
 [ "elementary", "rent2", 4, "The small house has a small kitchen. The apartment has a large kitchen.", "False" ],
 [ "elementary", "rent2", 5, "The small house is one thousand five hundred dollars per week.", "True" ],
 [ "elementary", "rent2", 6, "The small house has one bedroom. The apartment has two bedrooms.", "False" ],
+
+[ "elementary", "family1", 1, "Larry is a football player.", "False" ],
+[ "elementary", "family1", 2, "Larry likes football.", "True" ],
+[ "elementary", "family1", 3, "Larry never goes to watch the Oakland Raiders.", "False" ],
+[ "elementary", "family1", 4, "The Oakland Kickers play at the Oakland Coliseum.", "False" ],
+[ "elementary", "family1", 5, "Larry never plays with his children.", "False" ],
+[ "elementary", "family1", 6, "The children always spend Sunday with Larry.", "False" ],
+[ "elementary", "family1", 7, "Liz likes football.", "False" ],
+[ "elementary", "family1", 8, "Liz never goes to the football game with Larry.", "True" ],
+[ "elementary", "family1", 9, "The children always stay home on Sunday.", "True" ],
 
 [ "intermediate", "destinations", 1, "Fran'd rather go to the beach in Orlando and Sonia'd rather go to museums in Seattle.", "True" ],
 [ "intermediate", "destinations", 2, "Orlando's sunnier, more relaxing and cheaper than Seattle. Seattle's rainier and not as cheap as Orlando.", "True" ],
