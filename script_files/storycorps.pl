@@ -275,9 +275,9 @@ my $questions = [
 			[ qw/genre text id content answer/ ],
 
 [ "intermediate", "kroenke-1", 1, "A group at a nursing home had gathered to tune a piano", "False" ],
-[ "all", "kroenke-2", 1, "Ron was tuning the piano, so people couldn't have the concert.", "True" ],
-[ "all", "kroenke-3", 1, "Many people were hurt, because of what had happened", "True" ],
-[ "all", "kroenke-4", 1, "It didn't mean a thing to Ron that someone did tell him he did things right.", "False" ],
+[ "intermediate", "kroenke-2", 1, "Ron was tuning the piano, so people couldn't have the concert.", "True" ],
+[ "intermediate", "kroenke-3", 1, "Many people were hurt, because of what had happened", "True" ],
+[ "intermediate", "kroenke-4", 1, "It didn't mean a thing to Ron that someone did tell him he did things right.", "False" ],
 
 [ "all", "trinka-1", 1, "Ed Trinka has worked for nearly a hundred years at the Plaza.", "False" ],
 [ "all", "trinka-2", 1, "When Ed got sick, they put a hat and coat on him.", "False" ],
