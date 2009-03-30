@@ -22,6 +22,7 @@ __PACKAGE__->add_columns(
   { data_type => "VARCHAR", is_nullable => 0, size => 7500 },
 );
 __PACKAGE__->set_primary_key("id");
+# __PACKAGE__->set_primary_key("id", "target");
 
 
 # Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-08-26 18:19:13
@@ -38,6 +39,7 @@ __PACKAGE__->set_primary_key("id");
 #     3) Column name in *foreign* table
 __PACKAGE__->has_many(questions => 'dic::Schema::Question',
         { 'foreign.genre' => 'self.genre', 'foreign.text' => 'self.id', });
+		# 'foreign.target' => 'self.target', });
 
 
 # many_to_many():

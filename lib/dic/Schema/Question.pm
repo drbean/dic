@@ -22,6 +22,7 @@ __PACKAGE__->add_columns(
   { data_type => "VARCHAR", is_nullable => 0, size => 500 },
 );
 __PACKAGE__->set_primary_key("genre", "text", "id");
+# __PACKAGE__->set_primary_key("genre", "text", "id", "target");
 
 
 # Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-08-26 18:19:13
@@ -38,6 +39,7 @@ __PACKAGE__->set_primary_key("genre", "text", "id");
 #     3) Column name in *foreign* table
 __PACKAGE__->has_many(words => 'dic::Schema::Questionword',
         { 'foreign.genre' => 'self.genre', 'foreign.text' => 'self.text',       'foreign.question' => 'self.id'});
+		# 'foreign.question' => 'self.id', 'foreign.target' => 'self.target' });
 
 
 # many_to_many():
