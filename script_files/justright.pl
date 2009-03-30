@@ -236,7 +236,7 @@ So are you interested in reptiles? Are you looking for an exciting occupation. T
 
 	];
 
-$schema->populate( 'Text', $texts );
+uptodatepopulate( 'Text', $texts );
 
 my $questions = [
 			[ qw/genre text id content answer/ ],
@@ -335,7 +335,22 @@ my $questions = [
 
 	];
 
-$schema->populate( 'Question', $questions );
+uptodatepopulate( 'Question', $questions );
+
+sub uptodatepopulate
+{
+	my $class = $schema->resultset(shift);
+	my $entries = shift;
+	my $columns = shift @$entries;
+	foreach my $row ( @$entries )
+	{
+		my %hash;
+		@hash{@$columns} = @$row;
+		$class->update_or_create(\%hash);
+	}
+}
+
+
 =head1 NAME
 
 script_files/justright.pl - Set up dic db

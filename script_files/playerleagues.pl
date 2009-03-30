@@ -42,7 +42,8 @@ my $leagues = [
 		[ "visitors", "Visitors", "Demonstration Play" ],
 		[ "dic", "Dictation", "Testing" ],
 	];
-$schema->populate( 'League', $leagues );
+
+uptodatepopulate( 'League', $leagues );
 
 my $leaguegenres = [
 			[ qw/league genre/ ],
@@ -58,7 +59,7 @@ my $leaguegenres = [
 			[ 'visitors',	"demo" ],
 			[ 'dic',	"all" ],
 		];
-$schema->populate( 'Leaguegenre', $leaguegenres );
+uptodatepopulate( 'Leaguegenre', $leaguegenres );
 
 my $players;
 
@@ -351,7 +352,7 @@ foreach my $league ( 'officials', @leagueids )
 	}
 }
 my $playerpopulator = [ [ qw/id name password/ ], values %players ];
-$schema->populate( 'Player', $playerpopulator );
+uptodatepopulate( 'Player', $playerpopulator );
 
 my (%members, %rolebearers);
 foreach my $league ( @leagueids )
@@ -365,16 +366,30 @@ foreach my $league ( @leagueids )
 	}
 	$members{193001} = [ $league, 193001 ];
 }
-$schema->populate( 'Member', [ [ qw/league player/ ], 
+uptodatepopulate( 'Member', [ [ qw/league player/ ], 
 				values %members ] );
 
-$schema->populate( 'Role', [ [ qw/id role/ ], 
+uptodatepopulate( 'Role', [ [ qw/id role/ ], 
 [ 1, "official" ],
 [ 2, "player" ] ] );
 
-$schema->populate( 'Rolebearer', [ [ qw/player role/ ], 
+uptodatepopulate( 'Rolebearer', [ [ qw/player role/ ], 
 				[ 193001, 1 ],
 				values %rolebearers ] );
+
+sub uptodatepopulate
+{
+	my $class = $schema->resultset(shift);
+	my $entries = shift;
+	my $columns = shift @$entries;
+	foreach my $row ( @$entries )
+	{
+		my %hash;
+		@hash{@$columns} = @$row;
+		$class->update_or_create(\%hash);
+	}
+}
+
 
 =head1 NAME
 
