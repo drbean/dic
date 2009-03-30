@@ -14,6 +14,8 @@ __PACKAGE__->add_columns(
   { data_type => "VARCHAR", is_nullable => 0, size => 50 },
   "genre",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
+  "target",
+  { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "content",
   { data_type => "VARCHAR", is_nullable => 0, size => 7500 },
   "unclozeables",
