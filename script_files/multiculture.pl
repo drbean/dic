@@ -88,6 +88,28 @@ Anita Lau: If you look at the whole history of bilingual education, or education
 ",
 "Jennifer Low|Ethnic Studies|Immigration Act|lawyers|activists|Third World Student Strike|heritage|primary|legal struggle|San Francisco|culminate|US Supreme Court|Lau versus Nichols"
 	],
+	
+	[
+        "immigration",
+        "Anti-Immigration Group Strong",
+	"intercultural",
+        "00:49 Dan Stein: I thought it would be good for Julie to tell us a little about what's going on and what Senator Durbin is doing in response to the overwhelming outpouring of calls, faxes and emails that are coming from the American people. How are you doing?
+01:01 Julie Kirchner: Hi, Dan. I'm doing just fine, thank you. 
+01:03 Dan Stein: Hi, what's going on?
+01:05 Julie Kirchner: Well, we've seen a new development happen today. Um, Senator Durbin, apparently has been under a lot of pressure. Your phone calls have made a huge difference. We hear from offices they're getting thousands and thousands and thousands of calls. And overwhelmingly, these calls are opposed to the DREAM Act.
+
+And what's happened today is Senator Durbin has introduced a new amendment. He's redrafted the DREAM Act amendment. And he clearly is retreating. He knows he's having trouble getting support. And he's cutting out bits and pieces. He's trying to, you know, tweak the language a little bit to make it look better in order to get more people to sign on. 
+
+01:43 Dan Stein: Basically you're saying the calls and faxes and ... are working.
+01:45 Julie Kirchner: Oh, they're absolutely working.
+01:47 Dan STein: He's hitting a wall of opposition. 
+01:50 Julie Kirchner: Oh, yeh, absolutely. We had a call from a senator's office today, a staffer who said, uh, FAIR, you need to know that we're a definite No, because our office is getting inundated. Please stop them from calling. 
+02:01 Dan Stein: The people need to keep it up, right?
+02:02 Julie Kirchner: They need to keep it up. The ... Everyone needs pressure. And, and you need to tell your senators that you will not be fooled by drafts and redrafts and tinkering. It's still the DREAM Act. It's still an amnesty. And we can't be rewarding um, illegal activity.
+
+",
+"Dan Stein|Julie Kirchner|Senator Durbin|overwhelming|outpouring|DREAM Act|amendment|redrafted|tweak|sign on|FAIR|definite|inundated|pressure|drafts|tinkering|amnesty|rewarding|illegal activity"
+	],
 	];
 	
 uptodatepopulate( 'Text', $texts );
@@ -115,6 +137,13 @@ my $questions = [
 [ "intercultural", "bilingual", 4, "Activists in the Lau versus Nichols law case didn't want bilingual education in schools .", "False" ],
 [ "intercultural", "bilingual", 5, "The US Supreme Court struggled to get bilingual education into schools in 1974.", "False" ],
 [ "intercultural", "bilingual", 6, "Activists in the Student Strike wanted bilingual students to assimilate quickly.", "False" ],
+
+[ "intercultural", "immigration", 1, "A lot of people opposed to illegal immigrants called senators in Washington.", "True" ],
+[ "intercultural", "immigration", 2, "FAIR doesn't want the DREAM Act to be introduced.", "True" ],
+[ "intercultural", "immigration", 3, "The phone calls made some senators retreat from support for the DREAM Act", "True" ],
+[ "intercultural", "immigration", 4, "FAIR is unhappy that many people are calling senators' offices.", "False" ],
+[ "intercultural", "immigration", 5, "Senator Durbin had been under pressure, but he is not under pressure today.", "False" ],
+[ "intercultural", "immigration", 6, "The phone calls did not put pressure on Senator Durbin to make the DREAM Act look better.", "False" ],
 
 	];
 
