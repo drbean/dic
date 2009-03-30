@@ -274,7 +274,7 @@ $schema->populate( 'Text', $texts );
 my $questions = [
 			[ qw/genre text id content answer/ ],
 
-[ "all", "kroenke-1", 1, "A group at a nursing home had gathered to tune a piano", "False" ],
+[ "intermediate", "kroenke-1", 1, "A group at a nursing home had gathered to tune a piano", "False" ],
 [ "all", "kroenke-2", 1, "Ron was tuning the piano, so people couldn't have the concert.", "True" ],
 [ "all", "kroenke-3", 1, "Many people were hurt, because of what had happened", "True" ],
 [ "all", "kroenke-4", 1, "It didn't mean a thing to Ron that someone did tell him he did things right.", "False" ],
