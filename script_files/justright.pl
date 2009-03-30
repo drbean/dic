@@ -192,7 +192,36 @@ So, who is right? Do the media decide how we look and how we live? Are we all be
 
 ",
 "Kirsty|Donna|celebrities|obsessed"
+	],
+	
+	[
+        "crocodile1",
+        "The crocodile hunter (Part 1)",
+	"intermediate",
+        "Salvador, 26, is from Brazil. His favorite pet when he was little was a very big snake. He loves all kinds of reptiles. That's why Salvador is now a reptile expert, a herpetologist, or \"herp\" for short. But his favorite reptiles are crocodiles.
+
+\"Crocodiles are great animals,\" says Salvador. \"They belong to a very old group of animals and they are almost the same as the days of the dinosaurs. They live over 100 years.\"
+
+Salvador is working in Zambia, Africa. He's working with crocodiles. People call him a \"crocodile hunter,\" but he doesn't kill crocodiles. Some crocodiles live in popular swimming and fishing areas where tourists like to go and so, of course, they are a danger to people. Salvador catches them and moves them to safe places.
+
+",
+"Salvador|Brazil|snake|reptiles|herpetologist|herp|crocodiles|dinosaurs|Zambia|Africa"
+	],
+	
+	[
+        "crocodile2",
+        "The crocodile hunter (Part 2)",
+	"intermediate",
+        "Sometimes people are a danger to crocodiles, especially young ones. People kill them for their skin to make very expensive leather,\" Salvador explains. He and his colleagues, the people he works with, are developing an educational program. They are teaching people about crocodiles and people are learning to respect them.
+
+Salvador's hero is Steve Irwin, the famous Australian crocodile hunter. \"Steve's death was very sad,\" he says. \"He was a great guy and his work with reptiles was fantastic. I want to continue the kind of work he did.\"
+
+So are you interested in reptiles? Are you looking for an exciting occupation. Then maybe you too can become a herpetologist.
+
+",
+"crocodiles|leather|Salvador|educational|colleagues|Steve|Irwin|Australian|fantastic|reptiles|herpetologist"
 	]
+
 	];
 
 $schema->populate( 'Text', $texts );
@@ -270,6 +299,20 @@ my $questions = [
 [ "intermediate", "media2", 4, "Kirsty's mother wants Kirsty not to be obsessed with appearance.", "True" ],
 [ "intermediate", "media2", 5, "Kirsty's mother and big sister agree the media is responsible for Kirsty's situation.", "False" ],
 [ "intermediate", "media2", 6, "Kirsty's big sister buys lots of magazines, but she is not obsessed with becoming like the celebrities in them.", "True" ],
+
+[ "intermediate", "crocodile1", 1, "Salvador is from Australia but he is working in Brazil.", "False" ],
+[ "intermediate", "crocodile1", 2, "Salvador loves crocodiles and he doesn't kill them.", "True" ],
+[ "intermediate", "crocodile1", 3, "Salvador loves reptiles, but he doesn't like snakes.", "False" ],
+[ "intermediate", "crocodile1", 4, "Crocodiles in Zambia are a danger to tourists so Salvador catches them.", "True" ],
+[ "intermediate", "crocodile1", 5, "In Zambia, crocodiles are not a danger to people who go swimming.", "False" ],
+[ "intermediate", "crocodile1", 6, "Crocodiles are like dinosaurs and live 100 years.", "True" ],
+
+[ "intermediate", "crocodile2", 1, "People kill crocodiles to make leather with their skin.", "True" ],
+[ "intermediate", "crocodile2", 2, "Salvador is developing a program to show people how to kill crocodiles.", "False" ],
+[ "intermediate", "crocodile2", 3, "Young crocodiles are in danger from people. People kill them.", "True" ],
+[ "intermediate", "crocodile2", 4, "Salvador's hero is a famous Australian crocodile called Steve Irwin.", "False" ],
+[ "intermediate", "crocodile2", 5, "Salvador is sad about Steve Irwin's death.He respected his work.", "True" ],
+[ "intermediate", "crocodile2", 6, "People were teaching crocodiles to respect them, but crocodiles killed them.", "False" ],
 
 	];
 
