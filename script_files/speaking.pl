@@ -131,6 +131,46 @@ push @$questions,
 [ "speaking", "fright", 6, "all", "You can overcome all your fears with the tips. And that's a good thing.", "False" ];
 
 
+push @$texts, [
+        "message",
+        "Defining the message",
+	"speaking",
+	"all",
+	"1:00 So how do you define your message?
+
+Listen up.
+
+Consider the situation. Ask yourself what is going on in the workplace. Determine what your audience needs to know about what your team is working on and why it's important.
+
+That concept should form the backbone of your presentation.
+
+Communicate what people need to know. Give people the facts. Link your facts to benefits. Demonstrate that what your team does makes things better because it offers a new solution, improves quality, or reduces costs. 
+
+Use stories. Make the facts come alive with stories. 
+
+Translate what you do into benefits for stakeholders, customers, employees, or shareholders. 
+
+Defining the message is really an act of discipline. It is synchronizing your mind with your words to deliver a coherent statement about what is important.
+
+What you include focuses attention. What you do not include is immaterial. Give people the information they can get nowhere else or from anyone else. 
+
+That's a good starting point, and will enable you to quickly hone in on what needs to be said and why.
+
+
+",
+"1:00|workplace|Determine|team|Link|benefits|Demonstrate|offers|solution|quality|costs|stakeholders|customers|employees|shareholders|discipline|synchronizing|coherent|immaterial|hone"
+	];
+
+push @$questions,
+
+[ "speaking", "message", 1, "all", "Baldoni considers stories to be a benefit for audiences.", "True" ],
+[ "speaking", "message", 2, "all", "Baldoni considers giving people facts they can get from anyone is not what needs to be said.", "True" ],
+[ "speaking", "message", 3, "all", "Baldoni communicates that people need to consider what the audience wants to know.", "True" ],
+[ "speaking", "message", 4, "all", "Baldoni offers a new, improved solution to giving presentations.", "False" ],
+[ "speaking", "message", 5, "all", "In the presentation, Baldoni used stories to communicate to people how to define their message.", "False" ],
+[ "speaking", "message", 6, "all", "Baldoni translates his message for the benefit of people not included in the audience.", "False" ];
+
+
 
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
