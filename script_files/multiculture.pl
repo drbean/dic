@@ -110,6 +110,30 @@ And what's happened today is Senator Durbin has introduced a new amendment. He's
 ",
 "Dan Stein|Julie Kirchner|Senator Durbin|overwhelming|outpouring|DREAM Act|amendment|redrafted|tweak|sign on|FAIR|definite|inundated|pressure|drafts|tinkering|amnesty|rewarding|illegal activity"
 	],
+	
+	[
+        "shock1",
+        "What is culture shock?",
+	"intercultural",
+        "Moving on to our topic of the week. What is culture shock? XXXX
+
+I used a couple of sources, as you'll see in the show notes.
+
+Um, I like some of the things that are discussed here:
+
+It's the impact of moving from a familiar culture to an unfamiliar one.
+
+Or, it's the anxiety that results from losing all familiar sounds and symbols of social intercourse.
+
+Uh, it describes the anxiety and feelings of surprise, disorientation, confusion, et cetera, felt when people move to operate, and when people have to operate within an, an entirely different cultural or social environment, such as a different cult.. country.
+
+Kalvero Oberg was the.. is commonly credited with, with coining the phrase, culture shock. He wrote in 1958 about culture shock. And he found that it is almost like a disease. It has a cause. It has symptoms, and it has a cure.
+
+The main idea, or, or my take on culture shock is, basically, that you move from one culture, or one environment to a new environment. Some people say, it's like that when you move from one state to another state in the USA, or from one province to another province.
+
+",
+"XXXX|sources|show notes|impact|familiar|sounds|symbols|social intercourse|disorientation|operate|Kalvero Oberg|credited|coining the phrase|symptoms|cure|take|province"
+	],
 	];
 	
 uptodatepopulate( 'Text', $texts );
@@ -144,6 +168,13 @@ my $questions = [
 [ "intercultural", "immigration", 4, "FAIR is unhappy that many people are calling senators' offices.", "False" ],
 [ "intercultural", "immigration", 5, "Senator Durbin had been under pressure, but he is not under pressure today.", "False" ],
 [ "intercultural", "immigration", 6, "The phone calls did not put pressure on Senator Durbin to make the DREAM Act look better.", "False" ],
+
+[ "intercultural", "shock1", 1, "Culture shock is feelings of surprise when moving to a new environment.", "True" ],
+[ "intercultural", "shock1", 2, "When you move to a new environment, the unfamiliar is a shock.", "True" ],
+[ "intercultural", "shock1", 3, "Oberg's take on culture shock was it is almost a disease.", "True" ],
+[ "intercultural", "shock1", 4, "Culture shock is different to the feelings felt when you move from one state to another.", "False" ],
+[ "intercultural", "shock1", 5, "Oberg's main idea was that there is no cure for culture shock.", "False" ],
+[ "intercultural", "shock1", 6, "The impact of moving from one culture to another is differnt from culture shock.", "False" ],
 
 	];
 
