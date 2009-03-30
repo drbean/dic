@@ -84,7 +84,7 @@ sub list : Local {
 
 http://server.school.edu/dic/exercises/create/textId/exerciseType/exerciseId
 
-Create comprehension questions and cloze exercise. If 2 different leagues have the same genre, ie their texts are the same, will creating an exercise for one league also create it for the other? Also, can leagues with different genres use the same texts? Remember texts have genres assigned to them.
+Create comprehension questions and cloze exercise. If 2 different leagues have the same genre, ie their texts are the same, will creating an exercise for one league also create it for the other? Apparently, so. Also, can leagues with different genres use the same texts? Remember texts have genres assigned to them.
 
 =cut
 
