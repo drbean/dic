@@ -21,7 +21,7 @@ BEGIN {
 
 my @leagueids = qw/GL00003 GL00022 GL00031 CLA0013 FLA0015 FLB0002 MIA0012 access visitors/;
 my $dir = ( File::Spec->splitdir(getcwd) )[-1];
-$dir = qr/^(GL000|CLA|FLA|MIA)/ if $dir eq 'dic';
+$dir = qr/^(GL000|CLA|FLB|MIA)/ if $dir eq 'dic';
 @leagueids = grep m/$dir/, @leagueids;
 
 no strict qw/subs refs/;
@@ -244,55 +244,55 @@ N9561764	郭政勳	zheng
 CLA0013
 
 push @{$players->{FLA0015}}, [split] for <<FLA0015 =~ m/^.*$/gm;
-N9361748	徐銘鴻	Ming
-N9461734	張雅臻	Ya
-N9461736	彭珠蓮	Zhu
-N9461738	劉佳佳	Jia
-N9461753	葉又寧	You
-N9461756	許芷菱	Zhi
-N9532037	邱錦玉	Jin
-N9561721	劉芳君	Fang
-N9561737	唐淑芬	Shu
-N9561766	劉發州	Fa
-N9661701	賴淑惠	Shu
-N9661702	周品嫻	Pin
-N9661704	?琮婷	Cong
-N9661705	吳嘉怡	Jia
-N9661706	葉雅婷	Ya
-N9661707	鄧雅雯	Ya
-N9661708	邱于芳	YU
-N9661709	徐曉彤	Xiao
-N9661712	胡語倫	YU
-N9661714	劉軒齊	XUan
-N9661715	陳奕學	Yi
-N9661716	周雅雯	Ya
-N9661717	黃路加	Lu
-N9661718	鍾明諺	Ming
-N9661719	周于婷	YU
-N9661720	林碧珍	Bi
-N9661722	廖婉秀	Wan
-N9661723	謝文秀	Wen
-N9661724	林逸喬	Yi
-N9661725	吳采薇	Cai
-N9661727	賴恩聖	En
-N9661728	黃聖昱	Sheng
-N9661730	劉芯惠	Xin
-N9661731	林庭萱	Ting
-N9661733	陳家洋	Jia
-N9661734	曾佩茹	Pei
-N9661737	廖政福	Zheng
-N9661738	鄭淑鈴	Shu
-N9661740	汪大智	Da
-N9661741	林妤容	YU
-N9661742	吳筱涵	Xiao
-N9661743	羅惠娟	Hui
-N9661744	劉惠蓉	Hui
-N9661745	吳桂麗	Gui
-N9661746	吳書儀	Shu
-N9661747	邱靖棋	Jing
-N9661748	楊妙雲	Miao
-N9661750	王育祥	YU
-U9533039	蕭郁玲	YU
+N9361748	徐銘鴻	ming
+N9461734	張雅臻	ya
+N9461736	彭珠蓮	zhu
+N9461738	劉佳佳	jia
+N9461753	葉又寧	you
+N9461756	許芷菱	zhi
+N9532037	邱錦玉	jin
+N9561721	劉芳君	fang
+N9561737	唐淑芬	shu
+N9561766	劉發州	fa
+N9661701	賴淑惠	shu
+N9661702	周品嫻	pin
+N9661704	?琮婷	cong
+N9661705	吳嘉怡	jia
+N9661706	葉雅婷	ya
+N9661707	鄧雅雯	ya
+N9661708	邱于芳	yu
+N9661709	徐曉彤	xiao
+N9661712	胡語倫	yu
+N9661714	劉軒齊	xuan
+N9661715	陳奕學	yi
+N9661716	周雅雯	ya
+N9661717	黃路加	lu
+N9661718	鍾明諺	ming
+N9661719	周于婷	yu
+N9661720	林碧珍	bi
+N9661722	廖婉秀	wan
+N9661723	謝文秀	wen
+N9661724	林逸喬	yi
+N9661725	吳采薇	cai
+N9661727	賴恩聖	en
+N9661728	黃聖昱	sheng
+N9661730	劉芯惠	xin
+N9661731	林庭萱	ting
+N9661733	陳家洋	jia
+N9661734	曾佩茹	pei
+N9661737	廖政福	zheng
+N9661738	鄭淑鈴	shu
+N9661740	汪大智	da
+N9661741	林妤容	yu
+N9661742	吳筱涵	xiao
+N9661743	羅惠娟	hui
+N9661744	劉惠蓉	hui
+N9661745	吳桂麗	gui
+N9661746	吳書儀	shu
+N9661747	邱靖棋	jing
+N9661748	楊妙雲	miao
+N9661750	王育祥	yu
+U9533039	蕭郁玲	yu
 FLA0015
 
 push @{$players->{FLB0002}}, [split] for <<FLB0002 =~ m/^.*$/gm;
@@ -321,7 +321,6 @@ N9461762 陳震宇	zhen
 N9461764 林俊華	jun
 N9461766 劉毓汶	yu
 U9533039 蕭郁玲	yu
-
 FLB0002
 
 push @{$players->{MIA0012}}, [split] for <<MIA0012 =~ m/^.*$/gm;
