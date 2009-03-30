@@ -29,25 +29,10 @@ my $texts = [
 	"kroenke-1",
         "Tuning a piano at a nursing home",
 	"all",
-        "00:20 Welcome to the StoryCorps podcast.
-00:22 I'm Michael Garofalo, a producer here at StoryCorps. 
-00:25 In this episode a story from Ron Kroenke.
-00:28 He's a professional piano tuner in Omaha, Nebraska.
-00:32 And here Kroenke remembers one December day, 
-00:34 when he was called to tune a piano at a nearby nursing home.
-00:38 A group gathered around in chairs.
+	"00:38 A group gathered around in chairs.
 00:42 And they were all wearing their nice Christmas clothing, 
 00:43 and I thought, Well, how nice, you know, they have no idea that I'm going to bore them to sleep with my tuning. 
-
-",
-"StoryCorps|Michael|Garofalo|Ron|Kroenke|professional|tuner|Omaha|Nebraska"
-	],
-
-	[
-	"kroenke-2",
-        "No music for the audience",
-	"all",
-        "00:49 And I’m kind of working along happily and I’m smiling at people. 
+00:49 And I’m kind of working along happily and I’m smiling at people. 
 00:54 And a few of them were looking at me like, What in the world is he doing? 
 00:58 One lady was just glaring at me. 
 01:01 Another lady was giving me sympathetic looks (Her name turned out to be Rose). 
@@ -57,11 +42,11 @@ my $texts = [
 01:18 I didn’t realize they had a concert scheduled that day. 
 
 ",
-"glaring|sympathetic|activity|director|Jennifer|realize|scheduled"
+"bore|glaring|sympathetic|activity|director|Jennifer|realize|scheduled"
 	],
 
 	[
-	"kroenke-3",
+	"kroenke-2",
         "Mixed reactions of the audience",
 	"all",
         "01:22 About a third of the people looked highly disappointed. 
@@ -76,7 +61,7 @@ my $texts = [
 	],
 
 	[
-	"kroenke-4",
+	"kroenke-3",
         "Appreciation of tuning work",
 	"all",
         "01:50 And I looked. And she was very close to me.
