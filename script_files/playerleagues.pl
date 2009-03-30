@@ -138,6 +138,7 @@ U9731102 陳衣采 yi
 U9731143 林孝芸 xiao
 9422221	 張家偉	jia
 U9731139 吳詩玉 shi
+9433227  黃馨儀 xin
 GL00022
 
 push @{$players->{GL00031}}, [split] for <<GL00031 =~ m/^.*$/gm;
