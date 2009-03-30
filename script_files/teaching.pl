@@ -76,6 +76,48 @@ push @$questions,
 [ "teaching", "energy", 5, "all", "The new teacher was skeptical about having enough energy to teach.", "False" ],
 [ "teaching", "energy", 6, "all", "The new teacher said she had to be involved in just her classroom.", "False" ];
 
+push @$texts, [
+        "accent",
+        "American accents",
+	"teaching",
+	"all",
+	"4:25 Bill: .. interesting. I mean, I think for the first few answers, Robert and I both answered the same way. Uh, Kevin, how about you. It says C-O-T and C-A-U-G-H-T. Same or different?
+Kevin: Well, those are definitely different. 
+Bill: Oh, really? OK. So, What's C-O-T?
+Kevin: Well, 'cot' is what you sleep on. And if you get 'caught,' then uh, it's 'cot' and 'caught.'
+Bill: 'Cot' and 'caught.' I was caught sleeping on my cot.
+Kevin: Oh, no, no, no. I was caught sleeping on my cot.
+Bill: My cot. That reminds me of like, sort of an upstate New York...
+Kevin: Right. I was broadening it out. It's 'cot.' You know, you just ...
+Bill: 'Cot,' right.
+Kevin: Mmh. Rhymes with 'rod' or 'Tod.'
+Bill; The other one, ummh. Past tense of 'catch.' I say 'caught.'
+Robert: Yes, so do I. I say, 'caught.'
+Kevin: No, I do an 'or.'
+Robert: I got caught in the cot.
+Bill: Caught in the cot.
+Kevin: See, now, people from outside Chicago, they say, 'Chicago.' And in Chicago, we say, 'Chicago.'
+Bill: 'Chicago.'
+Kevin: 'Chicago.' Yeh. It's an Indian word, but, uh, .. And it's, not, we don't do that with everything. But it's an example of the pronunciation that's in 'caught.' It's the same kind of 'Chicago', 'or.'
+
+Bill: So, I don't think we'll go through all thirteen of these, but some of these are interesting. Um, D-O-N, the name, and D-A-W-N?
+Robert: Yeh, that's the same thing. Don and Dawn.
+Bill: Don and Dawn.
+Kevin: Oh, no. It's really different. Don and Dawn.
+Bill: Don and Dawn.
+
+",
+"4:25|Bill|Kevin|Robert|upstate|Chicago"
+	];
+
+push @$questions,
+[ "teaching", "accent", 1, "all", "For Kevin from Chicago, the sounds in 'cot' and 'caught' are quite different.", "True" ],
+[ "teaching", "accent", 2, "all", "For Bill and Robert, the sounds in 'cot' and 'caught' are more similar than for Kevin.", "True" ],
+[ "teaching", "accent", 3, "all", "For Bill and Robert the sounds in 'Don' and 'Dawn' are very similar.", "True" ],
+[ "teaching", "accent", 4, "all", "For Kevin from Chicago, the sounds in 'Don' and 'Dawn' are almost the same.", "False" ],
+[ "teaching", "accent", 5, "all", "For Bill and Robert, the sounds in 'cot' and 'caught' are quite different.", "False" ],
+[ "teaching", "accent", 6, "all", "For Kevin, the sounds in 'Don' and 'Dawn' are very similar.", "False" ];
+
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
 
