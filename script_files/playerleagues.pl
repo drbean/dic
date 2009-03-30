@@ -36,8 +36,7 @@ my $leagues = [
 	[ "GL00022", "GL00022日語文共同學制虛擬班二", "中級英文聽說訓練" ],
 	[ "GL00031", "GL00031日語文共同學制虛擬班二", "中級英文聽說訓練" ],
 		[ "CLA", "日華文大學二甲", "英文聽力及會話" ],
-		[ "FLA0005", "夜應外大學三甲", "跨文化溝通" ],
-		[ "FLA0018", "夜應外大學二甲", "英語會話(一)" ],
+		[ "FLA0015", "夜應外大學二甲", "英語會話(二)" ],
 		[ "access", "英語自學室", "Listening" ],
 		[ "visitors", "Visitors", "Demonstration Play" ],
 		[ "dic", "Dictation", "Testing" ],
@@ -47,14 +46,11 @@ uptodatepopulate( 'League', $leagues );
 
 my $leaguegenres = [
 			[ qw/league genre/ ],
-			[ "GL00032",	"elementary" ],
-			[ "GL00037",	"elementary" ],
-			[ "GL00036",	"intermediate" ],
-			[ "GL00040",	"intermediate" ],
-			[ "GL00042",	"intermediate" ],
+			[ "GL00003",	"intermediate" ],
+			[ "GL00022",	"intermediate" ],
+			[ "GL00031",	"intermediate" ],
 			[ "CLA",	"elementary" ],
-			[ "FLA0005",	"intercultural" ],
-			[ "FLA0018",	"intermediate" ],
+			[ "FLA0015",	"intermediate" ],
 			[ "access",	"all" ],
 			[ 'visitors',	"demo" ],
 			[ 'dic',	"all" ],
@@ -117,25 +113,24 @@ U9742011 蔡秀艾 ying
 GL00003
 
 push @{$players->{GL00022}}, [split] for <<GL00022 =~ m/^.*$/gm;
+9421235  林奕廷 yi
+9433230  陳瑋茹 wei
+9633250  呂孟慈 meng
+T9731044 張凱建 kai
+U9316005 劉嘉蕙 jia
+U9316045 鄭宇軒 yu
+U9416012 劉宇溱 yu
+U9522028 林沿昌 yan
+U9522084 謝唯新 wei
+U9522105 徐至鴻 zhi
+U9592020 彭婉菁 wan
+U9592036 蘇木春 mu
+U9715024 簡□彥  ?
+U9731102 陳衣采 yi
+U9731143 林孝芸 xiao
 GL00022
 
 push @{$players->{GL00031}}, [split] for <<GL00031 =~ m/^.*$/gm;
-9411298	鄭又綸	You
-9433237	吳佳馨	Jia
-U9411082	趙巡漢	XUn
-U9416008	吳國彬	Guo
-U9417029	李家銘	Jia
-U9417039	李怡瑩	Yi
-U9423044	江全緒	QUan
-U9433002	李統一	Tong
-U9462038	黃琦涵	Qi
-U9533047	溫立欣	Li
-U9631044	林羽辰	YU
-U9631050	吳曼榕	Man
-U9718023	陳家音	Jia
-U9722113	潘志良	Zhi
-U9722122	藍嘉祥	Jia
-U9722129	何宗承	Zong
 GL00031
 
 push @{$players->{CLA}}, [split] for <<CLA =~ m/^.*$/gm;
@@ -195,42 +190,7 @@ N9561761	林家伶	Jia
 N9561764	郭政勳	Zheng
 CLA
 
-push @{$players->{FLA0005}}, [split] for <<FLA0005 =~ m/^.*$/gm;
-N9361748	徐銘鴻	Ming
-N9561706	江依璇	Yi
-N9561709	謝佳妡	Jia
-N9561711	蔣佳宜	Jia
-N9561712	廖彧貞	Yu
-N9561713	袁敏萱	Min
-N9561714	江吉泰	Ji
-N9561715	廖重生	Chong
-N9561717	陳怡吟	Yi
-N9561719	駱文義	Wen
-N9561722	李欣怡	Xin
-N9561724	張玉珮	YU
-N9561725	吳凱婷	Kai
-N9561726	鄭百芬	Bai
-N9561729	張雅婷	Ya
-N9561730	姚佩伶	Pei
-N9561731	邱士珍	Shi
-N9561735	林夢瑩	Meng
-N9561736	鄭汝幸	Ru
-N9561741	林麗佳	Li
-N9561743	蔡嘉瑋	Jia
-N9561748	傅龍三	Long
-N9561754	張馨云	Xin
-N9561756	徐珮翎	Pei
-N9561757	蔣堰婷	Yan
-N9561758	劉育呈	YU
-N9561759	古嘉珮	Jia
-N9561760	楊建邦	Jian
-N9561761	林家伶	Jia
-N9561762	許莉昀	Li
-N9561765	簡慧琦	Hui
-N9561766	劉發州	Fa
-FLA0005
-
-push @{$players->{FLA0018}}, [split] for <<FLA0018 =~ m/^.*$/gm;
+push @{$players->{FLA0015}}, [split] for <<FLA0015 =~ m/^.*$/gm;
 N9361748	徐銘鴻	Ming
 N9461734	張雅臻	Ya
 N9461736	彭珠蓮	Zhu
@@ -280,7 +240,7 @@ N9661747	邱靖棋	Jing
 N9661748	楊妙雲	Miao
 N9661750	王育祥	YU
 U9533039	蕭郁玲	YU
-FLA0018
+FLA0015
 
 push @{$players->{access}}, [split] for <<ACCESS =~ m/^.*$/gm;
 U9424017	黃季雯	Ji
