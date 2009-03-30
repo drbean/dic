@@ -128,6 +128,27 @@ Are Eric and Amanda football fans like their dad? No! They don't like football--
 ",
 "Larry Frazier|Oakland Raiders|Coliseum|Eric|Amanda|Liz"
 	],
+	
+	[
+        "picture1",
+        "Present progressive",
+	"elementary",
+       "The two pictures at the top of page fifty-nine in the book are interesting. I think the artist who drew the pictures did a good job.
+
+       Do you recognize the man at the back sitting at the table in the picture on the left? It's George Clooney, a movie star.
+
+       The man and woman at the front of that picture are talking about him. The woman says to the man not to turn around. But the man doesn't believe it is George Clooney. He turns around and looks, and says the man is not George Clooney.
+
+       Anyway, the man, who may or may not be George Clooney, is sitting next to a woman. The woman is wearing a coat.
+
+       In the other picture, on the right, there are two people. The woman is standing behind a sign that says, New York Fashion Week. And the man is wearing a camera around his neck.
+
+       He's taking photos of the models. It is a fashion show. The woman is standing behind the sign because she doesn't have a ticket. She is trying to avoid being seen.
+
+
+",
+"George Clooney"
+	],
 
 	[
         "destinations",
@@ -368,6 +389,13 @@ my $questions = [
 [ "elementary", "family1", 7, "Liz likes football.", "False" ],
 [ "elementary", "family1", 8, "Liz never goes to the football game with Larry.", "True" ],
 [ "elementary", "family1", 9, "The children always stay home on Sunday.", "True" ],
+
+[ "elementary", "picture1", 1, "The man in the picture on the right is taking photos of the models.", "True" ],
+[ "elementary", "picture1", 2, "The woman sitting at the table in the front thinks the man sitting at the back is George Clooney.", "True" ],
+[ "elementary", "picture1", 3, "The woman sitting at the table at the back is wearing a coat.", "True" ],
+[ "elementary", "picture1", 4, "The man sitting at the front believes the man is George Clooney.", "False" ],
+[ "elementary", "picture1", 5, "George Clooney is sitting at the table at the front.", "False" ],
+[ "elementary", "picture1", 6, "The woman standing behind the sign is a fashion model.", "False" ],
 
 [ "intermediate", "destinations", 1, "Fran'd rather go to the beach in Orlando and Sonia'd rather go to museums in Seattle.", "True" ],
 [ "intermediate", "destinations", 2, "Orlando's sunnier, more relaxing and cheaper than Seattle. Seattle's rainier and not as cheap as Orlando.", "True" ],
