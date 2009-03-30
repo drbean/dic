@@ -189,6 +189,38 @@ What do you think is happening in this story? It's kind of, uh, uhm, curious, is
 ",
 "Sally|Iran|Iraq|Dubai|Europe|America|Soviet Union|Russia|scenario|CIA|bin Laden|Arabic|tourist vacation|curious"
 	],
+	
+	[
+        "bridewriter",
+        "Bride and Writer scenarios",
+	"elementary",
+       "I'm going to read the cards that we, um, ah, did last week. First is about the, ah, Sally's friend getting married to the Arab prince, and the terrorists who are the prince's, ah, servants are going to try and kill her.
+
+Okay. 
+
+Sally is an American woman living in Iraq. She is a member of the American Army in Iraq, and carries guns with her. She is very good with the guns and at hand fighting.
+
+Sally's friend is getting married to a rich Arab prince. She feels nervous because she has never seen the prince before. She has only talked to him on the Internet.
+
+The two men are servants of a rich Arab prince. But they are also terrorists, and they hate Americans. The prince told them to bring him his bride, but they intend to kill her.
+
+The three camels are a gift from the Arab prince for his bride's friends and family. The three camels are too big to fit in the car. Sally and her friend will escape into the desert on the camels.
+
+The other one is about, uh, Sally and Sally's friend. Sally's friend is a writer about horses. And now she's writing an article about riding camels.
+
+Here we go.
+
+Sally is an English teacher in Iran. She takes the ferry from Iran to Dubai to meet her friend who writes articles for horse-riding magazines. She has never ridden a horse or a camel.
+
+Sally's friend likes to ride horses, but she has always wanted to ride a camel. Now she is writing about riding camels in Dubai. But she doesn't know anything about riding camels. 
+
+The two men are tour guides. They speak very good English. They take people on camel tours for one-day, and two-day trips in the desert. They have been riding camels since they were children. Their guests find riding camels exhausting.
+
+The three camels are very gentle, but even gentle camels sometimes bite and spit. It is very uncomfortable riding a camel, because they swing their bodies from left to right when they are walking. It's like being on a ship.
+
+",
+"exhausting"
+	],
 
 	[
         "destinations",
@@ -484,6 +516,13 @@ my $questions = [
 [ "intermediate", "dubai", 4, "In one scenario, Sally's friend is a doctor who is on vacation.", "False" ],
 [ "intermediate", "dubai", 5, "In one scenario, Sally is a friend of bin Laden, and bin Laden is waiting for them.", "False" ],
 [ "intermediate", "dubai", 6, "In one scenario, Sally has information for the men about bin Laden's camels.", "False" ],
+
+[ "elementary", "bridewriter", 1, "Sally will help her friend escape when the terrorist try to kill her.", "True" ],
+[ "elementary", "bridewriter", 2, "Riding camels will be more exhausting for Sally than Sally's friend.", "True" ],
+[ "elementary", "bridewriter", 3, "The prince does not know that his servants want to kill his bride.", "True" ],
+[ "elementary", "bridewriter", 4, "Sally and her friend will find it uncomfortable speaking to the tour guides.", "False" ],
+[ "elementary", "bridewriter", 5, "The prince told his servants to kill his bride.", "False" ],
+[ "elementary", "bridewriter", 6, "Sally intends to kill the camels so she can fit them in her car.", "False" ],
 
 [ "intermediate", "destinations", 1, "Fran'd rather go to the beach in Orlando and Sonia'd rather go to museums in Seattle.", "True" ],
 [ "intermediate", "destinations", 2, "Orlando's sunnier, more relaxing and cheaper than Seattle. Seattle's rainier and not as cheap as Orlando.", "True" ],
