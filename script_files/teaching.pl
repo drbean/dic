@@ -187,6 +187,50 @@ push @$questions,
 [ "teaching", "mad", 5, "all", "The students don't want the student who goes to stay.", "False" ],
 [ "teaching", "mad", 6, "all", "Obviously, the teacher is telephoning the student who went, to tell him to stay.", "False" ];
 
+push @$texts, [
+        "discipline",
+        "Good teacher, bad teacher",
+	"teaching",
+	"all",
+	"Part One.
+	
+1:00 Grimes: You see what low grades you made on your weekly mathematics test. More than half of you failed. Most of those who passed just got by. Nobody had a hundred percent. This is the poorest class I've had in a long, long time.
+
+Most of you have no foundation at all. Now the trouble's with your attitude. You don't pay enough attention in class. You don't do enough work outside of it. You don't know what the word, 'study' means. You haven't the slightest idea.
+
+Don't you realize that mathematics is an important subject. I tell you right now that unless you get over your lazy habits, and come up to the standards I've set for this class, many of you will have the pleasure of repeating this course next semester.
+
+(To Assistant) Well, what is it?
+
+Assistant: (inaudible)
+
+Grimes: All right. That's all. (To Students) I have to leave for a few minutes. I want you to open your books and work out correct solutions to the problems you missed.
+
+Part Two.
+
+7:45 Grimes: Most of you are disappointed in the low grades you made on this test. So am I. Nearly all of you had trouble with that last problem on ratio. Perhaps I didn't do a good job explaining ratio.
+
+Now ratio is commonly used in everyday life. Mother uses it in the kitchen when she takes a recipe for a big cake and uses proportional amounts of ingredients to make a little cake, and vice versa. 
+
+Let's suppose the recipe called for eight cups of flour and four eggs. I wanted to make a cake half that size. How much would I use?
+
+Student: You need four cups of flour and two eggs.
+
+Grimes: That's right. You boys use it in shop when you read a blueprint.
+
+",
+"Part|1:00|7:45|Grimes|mathematics|foundation|slightest|standards|Assistant|ratio|proportional|recipe|flour|blueprint|shop|Student|Students"
+	];
+
+push @$questions,
+[ "teaching", "discipline", 1, "all", "Grimes is disappointed with the students' low grades on a mathematics test.", "True" ],
+[ "teaching", "discipline", 2, "all", "In Part Two Grimes gets over the poor attitude to the students we see from him in Part One.", "True" ],
+[ "teaching", "discipline", 3, "all", "In Part One Grimes tells the students they don't do enough work, but in Part Two, he tells them about ratio.", "True" ],
+[ "teaching", "discipline", 4, "all", "In Part Two Grimes doesn't tell the students they don't do enough work. He tells them about ratio.", "True" ],
+[ "teaching", "discipline", 5, "all", "In Part Two he does a good job teaching the students, but in Part Two he doesn't do a good job explaining ratio.", "False" ],
+[ "teaching", "discipline", 6, "all", "The attitude of the students to Grimes and of Grimes to the students is good in Part One.", "False" ],
+[ "teaching", "discipline", 7, "all", "The attitude of the students to Grimes and of Grimes to the students is poor in Part Two", "False" ];
+
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
 
