@@ -23,7 +23,7 @@ my $schema = "${::name}::Schema"->connect( @$connect_info );
 use strict;
 
 my $texts = [
-	[ qw(id description genre all content unclozeables) ],
+	[ qw(id description genre target content unclozeables) ],
 
 	[
 	"kroenke-1",
@@ -274,7 +274,7 @@ my $texts = [
 uptodatepopulate( 'Text', $texts );
 
 my $questions = [
-			[ qw/genre text id content answer/ ],
+			[ qw/genre text id target content answer/ ],
 
 [ "intermediate", "kroenke-1", 1, "all", "A group at a nursing home had gathered to tune a piano", "False" ],
 [ "intermediate", "kroenke-1", 2, "all", "Ron was tuning the piano, so people couldn't have the concert.", "True" ],
