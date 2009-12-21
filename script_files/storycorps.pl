@@ -312,6 +312,50 @@ push @$questions,
 [ "intermediate", "biomom", 5, "all", "The father never told his child she was adopted.", "False" ],
 [ "intermediate", "biomom", 6, "all", "The father didn't want his child to know her mother's name.", "False" ];
 
+push @$texts,
+[
+        "biodad",
+        "15-minute father",
+	"intermediate",
+	"all",
+	"Shepard: I woke up the morning after I got to Glasgow and I decided to just go to the university to look around, see what I thought. I had the address written down for my biological father and I went there.
+
+I looked down the hallway and I saw a sign with his name. Finally, I just said this is probably the only chance in my life I will ever have to do this.
+
+Walked up to the door and knocked. He looked at me with a look that was not quite hostile, but impatient. I said, Do you have a minute? He said, Sure. And I said, Do you remember living in Connecticut 20 years ago. And he got this kind of odd smile on his face and said, Yes, I remember it.
+
+I said, Well, do you remember a relationship with a woman named Eloise, that you had? And he says, Yes, yes I do.
+
+And I says, Well, uhm, I'm the result of that relationship, And he says, Aaaaaah.
+
+Walks over towards me, and I have this panic that he's going to touch me. But he doesn't. He walks past me and he closes the door and walks back and sits down at the table where I'm seated, and says, So, you're here.
+
+And I said, Yeh. And I told him that I had three questions that I wanted to ask him. He said, Sure. And I said, First, I want to know if there is any history of diseases or things that I needed to be aware of, genetically, just to get that baseline out of the way. And, he said, No, not that I know of.
+
+And then I asked him if he would be willing to just explain a little the circumstances surrounding my birth, and how it came to be that I was born and he left. And for the first time and only time over the course of our fifteen-minute conversation, the grin left his face. And eventually, he said, Well, I think that at that point, Eloise was ready to have a child. And I said, And you were't. And he laughed, and said, No. Never was, never have been, He didn't really offer me anything more.
+
+Ryan: Did you ask your third question?
+
+Shepard: Yeh, I looked at him for a minute, and then I asked my third question, May I take a picture of you? I had a little disposable camera, took a picture of him, and, um, that was that.
+
+It ended with me, saying, Well, I don't want to take up too much of your time. And I said, Goodbye, and he turned to walk back towards his computer, and he says, Goodbye for now.
+
+I don't know if I'll ever contact him, if I will ever want him to be a part of my life in any way. But for now, I don't.
+
+And, so, I walked back through this park in Glasgow back towards this place where I was staying and I felt that I had made a peace with a part of myself that I never expected, that I never even thought possible.
+
+",
+"Shepard|Ryan|Glasgow|Connecticut|Eloise|baseline|disposable"
+	];
+
+push @$questions,
+[ "intermediate", "biodad", 1, "all", "He doesn't know if he he ever wants to contact his father again.", "True" ],
+[ "intermediate", "biodad", 2, "all", "The father and child only ever had a fifteen-minute conversation.", "True" ],
+[ "intermediate", "biodad", 3, "all", "The father didn't want to have the child but the woman did.", "True" ],
+[ "intermediate", "biodad", 4, "all", "The father felt panic that his child had come to ask him questions.", "False" ],
+[ "intermediate", "biodad", 5, "all", "The father was hostile to the child when he came to see him.", "False" ],
+[ "intermediate", "biodad", 6, "all", "The child wants to see his father again, but the father doesn't want to see his child again.", "False" ];
+
 uptodatepopulate( 'Text', $texts );
 
 uptodatepopulate( 'Question', $questions );
