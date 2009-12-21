@@ -81,14 +81,21 @@ sub questionupdate : Local {
 			question => $question->id,
 			# text => $text->id,
 			correct => $correct });
+		if ( $correct ) {
 		$c->stash->{status_msg} .= 
-				" Your answer: \"$answer\". The correct answer: \"$correctAnswer\".";
+				" Your answer, \"$answer\" is correct."
+		}
+		else {
+			" Your answer: \"$answer\".
+				The correct answer: \"$correctAnswer\".";
+		}
 	}
 	my $wordSet = $exercise->words;
 	my $playSet = $c->model('DB::Play')->search(
 			{player => $player, exercise => $exerciseId},
 			{ order_by => 'blank' } );
 	my @question = ( { Newline => 1 } );
+	my $wordFilledFlag;
 	while ( my $questionWord = $questionWords->next )
 	{
 		my $link = $questionWord->link;
@@ -106,15 +113,16 @@ sub questionupdate : Local {
 					my $played = $playSet->find(
 							{ blank => $link });
 					if ( $played and $played->correct eq 
-						length $cloze )
-					{ push @question, $published; }
+						length $cloze ) {
+						push @question, $published;
+						$wordFilledFlag = 1; }
 					else { push @question, '_' x
 							length($published); }
 				}
 			}
 		}
 	}
-	$c->stash->{question} = \@question;
+	$c->stash->{question} = \@question if $wordFilledFlag;
 	$c->stash->{answer} = $question->answer;
 }
 
