@@ -422,6 +422,33 @@ push @$questions,
 [ "speaking", "language-2", 6, "all", "Rachel kicked her friend because his Chinese drove her bonkers.", "False" ];
 
 
+push @$texts, [
+        "language-3",
+        "Learning via Internet story",
+	"speaking",
+	"all",
+	"What I already said in the German version of this video, uhm, that I didn't like my English lessons because, um, to my mind, they were terribly boring. And I started English, I started learning English voluntarily, when I was seventeen, because uhm, Latin, we had read, Asterix and Cleopatra in Latin, and I, then I thought, Hey, that is a great idea. I can also do it in English.
+
+And then I spontaneously decided to, um, consume a lot of media in English. So I read comics, I went online, went to many American chatrooms. And then I watched Cartoon Network. And I watched lots of movies and stuff like that. 
+
+And, many year, many years later, I started giving private tutoring in English. I explained to my pupils how they can consume the English language, um, via the Internet. Which is actually, amazingly simple. Everything you have to do is, um, go to their computer rooms, ask them to go online and to tell you everything about the things they love to watch on TV, they love to read in books or comics or magazines, and what they love to talk about with their friends.
+
+And then you go to the Internet sites which refer to those hobbies and those interests.
+
+",
+"German|voluntarily|Latin|Asterix|Cleopatra|chatrooms|tutoring"
+	];
+
+push @$questions,
+
+[ "speaking", "language-3", 1, "all", "He read Asterix in Latin and then he read it in English.", "True" ],
+[ "speaking", "language-3", 2, "all", "He learned English and then he gave lessons in learning English via the Internet.", "True" ],
+[ "speaking", "language-3", 3, "all", "He didn't like his English lessons but he loved learning English via the Internet.", "True" ],
+[ "speaking", "language-3", 4, "all", "He loved English lessons because they read Asterix and Cleopatra.", "False" ],
+[ "speaking", "language-3", 5, "all", "Private tutoring in English via the Internet is ", "False" ],
+[ "speaking", "language-3", 6, "all", "He talks to his pupils in America via the Internet.", "False" ];
+
+
 
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
