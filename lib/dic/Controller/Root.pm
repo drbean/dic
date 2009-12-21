@@ -82,7 +82,7 @@ sub auto : Private {
 
 Attempt to render a view, if needed.
 
-=cut 
+=cut
 
 sub end : ActionClass('RenderView') {}
 
