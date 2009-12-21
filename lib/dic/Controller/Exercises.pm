@@ -201,7 +201,7 @@ sub questioncreate : Private {
 		die unless defined $questionId;
 		my $content = $question->content;
 		my $remote = "$exerciseId$questionId.mp3";
-		my $local = "/tmp/$remote";
+		my $local = "/tmp/$genre/$remote";
 		system( "echo \"$content\" |
 			text2wave -eval \"($voice)\" -otype wav |
 			lame -h -V 0 - $local" ) == 0 or die "speech file? $!";
