@@ -60,7 +60,6 @@ sub update : Local {
 			 {offset => int(rand($questions->count)), rows => 1}
 								)->single;
 	}
-$DB::single=1;
 	$c->stash->{question} = $question;
 	$c->session->{question} = $question->id unless defined $questionid;
 	$c->forward('clozeupdate');
