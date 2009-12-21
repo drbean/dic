@@ -5,7 +5,7 @@
 <form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
 Question:
 
-[% FOREACH word IN question -%]
+[% FOREACH word IN questionwords -%]
 [% IF word.Newline -%]
 <br>
 [% ELSE -%]
@@ -17,7 +17,8 @@ Question:
 </p>
 Answer:
 <INPUT type="radio" name="answer" value="True"> True
-<INPUT type="radio" name="answer" value="False"> False<BR>
+<INPUT type="radio" name="answer" value="False"> False
+<INPUT type="radio" name="answer" value="Don't know" checked> Don't know<BR>
 <input type="submit" name="Submit" value="Sure?">
 </form>
 

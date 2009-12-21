@@ -251,7 +251,7 @@ sub questionupdate : Local {
 			}
 		}
 	}
-	$c->stash->{question} = \@question if $wordFilledFlag;
+	$c->stash->{questionwords} = \@question if $wordFilledFlag;
 	$c->stash->{answer} = $question->answer;
 }
 
