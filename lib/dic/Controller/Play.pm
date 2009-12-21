@@ -59,9 +59,9 @@ sub update : Local {
 		$question = $questions->search({},
 			 {offset => int(rand($questions->count)), rows => 1}
 								)->single;
+		$c->session->{question} = $question->id;
 	}
 	$c->stash->{question} = $question;
-	$c->session->{question} = $question->id unless defined $questionid;
 	$c->forward('clozeupdate');
 	$c->forward('questionupdate', $exerciseId);
 	$c->stash->{template} = "play/question.tt2";
