@@ -150,7 +150,7 @@ my $questions = [
 [ "access", "eden-1", 3, "Eden thinks her mom's spaghetti is the best because she makes the best sauce.", "True" ],
 [ "access", "eden-1", 4, "Miller doesn't want to try Eden's mother's spaghetti.", "False" ],
 [ "access", "eden-1", 5, "Eden doesn't like her mom's spaghetti.", "False" ],
-[ "access", "eden-1", 5, "Miller hasn't tried Eden's mother's spaghetti.", "True" ],
+[ "access", "eden-1", 6, "Miller hasn't tried Eden's mother's spaghetti.", "True" ],
 
 [ "access", "eden-2", 1, "Eden isn't wearing any pink.", "False" ],
 [ "access", "eden-2", 2, "Eden is wearing pink sneakers.", "True" ],
