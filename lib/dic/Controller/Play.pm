@@ -49,6 +49,20 @@ sub update : Local {
 	my $exercise = $c->model('DB::Exercise')->find(
 			{ genre => $genre, id => $exerciseId } );
 	$c->stash->{exercise} = $exercise;
+	my $questions = $exercise->text->questions;
+	my $questionid = $c->session->{question};
+	my $question;
+	if ( defined $questionid ) {
+		$question = $questions->find({ id => $questionid });
+	}
+	else {
+		$question = $questions->search({},
+			 {offset => int(rand($questions->count)), rows => 1}
+								)->single;
+	}
+$DB::single=1;
+	$c->stash->{question} = $question;
+	$c->session->{question} = $question->id unless defined $questionid;
 	$c->forward('clozeupdate');
 	$c->forward('questionupdate', $exerciseId);
 	$c->stash->{template} = "play/question.tt2";
@@ -182,10 +196,7 @@ sub questionupdate : Local {
 	my $player = $c->session->{player_id};
 	my $leagueId = $c->session->{league};
 	my $exercise = $c->stash->{exercise};
-	my $questions = $exercise->text->questions;
-	my $question = $questions->search({},
-		{offset => int(rand($questions->count)), rows => 1} )->single;
-		# {order_by => int(rand($questions->count)), rows=>1})->single;
+	my $question = $c->stash->{question};
 	my $questionWords = $question->words;
 	my $answer = $c->request->params->{answer};
 	if ( $answer )
