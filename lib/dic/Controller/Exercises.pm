@@ -62,7 +62,7 @@ sub list : Local {
     # your controllers).
     my $player = $c->session->{player_id};
     my @play = $c->model('DB::Play')->search(
-	    { league => $league, player => $player },
+	    { league => $leagueid, player => $player },
 		{ select => [ 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/exercise/],
 		as => [ qw/exercise letters/ ],
