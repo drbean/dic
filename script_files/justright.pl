@@ -456,6 +456,13 @@ my $questions = [
 [ "elementary", "smiths", 5, "Freddy, Ricky and Monica's mother is Alice, Neisha and Barry's father.", "False" ],
 [ "elementary", "smiths", 6, "The woman whose husband is English has a name like the man whose father is from Scotland.", "True" ],
 
+[ "elementary", "pilot", 1, "Alan flies to London on Tuesdays.", "True" ],
+[ "elementary", "pilot", 2, "He gets up early on Tuesdays.", "True" ],
+[ "elementary", "pilot", 3, "Alan's flight is at six o'clock", "False" ],
+[ "elementary", "pilot", 4, "Alan goes out on Tuesday night.", "False" ],
+[ "elementary", "pilot", 5, "Alan is in London for five days.", "False" ],
+[ "elementary", "pilot", 6, "Pilots have an easy job.", "False" ],
+
 [ "intermediate", "destinations", 1, "Fran'd rather go to the beach in Orlando and Sonia'd rather go to museums in Seattle.", "True" ],
 [ "intermediate", "destinations", 2, "Orlando's sunnier, more relaxing and cheaper than Seattle. Seattle's rainier and not as cheap as Orlando.", "True" ],
 [ "intermediate", "destinations", 3, "Fran and Sonia decide to go to different places.", "False" ],
