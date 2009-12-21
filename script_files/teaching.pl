@@ -420,6 +420,49 @@ push @$questions,
 [ "teaching", "assess-2", 5, "all", "Kerry and Sarah think balance is not desirable. Too much testing. Not too little.", "False" ],
 [ "teaching", "assess-2", 6, "all", "Kerry and Sarah think too much fashion is overdone, but excessive assessment is desirable.", "False" ];
 
+push @$texts,
+[
+        "assess-3",
+        "Quality of assessment",
+	"teaching",
+	"all",
+	"1:38: Sarah: Speaking of 'enthused,' let's go check out the hot pretzel guys and purses.
+Commentary: All this talk about outward appearances got us thinking. When it comes to handbags, men and assessments, is it really what's on the outside that counts?
+Sarah: You know, all too often this hot for high stakes leads to an emphasis on numbers. Teaching students how to beat the test.
+Kerry: That's so true, you know. And before you know it, teachers become more worried about dark circles and fine lines and the fine line between meeting and exceeding expectations.
+Sarah: Yes, that's true. Now, I know that we can both appreciate the appearance of this handbag. But I want to know about the quality. I want to know when I look on the inside, is it crafted with care. Does it have long-lasting appeal?
+Kerry: Exactly. I mean, is it a classic? Is it going to be just, here one season, gone the next, replaced by other trends crowding your shelf?
+Sarah: Does it have velcro?
+Sarah, Kerry: (Laughter)
+Sarah: Mmh. Yes, I think that's something that all educators need to really consider as they approach their assessment methods.
+Kerry: Absolutely. And know that just because something has been taught doesn't mean that it's been learned and retained. You need to put in assessment practices that will have that long-lasting appeal.
+Street vendor: Evaluating from inside a classroom, or a purse, what constitutes a quality piece?
+Kerry: What does constitute a quality piece?
+Commentary: Feedback that supports learning focuses on students' work. It's descriptive. It helps students improve in future iterations, informs but not overwhelms, and is delivered in time to help. 
+Street vendor: I think you need this purse for your (inaudible) tonight.
+Sarah: Oh, okay.
+Kerry: But you know what, fortunately? The State Departments of Education, as well as lots of great teachers, AKA, the Mr Big. They're stepping up and they're really creating some amazing programs and opportunities for people to train and study and learn more about how to incorporate formative assessment methods into the classroom.
+Sarah: And the DOE is also creating a lot of robust professional development 
+opportunities, mentoring.
+Kerry: Exactly.
+Street vendor: You know what I think? I think Mr Big is (inaudible) from inside and outside the purse.
+Sarah, Kerry: (Laughter)
+Kerry: So true. Well, thank you.
+Street vendor: Thank you.
+Kerry: Have a nice day.
+
+",
+"1:38|Sarah|Kerry|Street vendor|Commentary|enthused|pretzel|hot for high stakes|expectations|crafted|classic|velcro|retained|formative assessment|robust|mentoring|inaudible|Laughter"
+	];
+
+push @$questions,
+[ "teaching", "assess-3", 1, "all", "What's important is the quality of the purses and assessments, not just how they look.", "True" ],
+[ "teaching", "assess-3", 2, "all", "Velcro does not appeal to Kerry and Sarah, so they laugh.", "True" ],
+[ "teaching", "assess-3", 3, "all", "They think they need to look inside the classroom to assess the quality of a test.", "True" ],
+[ "teaching", "assess-3", 4, "all", "Sarah and Kerry do not asssess the quality fo the purses that the guy has.", "False" ],
+[ "teaching", "assess-3", 5, "all", "The commentary says feedback does not need to inform students about learning.", "False" ],
+[ "teaching", "assess-3", 6, "all", "Sarah and Kerry think how the purse looks on the outside is more important than how it is crafted on the inside.", "False" ];
+
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
 
