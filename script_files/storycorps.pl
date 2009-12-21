@@ -103,6 +103,7 @@ And I says, Well, that was you last year.
 	"trinka-2",
         "How to treat people",
 	"intermediate",
+	"intermediate",
 	"all",
         "Debra: Now, I got to know you because I walk to work every morning, and I cut by the Plaza, and you made my day. \"Good morning, young lady.\" \"Beautiful day.\"
 Ed: Eh, that's what it's all about.
@@ -192,7 +193,6 @@ And I go by that.
         "Life with Frank Mixon",
 	"intermediate",
 	"all",
-	"all",
         "00:37 I was pregnant when I met him.
 00:40 And he saw me, and walked over towards me, and he said, You're going to be my wife.
 00:45 And a year later, we just one day went down to City Hall and got married. 
@@ -220,7 +220,6 @@ And I go by that.
         "clay-2",
         "Remembering Frank",
 	"intermediate",
-	"all",
 	"all",
         "02:06 I was married to him for seventeen years, and we separated. And he moved to Michigan. 
 02:11 I don't know the details, but Frank got into an altercation. 
