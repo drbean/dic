@@ -23,11 +23,12 @@ my $schema = "${::name}::Schema"->connect( @$connect_info );
 use strict;
 
 my $texts = [
-	[ qw(id description genre content unclozeables) ],
+	[ qw(id description genre target content unclozeables) ],
 	[
         "no",
         "Western-Chinese Business: Saying No Without Saying No",
 	"intercultural",
+	"all",
         "Chinese have many ways of saying No without saying No.
 
 One of the, most important, or most common ways, the Chinese say No, without saying No, is they use objections as a way of communicating disagreement.
@@ -57,6 +58,7 @@ Actually, there's a, a, bigger rule. Anything other than Yes, means No.
         "questions",
         "Western-Chinese Business: Questioning Practices",
 	"intercultural",
+	"all",
         "Welcome to Greg Bissky, our next presentation.
 
 Different cultures develop different rules of communication, way of using language in order to be polite, in order to be clear, in order to transfer messages. Called rules of communication.
@@ -96,6 +98,7 @@ Chinese communicate negatives and disagreements indirectly. Now the Chinese disa
         "smiling",
         "The meaning of smiles in the US and Germany",
 	"intercultural",
+	"all",
         "Erica Gingerich: What form of non-verbal communication matters most in business?
 
 Robert Gibson: Just to take one example, perhaps, um, it'd be good to talk about smiling. This seems very simple. Human beings smile all over the world. But they actually smile at different times and the smiling has a different meaning in different countries.
@@ -120,6 +123,7 @@ In America, researchers talk about the 'contact smile.' You smile when you meet 
         "secondlife",
         "Don't Stand So Close To Me",
 	"intercultural",
+	"all",
         "This feels pretty wierd, doesn't it. It's like I'm breaking some unwritten rule, right? Well, psychologists would say I'm breaking about two or three at once.
 
 Too much staring, too little personal space. Put them together and suddenly something's got to give. You've got to break eye contact, or get away.
@@ -138,35 +142,35 @@ Yi: So there's probably both a hard-wired innate component to it, as well as a s
 uptodatepopulate( 'Text', $texts );
 
 my $questions = [
-			[ qw/genre text id content answer/ ],
+			[ qw/genre text id target content answer/ ],
 
-[ "intercultural", "no", 1, "Chen and Smith are clearly communicating to each other what each other thinks.", "False" ],
-[ "intercultural", "no", 2, "Chen uses objections to communicate disagreement with Smith, not a problem with the subject of X.", "True" ],
-[ "intercultural", "no", 3, "Smith thinks Chen is on board because he satisfies his two objections with his answer.", "True" ],
-[ "intercultural", "no", 4, "Chen doesn't answer when Smith satisfies his objection. This means he agrees that they should do X.", "False" ],
-[ "intercultural", "no", 5, "Smith doesn't say, \"We are now doing X,\" because he thinks Chen might disagree with X.", "False" ],
-[ "intercultural", "no", 6, "When Chen is silent or his objection is satisfied,  Smith thinks Chen is on board, but Chen thinks he communicated his disagreement.", "True" ],
+[ "intercultural", "no", 1, "all", "Chen and Smith are clearly communicating to each other what each other thinks.", "False" ],
+[ "intercultural", "no", 2, "all", "Chen uses objections to communicate disagreement with Smith, not a problem with the subject of X.", "True" ],
+[ "intercultural", "no", 3, "all", "Smith thinks Chen is on board because he satisfies his two objections with his answer.", "True" ],
+[ "intercultural", "no", 4, "all", "Chen doesn't answer when Smith satisfies his objection. This means he agrees that they should do X.", "False" ],
+[ "intercultural", "no", 5, "all", "Smith doesn't say, \"We are now doing X,\" because he thinks Chen might disagree with X.", "False" ],
+[ "intercultural", "no", 6, "all", "When Chen is silent or his objection is satisfied,  Smith thinks Chen is on board, but Chen thinks he communicated his disagreement.", "True" ],
 
-[ "intercultural", "questions", 1, "Bissky's rule is: 'Chinese people will ask questions if they don't understand you.'", "False" ],
-[ "intercultural", "questions", 2, "Bissky's rule is: 'Chinese people will not ask questions if they are in a big group.'", "True" ],
-[ "intercultural", "questions", 3, "A Bissky rule is: 'Chinese people will not state their disagreement honestly.'", "True" ],
-[ "intercultural", "questions", 4, "A Bissky rule is: 'It is better to deal with Chinese people in groups of three or more people.'", "False" ],
-[ "intercultural", "questions", 5, "A Bissky rule is: 'Westerners don't like to have meetings where people will disagree.'", "False" ],
-[ "intercultural", "questions", 6, "A Bissky rule is: 'One-on-ones are the best way to get Chinese to state their honest opinion.'", "True" ],
+[ "intercultural", "questions", 1, "all", "Bissky's rule is: 'Chinese people will ask questions if they don't understand you.'", "False" ],
+[ "intercultural", "questions", 2, "all", "Bissky's rule is: 'Chinese people will not ask questions if they are in a big group.'", "True" ],
+[ "intercultural", "questions", 3, "all", "A Bissky rule is: 'Chinese people will not state their disagreement honestly.'", "True" ],
+[ "intercultural", "questions", 4, "all", "A Bissky rule is: 'It is better to deal with Chinese people in groups of three or more people.'", "False" ],
+[ "intercultural", "questions", 5, "all", "A Bissky rule is: 'Westerners don't like to have meetings where people will disagree.'", "False" ],
+[ "intercultural", "questions", 6, "all", "A Bissky rule is: 'One-on-ones are the best way to get Chinese to state their honest opinion.'", "True" ],
 
-[ "intercultural", "smiling", 1, "People in Germany maybe think people in the US are dishonest when they smile.", "True" ],
-[ "intercultural", "smiling", 2, "Shop people in Germany often don't smile when they talk.", "True" ],
-[ "intercultural", "smiling", 3, "Americans think Germans are unfriendly in service encounters.", "True" ],
-[ "intercultural", "smiling", 4, "People in Germany and the US have similar attitudes to smiling.", "False" ],
-[ "intercultural", "smiling", 5, "Germans think Americans are very friendly because they smile a lot.", "False" ],
-[ "intercultural", "smiling", 6, "The contact smile is a smile for when you misinterpret a situation.", "False" ],
+[ "intercultural", "smiling", 1, "all", "People in Germany maybe think people in the US are dishonest when they smile.", "True" ],
+[ "intercultural", "smiling", 2, "all", "Shop people in Germany often don't smile when they talk.", "True" ],
+[ "intercultural", "smiling", 3, "all", "Americans think Germans are unfriendly in service encounters.", "True" ],
+[ "intercultural", "smiling", 4, "all", "People in Germany and the US have similar attitudes to smiling.", "False" ],
+[ "intercultural", "smiling", 5, "all", "Germans think Americans are very friendly because they smile a lot.", "False" ],
+[ "intercultural", "smiling", 6, "all", "The contact smile is a smile for when you misinterpret a situation.", "False" ],
 
-[ "intercultural", "secondlife", 1, "Too much staring and too little personal space is psychologically uncomfortable.", "True" ],
-[ "intercultural", "secondlife", 2, "The Elevator Effect is an unwritten rule about breaking eye contact or being too confined.", "True" ],
-[ "intercultural", "secondlife", 3, "People growing up get used to interpersonal distance and eye contact rules.", "True" ],
-[ "intercultural", "secondlife", 4, "People are comfortable when someone violates their personal space.", "False" ],
-[ "intercultural", "secondlife", 5, "Personal space and eye contact rules don't apply where there is no space.", "False" ],
-[ "intercultural", "secondlife", 6, "Staring rules are not followed in elevators and virtual worlds.", "False" ],
+[ "intercultural", "secondlife", 1, "all", "Too much staring and too little personal space is psychologically uncomfortable.", "True" ],
+[ "intercultural", "secondlife", 2, "all", "The Elevator Effect is an unwritten rule about breaking eye contact or being too confined.", "True" ],
+[ "intercultural", "secondlife", 3, "all", "People growing up get used to interpersonal distance and eye contact rules.", "True" ],
+[ "intercultural", "secondlife", 4, "all", "People are comfortable when someone violates their personal space.", "False" ],
+[ "intercultural", "secondlife", 5, "all", "Personal space and eye contact rules don't apply where there is no space.", "False" ],
+[ "intercultural", "secondlife", 6, "all", "Staring rules are not followed in elevators and virtual worlds.", "False" ],
 
 	];
 
