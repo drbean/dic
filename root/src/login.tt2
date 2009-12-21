@@ -7,7 +7,7 @@
  <td>
 [% META title = "Sign-In" -%]
 
-<h5>Enter an email address, eg U9876543@nuu.edu.tw.</h5>
+<h5>Enter an email address, eg U9876543@smail.nuu.edu.tw.</h5>
 
 <h5>This is how the site will identify you.</h5>
 
