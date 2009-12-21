@@ -18,6 +18,8 @@
 <input type="submit" name="Self-Access" value="Self-Access">
 </form>
 
+<!--
+
 <tr>
  <td><h4>Students in DrBean's classes in GL00003, GL00022, CLA0013, MIA0012, FLA0015, GL00031 doing listening homework:</h4>
 
@@ -43,6 +45,9 @@
   </form>
 
 </table>
+
+-->
+
 [%
    # This code illustrates how certain parts of the TT 
    # template will only be shown to users who have logged in
