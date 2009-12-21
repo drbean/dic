@@ -463,6 +463,28 @@ push @$questions,
 [ "teaching", "assess-3", 5, "all", "The commentary says feedback does not need to inform students about learning.", "False" ],
 [ "teaching", "assess-3", 6, "all", "Sarah and Kerry think how the purse looks on the outside is more important than how it is crafted on the inside.", "False" ];
 
+push @$texts,
+[
+        "aft-8",
+        "Direct action by teachers",
+	"teaching",
+	"all",
+	"Commentary: On November 26, 1946, one of the coldest days of the year, 1,165 teachers from Saint Paul, Minnesota went out on strike. 
+Murphy: And it seemed as if the Board of Education was holding the line to such a degree that they were forced to go out on the streets and to a strike. But they were also looking forward to kind of breaking that barrier to negotiating, so that they could move from a kind of moral suasion that had been the, the central way in which school teachers had bargained before to collective bargaining, as was known in the new labor movement that had grown in the 1930s. 
+Commentary: The strike which lasted nearly six weeks, was the first organized teachers' strike in the country. A startled nation realized that teachers were now willing to use strike as a weapon to fight for better funding and better schools.
+
+",
+"Commentary|Murphy|moral suasion"
+	];
+
+push @$questions,
+[ "teaching", "aft-8", 1, "all", "The first organized teachers strike in the nation (the U.S.) was in 1946.", "True" ],
+[ "teaching", "aft-8", 2, "all", "The teachers were willing to move out on the streets and break the barrier to collective bargaining.", "True" ],
+[ "teaching", "aft-8", 3, "all", "The teachers were willing to fight for better funding by moving to collective bargaining, ", "True" ],
+[ "teaching", "aft-8", 4, "all", "The new 1930s labor movement in the nation (the U.S.) grew out of the first teachers' strike.", "False" ],
+[ "teaching", "aft-8", 5, "all", "The commentary says teachers used moral suasion as a weapon to fight the Saint Paul Board of Education.", "False" ],
+[ "teaching", "aft-8", 6, "all", "The Saint Paul Board of Education forced teachers to move in to schools.", "False" ];
+
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
 
