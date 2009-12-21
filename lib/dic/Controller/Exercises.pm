@@ -63,10 +63,18 @@ sub list : Local {
 	    { league => $league, player => $player },
 		{ select => [ 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/exercise/],
-		as => [ qw/exercise score/ ],
+		as => [ qw/exercise letters/ ],
 		});
-    my %scores = map { $_->exercise => $_->get_column('score') } @play;
-    $c->stash->{scores} = \%scores;
+    my %letterscores = map { $_->exercise => $_->get_column('letters') } @play;
+    $c->stash->{letters} = \%letterscores;
+    my @quiz = $c->model('DB::Quiz')->search(
+	    { league => $league, player => $player },
+		{ select => [ 'exercise', { sum => 'correct' } ],
+		'group_by' => [qw/exercise/],
+		as => [ qw/exercise questions/ ],
+		});
+    my %quizscores = map { $_->exercise => $_->get_column('questions') } @quiz;
+    $c->stash->{questions} = \%quizscores;
     $c->stash->{league} = $league->name;
     $c->stash->{template} = 'exercises/list.tt2';
 }
@@ -82,6 +90,10 @@ Create comprehension questions and cloze exercise. If 2 different leagues have t
 
 sub create : Local {
 	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
+	my $league = $c->session->{league};
+	my $genre = $c->model("DB::Leaguegenre")->find
+			( {league => $league} )->genre;
+	$c->stash->{genre} = $genre;
 	my $text = $c->model('DB::Text')->find( { id=>$textId } );
 	my $genre = $text->genre;
 	$c->stash->{text} = $text;
@@ -212,7 +224,6 @@ Delete an exercise. Delete of Questions and Questionwords done here too. TODO Bu
 =cut
 
 	sub delete : Local {
-# $id = primary key of book to delete
 	my ($self, $c, $id) = @_;
 	my $exercise = $c->model('DB::Exercise');
 	my $words = $exercise->find({id => $id})->words;
@@ -228,12 +239,8 @@ Delete an exercise. Delete of Questions and Questionwords done here too. TODO Bu
 		}
 	}
 	$exercise->search({id => $id})->delete_all;
-# Set a status message to be displayed at the top of the view
 	$c->stash->{status_msg} = "Exercise deleted.";
-# Forward to the list action/method in this controller
-	$c->forward('list');
-# Redirect the user back to the list page instead of forward
-               $c->response->redirect($c->uri_for('list',
+       $c->response->redirect($c->uri_for('list',
                    {status_msg => "Exercise deleted."}));
 }
 
