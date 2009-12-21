@@ -193,24 +193,11 @@ And I go by that.
         "Life with Frank Mixon",
 	"intermediate",
 	"all",
-        "00:37 I was pregnant when I met him.
-00:40 And he saw me, and walked over towards me, and he said, You're going to be my wife.
-00:45 And a year later, we just one day went down to City Hall and got married. 
-00:54 And we had no rings. 
-00:55 He tried to give me his class ring, a big ugly thing, and put it on my finger. 
-01:00 And I was like, Uh-huh. 
-01:03 And I remember coming home one day, and he wasn't there. 
-01:08 And there was a note on the back of the door. 
-01:10 And it said, Go in the bedroom and look on the dresser. 
-01:13 And I went in the bedroom and in the front of the dresser, there was the ring box. 
-01:19 A beautiful wedding ring and engagement ring. 
-01:22 I grabbed those things and I put them on. 
-01:25 I just ran out of the house, 'cause I knew where he hung out at. 
-01:26 And when he saw me coming, he said, Did you find the note? 
-01:35 And I said, Yes, and I was shaking and stuff, like I had just met him. 
-01:38 And I handed him the rings and he got down on one knee and said, Will you be my wife, really be my wife? 
-01:42 And I said, Yeah.
+        "I was pregnant when I met him. And he saw me, and walked over towards me, and he said, You're going to be my wife. And a year later, we just one day went down to City Hall and got married. And we had no rings. He tried to give me his class ring, a big ugly thing, and put it on my finger. And I was like, Uh-huh. 
 
+And I remember coming home one day, and he wasn't there. And there was a note on the back of the door. And it said, Go in the bedroom and look on the dresser. And I went in the bedroom and in the front of the dresser. And there was the ring box. A beautiful wedding ring and engagement ring in the box. 
+
+I grabbed those things and I put them on. I just ran out of the house, 'cause I knew where he hung out at. And when he saw me coming, he said, Did you find them? And I was like, Yes, and I was shaking and stuff, like I had just met him. And I handed him the rings and he got down on one knee. He said, Will you be my wife, really be my wife? And I said, Yeah.
 
 ",
 "pregnant"
@@ -221,16 +208,13 @@ And I go by that.
         "Remembering Frank",
 	"intermediate",
 	"all",
-        "02:06 I was married to him for seventeen years, and we separated. And he moved to Michigan. 
-02:11 I don't know the details, but Frank got into an altercation. 
-02:17 They say that this woman was a \"damsel in distress.\" 
-02:22 And Frank was helping her. And the woman's boyfriend shot him in the back. 
-02:30 I had my fourth child with him and he's exactly like his father. Exactly. 
-02:40 He never talks above a whisper. He's always happy and laughing. He's the gentleman of all gentlemen. 
-02:49 And you know my other three kids are like that because they had him. 
-02:54 My oldest son, he'll tell you, My biological father's name is So-and-so, but my dad's name is Frank Mixon. 
-03:02 And out of all the years that we were separated, I still remember Frank Mixon. 
-03:10 Because I honestly believe that he was my first true love.
+	"He would come home. And he would say, Uh, what's for dinner. And I would tell him whatever dinner was going to be. And he made me feel like it was magnificent. I mean, if I burnt popcorn, it was the best. You know, that was the kind of guy he was.
+
+I was married to him for seventeen years, and we separated. And he moved to Michigan. I don't know the details, but Frank got into an altercation. They say that this woman was a \"damsel in distress.\" And Frank was helping her. And the woman's boyfriend shot him in the back. 
+
+I had my fourth child with him and he's exactly like his father. Exactly. He never talks above a whisper. He's always happy and laughing. He's the gentleman of all gentlemen. And you know my other three kids are like that because they had him. 
+
+My oldest son, he'll tell you, My biological father's name is So-and-so, but my dad's name is Frank Mixon. And out of all the years that we were separated, I still remember Frank Mixon. Because I honestly believe that he was my first true love.
 
 ",
 "altercation|damsel in distress"
