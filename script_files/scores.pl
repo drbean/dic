@@ -117,6 +117,4 @@ for my $dir ( @leagues )
 		}
 		print "\n";
 	}
-	chdir "..";
 }
-DumpFile 'standings.yaml', $scores;
