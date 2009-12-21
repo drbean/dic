@@ -351,6 +351,44 @@ push @$questions,
 [ "teaching", "pe-2", 5, "all", "In Classroom Sports Event Two, Oscar rides on Lawrence's back for a long time.", "False" ],
 [ "teaching", "pe-2", 6, "all", "In Classroom Sports Event Three, someone chucks stuff at Steven and Oscar.", "False" ];
 
+push @$texts,
+[
+        "assess-1",
+        "Schools and the city",
+	"teaching",
+	"all",
+	"2:48 Sarah: Speaking of men, isn't that Parfait?
+Kerry: Oh, yeh. The one from the Blue Note.
+Parfait: Hey, hi, ladies.
+Kerry: Hey, Parfait. How are you?
+Parfait: Well, I was on my way to Tira, the new wine bar on the East Side.
+Kerry: Oh, very nice. We love our wine.
+Sarah: We do. Actually we were just discussing high-stakes meets hot shoes.
+Parfait: Okay.
+Sarah: And wondering why do you think variety is the spice of assessment.
+Kerry: You know, shaking up the standardized.
+Parfait: Well, because life assesses you in different ways.
+Kerry: Ha, ha. Spoken like a true artist.
+Parfait: Well, it's true. I mean today, assessment is moving beyond just assessing where you are at one point in time, to measuring the whole process. It's so passe to only assess what has been taught. It's like jazz. You don't focus on one individual note, but the whole piece, the harmony, the confluence of the whole ensemble.
+Kerry: Exactly. I mean, we want to take a topic or an idea and be able to assess it from many different ways, to see how learning is occurring.
+Parfait: That's true. I mean, how it's occurring and for whom it is occurring as well. Are we using the right assessment method for the right age level?
+Sarah: Mmh. It kind of makes you think of fashion too. I mean, let's say, if I wanted to wear some hot-pink candy shoes and a miniskirt, would that be age-appropriate?
+Kerry: Mmh-hmm?
+Parfait: Good point.
+Sarah: But I'm going to try them on anyway, Kerry.
+
+",
+"2:48|Sarah|Parfait|Blue Note|Kerry|Tira|wine|East Side|high-stakes|spice|standardized|artist|passe|harmony|confluence|ensemble|hot-pink|candy"
+	];
+
+push @$questions,
+[ "teaching", "assess-1", 1, "all", "Parfait thinks it is appropriate to use a variety of assessment methods, not just one.", "True" ],
+[ "teaching", "assess-1", 2, "all", "Sarah thinks fashion is like assessment. Assessment can learn that variety is the spice of life.", "True" ],
+[ "teaching", "assess-1", 3, "all", "Kerry would like to use a variety of assessment methods to see if learning is occurring.", "True" ],
+[ "teaching", "assess-1", 4, "all", "Parfait likes assessment to focus on measuring just what has been taught.", "False" ],
+[ "teaching", "assess-1", 5, "all", "Sarah isn't going to try on the hot shoes, because they are not appropriate for her.", "False" ],
+[ "teaching", "assess-1", 6, "all", "Kerry wants Parfait to speak to artists and like, shake them up.", "False" ];
+
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
 
