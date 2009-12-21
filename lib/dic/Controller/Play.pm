@@ -66,13 +66,17 @@ sub questionupdate : Local {
 	my $player = $c->session->{player_id};
 	my $leagueId = $c->session->{league};
 	my $exercise = $c->stash->{exercise};
-	my $question = $exercise->text->questions->single;
+	my $questions = $exercise->text->questions;
+	my $question = $questions->search({},
+		{offset => int(rand($questions->count)), rows => 1} )->single;
+		# {order_by => int(rand($questions->count)), rows=>1})->single;
 	my $questionWords = $exercise->questionwords;
+$DB::single=1;
 	my $answer = $c->request->params->{answer};
 	if ( $answer )
 	{
 		my $correctAnswer = $question->answer;
-		my $correct = $answer eq $correctAnswer? 1: 0;
+		my $correct = $answer =~ m/$correctAnswer/i? 1: 0;
 		my $quizplay = $c->model('DB::Quiz');
 		$quizplay->update_or_create({
 			league => $leagueId,
@@ -86,7 +90,7 @@ sub questionupdate : Local {
 				" Your answer, \"$answer\" is correct."
 		}
 		else {
-			" Your answer: \"$answer\".
+			$c->stash->{status_msg} .= " Your answer: \"$answer\".
 				The correct answer: \"$correctAnswer\".";
 		}
 	}
