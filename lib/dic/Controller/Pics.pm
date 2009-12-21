@@ -31,17 +31,20 @@ sub find : Local {
 	my $genre = $c->model("DB::Leaguegenre")->find
 			( {league => $league} )->genre;
 	my $word = $c->model('DB::Word')->find({exercise=>$exerciseId,
-			genre => $genre, id => $wordId })->published;
+			genre => $genre, id => $wordId });
+	my $tag = $word->published;
+	$c->stash->{exerciseid} = $word->exercise->id;
+	$c->stash->{title} = $word->exercise->description;
 	my $pics = $c->model('DB::Pic');
 	$c->stash->{template} = 'pics/list.tt2';
 	my $total = 400;
-	my @oldurls = $pics->search({ word => $word });
+	my @oldurls = $pics->search({ word => $tag });
 	unless ( @oldurls ) {
 		my $api = Flickr::API->new({key =>
 			'ea697995b421c0532215e4a2cbadbe1e',
 			secret => 'ab2024b750a9d1f2' });
 		my $r = $api->execute_method('flickr.photos.search',
-			{ tags => $word, per_page => $total, api_key =>
+			{ tags => $tag, per_page => $total, api_key =>
 				'ea697995b421c0532215e4a2cbadbe1e' });
 		unless ( $r->{success} ) {
 			$c->stash->{error_msg} = $r->{error_message};
@@ -52,11 +55,11 @@ sub find : Local {
 			my $photo = $r->{tree}->{children}->[1]->
 				{children}->[2*$n+1]->{attributes};
 			my $title = $photo->{title};
-			next unless defined $title and $title =~ m/$word/i;
+			next unless defined $title and $title =~ m/$tag/i;
 			my %row;
 			$row{title} = $photo->{title};
 			$row{id} = undef;
-			$row{word} = $word;
+			$row{word} = $tag;
 			$row{url} = 'http://farm' . $photo->{farm} .
 				'.static.flickr.com/'.  $photo->
 				{server} .  '/'.  $photo->{id} . '_' .
