@@ -91,10 +91,10 @@ sub clozeupdate : Local {
 	my $playSet = $c->model('DB::Play')->search(
 			{player => $player, exercise => $exerciseId},
 			{ order_by => 'blank' } );
-	my $questions = $c->request->params;
+	my $responses = $c->request->params;
 	my $play =  $c->model('DB::Play');
 	my $score = 0;
-	my @cloze = ( $title, { Newline => 1 }, { Newline => 1 } );
+	my @cloze = ( { Newline => 1 }, { Newline => 1 } );
 	while (my $word = $wordSet->next)
 	{
 		my $id = $word->id;
@@ -114,7 +114,7 @@ sub clozeupdate : Local {
 			my $clozed = $word->clozed;
 			my $allLetters = length $clozed;
 			my $answer = substr $clozed, $correct;
-			my $response = $questions->{$id};
+			my $response = $responses->{$id};
 			if ( $correct == $allLetters ) {
 				$score += $allLetters;
 				push @cloze, $published;
@@ -178,6 +178,7 @@ sub clozeupdate : Local {
 	}
 	my $name = $c->model("DB::Player")->find({id=>$player})->name;
 	$c->stash->{exercise_id} = $exerciseId;
+	$c->stash->{title} = $title;
 	$c->stash->{cloze} = \@cloze;
 	$c->stash->{status_msg} = "$name has $score letters correct";
 	$c->stash->{reversed} = $exerciseType eq "Last"? 1: 0;

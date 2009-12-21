@@ -1,7 +1,7 @@
 [% META title = "Dictation exercise" -%]
 
-<p>
-
+<ul>
+<li>
 <form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
 Question:
 
@@ -18,13 +18,14 @@ Question:
 Answer:
 <INPUT type="radio" name="answer" value="True"> True
 <INPUT type="radio" name="answer" value="False"> False
-<INPUT type="radio" name="answer" value="Don't know" checked> Don't know<BR>
+<INPUT type="radio" name="answer" value="Don't know" checked> Don't know
 <input type="submit" name="Submit" value="Sure?">
 </form>
+</li>
 
-
+<li>
 <form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
-<input type="submit" name="Submit" value="CheckWords">
+[% title %] <input type="submit" name="Submit" value="CheckWords">
 [%# advised not to put objects into templates -%]
 [% FOREACH section IN cloze -%]
 [% IF section.Newline -%]
@@ -48,3 +49,6 @@ Answer:
 <p>
 Back to <a href="[% Catalyst.uri_for('/exercises/list/') _ id %]">Exercise List</a>
 </p>
+</li>
+
+</ul>
