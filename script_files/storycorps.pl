@@ -356,6 +356,50 @@ push @$questions,
 [ "intermediate", "biodad", 5, "all", "The father was hostile to the child when he came to see him.", "False" ],
 [ "intermediate", "biodad", 6, "all", "The child wants to see his father again, but the father doesn't want to see his child again.", "False" ];
 
+push @$texts,
+[
+        "relations-1",
+        "Mother tells son about meeting dad",
+	"intermediate",
+	"all",
+	"Sam: How did you meet Dad?
+PJ: Well, you know that my mom died when I was seven.
+Sam: Yes.
+PJ: And you know that I was on my own when I was sixteen. So what I did and what you get to do are going to be two different things, because ..
+Sam: Right, I'll always have somebody looking up for me. And, that's you, Dad, and ..
+PJ: That's right.
+Sam: And pretty much everybody else in our family.
+PJ: So, I was 18 years old and, um, I had a fake ID, and I was at this bar.
+Sam: You had a fake ID.
+PJ: Mmm-mmh. Oh my goodness, I can't believe I'm telling you this. And, um, I was sitting at this barstool and your dad sat down. And I said to your dad, I said,  There's somebody sitting there. And he says, I don't care. I just have to meet you. And, he made me laugh, and that's what I needed right then. That's why I needed to laugh a little.
+
+We talked for about four hours, and then he walked me out to my car, but he never asked me for my phone number. And I got home that night, and I was writing in my diary, Very good-looking, but insecure.
+
+The next day, I was on my couch watching some afternoon TV, folding laundry, and I had told dad what apartment complex I lived in, but I didn't tell him what apartment or where I lived. So he drove in to the apartment complex and just laid his hand on the horn.
+Sam: (Laughs)
+PJ: And he just was driving through the complex. (Laughs). And I went out on my balcony, and I saw him, and I said, Oh my God, that's that guy from the bar last night, and he was like, Oh, hi, there you are, I've been looking for you! And that's the way he found me.
+
+Sam: What was the best times, the worst times in marriage? And did you ever think of getting divorced?
+PJ: You know, over the years, I have thought about getting divorced. Me and your dad were separated once for two years, but we got back together. And we never did get divorced. We came close a couple of times during that time. Umm.
+Sam: I remember like, you were like yelling. And you said, You want me to leave with the children? I was like in my bed, and I just heard that.
+PJ: I'm sorry you had to hear that, sweetie. Marriage isn't always pretty. I think sometimes we act like little children, and we need to be more mature about it, because it's a privilege to be married to somebody, and you need not to disrespect it like that. Like sometimes we get angry and we do. But we've been together for twenty-three years now. And I think your dad's taught me the meaning of love. Love is as much a feeling as it is an action.
+Sam: Right.
+PJ: You see what I'm saying.
+Sam: I see what you're saying.
+PJ: To love somebody is not just how you feel about them, but what you do, also.
+
+",
+"PJ|Sam|horn|mature"
+	];
+
+push @$questions,
+[ "intermediate", "relations-1", 1, "all", "The guy didn't know where she lived, so he drove into the apartment complex looking for her.", "True" ],
+[ "intermediate", "relations-1", 2, "all", "The guy sat down and talked to her for four hours.", "True" ],
+[ "intermediate", "relations-1", 3, "all", "The couple came close to getting divorced.", "True" ],
+[ "intermediate", "relations-1", 4, "all", "The couple were separated, but never thought of getting a divorce.", "False" ],
+[ "intermediate", "relations-1", 5, "all", "The couple are always mature, and never angry.", "False" ],
+[ "intermediate", "relations-1", 6, "all", "The children wanted to leave Dad and be with Mom.", "False" ];
+
 uptodatepopulate( 'Text', $texts );
 
 uptodatepopulate( 'Question', $questions );
