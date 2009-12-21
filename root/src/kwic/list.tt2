@@ -1,15 +1,22 @@
 [% META title = 'KWIC List' -%]
 [% box='□'%]
 [% space='_'%]
+[%- UNLESS reversed %]
+ [% word=keyword.unclozed _ box.repeat(keyword.clozed.length) -%]
+[%- ELSE -%]
+ [%- word=box.repeat(keyword.clozed.length) _ keyword.unclozed %]
+[% END %]
 <p>
 Back to <a href="[% Catalyst.uri_for('/play/update/') _ id %]">[% title %] Exercise</a>
 </p>
 
-<h3>Search flickr for picture of word</h3>
+[%- UNLESS stopword %]
+<h3>flickr picture of [% word %]</h3>
 
-<p>One word's worth of pictures of "[% keyword.unclozed %][%- box.repeat(keyword.clozed.length) -%]" is <a href="[% Catalyst.uri_for('/pics/find/') _ id %]/[% keyId %]">how many pictures?</a></p>
+<p>One word's worth of "[% word %]" pictures is <a href="[% Catalyst.uri_for('/pics/find/') _ id %]/[% keyId %]">how many pictures?</a></p>
+[%- END %]
 
-<h3>Search exercises for other occurences of word</h3>
+<h3>Other occurences of [% word %]</h3>
 
 <table>
  <tr>
@@ -29,11 +36,7 @@ Back to <a href="[% Catalyst.uri_for('/play/update/') _ id %]">[% title %] Exerc
      [%- END -%]
    </td>
    <td class="kwic">
-       [%- UNLESS reversed %]
-         [% keyword.unclozed %][%- box.repeat(keyword.clozed.length) -%]
-       [%- ELSE -%]
-         [%- box.repeat(keyword.clozed.length) -%][% keyword.unclozed %]
-       [% END %]
+   [% word %]
    </td>
    <td class="post">
      [% FOREACH section IN originalposttext -%]
