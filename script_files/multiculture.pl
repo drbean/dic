@@ -190,7 +190,7 @@ my $questions = [
 [ "intercultural", "shock1", 1, "Culture shock is feelings of surprise when moving to a new environment.", "True" ],
 [ "intercultural", "shock1", 2, "When you move to a new environment, the unfamiliar is a shock.", "True" ],
 [ "intercultural", "shock1", 3, "Oberg's take on culture shock was it is almost a disease.", "True" ],
-[ "intercultural", "shock1", 4, "Culture shock is different to the feelings felt when you move from one state to another.", "False" ],
+[ "intercultural", "shock1", 4, "Culture shock is not like the feelings felt when you move from one state to another.", "False" ],
 [ "intercultural", "shock1", 5, "Oberg's main idea was that there is no cure for culture shock.", "False" ],
 [ "intercultural", "shock1", 6, "The impact of moving from one culture to another is differnt from culture shock.", "False" ],
 
