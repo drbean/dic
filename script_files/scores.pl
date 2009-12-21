@@ -80,6 +80,7 @@ for my $id ( sort @leagueids )
 		push @leagueExercises, @newExerciseList;
 	}
 	@leagueExercises = uniq @leagueExercises;
+	@leagueExercises = uniq @leagueExercises;
 	print $id . "\t", @leagueExercises , "Total\n";
 	print "============================================\n";
     my $play = $leagueplay->search( undef,
