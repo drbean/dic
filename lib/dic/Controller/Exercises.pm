@@ -50,7 +50,8 @@ sub list : Local {
     my ($self, $c) = @_;
     my $leagueid = $c->session->{league};
     my $league = $c->model('DB::League')->find({id=>$leagueid});
-    my $genre = $c->model('DB::Leaguegenre')->find({league=>$leagueid})->genre;
+    my $genre = $c->model('DB::Leaguegenre')->search({league=>$leagueid})
+    					->next->genre;
     # my $genre = $league->genre->genre;
     # Retrieve all of the text records as text model objects and store in
     # stash where they can be accessed by the TT template
@@ -208,20 +209,21 @@ sub questioncreate : Private {
 		my $answer = $question->answer;
 		my $punctuation = qr/([^A-Za-z0-9\\n]+)/;
 		my @words = split $punctuation, $content;
+		my $clozewords = $exercise->words;
 		my $id;
 		foreach my $word ( @words )
 		{
-			my $cloze = $exercise->words->single(
-				{ published => $word });
+			my $cloze = $clozewords->search(
+				{ published => $word })->next;
 			my $link = $cloze? $cloze->id: 0;
-			my %row;
-			$row{genre} = $genre;
-			$row{text} = $textId;
-			$row{question} = $questionId;
-			$row{id} = $id++;
-			$row{content} = $word;
-			$row{link} = $link;
-			push @wordRows, \%row;
+			my $row = {
+				genre => $genre,
+				text => $textId,
+				question => $questionId,
+				id => $id++,
+				content => $word,
+				link => $link };
+			push @wordRows, $row;
 		}
 	}
 	$questionwords->populate( \@wordRows );

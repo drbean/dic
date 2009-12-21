@@ -49,10 +49,13 @@ sub update : Local {
 	my $genre = $c->model("DB::Leaguegenre")->find(
 			{ league => $leagueId } )->genre;
 	my $exercise = $c->model('DB::Exercise')->find(
-			{ genre => $genre, id => $exerciseId } );
+		{ genre => $genre, id => $exerciseId } );
+	my $text = $exercise->texts->next->id;
 	$c->stash->{genre} = $genre;
 	$c->stash->{exercise} = $exercise;
-	my $questions = $exercise->text->questions;
+	$c->stash->{text} = $text;
+	my $questions = $c->model('DB::Question')->search({
+			genre => $genre, text => $text, });
 	my $questionid = $c->session->{question};
 	my $question;
 	if ( defined $questionid ) {
@@ -61,7 +64,7 @@ sub update : Local {
 	else {
 		$question = $questions->search({},
 			 {offset => int(rand($questions->count)), rows => 1}
-								)->single;
+								)->next;
 		$c->session->{question} = $question->id;
 	}
 	$c->stash->{question} = $question;
@@ -81,13 +84,13 @@ sub clozeupdate : Private {
 	my ($self, $c, $exerciseId) = @_;
 	my $player = $c->session->{player_id};
 	my $league = $c->session->{league};
-	$exerciseId ||= $c->session->{exercise};
-	my $genre = $c->model("DB::Leaguegenre")->find
-			( {league => $league} )->genre;
-	my $exerciseType = $c->model('DB::Exercise')->find(
-			{ genre => $genre, id =>$exerciseId },)->type;
-	my $title = $c->model('DB::Exercise')->find(
-		{ genre => $genre, id => $exerciseId } )->description;
+	my $exercise = $c->stash->{exercise};
+	$exerciseId ||= $exercise->id;
+	my $genre = $c->stash->{genre};
+	my $exerciseType = $exercise->type;
+	my $textId = $c->stash->{text};
+	my $title = $c->model('DB::Text')->find({
+			id => $textId, })->description;
 	my $wordSet = $c->model('DB::Word')->search(
 			{genre => $genre, exercise => $exerciseId},
 			{ order_by => 'id' } );
