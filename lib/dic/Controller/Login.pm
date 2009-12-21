@@ -23,7 +23,7 @@ Login logic. We let "guest"s in without a password, or ID.
 
 =cut
 
-sub index : Path : Args(0) {
+sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     my $id       = $c->request->params->{id}       || "";
     my $name     = $c->request->params->{name}     || "";
@@ -44,7 +44,7 @@ sub index : Path : Args(0) {
                 $c->stash->{leagues} =
                   [ $c->model('DB::League')->search( {} ) ];
                 $c->stash->{template} = 'official.tt2';
-                return;
+		return;
             }
             my @memberships =
               $c->model("DB::Member")->search( { player => $id } );
@@ -82,7 +82,7 @@ Set league official is organizing. Use session player_id to authenticate the par
 
 =cut
 
-sub official : Path : Args(0) {
+sub official : Local {
 	my ($self, $c) = @_;
 	my $league = $c->request->params->{league} || "";
 	my $password = lc $c->request->params->{password} || "";
