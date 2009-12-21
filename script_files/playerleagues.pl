@@ -122,6 +122,35 @@ for my $league ( 'FLA0015', 'MIA0012', 'CLA0013', 'GL00003', 'GL00031' ) {
 					@{$leaguefile->{member}};
 }
 
+push @{$players->{FLB0002}}, [split] for <<FLB0002 =~ m/^.*$/gm;
+N9361738 江映霖	ying
+N9361749 覃少穎	shao
+N9361750 曾思萍	si
+N9461708 張佩玲	pie
+N9461709 陳詩旻	shi
+N9461710 羅亞萍	ya
+N9461719 劉昭驊	zhao
+N9461725 張□明	ming
+N9461729 蔡純茹	chun
+N9461734 張雅臻	ya
+N9461735 張琨耀	kun
+N9461736 彭珠蓮	zhu
+N9461739 林佳汭	jia
+N9461745 陳怡蓁	yi
+N9461747 李安倫	an
+N9461748 陳思羽	si
+N9461751 黃芝鈴	zhi
+N9461753 葉又寧	you
+N9461754 李蕙丞	hui
+N9461756 許芷菱	zhi
+N9461760 吳雲禎	yun
+N9461762 陳震宇	zhen
+N9461764 林俊華	jun
+N9461766 劉毓汶	yu
+U9533039 蕭郁玲	yu
+
+FLB0002
+
 push @{$players->{MIA0012}}, [split] for <<MIA0012 =~ m/^.*$/gm;
 U9633001 林祐年	you
 U9633002 李政道	zheng
