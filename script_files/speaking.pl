@@ -336,6 +336,32 @@ push @$questions,
 [ "speaking", "interview-1", 6, "all", "The performance is at the Georgia Music Hall of Fame in Atlanta.", "False" ];
 
 
+push @$texts, [
+        "interview-2",
+        "Jazz fan speaks",
+	"speaking",
+	"all",
+	"Bradford: Welcome to the Jazz St Louis podcast. I'm Gene Dobbs Bradford and today, I'm joined by noted jazz scholar, and host of Jazz Unlimited, on KWMU, Dennis Owsley. Dennis, thanks for joining us today.
+Owsley: Ah, it's good to be here, Gene. Be a lot of fun.
+Bradford. We're here today to talk a little about Blue Note records and their seventieth anniversary. And, um, you've done quite a bit of research on Blue Note and, uh, have done several shows on your show on KWMU, Jazz Unlimited, but, uh, for those listeners out there, who may not be as familiar with it, (Certainly most people if you are a jazz fan you know a little bit about Blue Note. You've heard the name), but perhaps you could tell us just what is so important. Why is this such a milestone for jazz.
+Owsley: Well Blue Note is really kind of the gold standard for jazz recordings. Uh, they have had a track record that goes back to 1939 of producing great recordings. Doesn't mean hits. Hits are different than great recordings, quite often.
+Bradford: Mmh-hmm.
+Owsley: So, uh, ...
+
+",
+"Jazz|St Louis|Gene Dobbs|Bradford|Dennis|Owsley|Blue Note|milestone|gold standard|track record"
+	];
+
+push @$questions,
+
+[ "speaking", "interview-2", 1, "all", "Bradford has a jazz show and Owsley hosts a different jazz show on KWMU.", "True" ],
+[ "speaking", "interview-2", 2, "all", "Owsley is not the host of the Jazz St Louis podcast. Bradford is.", "True" ],
+[ "speaking", "interview-2", 3, "all", "Blue Note has produced great jazz records since 1939.", "True" ],
+[ "speaking", "interview-2", 4, "all", "Most jazz fans are not familiar with Blue Note.", "False" ],
+[ "speaking", "interview-2", 5, "all", "The Blue Note anniversary is a milestone for Bradford and Owsley.", "False" ],
+[ "speaking", "interview-2", 6, "all", "Owsley is having his seventieth anniversary at Blue Note.", "False" ];
+
+
 
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
