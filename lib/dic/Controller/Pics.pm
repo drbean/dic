@@ -34,7 +34,7 @@ sub find : Local {
 			genre => $genre, id => $wordId })->published;
 	my $pics = $c->model('DB::Pic');
 	$c->stash->{template} = 'pics/list.tt2';
-	my $total = 10;
+	my $total = 100;
 	my @oldurls = $pics->search({ word => $word });
 	unless ( @oldurls ) {
 		my $api = Flickr::API->new({key =>
