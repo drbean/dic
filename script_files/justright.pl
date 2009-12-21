@@ -442,15 +442,28 @@ A: Yes. This is called procedural memory because it stores procedures, or the wa
 	"JUST RIGHT",
         "Just Right Elementary Student's Book. American Edition, by Carol Lethaby, Ana Acevedo and Jeremy Harmer. Copyright Marshall Cavendish, Limited, 2007.
 
-Track 1:
+	];
 
-1.  My name is Jo Smith. I'm a dentist. I'm from Argentina. I have one brother, Alberto. He and his wife Patty have one son, Paco. My husband, Peter, is English. We have two sons, Freddy, twelve, and Ricky, eight, and a baby daughter, Monica, eighteen months old.
+$schema->populate( 'Text', $texts );
 
-2. I'm Joe Smith and I'm thirty-eight. I'm an architect. My father is from Scotland and my mother is from Jamaica, in the Caribbean. I'm American. I'm an only child. My wife, Sandra, is a teacher. We have two daughters: Alice, twelve and Neisha, six. We also have a son, Barry, fourteen months old. We live in California.
+my $questions = [
+			[ qw/genre text id content answer/ ],
 
-",
-"Carol|Lethaby|Ana|Acevedo|Jeremy|Harmer|Smith|Argentina|Alberto|Patty|Paco|Peter|Freddy|Ricky|Monica|Jamaica|Caribbean|Sandra|Alice|Neisha|Barry|California|Marshall|Cavendish|"
-	]
+[ "elementary", "smiths", 1, "Freddy and Ricky's mother is a dentist.", "True" ],
+[ "elementary", "smiths", 2, "The architect's sons and daughter are called Alice, Neisha and Barry.", "True" ],
+[ "elementary", "smiths", 3, "The father of Barry's father is from Scotland and the mother of Barry's father is from the Caribbean.", "True" ],
+[ "elementary", "smiths", 4, "The dentist is from Argentina and is married to a woman from the Caribbean.", "False" ],
+[ "elementary", "smiths", 5, "Freddy, Ricky and Monica's mother is Alice, Neisha and Barry's father.", "False" ],
+[ "elementary", "smiths", 6, "The woman whose husband is English has a name like the man whose father is from Scotland.", "True" ],
+
+[ "intermediate", "destinations", 1, "Fran'd rather go to the beach in Orlando and Sonia'd rather go to Seattle.", "True" ],
+[ "intermediate", "destinations", 2, "Orlando's sunnier, more relaxing and cheaper than Seattle.", "True" ],
+[ "intermediate", "destinations", 3, "Fran and Sonia decide to go to different places.", "False" ],
+[ "intermediate", "destinations", 4, "Fran doesn't like going to museums. She likes going to the beach.", "True" ],
+[ "intermediate", "destinations", 5, "Fran'd rather stay in New York than go to the beach in Orlando.", "False" ],
+[ "intermediate", "destinations", 6, "Sonia'd rather go to rainy Seattle than sunny Orlando.", "True" ],
+[ "intermediate", "destinations", 7, "Sonia'd rather go to Seattle by herself than go to Orlando with Fran.", "True" ],
+
 
 	];
 
