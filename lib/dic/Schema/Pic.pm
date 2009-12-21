@@ -12,6 +12,8 @@ __PACKAGE__->add_columns(
   { data_type => "SMALLINT", is_auto_increment => 1, is_nullable => 0, size => undef },
   "word",
   { data_type => "VARCHAR", is_nullable => 0, size => 25 },
+  "owner",
+  { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "url",
   { data_type => "VARCHAR", is_nullable => 0, size => 100 },
   "title",
