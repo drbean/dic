@@ -45,7 +45,7 @@ sub find : Local {
 				'ea697995b421c0532215e4a2cbadbe1e',
 				secret => 'ab2024b750a9d1f2' });
 			my $r = $api->execute_method('flickr.photos.search',
-				{ tags => $word, api_key =>
+				{ tags => $word, per_page => 20, api_key =>
 					'ea697995b421c0532215e4a2cbadbe1e' });
 			if ( $r->{error_code} ) {
 				$c->stash->{error_msg} = $r->{error_message};
