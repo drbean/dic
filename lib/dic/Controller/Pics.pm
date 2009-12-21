@@ -71,7 +71,7 @@ sub find : Local {
 		}
 		$c->stash->{urls} = \@oldurls;
 	}
-	$c->stash->{urls} || ();
+	$c->stash->{urls} ||= [];
 	$c->stash->{template} = 'pics/list.tt2';
 }
 
