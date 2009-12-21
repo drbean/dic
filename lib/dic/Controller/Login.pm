@@ -82,7 +82,7 @@ Set league official is organizing. Use session player_id to authenticate the par
 
 =cut
 
-sub official : Local {
+sub official : Path : Args(0) {
 	my ($self, $c) = @_;
 	my $league = $c->request->params->{league} || "";
 	my $password = lc $c->request->params->{password} || "";
