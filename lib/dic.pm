@@ -15,20 +15,24 @@ use Catalyst::Runtime '5.70';
 # Static::Simple: will serve static files from the application's root 
 #                 directory
 
-use Catalyst qw/
-    -Debug 
-    ConfigLoader 
-    Static::Simple
-    
-    StackTrace
+use Moose;
+extends 'Catalyst';
+with 'CatalystX::REPL';
 
-    Authentication
-    Authorization::Roles
-            
-    Session
-    Session::Store::FastMmap
-    Session::State::Cookie
-    /;
+#use Catalyst qw/
+#    -Debug 
+#    ConfigLoader 
+#    Static::Simple
+#    
+#    StackTrace
+#
+#    Authentication
+#    Authorization::Roles
+#            
+#    Session
+#    Session::Store::FastMmap
+#    Session::State::Cookie
+#    /;
 
     # Authorization::ACL
 
@@ -59,7 +63,20 @@ our $VERSION = '0.04';
 __PACKAGE__->config( name => 'dic' );
 
 # Start the application
-__PACKAGE__->setup;
+__PACKAGE__->setup( qw/
+    -Debug 
+    ConfigLoader 
+    Static::Simple
+    
+    StackTrace
+
+    Authentication
+    Authorization::Roles
+            
+    Session
+    Session::Store::FastMmap
+    Session::State::Cookie
+/ );
 
 ## Authorization::ACL Rules
 #__PACKAGE__->deny_access_unless(
