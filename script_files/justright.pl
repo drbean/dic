@@ -180,7 +180,7 @@ Louise and Shimran also have interesting poses. Louise's head is turned in Shimr
 	[
         "dubai",
         "Desert meeting",
-	"intermediate",
+	"access",
 	"all",
        "Sally drives onto the ferry in Iran or Iraq, somewhere. And then she drives off the ferry in Dubai. And she drives to the airport in Dubai. And uh, meets her friend, who's, uh, uh,  come from somewhere like, uh, Europe, or America, or, um, ah, uh, the Soviet Union, Russia somewhere.
 
@@ -203,7 +203,7 @@ What do you think is happening in this story? It's kind of, uh, uhm, curious, is
 	[
         "bridewriter",
         "Bride and Writer scenarios",
-	"elementary",
+	"access",
 	"all",
        "I'm going to read the cards that we, um, ah, did last week. First is about the, ah, Sally's friend getting married to the Arab prince, and the terrorists who are the prince's, ah, servants are going to try and kill her.
 
