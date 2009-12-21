@@ -150,7 +150,7 @@ N9461766 劉毓汶	yu
 U9533039 蕭郁玲	yu
 FLB0002
 
-for my $league ( 'FLA0015', 'MIA0012' ) {
+for my $league ( 'FLA0015', 'MIA0012', 'CLA0013', 'GL00031' ) {
 	$leaguefile = LoadFile "/home/drbean/class/$league/league.yaml";
 	push @{$players->{$league}}, map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
 					@{$leaguefile->{member}};
