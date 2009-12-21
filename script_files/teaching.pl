@@ -316,6 +316,41 @@ push @$questions,
 [ "teaching", "pe-1", 5, "all", "Van Houten will lead the PE class and students will do PE in it.", "False" ],
 [ "teaching", "pe-1", 6, "all", "The ladies wonder if J.Lo lost her twins doing yoga in a PE class.", "False" ];
 
+push @$texts,
+[
+        "pe-2",
+        "Classroom sports",
+	"teaching",
+	"all",
+	"2:39 Steven: Hey. Check it out. We just got, I just got these awesome new hats for classroom sports.
+Oscar: (inaudible) They don't even fit on your head.
+Steven: You shut up. I got mine for 2008 Wild West showdown, man. (inaudible)
+
+Oscar: Classroom Sports Event One. Classroom sprinting
+Steven: First you've got to steal something from your teacher, then leg it to the nearest bathroom in the fastest time possible. Your time runs up when you get inside the bathroom.
+Oscar: Let's do it.
+
+Oscar: Classroom Sports Event Two. Classroom rodeo
+Steven: First you've got to find a random person. Then you sneak up behind them, jump on their back and see how long you can stay on top of them, like riding a bull. Best time wins.
+Oscar: Let's do this.
+
+Steven: Hey, Lawrence. Hold it right there. Got a question for you. Ha, ha! Er, why isn't he moving?
+
+Oscar: Classroom Sports Event Three. Classroom (inaudible)
+Steven: You just find a bunch of random stuff. Then you run into a classroom and chuck them at people. And you get points every time you nail someone. Let's do this.
+
+",
+"2:39|Steven|Oscar|Wild West|showdown|sprinting|leg|rodeo|a random|sneak|Lawrence|chuck|nail"
+	];
+
+push @$questions,
+[ "teaching", "pe-2", 1, "all", "In Classroom Sports Event One, you've got to get to the bathroom before the teacher nails you.", "True" ],
+[ "teaching", "pe-2", 2, "all", "In Classroom Sports Event Two, you jump on a person's back and stay on for the longest time possible.", "True" ],
+[ "teaching", "pe-2", 3, "all", "In Classroom Sports Event Three, you chuck stuff at people and see how many you can nail. ", "True" ],
+[ "teaching", "pe-2", 4, "all", "In Classroom Sports Event One, the teacher runs into the bathroom to nail the people who stole her stuff.", "False" ],
+[ "teaching", "pe-2", 5, "all", "In Classroom Sports Event Two, Oscar rides on Lawrence's back for a long time.", "False" ],
+[ "teaching", "pe-2", 6, "all", "In Classroom Sports Event Three, someone chucks stuff at Steven and Oscar.", "False" ];
+
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
 
