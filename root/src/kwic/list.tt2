@@ -5,6 +5,12 @@
 Back to <a href="[% Catalyst.uri_for('/play/update/') _ id %]">[% title %] Exercise</a>
 </p>
 
+<h3>Search flickr for picture of word</h3>
+
+<p>One word's worth of pictures of "[% keyword.unclozed %][%- box.repeat(keyword.clozed.length) -%]" is <a href="[% Catalyst.uri_for('/pics/find/') _ id %]/[% keyId %]">how many pictures?</a></p>
+
+<h3>Search exercises for other occurences of word</h3>
+
 <table>
  <tr>
    <td class="pre">
