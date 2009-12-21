@@ -14,15 +14,12 @@ __PACKAGE__->add_columns(
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "id",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
-  "target",
-  { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "content",
   { data_type => "VARCHAR", is_nullable => 0, size => 500 },
   "answer",
   { data_type => "VARCHAR", is_nullable => 0, size => 500 },
 );
 __PACKAGE__->set_primary_key("genre", "text", "id");
-# __PACKAGE__->set_primary_key("genre", "text", "id", "target");
 
 
 # Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-08-26 18:19:13
@@ -38,8 +35,7 @@ __PACKAGE__->set_primary_key("genre", "text", "id");
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *foreign* table
 __PACKAGE__->has_many(words => 'dic::Schema::Questionword',
-        { 'foreign.genre' => 'self.genre', 'foreign.text' => 'self.text',       'foreign.question' => 'self.id'});
-		# 'foreign.question' => 'self.id', 'foreign.target' => 'self.target' });
+        { 'foreign.genre' => 'self.genre', 'foreign.text' => 'self.text',       +'foreign.question' => 'self.id'});
 
 
 # many_to_many():
@@ -55,20 +51,20 @@ __PACKAGE__->has_many(words => 'dic::Schema::Questionword',
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *this* table
-__PACKAGE__->belongs_to(get_text => 'dic::Schema::Text',
+__PACKAGE__->belongs_to(text => 'dic::Schema::Text',
         {'foreign.genre' => 'self.genre', 'foreign.id' => 'self.text' });
 
 =head1 NAME
 
-DB::Question - A model object representing a comprehension question about an Exercise
+DB::Question - A model object representing a comprehension question about an    +Exercise
 
 =head1 DESCRIPTION
 
-Questions belong to a Text and have many Questionwords. One Text may have many Questions. Questions have content, ie the text of the question, and one answer.
+Questions belong to a Text and have many Questionwords. One Text may have many  +Questions. Questions have content, ie the text of the question, and one answer.
 
-They belong to a Text rather than Exercise, because they have to be imported  before the Exercise has been created.
+They belong to a Text rather than Exercise, because they have to be imported    +before the Exercise has been created.
 
-Because Questions belong Texts, and the Questionwords in them belong to     Exercises, the relationship between Text and Exercise is needed to retrieve  all the data about a Questionword, and specifically which Question a      Questionword belongs_to.
+Because Questions belong Texts, and the Questionwords in them belong to         +Exercises, the relationship between Text and Exercise is needed to retrieve    +all the data about a Questionword, and specifically which Question a           +Questionword belongs_to.
 
 =cut
 

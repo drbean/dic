@@ -45,29 +45,21 @@ my $modelmodule = "${name}::Model::DB";
 
 my $connect_info = $modelmodule->config->{connect_info};
 my $d = $model->connect( @$connect_info );
-my $s = $d->resultset(shift @ARGV);
-my @columns = $s->result_source->columns;
+my $s = $d->resultset($ARGV[0]);
+my @columns = ($model . "::" . $ARGV[0])->columns;
 $, = "\t";
 print @columns, "\n=============================================\n";
-my $callback = callback( @ARGV );
 while ( my $r = $s->next )
 {
-	my %values = map { $_ => $r->get_column($_) } @columns;
-	if ( $callback->( %values ) )
+	my @r;
+	foreach my $column ( @columns )
 	{
-		print "\t" . $values{$_} for @columns;
-		print "\n";
+		my $value = $r->$column;
+		if ( ref $value ) { push @r, $value->id; }
+		else {
+			if (defined $value) { push @r, $value; }
+			else { push @r, 'NULL'; }
+		}
 	}
-}
-
-sub callback {
-	my @token = @_;
-	my $regex = qr/$token[2]/;
-	my %callbacks = (
-		'=~' => sub { my %r=@_; return ( $r{$token[0]} =~ $regex ) },
-		'eq' => sub { my %r=@_; return ( $r{$token[0]} eq $token[2] ) },
-		'ne' => sub { my %r=@_; return ( $r{$token[0]} ne $token[2] ) },
-		'gt' => sub { my %r=@_; return ( $r{$token[0]} gt $token[2] ) },
-		);
-	return $callbacks{$token[1]};
+	print @r, "\n";
 }

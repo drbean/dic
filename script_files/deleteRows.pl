@@ -6,14 +6,13 @@ deleteRows.pl - Emulate cli db tool, dbtool.pl with DB schema
 
 =head1 SYNOPSIS
 
-script_files/deleteRows.pl Player player =~/eq/ne/gt ^19300
-Columns:        league  exercise        player  question        answer  correct
-=============================================
-Deleting        dic     crocodile1      193001  3       Don't know      0
+script_files/deleteRows.pl Player name Jack
+95801001 Jack
+95801007 Jack
 
 =head1 DESCRIPTION
 
-Deletes all rows from the table associated with the ARGV[0] schema for which sub { ARGV[0] ARGV[2] ARGV[3] } returns true. Now using DBIC::Row's delete. Before was NOT using DBIC::ResultSet's delete_all, because play needs to be kept even after players are gone. Players will come back.
+Deletes all rows from the table associated with the Player schema which have Jack in the name column.
 
 =head1 AUTHOR
 
@@ -46,32 +45,7 @@ my $modelmodule = "${name}::Model::DB";
 
 my $connect_info = $modelmodule->config->{connect_info};
 my $d = $model->connect( @$connect_info );
-my $s = $d->resultset(shift @ARGV);
-my @columns = $s->result_source->columns;
-$, = "\t";
-print "Columns: ", @columns,
-	"\n=============================================\n";
-my $callback = callback( @ARGV );
-while ( my $r = $s->next )
-{
-	my %values = map { $_ => $r->get_column($_) } @columns;
-	if ( $callback->( %values ) )
-	{
-		$r->delete;
-		print "Deleting";
-		print "\t" . $values{$_} for @columns;
-		print "\n";
-	}
-}
-
-sub callback {
-	my @token = @_;
-	my $regex = qr/$token[2]/;
-	my %callbacks = (
-		'=~' => sub { my %r=@_; return ( $r{$token[0]} =~ $regex ) },
-		'eq' => sub { my %r=@_; return ( $r{$token[0]} eq $token[2] ) },
-		'ne' => sub { my %r=@_; return ( $r{$token[0]} ne $token[2] ) },
-		'gt' => sub { my %r=@_; return ( $r{$token[0]} gt $token[2] ) },
-		);
-	return $callbacks{$token[1]};
-}
+my $s = $d->resultset($ARGV[0])->search( { $ARGV[1] => $ARGV[2] } );
+my $deletions = $s->count;
+print "Deleting $deletions rows ...\n";
+$s->delete;

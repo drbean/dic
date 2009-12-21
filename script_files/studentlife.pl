@@ -22,8 +22,13 @@ my $connect_info = "${::name}::Model::DB"->config->{connect_info};
 my $schema = "${::name}::Schema"->connect( @$connect_info );
 use strict;
 
-my $eden1 = 
-"00:06 Dennis Miller: The first student I talked with was Eden Hartwell, of Mt Upton, New York.
+my $texts = [
+	[ qw(id description genre content unclozeables) ],
+	[
+        "eden-1",
+        "Eden",
+	"access",
+        "00:06 Dennis Miller: The first student I talked with was Eden Hartwell, of Mt Upton, New York.
 00:09 She's a forensics major. Let's jump right into the conversation.
 00:13 Miller: Favorite food.
 00:15 Eden: My mom's spaghetti.
@@ -33,9 +38,15 @@ my $eden1 =
 00:22 Eden: Yeh. (laughs)
 00:22 Miller: ... have to try that sometime.
 
-";
-my $eden2 = 
-"00:24 Miller: And your favorite color?
+",
+"Dennis Miller|Miller|forensics|Eden|Hartwell|Upton|spaghetti|sauce"
+	],
+
+	[
+        "eden-2",
+        "The color pink",
+	"access",
+        "00:24 Miller: And your favorite color?
 00:24 Eden: Pink.
 00:25 Miller: Okay. You're not wearing any pink! (laughs)
 00:30 Eden: (laughs)
@@ -54,51 +65,14 @@ my $eden2 =
 00:53 Miller: Okay, so you guys worked that out beforehand.
 00:54 Eden: Yeh.
 
-";
-
-my $texts = [
-	[ qw(id description genre target content unclozeables) ],
-	[
-        "eden-1",
-        "Eden",
-	"access",
-	"all",
-	$eden1,
-	"Dennis Miller|Miller|forensics|Eden|Hartwell|Upton|spaghetti|sauce"
-	],
-	
-	[
-        "eden-1-GL",
-        "Eden",
-	"JUST RIGHT",
-	"all",
-	$eden1,
-	"Dennis Miller|Miller|forensics|Eden|Hartwell|Upton|spaghetti|sauce"
-	],
-
-	[
-        "eden-2",
-        "The color pink",
-	"access",
-	"all",
-	$eden2,
-	"Miller|Eden|sneakers"
-	],
-
-	[
-        "eden-2-GL",
-        "The color pink",
-	"JUST RIGHT",
-	"all",
-	$eden2,
-	"Miller|Eden|sneakers"
+",
+"Miller|Eden|sneakers"
 	],
 
 	[
         "eden-3",
         "Getting to know roommate",
 	"access",
-	"all",
         "00:55 Miller: Now you were telling me that you got to know your roommate through uh, email during the summer, 
 01:01 Eden: Yeh.
 01:01 Miller: which struck me as a really good way to do things.
@@ -124,7 +98,6 @@ my $texts = [
         "eden-4",
         "Music and hobbies",
 	"access",
-	"all",
         "01:52 Miller: Your favorite band.
 01:54 Eden: Coheed and Cambria. Mmh-hmm. I just, I really like their music. And my boyfriend introduced them to me and I've been hooked ever since.
 02:03 Miller: And I need to ask about your favorite movie?
@@ -149,7 +122,6 @@ my $texts = [
         "eden-5",
         "Saying goodbye",
 	"access",
-	"all",
         "02:35 Miller: The first day that you came here, that your mother brought you here.
 02:39 Eden: Yeh.
 02:40 Miller: And she drove away, and you were on your own.
@@ -165,68 +137,10 @@ my $texts = [
 ",
 "Miller|Eden|exchange|tapped"
 	],
-	
-	[
-        "family2",
-        "Two different households",
-	"elementary",
-	"all",
-        "Here are 2 stories about people living in two different houses. How are the people similar and how are they different?
-
-In the first house, Stanley, Peter, Irene and Alice are all living in the same house. They are all students, and like other students, they do some good things, like studying, and some bad things, like playing computer games when they should be studying.
-
-One of the bad things is: Peter and Stanley often drink in their rooms. even though Irene and Alice never drink. 
-
-They also do some good things, which is good, even if they don't always do them very often.
-
-None of the people in the house ever smokes, which is good. And, Peter and Irene sometimes exercise. That's good. Stanley and Alice exercise, but less often than Peter and Irene.
-
-And, they also often eat vegetables, though Stanley only eats vegetables occasionally.
-
-In another house, Emma, Carrie, Donna and Cindy are living together. They are also students and they also do some good things and some bad things. 
-
-They never do any housework, so the house is very untidy. And Emma and Carrie play a lot of computer games. The others only occasionally play computer games.
-
-All of them also often eat vegetables, which is good. They also all study, but less often than they eat vegetables.
-
-",
-"Stanley|Peter|Irene|Alice|Emma|Carrie|Donna|Cindy"
-	],
 
 	];
 
 $schema->populate( 'Text', $texts );
-
-my $questions = [
-			[ qw/genre text id target content answer/ ],
-
-[ "JUST RIGHT", "eden-1-GL", 1, "all", "The first student Miller talked with was Eden.", "True" ],
-[ "JUST RIGHT", "eden-1-GL", 2, "all", "Eden's favorite food is the spaghetti her mom makes.", "True" ],
-[ "JUST RIGHT", "eden-1-GL", 3, "all", "Eden thinks her mom's spaghetti is the best because she makes the best sauce.", "True" ],
-[ "JUST RIGHT", "eden-1-GL", 4, "all", "Miller doesn't want to try the spaghetti Eden's mom makes.", "False" ],
-[ "JUST RIGHT", "eden-1-GL", 5, "all", "Eden doesn't like the spaghetti her mom makes", "False" ],
-[ "JUST RIGHT", "eden-1-GL", 6, "all", "Miller hasn't tried the spaghetti Eden's mom makes.", "True" ],
-
-[ "JUST RIGHT", "eden-2-GL", 1, "all", "Eden isn't wearing any pink.", "False" ],
-[ "JUST RIGHT", "eden-2-GL", 2, "all", "Eden is wearing pink sneakers.", "True" ],
-[ "JUST RIGHT", "eden-2-GL", 3, "all", "Eden's roommate decorated her half of the room in pink.", "False" ],
-[ "JUST RIGHT", "eden-2-GL", 4, "all", "Eden and her roommate worked out how to decorate the room beforehand.", "True" ],
-[ "JUST RIGHT", "eden-2-GL", 5, "all", "Eden thinks her roomate doesn't like pink.", "False" ],
-[ "JUST RIGHT", "eden-2-GL", 6, "all", "Eden decorated her half of the room the way she wanted it to be and her roommate decorated her half of the room the way she wanted it to be.", "True" ],
-[ "JUST RIGHT", "eden-2-GL", 7, "all", "The two halves of the room are decorated differently.", "True" ],
-
-[ "elementary", "family2", 1, "all", "Students in both houses often eat vegetables.", "True" ],
-[ "elementary", "family2", 2, "all", "None of the people in the second house do housework.", "True" ],
-[ "elementary", "family2", 3, "all", "Two of the people in one of the houses drink.", "True" ],
-[ "elementary", "family2", 4, "all", "The people in the first house sometimes exercise.", "True" ],
-[ "elementary", "family2", 5, "all", "Two of the people in one of the houses play computer games.", "True" ],
-[ "elementary", "family2", 6, "all", "One of the people in the first house smokes.", "False" ],
-[ "elementary", "family2", 7, "all", "The people in the second house sometimes study.", "True" ],
-[ "elementary", "family2", 8, "all", "In both houses, some of the people do some good things and some bad things.", "True" ],
-
-	];
-
-$schema->populate( 'Question', $questions );
 
 =head1 NAME
 
