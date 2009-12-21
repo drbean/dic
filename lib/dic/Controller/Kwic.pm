@@ -32,8 +32,8 @@ sub list : Local {
 	my ($self, $c, $exerciseId, $keyId) = @_;
 	my $player = $c->session->{player_id};
 	my $league = $c->session->{league};
-	my $genre = $c->model("DB::Leaguegenre")->find
-			( {league => $league} )->genre;
+	my $genre = $c->model("DB::Leaguegenre")->search
+			( {league => $league} )->next->genre;
 	my $exercise = $c->model('DB::Exercise')->find(
 				    {genre=> $genre, id=>$exerciseId});
 	my $contextlength = 16;
