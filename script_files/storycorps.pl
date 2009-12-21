@@ -217,7 +217,7 @@ I had my fourth child with him and he's exactly like his father. Exactly. He nev
 My oldest son, he'll tell you, My biological father's name is So-and-so, but my dad's name is Frank Mixon. And out of all the years that we were separated, I still remember Frank Mixon. Because I honestly believe that he was my first true love.
 
 ",
-"altercation|damsel in distress"
+"Michigan|whisper|Frank|Mixon|altercation|damsel in distress"
 	],
 
 	];
@@ -269,7 +269,12 @@ my $questions = [
 [ "intermediate", "clay-1", 6, "all", "Frank found some rings and gave them to Rebia, but she handed them back to him. She didn't like them.", "False" ],
 [ "intermediate", "clay-1", 7, "all", "Frank found the rings he gave Rebia when they got married in her dress.", "False" ],
 
-[ "intermediate", "clay-2", 1, "all", "Rebia had four children with Frank.", "False" ],
+[ "intermediate", "clay-2", 1, "all", "Frank made Rebia feel like she was the best woman.", "True" ],
+[ "intermediate", "clay-2", 2, "all", "Rebia has four children but the oldest child is not Frank's.", "True" ],
+[ "intermediate", "clay-2", 3, "all", "Rebia and Frank separated but she remembers Frank as the best.", "True" ],
+[ "intermediate", "clay-2", 4, "all", "Rebia had four children with Frank.", "False" ],
+[ "intermediate", "clay-2", 5, "all", "Frank was not happy if Rebia burnt popcorn.", "False" ],
+[ "intermediate", "clay-2", 6, "all", "Frank shot his girlfriend in the back because she was helping a boyfriend.", "False" ],
 
 	];
 
