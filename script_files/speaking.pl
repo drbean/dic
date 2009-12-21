@@ -276,6 +276,38 @@ push @$questions,
 [ "speaking", "garrett", 5, "all", "Garrett is very good at technology, but not very good at big-picture discussions.", "False" ],
 [ "speaking", "garrett", 6, "all", "Garrett says speakers have talked down to the audience, and she will too, because she is one of them.", "False" ];
 
+push @$texts, [
+        "mrbean",
+        "Best man's speech",
+	"speaking",
+	"all",
+	"2:14 Groom: Next came my trusted best man.
+Best Man: Oh, right, right. Heh-heh. Right. Well, ha-ha, right. Um, ah, ladies and gentlemen, and fellow survivors of that stunning stag party. How did those two girls get under the table, and what the hell were they up to with that tooth paste.
+Heh-heh. Right, well. Um, well. Ah, just before I left the house, um, this afternoon, he-he-he, I said to myself, you know, the last thing you must do is forget your speech. Um, and so sure enough, when I left the house, ooh, ha-ha-ha, the last thing I did, yes, you've guessed it, was to forget my speech. So, it's all ad lib, I'm afraid.
+Er, um, er, er, ah, ah, ah, ah, ah, ah, ah-ah-ah. Ah-ah-ah-ah-ah-ah-ah-ah-ah. Ah! Ha-ha-ha, ha-ha-ha.
+Right, well, anyway, well, now, where should I begin. I'd like to begin now. Ha ha ha. Right, well, well.
+Well, I've known the groom, ever since we first went to school together at the age of eight. And you know he hasn't changed a bit.
+Uh, well, that's not quite true, of course. He didn't have his beard then.
+And I tell you this. He wouldn't have been able to do whatever he was doing last night with those two extraordinary, extraordinary, um, .. extraordinary how little people change, isn't it. Yeh.
+Uh, uh, uh. er, although I know I've changed a great deal. Because I used to be an absolute arse. Always blurting things out when I shouldn't. For instance, this afternoon, I'm sure I wouldn't have been able to resist mentioning the bizarre sight that greeted my eyes when I opened this man's bedroom door earlier this morning. Yes, but, but enough of that.
+Er, ha-ha-ha, he's started making gestures at me now, which I think means he wants me to cut my speech short.
+Um, so suffice to say, I think he'll make a ripping husband. Then I think his wife's ripping too. And, er I can only hope that the dress will hold out. 
+So, I'd like to propose a toast, to go with the pate.
+Ha-ha, um, to the groom and to his lovely horse, er wife. It's all starting to come back to me, now. Um, and I just know that their marriage will be as happy and satisfied as I was when I paid off those two prostitutes earlier this morning.
+
+",
+"2:14|Groom|Best Man|stag party|arse|blurting|suffice to say|ripping|pate"
+	];
+
+push @$questions,
+
+[ "speaking", "mrbean", 1, "all", "The best man forgot to bring the speech, so he has to ad lib.", "True" ],
+[ "speaking", "mrbean", 2, "all", "The groom is not happy with the best man's speech, so he wants him to cut it short.", "True" ],
+[ "speaking", "mrbean", 3, "all", "The best man thinks the groom's wife is a horse.", "True" ],
+[ "speaking", "mrbean", 4, "all", "Last night the best man and the groom were with the groom's wife-to-be.", "False" ],
+[ "speaking", "mrbean", 5, "all", "The best man used to be an arse, but now he isn't an arse because he resists mention bizarre things.", "False" ],
+[ "speaking", "mrbean", 6, "all", "The groom's wife will be happy knowing what the groom was doing last night at the stag party.", "False" ];
+
 
 
 uptodatepopulate( 'Text', $texts );
