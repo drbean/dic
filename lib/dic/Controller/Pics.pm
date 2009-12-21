@@ -46,8 +46,13 @@ sub find : Local {
 			my $r = $api->execute_method('flickr.photos.search',
 				{ tags => $word, api_key =>
 					'ea697995b421c0532215e4a2cbadbe1e' });
+			if ( $r->{error_code} ) {
+				$c->stash->{status_message} =
+							$r->{error_message};
+				$c->stash->{template} = 'pics/list.tt2';
+				return;
+			}
 			my $range = 100;
-			my $rand = int(rand($range));
 			my @newurls;
 			for my $n ( 0 .. $range-1 ) {
 				my $photo = $r->{tree}->{children}->[1]->
