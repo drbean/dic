@@ -363,6 +363,32 @@ push @$questions,
 
 
 
+push @$texts, [
+        "language-1",
+        "Talking monkey",
+	"speaking",
+	"all",
+	"1:10 A common question among the foreign community here in China is \"Do you speak Chinese?\" Well, my answer is yes, but with a somewhat metaphysical qualification. Yes, I speak Chinese. I work in it, I can negotiate in it, I can do business in it. However I’m unsure that when I do speak Chinese, that I am really \"me\" — or maybe even human. Because to the non-philosophy majors out there (ie, those with a real education) \"metaphysics\" often means \"confusion.\" Please allow me to explain.
+
+To my Chinese friends and co-workers, I am neither funny nor witty in Chinese, though I like to think I am (maybe mistakenly) in my native language. I am certainly interesting in Chinese, in the same sense that monkeys are amusing when taught to use simple sign language. I can talk in Chinese, but it's not communication. Maybe, It's, it's desperation. Some people say I am \"bright\" because I can pick up the language or, or \"clever\" because I can mimic an accent. Yet I don’t consider those attributes to be necessarily \"human.\" The reason being, communication has nothing to do with fluency and everything to do with culture.
+
+In China, to be human is to use the Chinese language and to use it properly. Anthropologists have discovered rudimentary Chinese characters scratched into turtle shells and cattle bones many thousands of years old. To be Chinese is to be attached to that history by some unseen umbilical cord which feeds you and keeps you alive. To really speak Chinese, you must incorporate that history into your very being.
+
+",
+"1:10|metaphysical qualification|non-philosophy|metaphysics|witty|desperation|mimic|Anthropologists|rudimentary|turtle shells|cattle bones|umbilical cord"
+	];
+
+push @$questions,
+
+[ "speaking", "language-1", 1, "all", "He thinks he is not funny in Chinese, but he thinks he is interesting in Chinese.", "True" ],
+[ "speaking", "language-1", 2, "all", "He thinks he is like a monkey in Chinese. He is not \"human\".", "True" ],
+[ "speaking", "language-1", 3, "all", "He is not attached to Chinese culture, so he cannot be \"human\" in Chinese.", "True" ],
+[ "speaking", "language-1", 4, "all", "He thinks that fluency is necessary to speak the Chinese language properly.", "False" ],
+[ "speaking", "language-1", 5, "all", "He thinks Chinese culture is rudimentary and not human, because of scratched characters.", "False" ],
+[ "speaking", "language-1", 6, "all", "People say to him that his Chinese is not human, because he is bright and clever.", "False" ];
+
+
+
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
 
