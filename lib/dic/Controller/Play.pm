@@ -2,8 +2,10 @@ package dic::Controller::Play;
 
 use strict;
 use warnings;
-use parent 'Catalyst::Controller';
-use FirstLast;
+# use parent 'Catalyst::Controller';
+# use FirstLast;
+use Moose;
+BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
