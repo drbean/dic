@@ -36,35 +36,12 @@ sub index : Path : Args(0) {
         my $username = $id;
         if ( $c->authenticate( { id => $username, password => $password } ) ) {
             $c->session->{player_id} = $id;
-            $c->session->{question} = undef;
-            my $officialrole = 1;
-            if ( $c->check_user_roles($officialrole) ) {
-                $c->stash->{id}   = $id;
-                $c->stash->{name} = $name;
-                $c->stash->{leagues} =
-                  [ $c->model('DB::League')->search( {} ) ];
-                $c->stash->{template} = 'official.tt2';
-                return;
-            }
-            my @memberships =
-              $c->model("DB::Member")->search( { player => $id } );
-            my @leagues;
-            for my $membership (@memberships) {
-                push @leagues, $membership->league;
-            }
-            unless ( @leagues == 1 ) {
-                $c->stash->{id}         = $id;
-                $c->stash->{name}       = $name;
-                $c->stash->{leagues}   = \@leagues;
-                $c->stash->{template}   = 'membership.tt2';
-                return;
-            }
-            else {
-                $c->session->{league}   = $leagues[0]->id;
-                $c->session->{exercise} = undef;
-                $c->response->redirect( $c->uri_for("/exercises/list") );
-                return;
-            }
+            $c->session->{question}  = undef;
+            $c->session->{league} =
+              $c->model("DB::Member")->find( { player => $id } )->league->id;
+            $c->session->{exercise} = undef;
+            $c->response->redirect( $c->uri_for("/exercises/list") );
+            return;
         }
         else {
             $c->stash->{error_msg} = "Bad username or password.";
