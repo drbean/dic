@@ -2,15 +2,17 @@
 
 =head1 NAME
 
-loadyamlid.pl -- Load one text with questions from a YAML file
+loadYAMLid.pl -- Load one text with questions from a YAML file
 
 =head1 SYNOPSIS
 
-loadyamlid.pl data/business.yaml careercandidate
+loadYAMLid.pl data/business.yaml careercandidate
 
 =head1 DESCRIPTION
 
 Cut and paste from YAML into texts, questions tables 
+
+But be careful with targets
 
 =head1 AUTHOR
 
