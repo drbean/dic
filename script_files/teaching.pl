@@ -271,6 +271,51 @@ push @$questions,
 [ "teaching", "cartoon", 5, "all", "The teacher shoots the student because he said the wrong answer.", "False" ],
 [ "teaching", "cartoon", 6, "all", "The teacher controls the students in Part One and Part Two with humor.", "False" ];
 
+push @$texts, [
+        "pe-1",
+        "Student-led PE class",
+	"teaching",
+	"all",
+	"1:13 Natalie: For our PE classroom entry, Genny and I have decided to do a yoga class.
+Genny: It's really calming or something. And everybody who's anybody does yoga.
+Natalie: I heard that J.Lo lost all her baby weight after the twins just doing yoga.
+Genny: She had twins?
+Natalie: Where've you been for the last year?
+Genny: Hey, cool.
+
+Oscar: Hey, we heard about the new PE class idea. How do we get our idea nominated?
+Van Houten: Errm, Well, I think you probably need to make a video or a demo, or something like that, so that we can review it. Umm, because we've got to look at all the options.
+Oscar: Okay.
+Steven: When is it ... When should we have it in by?
+Van Houten: Uh, December 15th.
+Steven: Okay.
+Van Houten: That'd work. Okay. Bye.
+
+Van Houten: Hi. Hi, ladies.
+Genny: We heard about the PE class, the student-led, the class opening thing.
+Van Houten: Yup.
+Genny: And we were wondering, um, how do we get ourselves nominated.
+Van Houten: You mean you have an idea for, for what to do in the class?
+Natalie: Oh, yeah.
+Van Houten. Okay. And what we're doing is we're having students develop, um, videos or demos, or something like that, so we can view what your idea is and then we can decide.
+Genny, Natalie: Okay.
+Van Houten: So, if you can have that done by December 15th, we'll review it.
+Natalie: How about in ...
+Van Houten: Okay, we can go with that. How about January 15th. 
+Genny, Natalie: All right. Sounds good!
+
+",
+"1:13|Natalie|Genny|J.Lo|baby weight|Oscar|nominated|Van Houten|Steven|options|demo|review"
+	];
+
+push @$questions,
+[ "teaching", "pe-1", 1, "all", "Oscar and Steven'll develop an idea by December 15th and the ladies'll do it by January 15th.", "True" ],
+[ "teaching", "pe-1", 2, "all", "Genny and Natalie get Van Houten to okay having their idea done by January 15th.", "True" ],
+[ "teaching", "pe-1", 3, "all", "Van Houten'll review the ideas and decide what to do with the PE class.", "True" ],
+[ "teaching", "pe-1", 4, "all", "The students all decided the student-led PE class'll be a yoga class.", "False" ],
+[ "teaching", "pe-1", 5, "all", "Van Houten will lead the PE class and students will do PE in it.", "False" ],
+[ "teaching", "pe-1", 6, "all", "The ladies wonder if J.Lo lost her twins doing yoga in a PE class.", "False" ];
+
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
 
