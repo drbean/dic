@@ -36,8 +36,8 @@ __PACKAGE__->set_primary_key("genre", "id");
 #     3) Column name in *foreign* table
 __PACKAGE__->has_many(words => 'dic::Schema::Word',
         { 'foreign.genre' => 'self.genre', 'foreign.exercise' => 'self.id'});
-__PACKAGE__->has_many(questionwords => 'dic::Schema::Questionword',
-        { 'foreign.genre' => 'self.genre', 'foreign.exercise' => 'self.id'});
+# __PACKAGE__->has_many(questionwords => 'dic::Schema::Questionword',
+#	{ 'foreign.genre' => 'self.genre', 'foreign.text' => 'self.text'});
 
 
 # many_to_many():
@@ -46,7 +46,7 @@ __PACKAGE__->has_many(questionwords => 'dic::Schema::Questionword',
 #     2) Name of has_many() relationship this many_to_many() is shortcut for
 #     3) Name of belongs_to() relationship in model class of has_many() above 
 #   You must already have the has_many() defined to use a many_to_many().
-# __PACKAGE__->many_to_many(readers => 'reader', 'reader');
+# __PACKAGE__->many_to_many(questions => 'questions', 'questions');
 
 __PACKAGE__->belongs_to( text => 'dic::Schema::Text', { 'foreign.id'=>'self.text' });
 
