@@ -7,6 +7,24 @@
   - content
   - unclozeables
 -
+  - viviano
+  - Nurse tells daughter about patients dying
+  - intermediate
+  - all
+  - |+
+    Sarafino: I understand your mom had breast cancer. What was that like?
+    Dana: It was very scary. She'd been very sick. And they took her to a hospital. And a physician came out to talk to us when we got there. And told us that she had cancer and that they didn't expect her to survive. And I remember thinking that there was a way that they could have told us that was softer.
+    Sarafino: Is that why you wanted to become a cancer nurse?
+    Dana: You know, I think so. I can't imagine doing anything else.
+    Sarafino: How does it feel to you telling someone they're going to die.
+    Dana: Oh, it's horrible. A lot of times when you get to that point, they know it. And you know it. Because they don't feel good. And they know what we're doing to them is not making them better. So a lot of times when we have that talk with them, they've kind of prepared for it.
+    Sarafino: Are you friends with some patients?
+    Dana: Mmh-hmm. They all teach you something. They've taught me to celebrate the smallest things in life, like hair growing back. I learn about fear. And I learn about hope, and I really learn what love is. Love is that deep, intense feeling for another person's soul. And that it's okay to let that person go. We all don't know how long we're going to be on this planet. And that's why it's important to love each other and to, you know, cherish a human being.
+    Sarafino: I really think God wanted you to be what you are, because you're awesome at it. You make patients smile. You walk in there, and they're all like, Dana. Oh, my gosh, she's here. To me, you are maybe the angels on earth. You come down and try your best to heal people. You are my hero.
+    Dana: Thank you.
+
+  - Sarafino|physician|Dana|soul|planet|cherish
+-
   - kroenke-1
   - Tuning a piano at a nursing home
   - access
@@ -308,6 +326,48 @@
   - target
   - content
   - answer
+-
+  - access
+  - viviano
+  - 1
+  - all
+  - Dana wanted to become a nurse because her mom had cancer.
+  - True
+-
+  - access
+  - viviano
+  - 2
+  - all
+  - Sarafino thinks her mom is a hero.
+  - True
+-
+  - access
+  - viviano
+  - 3
+  - all
+  - Dana learns about love, hope and fear from her patients.
+  - True
+-
+  - access
+  - viviano
+  - 4
+  - all
+  - Dana learned her mom was going to die from a nurse.
+  - False
+-
+  - access
+  - viviano
+  - 5
+  - all
+  - Dana didn't want to become a nurse.
+  - False
+-
+  - access
+  - viviano
+  - 6
+  - all
+  - Patients are not prepared when they are told they are going to die.
+  - False
 -
   - access
   - kroenke-1
