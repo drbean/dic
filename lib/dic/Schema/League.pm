@@ -30,9 +30,7 @@ __PACKAGE__->set_primary_key("id");
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *this* table
-# __PACKAGE__->belongs_to(genre => 'dic::Schema::Leaguegenre', 'id');
-__PACKAGE__->has_one(genre => 'dic::Schema::Leaguegenre',
-        { 'foreign.league' => 'self.id'});
+#__PACKAGE__->belongs_to(league => 'dic::Schema::League', 'league');
 
 # has_many():
 #   args:

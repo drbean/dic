@@ -1,20 +1,17 @@
 [% META title = 'Exercise List' -%]
 
-<p>[% league %] League</p>
-
 <table>
-<tr><th>Name</th><th>Description</th><th>Type</th><th>Score</th></tr>
+<tr><th>Name</th><th>Description</th><th>Type</th><th>Letters</th><th>Questions</th></tr>
 [% FOREACH exercise IN exercises -%]
   [% id = exercise.id %]
   <tr>
     <td>[% exercise.id %]</td>
     <td>[% exercise.description %]</td>
     <td>[% exercise.type %]</td>
-    <td>[% scores.$id %]</td>
-    <td>
-         <a href="[% Catalyst.uri_for('/play/update/') _ exercise.id %]">Go!</a>
-    </td>
+    <td>[% letters.$id %]</td>
+    <td>[% questions.$id %]</td>
   </tr>
 [% END -%]
 </table>
 
+<a href="[% Catalyst.uri_for('/play/questionupdate/') %]">Go!</a>

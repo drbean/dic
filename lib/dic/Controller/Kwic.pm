@@ -24,8 +24,6 @@ Catalyst Controller.
 
 Fetch all KWIC entries. Will be called only if there are other instances (except for links within 50 characters of the original link?). Show only cloze for entry leading us here. Show KWIC entries for other words with the same stems.
 
-TODO Error message: Use of uninitialized value within %tokensUnclozed in length at /home/drbean/dic/script_files/../lib/dic/Controller/Kwic.pm line 116.
-
 =cut
  
 sub list : Local {

@@ -52,7 +52,7 @@ sub list : Local {
 
 =head2 url_create
 
-Create a league by entering the URL: http://school.edu/dic/url_create/leagueId/leagueName/leagueField/oneLeagueMember
+Create a book with the supplied title, rating, and author
 
 =cut
 

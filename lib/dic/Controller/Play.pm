@@ -33,48 +33,102 @@ sub start : Local {
 }
 
 
+=head2 questionupdate
+
+Check answers. Partly-correct answers are accepted up to the first letter that is wrong. Words correctly answered in the text that are also in a comprehension question appear in the question.
+
+=cut
+ 
+sub questionupdate : Local {
+	my ($self, $c, $exerciseId) = @_;
+	my $player = $c->session->{player_id};
+	my $leagueId = $c->session->{league};
+	my $genre = $c->model("DB::Leaguegenre")->find(
+			{ league => $leagueId } )->genre;
+	my $exercises = $c->model('DB::Exercise')->search(
+			{ genre => $genre, }, { order_by => 'id' } );
+	$exerciseId = $c->session->{exercise};
+	my $exercise;
+	if ( defined $exerciseId )
+	{		
+		do { $exercise = $exercises->next }
+					until $exercise->id eq $exerciseId;
+	}
+	else {
+		$exercise = $exercises->single;
+		$c->session->{exercise} = $exercise->id;
+	}
+	$c->forward('update');
+	my $question = $exercise->text->questions->single;
+	my $questionWords = $exercise->questionwords;
+	my $answer = $c->request->params->{answer};
+	if ( $answer )
+	{
+		my $correctAnswer = $question->answer;
+		my $correct = $answer eq $correctAnswer? 1: 0;
+		my $quizplay = $c->model('DB::Quiz');
+		$quizplay->create({
+			league => $leagueId,
+			exercise => $exerciseId,
+			player => $player,
+			question => $question->id,
+			# text => $text->id,
+			correct => $correct });
+		my $nextExercise = $exercises->next;
+		if ( $nextExercise )
+		{
+			$c->session->{exercise} = $nextExercise->id;
+			$c->stash->{next_exercise} = 1;
+		}
+		else {
+			$c->stash->{status_msg} = " GAME OVER. ";
+		}
+		$c->stash->{status_msg} .= 
+				" Your answer: \"$answer\". The correct answer: \"$correctAnswer\".";
+	}
+	my $wordSet = $exercise->words;
+	my $playSet = $c->model('DB::Play')->search(
+			{player => $player, exercise => $exerciseId},
+			{ order_by => 'blank' } );
+	my @question = ( { Newline => 1 } );
+	while ( my $questionWord = $questionWords->next )
+	{
+		my $link = $questionWord->link;
+		my $published = $questionWord->content;
+		if ( $link == 0 )
+		{ push @question, $published; }
+		else {
+			if ( $published !~ m/^[A-Za-z0-9]*$/ )
+			{ push @question, $published; }
+			else {		
+				my $word = $wordSet->find({ id => $link });
+				my $cloze = $word->clozed;
+				unless ($cloze) {push @question, $published}
+				else {
+					my $played = $playSet->find(
+							{ blank => $link });
+					if ( $played and $played->correct eq 
+						length $cloze )
+					{ push @question, $published; }
+					else { push @question, '_' x
+							length($published); }
+				}
+			}
+		}
+	}
+	$c->stash->{question} = \@question;
+	$c->stash->{answer} = $question->answer;
+	$c->stash->{template} = "play/question.tt2";
+}
+
+
 =head2 update
 
-Check answers, fetch all characters and pass to characters/list.tt2 for display.
+Check answers, fetch all characters and pass to characters/list.tt2 for display. Partly-correct answers are accepted up to the first letter that is wrong.
 
 =cut
  
 sub update : Local {
-	my ($self, $c, $exerciseId) = @_;
-	my $player = $c->session->{player_id};
-	my $leagueId = $c->session->{league};
-	$exerciseId ||= $c->session->{exercise};
-	my $genre = $c->model("DB::Leaguegenre")->find(
-			{ league => $leagueId } )->genre;
-	my $exercise = $c->model('DB::Exercise')->find(
-			{ genre => $genre, id => $exerciseId } );
-	$c->stash->{exercise} = $exercise;
-	my $questions = $exercise->text->questions;
-	my $questionid = $c->session->{question};
-	my $question;
-	if ( defined $questionid ) {
-		$question = $questions->find({ id => $questionid });
-	}
-	else {
-		$question = $questions->search({},
-			 {offset => int(rand($questions->count)), rows => 1}
-								)->single;
-		$c->session->{question} = $question->id;
-	}
-	$c->stash->{question} = $question;
-	$c->forward('clozeupdate');
-	$c->forward('questionupdate', $exerciseId);
-	$c->stash->{template} = "play/question.tt2";
-	}
-
-
-=head2 clozeupdate
-
-Partly-correct answers are accepted up to the first letter that is wrong.
-
-=cut
- 
-sub clozeupdate : Local {
 	my ($self, $c, $exerciseId) = @_;
 	my $player = $c->session->{player_id};
 	my $league = $c->session->{league};
@@ -91,10 +145,10 @@ sub clozeupdate : Local {
 	my $playSet = $c->model('DB::Play')->search(
 			{player => $player, exercise => $exerciseId},
 			{ order_by => 'blank' } );
-	my $responses = $c->request->params;
+	my $questions = $c->request->params;
 	my $play =  $c->model('DB::Play');
 	my $score = 0;
-	my @cloze = ( { Newline => 1 }, { Newline => 1 } );
+	my @cloze = ( $title, { Newline => 1 }, { Newline => 1 } );
 	while (my $word = $wordSet->next)
 	{
 		my $id = $word->id;
@@ -105,16 +159,13 @@ sub clozeupdate : Local {
 		my $published = $word->published;
 		if ( $class eq 'Word' )
 		{
-			if ( $exerciseType eq "FirstLast" )
-			{
-				chop $published unless length $published <= 2;
-			}
+			chop $published if $exerciseType eq "FirstLast";
 			my $previous = $playSet->find({ blank=>$id });
 			my $correct = $previous? $previous->correct: 0;
 			my $clozed = $word->clozed;
 			my $allLetters = length $clozed;
 			my $answer = substr $clozed, $correct;
-			my $response = $responses->{$id};
+			my $response = $questions->{$id};
 			if ( $correct == $allLetters ) {
 				$score += $allLetters;
 				push @cloze, $published;
@@ -178,82 +229,10 @@ sub clozeupdate : Local {
 	}
 	my $name = $c->model("DB::Player")->find({id=>$player})->name;
 	$c->stash->{exercise_id} = $exerciseId;
-	$c->stash->{title} = $title;
 	$c->stash->{cloze} = \@cloze;
-	$c->stash->{status_msg} = "$name has $score letters correct";
+	$c->stash->{status_msg} = "$name has $score letters correct. ";
 	$c->stash->{reversed} = $exerciseType eq "Last"? 1: 0;
-}
-
-
-=head2 questionupdate
-
-Words correctly answered in the text that are also in a comprehension question appear in the question.
-
-=cut
- 
-sub questionupdate : Local {
-	my ($self, $c, $exerciseId) = @_;
-	my $player = $c->session->{player_id};
-	my $leagueId = $c->session->{league};
-	my $exercise = $c->stash->{exercise};
-	my $question = $c->stash->{question};
-	my $questionWords = $question->words;
-	my $answer = $c->request->params->{answer};
-	if ( $answer )
-	{
-		my $correctAnswer = $question->answer;
-		my $correct = $answer =~ m/$correctAnswer/i? 1: 0;
-		my $quizplay = $c->model('DB::Quiz');
-		$quizplay->update_or_create({
-			league => $leagueId,
-			exercise => $exerciseId,
-			player => $player,
-			question => $question->id,
-			answer => $answer,
-			correct => $correct });
-		if ( $correct ) {
-		$c->stash->{status_msg} .= 
-				" Your answer, \"$answer\" is correct."
-		}
-		else {
-			$c->stash->{status_msg} .= " Your answer: \"$answer\".
-				The correct answer: \"$correctAnswer\".";
-		}
-	}
-	my $wordSet = $exercise->words;
-	my $playSet = $c->model('DB::Play')->search(
-			{player => $player, exercise => $exerciseId},
-			{ order_by => 'blank' } );
-	my @question = ( { Newline => 1 } );
-	my $wordFilledFlag;
-	while ( my $questionWord = $questionWords->next )
-	{
-		my $link = $questionWord->link;
-		my $published = $questionWord->content;
-		if ( $link == 0 )
-		{ push @question, $published; }
-		else {
-			if ( $published !~ m/^[A-Za-z0-9]*$/ )
-			{ push @question, $published; }
-			else {		
-				my $word = $wordSet->find({ id => $link });
-				my $cloze = $word->clozed;
-				unless ($cloze) {push @question, $published}
-				else {
-					my $played = $playSet->find(
-							{ blank => $link });
-					if ( $played and $played->correct eq 
-						length $cloze ) {
-						push @question, $published;
-						$wordFilledFlag = 1; }
-					else { push @question, '_' x
-							length($published); }
-				}
-			}
-		}
-	}
-	$c->stash->{questionwords} = \@question if $wordFilledFlag;
-	$c->stash->{answer} = $question->answer;
+	$c->stash->{template} = 'play/start.tt2';
 }
 
 

@@ -47,10 +47,8 @@ sub list : Local {
     # 'Context' that's used to 'glue together' the various components
     # that make up the application
     my ($self, $c) = @_;
-    my $leagueid = $c->session->{league};
-    my $league = $c->model('DB::League')->find({id=>$leagueid});
-    my $genre = $c->model('DB::Leaguegenre')->find({league=>$leagueid})->genre;
-    # my $genre = $league->genre->genre;
+    my $league = $c->session->{league};
+    my $genre = $c->model('DB::Leaguegenre')->find({league=>$league})->genre;
     # Retrieve all of the text records as text model objects and store in
     # stash where they can be accessed by the TT template
     $c->stash->{exercises} = [$c->model('DB::Exercise')->search(
@@ -75,44 +73,72 @@ sub list : Local {
 		});
     my %quizscores = map { $_->exercise => $_->get_column('questions') } @quiz;
     $c->stash->{questions} = \%quizscores;
-    $c->stash->{league} = $league->name;
     $c->stash->{template} = 'exercises/list.tt2';
 }
 
 
-=head2 create
+=head2 questioncreate
 
 http://server.school.edu/dic/exercises/create/textId/exerciseType/exerciseId
 
-Create comprehension questions and cloze exercise. If 2 different leagues have the same genre, ie their texts are the same, will creating an exercise for one league also create it for the other? Apparently, so. Also, can leagues with different genres use the same texts? Remember texts have genres assigned to them.
+Create comprehension questions and cloze exercise. For a set of related exercises on the same material, choose exerciseIds that have a lexicographic order that corresponds to the progression in the material through the different exercises, allowing tracking of the player through the material.
+
+=cut
+
+sub questioncreate : Local {
+	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
+	$c->forward('create');
+	my $league = $c->session->{league};
+	my $genre = $c->model("DB::Leaguegenre")->find
+			( {league => $league} )->genre;
+	my $exercise = $c->model('DB::Exercise')->find(
+		{ genre => $genre, id=>$exerciseId } );
+	my $text = $exercise->text;
+	my $questions = $text->questions;
+	my @wordRows;
+	my $questionwords = $c->model('DB::Questionword');
+	while ( my $question = $questions->next )
+	{		
+		my $questionId = $question->id;
+		my $text = $question->content;
+		my $answer = $question->answer;
+		my $punctuation = qr/([^A-Za-z0-9\\n]+)/;
+		my @words = split $punctuation, $text;
+		my $id;
+		foreach my $word ( @words )
+		{
+			my $cloze = $exercise->words->single(
+				{ published => $word });
+			my $link = $cloze? $cloze->id: 0;
+			my %row;
+			$row{genre} = $genre;
+			$row{exercise} = $exerciseId;
+			$row{question} = $questionId;
+			$row{id} = $id++;
+			$row{content} = $word;
+			$row{link} = $link;
+			push @wordRows, \%row;
+		}
+	}
+	$c->model('DB::Questionword')->populate( \@wordRows );
+	$c->stash->{template} = 'exercises/list.tt2';
+}
+			
+=head2 create
+
+Take text from database and output cloze exercise. We create an id for each Word of the Exercise, and the first Word has id 1, so 0 can be used as a link for unlinked Questionwords to show there is no link. (SQL Server won't allow NULL strings in INT column.)
 
 =cut
 
 sub create : Local {
 	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
 	my $text = $c->model('DB::Text')->find( { id=>$textId } );
-	my $genre = $text->genre;
-	$c->stash->{text} = $text;
-	$c->stash->{genre} = $genre;
-	$c->forward('clozecreate');
-	$c->forward('questioncreate');
-	$c->stash->{exercise_id} = $exerciseId;
-	$c->stash->{template} = 'exercises/list.tt2';
-}
-			
-=head2 clozecreate
-
-Take text from database and output cloze exercise. We create an id for each Word of the Exercise, and the first Word has id 1, so 0 can be used as a link for unlinked Questionwords to show there is no link. (SQL Server wasn't allow NULL strings in INT column.)
-
-=cut
-
-sub clozecreate : Local {
-	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
-	my $text = $c->stash->{text};
 	my $description = $text->description;
 	my $content = $text->content;
 	my $unclozeables = $text->unclozeables;
-	my $genre = $c->stash->{genre};
+	my $league = $c->session->{league};
+	my $genre = $c->model('DB::Leaguegenre')->find(
+				{ league => $league })->genre;
 	my $index=0;
 	my $clozeObject = $exerciseType->parse($unclozeables, $content);
 	my $cloze = $clozeObject->cloze;
@@ -120,7 +146,7 @@ sub clozecreate : Local {
 	my (@wordRows, @dictionaryList, %wordCount, @wordstemRows);
 	my $dictionary = $c->model('DB::Dictionary')->search;
 	my $id = 1;
-	my @columns = $c->model('DB::Word')->result_source->columns;
+	my @columns = DB::Word->columns;
 	foreach my $word ( @$cloze )
 	{
 		my $token = $word->{published};
@@ -159,63 +185,21 @@ sub clozecreate : Local {
 	#@dictionaryList = map { m/^(.).*$/;
 	#		{ exercise => $exerciseId, word => $_, initial => $1,
 	#		count => $newWords->{$_} } } keys %$newWords;
-	my $exercise = $c->model('DB::Exercise')->create({
+	$c->model('DB::Exercise')->create({
 				id => $exerciseId,
 				text => $textId,
 				genre => $genre,
 				description => $description,
 				type => $exerciseType
 			});
-	$c->stash->{exercise} = $exercise;
+	$c->stash->{exercise_id} = $exerciseId;
+	$c->stash->{template} = 'exercises/create_done.tt2';
 }
 
 
-=head2 questioncreate
-
-http://server.school.edu/dic/exercises/create/textId/exerciseType/exerciseId
-
-Create comprehension questions. NOT NECESSARY. WILL TRACK LATER: For a set of related exercises on the same material, choose exerciseIds that have a lexicographic order that corresponds to the progression in the material through the different exercises, allowing tracking of the player through the material.
-
-=cut
-
-sub questioncreate : Local {
-	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
-	my $genre = $c->stash->{genre};
-	my $text = $c->stash->{text};
-	my $exercise = $c->stash->{exercise};
-	my $questions = $text->questions;
-	my @wordRows;
-	my $questionwords = $c->model('DB::Questionword');
-	while ( my $question = $questions->next )
-	{		
-		my $questionId = $question->id;
-		die unless defined $questionId;
-		my $content = $question->content;
-		my $answer = $question->answer;
-		my $punctuation = qr/([^A-Za-z0-9\\n]+)/;
-		my @words = split $punctuation, $content;
-		my $id;
-		foreach my $word ( @words )
-		{
-			my $cloze = $exercise->words->single(
-				{ published => $word });
-			my $link = $cloze? $cloze->id: 0;
-			my %row;
-			$row{genre} = $genre;
-			$row{text} = $textId;
-			$row{question} = $questionId;
-			$row{id} = $id++;
-			$row{content} = $word;
-			$row{link} = $link;
-			push @wordRows, \%row;
-		}
-	}
-	$questionwords->populate( \@wordRows );
-}
-			
 =head2 delete
 
-Delete an exercise. Delete of Questions and Questionwords done here too. TODO But delete of Questionwords not appearing to be done!
+Delete an exercise. Delete of Questions and Questionwords done here too.
 
 =cut
 

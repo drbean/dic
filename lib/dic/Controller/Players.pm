@@ -47,14 +47,42 @@ Create a player with the supplied id, name, and password
 =cut
 
 sub url_create : Local {
-	my ($self, $c, $id, $name, $password, @leagueids ) = @_;
-	my $player = $c->model('DB::Player')->update_or_create({
+# In addition to self & context, get the title, rating, &
+# author_id args from the URL.  Note that Catalyst automatically
+# puts extra information after the "/<controller_name>/<action_name/"
+# into @_
+	my ($self, $c, $id, $name, $password, @leagues ) = @_;
+
+# Call create() on the book model object. Pass the table
+# columns/field values we want to set as hash values
+	my $player = $c->model('DB::Player')->create({
 	       id => $id,
 		name  => $name,
 	       password => $password
 	   });
-	$player->add_to_member({league => $_}) for @leagueids;
+
+# Add a record to the join table for this league, mapping to
+# appropriate player
+	# $league->add_to_members({player => $player_id});
+# Note: Above is a shortcut for this:
+for my $league ( @leagues )
+{
+	$league->create_related('members', {player => $id});
+	
+}
+
+# Assign the League object to the stash for display in the view
 	$c->stash->{player} = $player;
+
+# This is a hack to disable XSUB processing in Data::Dumper
+# (it's used in the view).  This is a work-around for a bug in
+# the interaction of some versions or Perl, Data::Dumper & DBIC.
+# You won't need this if you aren't using Data::Dumper (or if
+# you are running DBIC 0.06001 or greater), but adding it doesn't
+# hurt anything either.
+	$Data::Dumper::Useperl = 1;
+
+# Set the TT template to use
 	$c->stash->{template} = 'players/create_done.tt2';
 }
 

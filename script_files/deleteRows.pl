@@ -6,18 +6,17 @@ deleteRows.pl - Emulate cli db tool, dbtool.pl with DB schema
 
 =head1 SYNOPSIS
 
-script_files/deleteRows.pl Player player =~/eq/ne/gt ^19300
-Columns:        league  exercise        player  question        answer  correct
-=============================================
-Deleting        dic     crocodile1      193001  3       Don't know      0
+script_files/deleteRows.pl players
+95801001 Tom
+95801002 Jack
 
 =head1 DESCRIPTION
 
-Deletes all rows from the table associated with the ARGV[0] schema for which sub { ARGV[0] ARGV[2] ARGV[3] } returns true. Now using DBIC::Row's delete. Before was NOT using DBIC::ResultSet's delete_all, because play needs to be kept even after players are gone. Players will come back.
+Dumps tables known by DB schema
 
 =head1 AUTHOR
 
-Dr Bean C<drbean @ an at sign cpan, dot, a dot, org>
+Sebastian Riedel, C<sri@oook.de>
 
 =head1 COPYRIGHT
 
@@ -33,10 +32,11 @@ use lib 'lib';
 
 use Config::General;
 
-my @MyAppConf = glob( '*.conf' );
-die "Which of @MyAppConf is the configuration file?"
-			unless @MyAppConf == 1;
-my %config = Config::General->new($MyAppConf[0])->getall;
+use Cwd;
+
+( my $MyAppDir = getcwd ) =~ s|^.+/([^/]+)$|$1|;
+my $app = lc $MyAppDir;
+my %config = Config::General->new("$app.conf")->getall;
 my $name = $config{name};
 require $name . ".pm";
 my $model = "${name}::Schema";
@@ -46,32 +46,7 @@ my $modelmodule = "${name}::Model::DB";
 
 my $connect_info = $modelmodule->config->{connect_info};
 my $d = $model->connect( @$connect_info );
-my $s = $d->resultset(shift @ARGV);
-my @columns = $s->result_source->columns;
-$, = "\t";
-print "Columns: ", @columns,
-	"\n=============================================\n";
-my $callback = callback( @ARGV );
-while ( my $r = $s->next )
-{
-	my %values = map { $_ => $r->get_column($_) } @columns;
-	if ( $callback->( %values ) )
-	{
-		$r->delete;
-		print "Deleting";
-		print "\t" . $values{$_} for @columns;
-		print "\n";
-	}
-}
-
-sub callback {
-	my @token = @_;
-	my $regex = qr/$token[2]/;
-	my %callbacks = (
-		'=~' => sub { my %r=@_; return ( $r{$token[0]} =~ $regex ) },
-		'eq' => sub { my %r=@_; return ( $r{$token[0]} eq $token[2] ) },
-		'ne' => sub { my %r=@_; return ( $r{$token[0]} ne $token[2] ) },
-		'gt' => sub { my %r=@_; return ( $r{$token[0]} gt $token[2] ) },
-		);
-	return $callbacks{$token[1]};
-}
+my $s = $d->resultset($ARGV[0])->search( { $ARGV[1] => $ARGV[2] } );
+my $deletions = $s->count;
+print "Deleting $deletions rows ...\n";
+$s->delete;

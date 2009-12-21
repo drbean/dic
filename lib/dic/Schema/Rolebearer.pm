@@ -9,7 +9,7 @@ __PACKAGE__->load_components("Core");
 __PACKAGE__->table("rolebearers");
 __PACKAGE__->add_columns(
   "player",
-  { data_type => "VARCHAR", is_nullable => 0, size => 10 },
+  { data_type => "INT", is_nullable => 0, size => undef },
   "role",
   { data_type => "INT", is_nullable => 0, size => undef },
 );

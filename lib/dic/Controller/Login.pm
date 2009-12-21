@@ -27,51 +27,36 @@ sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     my $id       = $c->request->params->{id}       || "";
     my $name     = $c->request->params->{name}     || "";
-    my $password = lc $c->request->params->{password} || "";
-    if ( $name eq "guest" ) {
-        $id       = 1;
-        $password = 1;
+    my $password = $c->request->params->{password} || "";
+    if ( $name eq "guest" )
+    {
+	    $id = 1;
+	    $password = 1;
     }
     if ( $id && $name && $password ) {
         my $username = $id;
-        if ( $c->authenticate( { id => $username, password => $password } ) ) {
+        if ( $c->authenticate( {username=>$username, password=>$password} ) ) {
             $c->session->{player_id} = $id;
-            $c->session->{question} = undef;
-            my $officialrole = 1;
-            if ( $c->check_user_roles($officialrole) ) {
-                $c->stash->{id}   = $id;
-                $c->stash->{name} = $name;
+		my $officialrole = "official";
+		# my $officialrole = 1;
+	    if ( $c->check_user_roles($officialrole) ) {
+	        $c->stash->{id}      = $id;
+                $c->stash->{name}    = $name;
                 $c->stash->{leagues} =
                   [ $c->model('DB::League')->search( {} ) ];
                 $c->stash->{template} = 'official.tt2';
 		return;
             }
-            my @memberships =
-              $c->model("DB::Member")->search( { player => $id } );
-            my @leagues;
-            for my $membership (@memberships) {
-                push @leagues, $membership->league;
-            }
-            unless ( @leagues == 1 ) {
-                $c->stash->{id}         = $id;
-                $c->stash->{name}       = $name;
-                $c->stash->{leagues}   = \@leagues;
-                $c->stash->{template}   = 'membership.tt2';
-                return;
-            }
-            else {
-                $c->session->{league}   = $leagues[0]->id;
-                $c->session->{exercise} = undef;
-                $c->response->redirect( $c->uri_for("/exercises/list") );
-                return;
-            }
+            my $member = $c->model("DB::Member")->find( { player => $id } );
+	    $member or die "$name, $id is a member of what league?";
+            $c->session->{league} = $member->league->id;
+            $c->session->{exercise} = undef;
+            $c->response->redirect( $c->uri_for("/exercises/list") );
+            return;
         }
         else {
             $c->stash->{error_msg} = "Bad username or password.";
         }
-    }
-    else {
-        $c->stash->{error_msg} = "You need id, name and password.";
     }
     $c->stash->{template} = 'login.tt2';
 }
@@ -85,11 +70,10 @@ Set league official is organizing. Use session player_id to authenticate the par
 sub official : Local {
 	my ($self, $c) = @_;
 	my $league = $c->request->params->{league} || "";
-	my $password = lc $c->request->params->{password} || "";
+	my $password = $c->request->params->{password} || "";
         my $username = $c->session->{player_id};
-        if ( $c->authenticate( {id =>$username, password=>$password} ) ) {
-		# my $officialrole = "official";
-		my $officialrole = 1;
+        if ( $c->authenticate( {username=>$username, password=>$password} ) ) {
+		my $officialrole = "official"; # 1; # 
 		if ( $c->check_user_roles($officialrole) ) {
 			$c->session->{league} = $league;
 			$c->response->redirect($c->uri_for("/exercises/list"));
@@ -102,23 +86,6 @@ sub official : Local {
 		}
 	}
 	$c->stash->{template} = 'login.tt2';
-}
-
-
-=head2 membership
-
-Set league multi-membership player is participating in.
-
-=cut
-
-sub membership : Local {
-	my ($self, $c) = @_;
-	my $league = $c->request->params->{league} || "";
-	my $password = $c->request->params->{password} || "";
-	$c->session->{league} = $league;
-	$c->session->{exercise} = undef;
-	$c->response->redirect( $c->uri_for("/exercises/list") );
-	return;
 }
 
 

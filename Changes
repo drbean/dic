@@ -1,8 +1,5 @@
 This file documents the revision history for Perl extension dic.
 
-0.04 528 2008-09-21T08:15:06.432531Z drbean
-        - start of semester at NUU. Complete change from DBI to DBIx::Class::Schema.
-
 0.03 (orig r396):  drbean | 2008-06-14 12:39:18 +0800
         - moved repository to http://rt.openfoundry.org/Foundry/Project/index.html?Queue=933, with mailing list at http://lists.openfoundry.org/wws/info/dic-users
 

@@ -1,6 +1,6 @@
 package Ctest;  # assumes Some/Module.pm
 
-# Last Edit: 2009  2月 28, 21時15分05秒
+# Last Edit: 2008 Jun 13, 06:10:07 PM
 # $Id$
 
 use strict;
@@ -29,7 +29,7 @@ Number of clozed letters in odd-numbered-lettered words is rounded up, excluding
 
 =head2 parse
 
-Parse text and create cloze. The context around the word has to alter length if it's at the start or end of the line, I think.
+Parse text and create cloze
 
 
 =cut
@@ -95,7 +95,7 @@ sub parse
 	if ( $unclozeables )
 	{
 		$letterGrammar .= q[
-		pass: <reject: $inWord> m/($Ctest::unclozeable|$letter|\d+:\d+)(?=$punctuation|$)/m
+		pass: <reject: $inWord> m/($Ctest::unclozeable|$letter|\\d+:\\d+)(?=$punctuation|$)/m
 			{ push @Ctest::clozeline, Unclozeable->new
 						({published => $item[2]});
 				$Ctest::dic{$item[2]}++ if $item[2] =~m/^\w+$/;}
@@ -103,7 +103,7 @@ sub parse
 	}
 	else {
 		$letterGrammar .= q[
-		pass: <reject: $inWord> m/($letter|\d+:\d+)(?=$punctuation|$)/m
+		pass: <reject: $inWord> m/($letter|\\d+:\\d+)(?=$punctuation|$)/m
 			{ push @Ctest::clozeline, Unclozeable->new
 						({published => $item[2]});
 				$Ctest::dic{$item[2]}++ if $item[2] =~m/^\w+$/;}
