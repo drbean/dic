@@ -6,6 +6,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 use Dictionary;
 use FirstLast;
 use Ctest;
+use Progressive;
 use Total;
 use Kwic;
 use Last;
