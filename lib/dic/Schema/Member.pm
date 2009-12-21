@@ -11,7 +11,7 @@ __PACKAGE__->add_columns(
   "league",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "player",
-  { data_type => "INT", is_nullable => 0, size => undef },
+  { data_type => "VARCHAR", is_nullable => 0, size => 10 },
 );
 __PACKAGE__->set_primary_key("league", "player");
 
