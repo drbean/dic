@@ -43,22 +43,12 @@ sub update : Local {
 	my ($self, $c, $exerciseId) = @_;
 	my $player = $c->session->{player_id};
 	my $leagueId = $c->session->{league};
+	$exerciseId ||= $c->session->{exercise};
 	my $genre = $c->model("DB::Leaguegenre")->find(
 			{ league => $leagueId } )->genre;
 	my $exercises = $c->model('DB::Exercise')->search(
 			{ genre => $genre, }, { order_by => 'id' } );
-	$exerciseId = $c->session->{exercise};
-	my $exercise;
-	if ( defined $exerciseId )
-	{		
-		do { $exercise = $exercises->next }
-					until $exercise->id eq $exerciseId;
-	}
-	else {
-		$exercise = $exercises->single;
-		$c->session->{exercise} = $exercise->id;
-	}
-	$c->forward('update');
+	$c->forward('clozeupdate');
 	my $question = $exercise->text->questions->single;
 	my $questionWords = $exercise->questionwords;
 	my $answer = $c->request->params->{answer};
