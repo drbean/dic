@@ -31,6 +31,7 @@ it under the same terms as Perl itself.
 
 use strict;
 use warnings;
+use lib 'lib';
 
 use Config::General;
 use List::MoreUtils qw/uniq/;
@@ -64,8 +65,7 @@ my @exerciseIds = $playset->get_column('exercise')->all;
 $, = "\t";
 print "In $dir directory:\n";
 my $scores;
-my @leagues = glob ('*');
-for my $dir ( @leagues )
+for my $id ( sort @leagueids )
 {
 	my $leagueplay = $playset->search({ league => $id });
 	# my @leagueExercises = @exerciseIds;
@@ -104,17 +104,8 @@ for my $dir ( @leagues )
 			$score ||= '-';
 			print $score . "\t";
 		}
-		for my $player ( uniq $play->get_column('player')->all )
-		{
-			print $player . "\t";
-			for my $exercise ( @exerciseIds , "Total")
-			{
-				$scores->{$dir}->{$id}->{$player}->{$exercise} = '-' if not
-					exists $scores->{$dir}->{$id}->{$player}->{$exercise};
-				print $scores->{$dir}->{$id}->{$player}->{$exercise} . "\t"; # if defined $scores->{$dir}->{$player}->{$exercise};
-			}
-			print "\n";
-		}
 		print "\n";
 	}
+	print "\n";
 }
+DumpFile 'standings.yaml', $scores;
