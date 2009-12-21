@@ -129,6 +129,7 @@ brief
 but
 buy
 bw
+by
 c
 call
 came
@@ -300,7 +301,8 @@ hasnt
 have
 haven
 having
-havingher
+having
+he
 hello
 help
 hence
@@ -552,7 +554,6 @@ relatively
 reserved
 respectively
 right
-ring
 room
 rooms
 said
