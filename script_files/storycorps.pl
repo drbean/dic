@@ -136,7 +136,6 @@ And I go by that.
 	"Charles on his mom with Alzheimers",
 	"intermediate",
 	"all",
-	"all",
         "00:41 My brother Stanley and I came home from school.
 00:45 And Mom told us that our aunt wanted to talk to us. 
 00:50 So we went out and got in the old pick up and drove over there. 
@@ -166,7 +165,6 @@ And I go by that.
         "jackson-2",
 	"Charles' own Alzheimers",
 	"intermediate",
-	"all",
 	"all",
         "02:01 I was diagnosed in 2004 with Alzheimers. 
 02:06 I was 50. 
