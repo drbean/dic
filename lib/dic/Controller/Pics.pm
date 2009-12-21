@@ -4,6 +4,9 @@ use Moose;
 BEGIN { extends 'Catalyst::Controller'; }
 
 use Flickr::API;
+use Lingua::Stem;
+use Lingua::EN::Infinitive;
+use Lingua::EN::Conjugate qw/past participle gerund/;
 
 =head1 NAME
 
@@ -33,40 +36,55 @@ sub find : Local {
 	my $word = $c->model('DB::Word')->find({exercise=>$exerciseId,
 			genre => $genre, id => $wordId });
 	my $tag = $word->published;
+	my $lctag = lc $tag;
+	my $stem = Lingua::Stem::stem($lctag)->[0];
+	my $canonize = Lingua::EN::Infinitive->new;
+	my @infinit;
+	for ( ($canonize->stem($lctag))[0..1] ) { push @infinit, $_ if $_ }
+	my @conjugates = map {( past($_), participle($_), gerund($_))} @infinit;
+	my $tags = join ',', $tag, $lctag, @infinit, @conjugates;
+	my $titlesearch = join '|', $lctag, @infinit, @conjugates;
+	my $titleregex = qr/$titlesearch/i;
 	$c->stash->{exerciseid} = $word->exercise->id;
 	$c->stash->{title} = $word->exercise->description;
 	my $pics = $c->model('DB::Pic');
 	$c->stash->{template} = 'pics/list.tt2';
-	my $total = 400;
-	my @oldurls = $pics->search({ word => $tag });
+	my $fetched = 300;
+	my $needed = 20;
+	my $page = 1;
+	my @oldurls = $pics->search({ word => $stem });
 	unless ( @oldurls ) {
 		my $api = Flickr::API->new({key =>
 			'ea697995b421c0532215e4a2cbadbe1e',
 			secret => 'ab2024b750a9d1f2' });
 		my $r = $api->execute_method('flickr.photos.search',
-			{ tags => $tag, per_page => $total, api_key =>
+			{ tags => $tags, per_page => $fetched,
+				page => $page++, api_key =>
 				'ea697995b421c0532215e4a2cbadbe1e' });
 		unless ( $r->{success} ) {
 			$c->stash->{error_msg} = $r->{error_message};
 			return;
 		}
 		my @newurls;
-		for my $n ( 0 .. $total-1 ) {
+		for my $n ( 0 .. $fetched-1 ) {
 			my $photo = $r->{tree}->{children}->[1]->
 				{children}->[2*$n+1]->{attributes};
-			my $title = $photo->{title};
-			next unless defined $title and $title =~ m/$tag/i;
+			next unless $photo->{title} =~ $titleregex;
+			my $owner = $photo->{owner};
+			next if $pics->search({ owner => $owner })->count;
 			my %row;
 			$row{title} = $photo->{title};
 			$row{id} = undef;
-			$row{word} = $tag;
+			$row{word} = $stem;
+			$row{owner} = $owner;
 			$row{url} = 'http://farm' . $photo->{farm} .
 				'.static.flickr.com/'.  $photo->
 				{server} .  '/'.  $photo->{id} . '_' .
 				$photo->{secret} . '_t.jpg';
+			$pics->update_or_create( \%row );
 			push @newurls, \%row;
+			$needed--;
 		}
-		$pics->populate(\@newurls);
 		$c->stash->{urls} = \@newurls;
 	}
 	else { $c->stash->{urls} = \@oldurls; }
