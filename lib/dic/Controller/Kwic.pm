@@ -127,6 +127,7 @@ sub list : Local {
     $c->stash->{kwics} = \@kwics;
     $c->stash->{title} = $exercise->description;
     $c->stash->{id} = $exerciseId;
+    $c->stash->{keyId} = $keyId;
     $c->stash->{reversed} = $exercise->type eq "Last"? 1: 0;
     $c->stash->{template} = 'kwic/list.tt2';
 }
