@@ -1,32 +1,29 @@
 #!/usr/bin/perl
 
-package main;
-
 use strict;
 use warnings;
 
-use List::Util qw/sum min max/;
-use List::MoreUtils qw/all/;
 use IO::All;
 use IO::Handle;
 use Pod::Usage;
 
 use lib 'lib';
-use Flickr;
+use Getopt::Long;
+my ($help, $man, $tags);
+use Flickr::API;
 
 run () unless caller;
 
 sub run {
-	my $script = Script->new_with_options( tags => "shizu" );
-	pod2usage(1) if $script->help;
-	pod2usage(-exitstatus => 0, -verbose => 2) if $script->man;
-	my $tag = $script->tags;
+	GetOptions( 'help|?' => \$help, man => \$man, tags => \$tags ) or pod2usage(2);
+	pod2usage(1) if $help;
+	pod2usage(-exitstatus => 0, -verbose => 2) if $man;
 	my $total  = 5;
 	my $api = Flickr::API->new({key =>
 		'ea697995b421c0532215e4a2cbadbe1e',
 		secret => 'ab2024b750a9d1f2' });
 	my $r = $api->execute_method('flickr.photos.search',
-		{ tags => $tag, per_page => $total, api_key =>
+		{ tags => $tags, per_page => $total, api_key =>
 			'ea697995b421c0532215e4a2cbadbe1e' });
 	if ( $r->{error_code} ) {
 		print $r->{error_message};
@@ -43,7 +40,7 @@ sub run {
 		my %row;
 		$row{title} = $photo->{title};
 		$row{id} = undef;
-		$row{word} = $tag;
+		$row{word} = $tags;
 		$row{url} = 'http://farm' . $photo->{farm} .
 			'.static.flickr.com/'.  $photo->
 			{server} .  '/'.  $photo->{id} . '_' .
