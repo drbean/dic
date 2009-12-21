@@ -169,8 +169,8 @@ sub sign_in : Path('/login/sign_in')
 		if ( $c->authenticate({email=>$email, time=>$time}, 'access') ) {
 			$c->session->{player_id}   = $email;
 			$c->session->{league}   = 'access';
-			$c->session->{exercise} = undef;
-			if ( $exercise ) {
+			if ( $c->session->{exercise} ) {
+				my $exercise = $c->session->{exercise};
 				$c->response->redirect(
 					$c->uri_for( "/play/update/$exercise" ) );
 			}
