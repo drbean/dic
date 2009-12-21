@@ -166,7 +166,7 @@ $schema->populate( 'Text', $texts );
 my $questions = [
 			[ qw/genre text id content answer/ ],
 
-[ "JUST RIGHT", "eden-1-GL-GL", 1, "The first student Miller talked with was Eden.", "True" ],
+[ "JUST RIGHT", "eden-1-GL", 1, "The first student Miller talked with was Eden.", "True" ],
 [ "JUST RIGHT", "eden-1-GL", 2, "Eden's favorite food is the spaghetti her mom makes.", "True" ],
 [ "JUST RIGHT", "eden-1-GL", 3, "Eden thinks her mom's spaghetti is the best because she makes the best sauce.", "True" ],
 [ "JUST RIGHT", "eden-1-GL", 4, "Miller doesn't want to try the spaghetti Eden's mom makes.", "False" ],
