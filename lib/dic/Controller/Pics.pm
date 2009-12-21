@@ -69,8 +69,7 @@ sub find : Local {
 		$pics->populate(\@newurls);
 		$c->stash->{urls} = \@newurls;
 	}
-	$c->stash->{urls} = \@oldurls;
-	$c->stash->{urls} ||= [];
+	else { $c->stash->{urls} = \@oldurls; }
 }
 
 
