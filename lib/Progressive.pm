@@ -1,6 +1,6 @@
 package Progressive;  # assumes Some/Module.pm
 
-# Last Edit: 2009 10月 27, 17時35分02秒
+# Last Edit: 2009 10月 31, 09時10分52秒
 # $Id$
 
 use strict;
@@ -55,7 +55,7 @@ sub parse
 		my ($unclozedhalf, $clozedhalf, $offset, $length,
 			$pretext, $posttext);
 		my @easy = qw/
-that have with this from they say will would there their what about get which when make like time just know take people into year your good some could them other than then look only come over think also back after use our work first even want because these give day most /;
+that have with this from they say will would there their what about get which when make like time just know take people into year your good some could them other than then look only come over think also back after use our work first even want because these give day most very /;
 	}
 		string: token(s) end | <error>
 		token: newline | pass | firstletter | middleletter | lastletter | punctuation
@@ -78,7 +78,7 @@ that have with this from they say will would there their what about get which wh
 				push @word, $item[2];
 				$word = join '', @word;
 				if ( List::MoreUtils::any { $word =~
-					m/^$_[[:alpha:]]{0,2}$/ } @easy )
+					m/^$_[[:alpha:]]{0,2}$/i } @easy )
 				{
 					$unclozedhalf = $word[0];
 					$clozedhalf = join '',
