@@ -2,11 +2,11 @@
 
 [% IF next_exercise %]
 <p>
-<a href="[% Catalyst.uri_for('/play/questionupdate') %]">Next Exercise</a>
+<a href="[% Catalyst.uri_for('/play/update') %]">Next Exercise</a>
 </p>
 [% END %]
 
-<form method="post" action="[% Catalyst.uri_for('/play/questionupdate/') _ exercise_id %]">
+<form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
 Question:
 
 [% FOREACH word IN question -%]
@@ -24,7 +24,7 @@ Answer:
 </form>
 
 
-<form method="post" action="[% Catalyst.uri_for('/play/questionupdate/') _ exercise_id %]">
+<form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
 <input type="submit" name="Submit" value="Words">
 [%# advised not to put objects into templates -%]
 [% FOREACH section IN cloze -%]
