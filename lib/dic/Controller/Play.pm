@@ -49,67 +49,8 @@ sub update : Local {
 	my $exercises = $c->model('DB::Exercise')->search(
 			{ genre => $genre, }, { order_by => 'id' } );
 	$c->forward('clozeupdate');
-	my $question = $exercise->text->questions->single;
-	my $questionWords = $exercise->questionwords;
-	my $answer = $c->request->params->{answer};
-	if ( $answer )
-	{
-		my $correctAnswer = $question->answer;
-		my $correct = $answer eq $correctAnswer? 1: 0;
-		my $quizplay = $c->model('DB::Quiz');
-		$quizplay->create({
-			league => $leagueId,
-			exercise => $exerciseId,
-			player => $player,
-			question => $question->id,
-			# text => $text->id,
-			correct => $correct });
-		my $nextExercise = $exercises->next;
-		if ( $nextExercise )
-		{
-			$c->session->{exercise} = $nextExercise->id;
-			$c->stash->{next_exercise} = 1;
-		}
-		else {
-			$c->stash->{status_msg} = " GAME OVER. ";
-		}
-		$c->stash->{status_msg} .= 
-				" Your answer: \"$answer\". The correct answer: \"$correctAnswer\".";
+	$c->forward('questionupdate');
 	}
-	my $wordSet = $exercise->words;
-	my $playSet = $c->model('DB::Play')->search(
-			{player => $player, exercise => $exerciseId},
-			{ order_by => 'blank' } );
-	my @question = ( { Newline => 1 } );
-	while ( my $questionWord = $questionWords->next )
-	{
-		my $link = $questionWord->link;
-		my $published = $questionWord->content;
-		if ( $link == 0 )
-		{ push @question, $published; }
-		else {
-			if ( $published !~ m/^[A-Za-z0-9]*$/ )
-			{ push @question, $published; }
-			else {		
-				my $word = $wordSet->find({ id => $link });
-				my $cloze = $word->clozed;
-				unless ($cloze) {push @question, $published}
-				else {
-					my $played = $playSet->find(
-							{ blank => $link });
-					if ( $played and $played->correct eq 
-						length $cloze )
-					{ push @question, $published; }
-					else { push @question, '_' x
-							length($published); }
-				}
-			}
-		}
-	}
-	$c->stash->{question} = \@question;
-	$c->stash->{answer} = $question->answer;
-	$c->stash->{template} = "play/question.tt2";
-}
 
 
 =head2 questionupdate
