@@ -1,8 +1,5 @@
 package dic::Controller::Pics;
 
-use strict;
-use warnings;
-# use parent 'Catalyst::Controller';
 use Moose;
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -36,45 +33,42 @@ sub find : Local {
 	my $word = $c->model('DB::Word')->find({exercise=>$exerciseId,
 			genre => $genre, id => $wordId })->published;
 	my $pics = $c->model('DB::Pic');
-	my $stopword = $c->model('DB::Stopword')->find({ word => lc($word) });
 	$c->stash->{template} = 'pics/list.tt2';
-	unless ( $stopword ) {
-		my @oldurls = $pics->search({ word => $word });
-		unless ( @oldurls ) {
-			my $api = Flickr::API->new({key =>
-				'ea697995b421c0532215e4a2cbadbe1e',
-				secret => 'ab2024b750a9d1f2' });
-			my $r = $api->execute_method('flickr.photos.search',
-				{ tags => $word, per_page => 20, api_key =>
-					'ea697995b421c0532215e4a2cbadbe1e' });
-			if ( $r->{error_code} ) {
-				$c->stash->{error_msg} = $r->{error_message};
+	my $total = 10;
+	my @oldurls = $pics->search({ word => $word });
+	unless ( @oldurls ) {
+		my $api = Flickr::API->new({key =>
+			'ea697995b421c0532215e4a2cbadbe1e',
+			secret => 'ab2024b750a9d1f2' });
+		my $r = $api->execute_method('flickr.photos.search',
+			{ tags => $word, per_page => $total, api_key =>
+				'ea697995b421c0532215e4a2cbadbe1e' });
+		unless ( $r->{success} ) {
+			$c->stash->{error_msg} = $r->{error_message};
+			return;
+		}
+		my @newurls;
+		for my $n ( 0 .. $total-1 ) {
+			my $photo = $r->{tree}->{children}->[1]->
+				{children}->[2*$n+1]->{attributes};
+			unless ( defined $photo->{title} ) {
+				$c->stash->{error_msg} = "No picture";
 				return;
 			}
-			my $range = 100;
-			my @newurls;
-			for my $n ( 0 .. $range-1 ) {
-				my $photo = $r->{tree}->{children}->[1]->
-					{children}->[2*$n+1]->{attributes};
-				unless ( defined $photo->{title} ) {
-					$c->stash->{error_msg} = "No picture";
-					return;
-				}
-				my %row;
-				$row{title} = $photo->{title};
-				$row{id} = undef;
-				$row{word} = $word;
-				$row{url} = 'http://farm' . $photo->{farm} .
-					'.static.flickr.com/'.  $photo->
-					{server} .  '/'.  $photo->{id} . '_' .
-					$photo->{secret} . '_t.jpg';
-				push @newurls, \%row;
-			}
-			$pics->populate(\@newurls);
-			$c->stash->{urls} = \@newurls;
+			my %row;
+			$row{title} = $photo->{title};
+			$row{id} = undef;
+			$row{word} = $word;
+			$row{url} = 'http://farm' . $photo->{farm} .
+				'.static.flickr.com/'.  $photo->
+				{server} .  '/'.  $photo->{id} . '_' .
+				$photo->{secret} . '_t.jpg';
+			push @newurls, \%row;
 		}
-		$c->stash->{urls} = \@oldurls;
+		$pics->populate(\@newurls);
+		$c->stash->{urls} = \@newurls;
 	}
+	$c->stash->{urls} = \@oldurls;
 	$c->stash->{urls} ||= [];
 }
 

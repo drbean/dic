@@ -124,6 +124,8 @@ sub list : Local {
 	    substr($_->{clozed}, -$clozeshortening, $clozeshortening, '');
 	    $_;
     } @kwics;
+    my $published = $keyword->published;
+    $c->stash->{stopword} = 1 if $c->model('DB::Stopword')->find({ word => lc($published) });
     $c->stash->{kwics} = \@kwics;
     $c->stash->{title} = $exercise->description;
     $c->stash->{id} = $exerciseId;
