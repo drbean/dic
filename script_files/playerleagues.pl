@@ -20,9 +20,9 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/GL00003 GL00022 GL00031 CLA0013 FLA0015 FLB0002 MIA0012 access visitors/;
+my @leagueids = qw/GL00029 GL00030 GL00031 GL00034 FLA0016 MIA0017 BMA0099 BMA0100 FLA0030 FLA0027/;
 my $dir = ( File::Spec->splitdir(getcwd) )[-1];
-$dir = qr/^(GL000|CLA|FL|MIA)/ if $dir eq 'dic';
+$dir = qr/^(GL000|FL|MIA|BMA)/ if $dir eq 'dic';
 @leagueids = grep m/$dir/, @leagueids;
 
 no strict qw/subs refs/;
@@ -33,8 +33,8 @@ use strict;
 
 my $leagues = [
 		[ qw/id name field/ ],
-	[ "GL00003", "GL00003日語文共同學制虛擬班二", "中級英文聽說訓練" ],
-	[ "GL00022", "GL00022日語文共同學制虛擬班二", "中級英文聽說訓練" ],
+	[ "GL00029", "GL00029日語文共同學制虛擬班二", "中級英文聽說訓練" ],
+	[ "GL00030", "GL00030日語文共同學制虛擬班二", "中級英文聽說訓練" ],
 	[ "GL00031", "GL00031日語文共同學制虛擬班二", "中級英文聽說訓練" ],
 		[ "CLA0013", "CLA0013日華文大學二甲", "英文聽力及會話" ],
 		[ "FLA0015", "FLA0015夜應外大學二甲", "英語會話(二)" ],
@@ -50,75 +50,25 @@ uptodatepopulate( 'League', $leagues );
 
 my $leaguegenres = [
 			[ qw/league genre/ ],
-			[ "GL00003",	"intermediate" ],
-			[ "GL00022",	"intermediate" ],
+			[ "GL00029",	"intermediate" ],
+			[ "GL00030",	"intermediate" ],
 			[ "GL00031",	"intermediate" ],
-			[ "CLA0013",	"teaching" ],
-			[ "FLA0015",	"intermediate" ],
-			[ "FLB0002",	"speaking" ],
-			[ "MIA0012",	"business" ],
-			[ "access",	"access" ],
-			[ 'visitors',	"demo" ],
-			[ 'dic',	"all" ],
+			[ "GL00034",	"intermediate" ],
+			[ "FLA0016",	"intermediate" ],
+			[ "MIA0017",	"business" ],
+			[ "BMA0099",	"business" ],
+			[ "BMA0100",	"business" ],
+			[ "FLA0030",	"business" ],
+			[ "FLA0027",	"interculture" ],
 		];
 uptodatepopulate( 'Leaguegenre', $leaguegenres );
 
 my ($leaguefile, $players);
 
-push @{$players->{GL00022}}, [split] for <<GL00022 =~ m/^.*$/gm;
-9421235  林奕廷 yi
-9433230  陳瑋茹 wei
-9633250  呂孟慈 meng
-T9731044 張凱建 kai
-U9316005 劉嘉蕙 jia
-U9316009 陳婷君 ting
-U9316045 鄭宇軒 yu
-U9416012 劉宇溱 yu
-U9522028 林沿昌 yan
-U9522084 謝唯新 wei
-U9522105 徐至鴻 zhi
-U9592020 彭婉菁 wan
-U9592036 蘇木春 mu
-U9715024 簡□彥  ?
-U9731102 陳衣采 yi
-U9731143 林孝芸 xiao
-9422221	 張家偉	jia
-U9731139 吳詩玉 shi
-9433227  黃馨儀 xin
-U9692021 溫惠喻 hui
-GL00022
-
-push @{$players->{FLB0002}}, [split] for <<FLB0002 =~ m/^.*$/gm;
-N9361738 江映霖	ying
-N9361749 覃少穎	shao
-N9361750 曾思萍	si
-N9461708 張佩玲	pei
-N9461709 陳詩旻	shi
-N9461710 羅亞萍	ya
-N9461719 劉昭驊	zhao
-N9461725 張□明	jiong
-N9461729 蔡純茹	chun
-N9461734 張雅臻	ya
-N9461735 張琨耀	kun
-N9461736 彭珠蓮	zhu
-N9461739 林佳汭	jia
-N9461745 陳怡蓁	yi
-N9461747 李安倫	an
-N9461748 陳思羽	si
-N9461751 黃芝鈴	zhi
-N9461753 葉又寧	you
-N9461754 李蕙丞	hui
-N9461756 許芷菱	zhi
-N9461760 吳雲禎	yun
-N9461762 陳震宇	zhen
-N9461764 林俊華	jun
-N9461766 劉毓汶	yu
-U9533039 蕭郁玲	yu
-FLB0002
-
-for my $league ( 'FLA0015', 'MIA0012', 'CLA0013', 'GL00003', 'GL00031' ) {
+for my $league ( 'GL00029', 'GL00030', 'GL00031', 'GL00034', 'FLA0016', 'MIA0017', 'BMA0099', 'BMA0100', 'FLA0030', 'FLA0027', ) {
 	$leaguefile = LoadFile "/home/drbean/class/$league/league.yaml";
-	push @{$players->{$league}}, map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
+	push @{$players->{$league}},
+		map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
 					@{$leaguefile->{member}};
 }
 
