@@ -531,7 +531,7 @@ my $questions = [
 [ "elementary", "picture2", 3, "The woman sitting at the table at the back is wearing green.", "True" ],
 [ "elementary", "picture2", 4, "Paul is looking at Claire.", "False" ],
 [ "elementary", "picture2", 5, "Danny is sitting in front of Shimran.", "False" ],
-[ "elementary", "picture2", 6, "Shimran is looking at Louise.", "False" ],
+[ "elementary", "dubai", 6, "Shimran is looking at Louise.", "False" ],
 
 [ "intermediate", "dubai", 1, "In the story, Sally came from somewhere like Iran or Iraq.", "True" ],
 [ "intermediate", "dubai", 2, "In one scenario, the two friends are on a vacation in the desert.", "True" ],
