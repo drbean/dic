@@ -150,9 +150,11 @@ N9461766 劉毓汶	yu
 U9533039 蕭郁玲	yu
 FLB0002
 
-$leaguefile = LoadFile "/home/drbean/class/MIA0012/league.yaml";
-push @{$players->{MIA0012}}, map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
-				@{$leaguefile->{member}};
+for my $league ( 'FLA0015', 'MIA0012' ) {
+	$leaguefile = LoadFile "/home/drbean/class/$league/league.yaml";
+	push @{$players->{$league}}, map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
+					@{$leaguefile->{member}};
+}
 
 push @{$players->{access}}, [split] for <<ACCESS =~ m/^.*$/gm;
 U9424017	黃季雯	Ji
