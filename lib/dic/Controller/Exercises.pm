@@ -63,18 +63,10 @@ sub list : Local {
 	    { league => $league, player => $player },
 		{ select => [ 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/exercise/],
-		as => [ qw/exercise letters/ ],
+		as => [ qw/exercise score/ ],
 		});
-    my %letterscores = map { $_->exercise => $_->get_column('letters') } @play;
-    $c->stash->{letters} = \%letterscores;
-    my @quiz = $c->model('DB::Quiz')->search(
-	    { league => $league, player => $player },
-		{ select => [ 'exercise', { sum => 'correct' } ],
-		'group_by' => [qw/exercise/],
-		as => [ qw/exercise questions/ ],
-		});
-    my %quizscores = map { $_->exercise => $_->get_column('questions') } @quiz;
-    $c->stash->{questions} = \%quizscores;
+    my %scores = map { $_->exercise => $_->get_column('score') } @play;
+    $c->stash->{scores} = \%scores;
     $c->stash->{league} = $league->name;
     $c->stash->{template} = 'exercises/list.tt2';
 }
@@ -220,6 +212,7 @@ Delete an exercise. Delete of Questions and Questionwords done here too. TODO Bu
 =cut
 
 	sub delete : Local {
+# $id = primary key of book to delete
 	my ($self, $c, $id) = @_;
 	my $exercise = $c->model('DB::Exercise');
 	my $words = $exercise->find({id => $id})->words;
@@ -235,8 +228,12 @@ Delete an exercise. Delete of Questions and Questionwords done here too. TODO Bu
 		}
 	}
 	$exercise->search({id => $id})->delete_all;
+# Set a status message to be displayed at the top of the view
 	$c->stash->{status_msg} = "Exercise deleted.";
-       $c->response->redirect($c->uri_for('list',
+# Forward to the list action/method in this controller
+	$c->forward('list');
+# Redirect the user back to the list page instead of forward
+               $c->response->redirect($c->uri_for('list',
                    {status_msg => "Exercise deleted."}));
 }
 
