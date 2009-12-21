@@ -308,6 +308,33 @@ push @$questions,
 [ "speaking", "mrbean", 5, "all", "The best man used to be an arse, but now he isn't an arse because he resists mention bizarre things.", "False" ],
 [ "speaking", "mrbean", 6, "all", "The groom's wife will be happy knowing what the groom was doing last night at the stag party.", "False" ];
 
+push @$texts, [
+        "interview-1",
+        "Sonia Leigh: Musician",
+	"speaking",
+	"all",
+	"3:47 Nick: So on September fourth of this year, Sonia Leigh, one of Georgia's best (inaudible) singer-songwriters, will be joining the Georgia Music Hall of Fame's Live at Five series at the Hard Rock Cafe in downtown Atlanta for a performance that is actually pretty unusual. It's five o'clock at the end of the work day. A great way to blow off some steam. And believe you me, Sonia Leigh will help you blow off some steam. It's good to see you.
+Sonia: Good to see you, Nick.
+Nick: For those of our listeners that haven't yet heard your music, and they're going to hear some in just a few minutes, and hopefully they'll come out to the show. You know, what would you say to somebody that's never heard Sonia Leigh. What are you about?
+Sonia: Well we're mostly about just getting out and uh, .. blowing off some steam. Just like everybody else. It's, it's basically, music is my release and, uh, sometimes that fire kind of catches on to the crowd and so that's basically what I play music for, is to blow off steam.
+Nick: And you started really young.
+Sonia: Yes.
+Nick: How did that happen?
+Sonia: Uh, I guess just naturally. My father ...
+
+",
+"3:47|Nick|Sonia|Leigh|Georgia|Hall of Fame|Live at Five|Hard Rock Cafe|Atlanta"
+	];
+
+push @$questions,
+
+[ "speaking", "interview-1", 1, "all", "Nick says listeners hopefully will come to hear Sonia blow off some steam.", "True" ],
+[ "speaking", "interview-1", 2, "all", "Sonia likes to blow off steam for a crowd with her music.", "True" ],
+[ "speaking", "interview-1", 3, "all", "The performance is unusual because it is at five o'clock, after work.", "True" ],
+[ "speaking", "interview-1", 4, "all", "If there is a fire in the crowd, Sonia will use steam  to blow it out.", "False" ],
+[ "speaking", "interview-1", 5, "all", "Sonia is unusual because she blows steam at the crowd at a performance.", "False" ],
+[ "speaking", "interview-1", 6, "all", "The performance is at the Georgia Music Hall of Fame in Atlanta.", "False" ];
+
 
 
 uptodatepopulate( 'Text', $texts );
