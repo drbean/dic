@@ -1,8 +1,11 @@
 package dic::Controller::Exercises;
 
-use strict;
-use warnings;
-use parent 'Catalyst::Controller';
+# use strict;
+# use warnings;
+# use parent 'Catalyst::Controller';
+use Moose;
+BEGIN { extends 'Catalyst::Controller'; }
+
 use Dictionary;
 use FirstLast;
 use Ctest;
@@ -213,13 +216,47 @@ sub questioncreate : Local {
 	$questionwords->populate( \@wordRows );
 }
 			
+
+=head2 pics
+
+Find a Flickr picture. Would be good to be able to hit database only once for all the pictures with one tag. Perhaps I should do that when building the exercise. Doing it JIT, need to instantiate API object each time. But flickr may not be happy about 200 requests at same time. And I won't be able to store them. Let person who wants to look wait.
+
+=cut
+ 
+sub pics : Local {
+	my ($self, $c, $word) = @_;
+	my $api = Flickr::API->new({key => 'ea697995b421c0532215e4a2cbadbe1e',
+		secret => 'ab2024b750a9d1f2' });
+	my $r = $api->execute_method('flickr.photos.search', { tags => $word,
+		api_key => 'ea697995b421c0532215e4a2cbadbe1e' });
+	my $pics = $c->model('DB::Pic');
+	my $range = 99;
+	my @wordrows;
+	for my $n ( 0 .. $range ) {
+		my $photo = $r->{tree}->{children}->[1]->{children}->
+						[2*$range+1]->{attributes};
+		my %row;
+		$row{word} = stem $word;
+		$row{url} =
+			'http://farm' . $photo->{farm} . '.static.flickr.com/' .
+			$photo->{server} . '/'.  $photo->{id} . '_' .
+			$photo->{secret} . '.jpg';
+		push @wordrows, \%row;
+	}
+	$pics->populate(\@wordrows);
+	# $c->stash->{url} = 'http://farm4.static.flickr.com/3515/3470432168_8e8509962d.jpg';
+	# $c->stash->{url} = $url;
+	$c->stash->{template} = 'pics/list.tt2';
+}
+
+
 =head2 delete
 
 Delete an exercise. Delete of Questions and Questionwords done here too. TODO But delete of Questionwords not appearing to be done!
 
 =cut
 
-	sub delete : Local {
+sub delete : Local {
 	my ($self, $c, $id) = @_;
 	my $exercise = $c->model('DB::Exercise');
 	my $words = $exercise->find({id => $id})->words;
