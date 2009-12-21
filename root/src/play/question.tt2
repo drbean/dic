@@ -1,10 +1,6 @@
 [% META title = "Dictation exercise" -%]
 
-[% IF next_exercise %]
 <p>
-<a href="[% Catalyst.uri_for('/play/update') %]">Next Exercise</a>
-</p>
-[% END %]
 
 <form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
 Question:
@@ -20,12 +16,12 @@ Question:
 <p>
 </p>
 Answer:
-<input type="text" name="answer" size="[% answer.length %]" maxlength="[% answer.length %]" value=""/><input type="submit" name="Submit" value="Question">
+<input type="text" name="answer" size="[% answer.length %]" maxlength="[% answer.length %]" value=""/><input type="submit" name="Submit" value="Sure?">
 </form>
 
 
 <form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
-<input type="submit" name="Submit" value="Words">
+<input type="submit" name="Submit" value="CheckWords">
 [%# advised not to put objects into templates -%]
 [% FOREACH section IN cloze -%]
 [% IF section.Newline -%]
@@ -43,7 +39,7 @@ Answer:
 [%- section -%]
 [% END -%]
 [% END -%]
-<input type="submit" name="Submit" value="Words">
+<input type="submit" name="Submit" value="CheckWords">
 </form>
 
 <p>
