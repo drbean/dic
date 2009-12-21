@@ -61,6 +61,15 @@ my $questions = [
 [ "speaking", "tate", 6, "all", "Tate says speakers need to be more mindful of their speaking style and their expertise as speakers.", "False" ],
 
 	];
+push @$texts, [
+        "chasm",
+        "The effect of mispronouncing 'chasm'",
+	"speaking",
+	"all",
+	"1:26 Winograd really has a beautiful voice, resonant pitch, crystal-clear diction, good rate.
+1:30 You could tell from that clip that she was right on with all the aspects of her delivery.
+1:35 But you probably caught her mistake as quickly as I did.
+1:39 And I'm betting that you cringed, just as I did.
 
 push @$texts, [
         "chasm",
