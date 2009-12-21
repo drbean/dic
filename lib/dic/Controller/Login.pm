@@ -28,10 +28,6 @@ sub index : Path : Args(0) {
     my $id       = $c->request->params->{id}       || "";
     my $name     = $c->request->params->{name}     || "";
     my $password = lc $c->request->params->{password} || "";
-    if ( $name eq "guest" ) {
-        $id       = 1;
-        $password = 1;
-    }
     if ( $id && $name && $password ) {
         my $username = $id;
         if ( $c->authenticate( { id => $username, password => $password } ) ) {
@@ -130,7 +126,7 @@ Let anyone do self-access league dictations after signing in.
 
 sub access : Path('/access') Args(0) {
 	my ($self, $c) = @_;
-	$c->stash->{template} = 'access.tt2';
+	$c->stash->{template} = 'login.tt2';
 }
 
 
@@ -174,7 +170,7 @@ $DB::single=1;
 		}
 	}
 	else { $c->stash->{error_msg} = "An email address."; }
-	$c->stash->{template} = 'access.tt2';
+	$c->stash->{template} = 'login.tt2';
 }
 =head1 AUTHOR
 
