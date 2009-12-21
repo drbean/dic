@@ -10,10 +10,10 @@ __PACKAGE__->table("questionwords");
 __PACKAGE__->add_columns(
   "genre",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
-  "exercise",
+  "text",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "question",
-  { data_type => "VARCHAR", is_nullable => 0, size => 15 },
+  { data_type => "SMALLINT", is_nullable => 0, size => undef },
   "id",
   { data_type => "SMALLINT", is_nullable => 0, size => undef },
   "content",
@@ -21,13 +21,13 @@ __PACKAGE__->add_columns(
   "link",
   { data_type => "SMALLINT", is_nullable => 0, size => undef },
 );
-__PACKAGE__->set_primary_key("genre", "exercise", "question", "id");
+__PACKAGE__->set_primary_key("genre", "text", "question", "id");
 
 
 # Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-08-26 18:19:13
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xdh5AAQpLC8Xg9MZVkOoJg
 
-__PACKAGE__->belongs_to( exercise => 'dic::Schema::Exercise', { 'foreign.id'=>'self.exercise', 'foreign.genre'=>'self.genre' });
+__PACKAGE__->belongs_to( get_question => 'dic::Schema::Question', { 'foreign.id'=>'self.question', 'foreign.genre'=>'self.genre', 'foreign.text'=>'self.text', });
 # __PACKAGE__->many_to_many(readers => 'reader', 'reader');
 # __PACKAGE__->has_many(questionwords => 'dic::Schema::Questionword',
 
