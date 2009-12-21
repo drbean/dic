@@ -148,7 +148,6 @@ N9461762 陳震宇	zhen
 N9461764 林俊華	jun
 N9461766 劉毓汶	yu
 U9533039 蕭郁玲	yu
-
 FLB0002
 
 push @{$players->{MIA0012}}, [split] for <<MIA0012 =~ m/^.*$/gm;
