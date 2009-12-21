@@ -150,7 +150,7 @@ And it's that, you're taken out of your own environment, out of where you are sa
 You don't know how to, how things work necessarily. You don't know where to ...
 
 ",
-"cue|norms|vulgar|famously"
+"cue|norms|vulgar|famously|contribute|extensively"
 	],
 	];
 	
