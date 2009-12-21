@@ -261,7 +261,14 @@ my $questions = [
 [ "intermediate", "jackson-2", 3, "all", "Charles thinks he isn't having fun with his family.", "False" ],
 [ "intermediate", "jackson-2", 4, "all", "Charles wants his family to treat him differently, because of his failings.", "False" ],
 
-[ "intermediate", "clay-1", 1, "all", "Frank gave Rebia some rings when they got married.", "False" ],
+[ "intermediate", "clay-1", 1, "all", "Rebia didn't want Frank to give her his class ring when they got married.", "True" ],
+[ "intermediate", "clay-1", 2, "all", "Frank and Rebia met and one year later, they got married.", "True" ],
+[ "intermediate", "clay-1", 3, "all", "Rebia found the rings that Frank gave her on the dresser.", "True" ],
+[ "intermediate", "clay-1", 4, "all", "Rebia and Frank got married and later Frank gave her engagement and wedding rings.", "True" ],
+[ "intermediate", "clay-1", 5, "all", "Frank gave Rebia some rings when they got married.", "False" ],
+[ "intermediate", "clay-1", 6, "all", "Frank found some rings and gave them to Rebia, but she handed them back to him. She didn't like them.", "False" ],
+[ "intermediate", "clay-1", 7, "all", "Frank found the rings he gave Rebia when they got married in her dress.", "False" ],
+
 [ "intermediate", "clay-2", 1, "all", "Rebia had four children with Frank.", "False" ],
 
 	];
