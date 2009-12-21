@@ -10,7 +10,7 @@
     <td>[% exercise.id %]</td>
     <td>[% exercise.description %]</td>
     <td>[% exercise.type %]</td>
-    <td>[% scores.$id %]</td>
+    <td>[% letters.$id %]</td>
     <td>
          <a href="[% Catalyst.uri_for('/play/update/') _ exercise.id %]">Go!</a>
     </td>
