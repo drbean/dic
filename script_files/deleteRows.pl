@@ -6,17 +6,17 @@ deleteRows.pl - Emulate cli db tool, dbtool.pl with DB schema
 
 =head1 SYNOPSIS
 
-script_files/deleteRows.pl players
-95801001 Tom
-95801002 Jack
+script_files/deleteRows.pl Player name Jack
+95801001 Jack
+95801007 Jack
 
 =head1 DESCRIPTION
 
-Dumps tables known by DB schema
+Deletes all rows from the table associated with the Player schema which have Jack in the name column.
 
 =head1 AUTHOR
 
-Sebastian Riedel, C<sri@oook.de>
+Dr Bean C<drbean @ an at sign cpan, dot, a dot, org>
 
 =head1 COPYRIGHT
 

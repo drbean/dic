@@ -3,24 +3,24 @@ package dic::Model::DB;
 use strict;
 use base 'Catalyst::Model::DBIC::Schema';
 
-#use Catalyst;
-#use dic;
-#
-#my $name = dic->config->{database};
-#my $db = dic->path_to( 'db', $name );
-#
-#my $connect_info;
-#if ( $^O eq 'linux' ) { $connect_info = [ "dbi:SQLite:$db", '', '', ]; }
-#
-#elsif ( $^O eq 'MSWin32' ) {
-#	$connect_info = [ "dbi:ODBC:Driver={SQL Server};Server=LocalServer;Network=DBMSSOCN;Address=127.0.0.1;Database=$name" ];
-#	# $connect_info = [ "dbi:ODBC:DSN=dictation" ];
-#}
+use Catalyst;
+use dic;
+
+my $name = dic->config->{database};
+my $db = dic->path_to( 'db', $name );
+
+my $connect_info;
+if ( $^O eq 'linux' ) { $connect_info = [ "dbi:SQLite:$db", '', '', ]; }
+
+elsif ( $^O eq 'MSWin32' ) {
+	$connect_info = [ "dbi:ODBC:Driver={SQL Server};Server=LocalServer;Network=DBMSSOCN;Address=127.0.0.1;Database=$name" ];
+	# $connect_info = [ "dbi:ODBC:DSN=dictation" ];
+}
 
 __PACKAGE__->config(
     schema_class => 'dic::Schema',
-    # connect_info => $connect_info,
-    connect_info => ['dbi:SQLite:db/demo','','']
+    connect_info => $connect_info,
+    # connect_info => ['dbi:SQLite:db/demo','','']
 );
 
 =head1 NAME
