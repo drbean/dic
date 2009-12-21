@@ -44,6 +44,7 @@ my $leagues = [
 		[ "access", "英語自學室", "Listening" ],
 		[ "visitors", "Visitors", "Demonstration Play" ],
 		[ "dic", "Dictation", "Testing" ],
+	[ "access", "Self-Access Learning", "Listening" ],
 	];
 
 uptodatepopulate( 'League', $leagues );
@@ -60,6 +61,7 @@ my $leaguegenres = [
 			[ "BMA0100",	"business" ],
 			[ "FLA0030",	"business" ],
 			[ "FLA0027",	"intercultural" ],
+			[ "access",	"access" ],
 		];
 uptodatepopulate( 'Leaguegenre', $leaguegenres );
 
