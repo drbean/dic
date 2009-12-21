@@ -22,13 +22,8 @@ my $connect_info = "${::name}::Model::DB"->config->{connect_info};
 my $schema = "${::name}::Schema"->connect( @$connect_info );
 use strict;
 
-my $texts = [
-	[ qw(id description genre content unclozeables) ],
-	[
-        "eden-1",
-        "Eden",
-	"access",
-        "00:06 Dennis Miller: The first student I talked with was Eden Hartwell, of Mt Upton, New York.
+my $eden1 = 
+"00:06 Dennis Miller: The first student I talked with was Eden Hartwell, of Mt Upton, New York.
 00:09 She's a forensics major. Let's jump right into the conversation.
 00:13 Miller: Favorite food.
 00:15 Eden: My mom's spaghetti.
@@ -38,15 +33,9 @@ my $texts = [
 00:22 Eden: Yeh. (laughs)
 00:22 Miller: ... have to try that sometime.
 
-",
-"Dennis Miller|Miller|forensics|Eden|Hartwell|Upton|spaghetti|sauce"
-	],
-
-	[
-        "eden-2",
-        "The color pink",
-	"access",
-        "00:24 Miller: And your favorite color?
+";
+my $eden2 = 
+"00:24 Miller: And your favorite color?
 00:24 Eden: Pink.
 00:25 Miller: Okay. You're not wearing any pink! (laughs)
 00:30 Eden: (laughs)
@@ -65,8 +54,40 @@ my $texts = [
 00:53 Miller: Okay, so you guys worked that out beforehand.
 00:54 Eden: Yeh.
 
-",
-"Miller|Eden|sneakers"
+";
+
+my $texts = [
+	[ qw(id description genre content unclozeables) ],
+	[
+        "eden-1",
+        "Eden",
+	"access",
+	$eden1,
+	"Dennis Miller|Miller|forensics|Eden|Hartwell|Upton|spaghetti|sauce"
+	],
+	
+	[
+        "eden-1-GL",
+        "Eden",
+	"JUST RIGHT",
+	$eden1,
+	"Dennis Miller|Miller|forensics|Eden|Hartwell|Upton|spaghetti|sauce"
+	],
+
+	[
+        "eden-2",
+        "The color pink",
+	"access",
+	$eden2,
+	"Miller|Eden|sneakers"
+	],
+
+	[
+        "eden-2-GL",
+        "The color pink",
+	"JUST RIGHT",
+	$eden2,
+	"Miller|Eden|sneakers"
 	],
 
 	[
@@ -145,20 +166,20 @@ $schema->populate( 'Text', $texts );
 my $questions = [
 			[ qw/genre text id content answer/ ],
 
-[ "access", "eden-1", 1, "The first student Miller talked with was Eden.", "True" ],
-[ "access", "eden-1", 2, "Eden's favorite food is her mom's spaghetti.", "True" ],
-[ "access", "eden-1", 3, "Eden thinks her mom's spaghetti is the best because she makes the best sauce.", "True" ],
-[ "access", "eden-1", 4, "Miller doesn't want to try Eden's mom's spaghetti.", "False" ],
-[ "access", "eden-1", 5, "Eden doesn't like her mom's spaghetti.", "False" ],
-[ "access", "eden-1", 6, "Miller hasn't tried Eden's mom's spaghetti.", "True" ],
+[ "JUST RIGHT", "eden-1-GL-GL", 1, "The first student Miller talked with was Eden.", "True" ],
+[ "JUST RIGHT", "eden-1-GL", 2, "Eden's favorite food is her mom's spaghetti.", "True" ],
+[ "JUST RIGHT", "eden-1-GL", 3, "Eden thinks her mom's spaghetti is the best because she makes the best sauce.", "True" ],
+[ "JUST RIGHT", "eden-1-GL", 4, "Miller doesn't want to try Eden's mom's spaghetti.", "False" ],
+[ "JUST RIGHT", "eden-1-GL", 5, "Eden doesn't like her mom's spaghetti.", "False" ],
+[ "JUST RIGHT", "eden-1-GL", 6, "Miller hasn't tried Eden's mom's spaghetti.", "True" ],
 
-[ "access", "eden-2", 1, "Eden isn't wearing any pink.", "False" ],
-[ "access", "eden-2", 2, "Eden is wearing pink sneakers.", "True" ],
-[ "access", "eden-2", 3, "Eden's roommate decorated her half of the room in pink.", "False" ],
-[ "access", "eden-2", 4, "Eden and her roommate worked out how to decorate the room.", "True" ],
-[ "access", "eden-2", 5, "Eden thinks her roomate doesn't like pink.", "False" ],
-[ "access", "eden-2", 6, "Eden decorated her half of the room the way she wanted it to be and her roommate decorated her half of the room the way she wanted it to be.", "True" ],
-[ "access", "eden-2", 7, "The two halves of the room are decorated differently.", "True" ],
+[ "JUST RIGHT", "eden-2-GL", 1, "Eden isn't wearing any pink.", "False" ],
+[ "JUST RIGHT", "eden-2-GL", 2, "Eden is wearing pink sneakers.", "True" ],
+[ "JUST RIGHT", "eden-2-GL", 3, "Eden's roommate decorated her half of the room in pink.", "False" ],
+[ "JUST RIGHT", "eden-2-GL", 4, "Eden and her roommate worked out how to decorate the room.", "True" ],
+[ "JUST RIGHT", "eden-2-GL", 5, "Eden thinks her roomate doesn't like pink.", "False" ],
+[ "JUST RIGHT", "eden-2-GL", 6, "Eden decorated her half of the room the way she wanted it to be and her roommate decorated her half of the room the way she wanted it to be.", "True" ],
+[ "JUST RIGHT", "eden-2-GL", 7, "The two halves of the room are decorated differently.", "True" ],
 
 	];
 
