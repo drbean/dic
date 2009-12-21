@@ -389,6 +389,37 @@ push @$questions,
 [ "teaching", "assess-1", 5, "all", "Sarah isn't going to try on the hot shoes, because they are not appropriate for her.", "False" ],
 [ "teaching", "assess-1", 6, "all", "Kerry wants Parfait to speak to artists and like, shake them up.", "False" ];
 
+push @$texts,
+[
+        "assess-2",
+        "Frequency of assessment",
+	"teaching",
+	"all",
+	"1:25 Sarah: Exactly. After all, when you think about it, the fashion runways and the freshman hallways aren't that different.
+Kerry: It's true.
+Sarah: It's all about taking risks and strutting your stuff.
+Kerry: And knowing if you trip and fall, you're not going to ruin your couture. Or better yet, your academic reputation.
+Sarah: You know, ???. Less is not always more. I mean, when I first started and I was a fashion fledgling, I only went to one, maybe two, fashion shows a year. And I'm telling you, that just wasn't enough to know what's hot and what's not.
+Kerry: That's so true. And, when students are given just a few summative tests a year, it's a very limited view. It doesn't really accurately display what's really going on in the classroom, or reflect what teachers are teaching.
+Commentary: When it comes to testing, how often is desirable? Excessive testing gets students focused on, 'How well am I doing,' instead of 'What am I learning?'.
+Address whether the time spent testing is disproportionate to the time spent learning.
+More testing also creates a focus on short-term memory instead of long-term memory and actual understanding.
+And reevaluate exam frequency for younger learners, including timed tests.
+Kerry: I think the key message here is balance. Too much perfume, accessories or assessments, uhm, becomes overdone, unnecessary, loses its cachet.
+Sarah: And too little leaves no lasting impression at all. 
+
+",
+"1:25|Sarah|Kerry|fashion runways|freshman hallways|couture|academic reputation|fledgling|summative|limited|display|reflect|Commentary|desirable|Address|reevaluate|timed|accessories|cachet|lasting"
+	];
+
+push @$questions,
+[ "teaching", "assess-2", 1, "all", "Kerry and Sarah think fashion, and assessment too, is about taking risks without ruining your stuff.", "True" ],
+[ "teaching", "assess-2", 2, "all", "Sarah thinks one or two tests a year isn't enough. You don't know if you are hot or not.", "True" ],
+[ "teaching", "assess-2", 3, "all", "Too much testing leaves students focused on memory rather tahan understanding.", "True" ],
+[ "teaching", "assess-2", 4, "all", "Sarah and Kerry thinks a few summative tests a year are enough to show what's going on.", "False" ],
+[ "teaching", "assess-2", 5, "all", "Kerry and Sarah think balance is not desirable. Too much testing. Not too little.", "False" ],
+[ "teaching", "assess-2", 6, "all", "Kerry and Sarah think too much fashion is overdone, but excessive assessment is desirable.", "False" ];
+
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
 
