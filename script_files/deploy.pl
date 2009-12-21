@@ -24,7 +24,7 @@ my $connect_info = "${::name}::Model::DB"->config->{connect_info};
 my $schema = "${::name}::Schema"->connect( @$connect_info );
 use strict;
 
-$schema->deploy;
+$schema->deploy( { add_drop_table => 1 } );
 
 =head1 NAME
 
