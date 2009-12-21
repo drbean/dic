@@ -52,6 +52,8 @@ Check if there is a user and, if not, forward (actually, redirect) to login page
 # See the ’Actions’ section of ’Catalyst::Manual::Intro’ for more info.
 sub auto : Private {
 	my ($self, $c) = @_;
+	my $exercise = $c->request->query_params->{exercise};
+	$c->session->{exercise} = $exercise if $exercise;
 
 # Allow unauthenticated users to reach the login page.  This
 # allows anauthenticated users to reach any action in the Login
@@ -69,6 +71,9 @@ sub auto : Private {
 	   $c->log->debug('***Root::auto User not found, forwarding to /login');
 	   # Redirect the user to the login page
 	   $c->response->redirect($c->uri_for('/login'));
+	   # Couldn't get this to work. couldn't find method.
+	   # # Detach to login action with 'exercise' query parameter intact
+	   # $c->detach('/login');
 	   # Return 0 to cancel ’post-auto’ processing and prevent use of application
 	   return 0;
        }
