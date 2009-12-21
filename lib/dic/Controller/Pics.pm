@@ -37,6 +37,7 @@ sub find : Local {
 			genre => $genre, id => $wordId })->published;
 	my $pics = $c->model('DB::Pic');
 	my $stopword = $c->model('DB::Stopword')->find({ word => lc($word) });
+	$c->stash->{template} = 'pics/list.tt2';
 	unless ( $stopword ) {
 		my @oldurls = $pics->search({ word => $word });
 		unless ( @oldurls ) {
@@ -48,7 +49,6 @@ sub find : Local {
 					'ea697995b421c0532215e4a2cbadbe1e' });
 			if ( $r->{error_code} ) {
 				$c->stash->{error_msg} = $r->{error_message};
-				$c->stash->{template} = 'pics/list.tt2';
 				return;
 			}
 			my $range = 100;
@@ -56,14 +56,18 @@ sub find : Local {
 			for my $n ( 0 .. $range-1 ) {
 				my $photo = $r->{tree}->{children}->[1]->
 					{children}->[2*$n+1]->{attributes};
+				unless ( defined $photo->{title} ) {
+					$c->stash->{error_msg} = "No picture";
+					return;
+				}
 				my %row;
+				$row{title} = $photo->{title};
 				$row{id} = undef;
 				$row{word} = $word;
 				$row{url} = 'http://farm' . $photo->{farm} .
 					'.static.flickr.com/'.  $photo->
 					{server} .  '/'.  $photo->{id} . '_' .
 					$photo->{secret} . '_t.jpg';
-				$row{title} = $photo->{title};
 				push @newurls, \%row;
 			}
 			$pics->populate(\@newurls);
@@ -72,7 +76,6 @@ sub find : Local {
 		$c->stash->{urls} = \@oldurls;
 	}
 	$c->stash->{urls} ||= [];
-	$c->stash->{template} = 'pics/list.tt2';
 }
 
 
