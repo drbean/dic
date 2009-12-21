@@ -94,6 +94,7 @@ sub clozeupdate : Local {
 	my $playSet = $c->model('DB::Play')->search(
 			{player => $player, exercise => $exerciseId},
 			{ order_by => 'blank' } );
+	my $dictionary = $c->model('DB::Dictionary');
 	my $responses = $c->request->params;
 	my $play =  $c->model('DB::Play');
 	my $score = 0;
@@ -102,12 +103,13 @@ sub clozeupdate : Local {
 	{
 		my $id = $word->id;
 		my $unclozed = $word->unclozed;
-		my $entry = $word->dictionary;
-		my $kwic = ($entry and $entry->count > 1)? 1: 0;
 		my $class = $word->class;
 		my $published = $word->published;
 		if ( $class eq 'Word' )
 		{
+			my $stem = $word->dictionary->stem;
+			my $kwic = ($stem and
+				$dictionary->search({stem => $stem})->count > 1)? 1: 0;
 			if ( $exerciseType eq "FirstLast" )
 			{
 				chop $published unless length $published <= 2;
