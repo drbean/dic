@@ -36,6 +36,7 @@ sub index : Path : Args(0) {
         my $username = $id;
         if ( $c->authenticate( { id => $username, password => $password } ) ) {
             $c->session->{player_id} = $id;
+            $c->session->{question} = undef;
 
             # my $officialrole = "official";
             my $officialrole = 1;
