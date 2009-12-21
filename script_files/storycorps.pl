@@ -222,8 +222,6 @@ My oldest son, he'll tell you, My biological father's name is So-and-so, but my 
 
 	];
 
-uptodatepopulate( 'Text', $texts );
-
 my $questions = [
 			[ qw/genre text id target content answer/ ],
 
@@ -277,6 +275,44 @@ my $questions = [
 [ "intermediate", "clay-2", 6, "all", "Frank shot his girlfriend in the back because she was helping a boyfriend.", "False" ],
 
 	];
+
+push @$texts,
+[
+        "biomom",
+        "Relationship of adopted child with birth mother",
+	"intermediate",
+	"all",
+	"Dimasi: When did you decide to give me up for adoption.
+Adam: Well, I was in my final year of university, and I wasn't in a serious relationship with anyone. It was kind of a fluke. You know they say it only takes once. And it turned out to be true. And it was probably the loneliest time of my entire life. When I was in the hospital, I was there for hours by myself. And then they took you away, and they wouldn't allow me to see you. But one of the nurses took pity on me and brought you in to my room in the middle of the night one night so that I could count fingers and toes. But then the other, uhm, practice was that in the case of adoption, I had to actually carry you out of the hospital and hand you to the doctor, physically. That was supposed to be an indication of my willingness to give up the child. And, that was hard.
+Dimasi: I want you to know that I never was angry. I never resented your decision. I've never had reason to. I knew that I was adopted, and my parents always made it a positive part of my life, that they picked me, that they really wanted me. And I just remember your being a question mark. That part of who I was was just a question mark. And I got to a point in my early twenties when I was just so curious, and I asked my parents if they had, you know, any legal papers or, or hospital papers. And my father took me upstairs and gave me a pile of papers, and that's when I discovered the hospital bill that had your name on it.
+Adam: Mmh-hmm.
+Dimasi: On all the other papers, your name was blacked out with a magic marker. But there was this one for, like, aspirin.
+Adam: Ha, ha, ha.
+Dimasi: It was the most inconsequential bill, but there was your name, and it was the first moment that you as a person were concrete to me.
+Adam: Mmh.
+Dimasi: And it knocked me down.
+Adam: I remember that first phone call that we had. You had left me a message. So I had your voice on my machine and I kept listening to it over and over and over again, 'cause it just had never crossed my mind that I would ever hear your voice. I think it was at least midnight by the time I called you, maybe later. And we talked for two or three hours, it just seemed so easy. We haven't shut up much since.
+Dimasi: No.  
+Adam: Ha, ha, ha.
+Dimasi: That's true.
+Dimasi: When I describe our relationship to people, I say that you're more like a mentor than a mother. You're a person that I turn to for advice and someone that I enjoy talking to about all the things that I'm passionate about.
+Adam: I'm really grateful. I love you.
+Dimasi: I love you too.
+
+
+",
+"Adam|Dimasi|resented|fluke|legal|magic marker|aspirin|inconsequential|mentor"
+	];
+
+push @$questions,
+[ "intermediate", "biomom", 1, "all", "Dimasi discovered her mother's name with a hospital bill.", "True" ],
+[ "intermediate", "biomom", 2, "all", "The two people have a good relationship, but the child does not think of her mother as a mother.", "True" ],
+[ "intermediate", "biomom", 3, "all", "The first phone call they had, the two people talked for two or three hours.", "True" ],
+[ "intermediate", "biomom", 4, "all", "The mother left a message on her child's phone,", "False" ],
+[ "intermediate", "biomom", 5, "all", "The father never told his child she was adopted.", "False" ],
+[ "intermediate", "biomom", 6, "all", "The father didn't want his child to know her mother's name.", "False" ];
+
+uptodatepopulate( 'Text', $texts );
 
 uptodatepopulate( 'Question', $questions );
 
