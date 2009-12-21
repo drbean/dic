@@ -37,8 +37,6 @@ sub index : Path : Args(0) {
         if ( $c->authenticate( { id => $username, password => $password } ) ) {
             $c->session->{player_id} = $id;
             $c->session->{question} = undef;
-
-            # my $officialrole = "official";
             my $officialrole = 1;
             if ( $c->check_user_roles($officialrole) ) {
                 $c->stash->{id}   = $id;
