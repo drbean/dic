@@ -19,11 +19,11 @@ Catalyst Controller.
 
 =head2 index
 
-Login logic. We let "guest"s in without a password, or ID.
+Login logic. We used to let "guest"s in without a password, or ID and also redirect to exercise list. Now we redirect to the exercise, if it appears as the one argument.
 
 =cut
 
-sub index : Path : Args(0) {
+sub index :Path :Args(0)  {
     my ( $self, $c ) = @_;
     my $id       = $c->request->params->{id}       || "";
     my $name     = $c->request->params->{name}     || "";
@@ -57,8 +57,14 @@ sub index : Path : Args(0) {
             }
             else {
                 $c->session->{league}   = $leagues[0]->id;
-                $c->session->{exercise} = undef;
-                $c->response->redirect( $c->uri_for("/exercises/list") );
+		if ( defined $c->session->{exercise}) {
+			my $exercise = $c->session->{exercise};
+			$c->response->redirect(
+				$c->uri_for( "/play/update/$exercise" ) );
+		}
+		else {
+			$c->response->redirect( $c->uri_for("/exercises/list") );
+		}
                 return;
             }
         }
@@ -136,12 +142,11 @@ Create a player entry in Amateur with first 10 chars of email address.
 
 =cut 
 
-sub sign_in : Local
+sub sign_in : Path('/login/sign_in')
 {
 	my ($self, $c) = @_;
 	my $amateur = $c->request->params;
 	my $email = $amateur->{email};
-$DB::single=1;
 	if ( $email =~ m/^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+$/ ) {
 		$email = substr $email, 0, 10;
 		(my $name = $email) =~ s/^([^@]+)@.*$/$1/;
@@ -165,7 +170,13 @@ $DB::single=1;
 			$c->session->{player_id}   = $email;
 			$c->session->{league}   = 'access';
 			$c->session->{exercise} = undef;
-			$c->response->redirect( $c->uri_for("/exercises/list") );
+			if ( $exercise ) {
+				$c->response->redirect(
+					$c->uri_for( "/play/update/$exercise" ) );
+			}
+			else {
+				$c->response->redirect( $c->uri_for("/exercises/list") );
+			}
 			return;
 		}
 	}
