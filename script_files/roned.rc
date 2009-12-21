@@ -2,16 +2,15 @@
 
 =head1 NAME
 
-connectdb.rc - A re.pl rcfile to connect to a db with a DBIC schema
+loadyamlid.pl -- Load one text with questions from a YAML file
 
 =head1 SYNOPSIS
 
-re.pl --rcfile ./script_files/connectdb.rc
-# my $s = $d->resultset('Player') # not ('DB::Player') ?
+loadyamlid.pl data/business.yaml careercandidate
 
 =head1 DESCRIPTION
 
-Connect to a db before creating a DBIC schema
+Cut and paste from YAML into texts, questions tables 
 
 =head1 AUTHOR
 
@@ -47,16 +46,16 @@ my $d = $model->connect( @$connect_info );
 
 use YAML qw/LoadFile DumpFile/;
 use IO::All;
-my ($text, $question) = LoadFile 'data/storycorps.yaml';
-my @ronedtext;
-push @ronedtext, shift @$text;
+my ($text, $question) = LoadFile $ARGV[0];
+my @text;
+push @text, shift @$text;
 $_->[2] = 'intermediate' for @$text;
-push @ronedtext, grep { $_->[0] eq 'kroenkeandtrinka' } @$text;
-my @ronedqn;
-push @ronedqn, shift @$question;
+push @text, grep { $_->[0] eq $ARGV[1] } @$text;
+my @qn;
+push @qn, shift @$question;
 $_->[0] = 'intermediate' for @$question;
-push @ronedqn, grep { $_->[1] eq 'kroenkeandtrinka' } @$question;
+push @qn, grep { $_->[1] eq $ARGV[1] } @$question;
 my $t = $d->resultset('Text');
-$t->populate(\@ronedtext);
+$t->populate(\@text);
 my $q = $d->resultset('Question');
-$q->populate(\@ronedqn);
+$q->populate(\@qn);
