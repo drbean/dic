@@ -23,7 +23,7 @@ my $schema = "${::name}::Schema"->connect( @$connect_info );
 use strict;
 
 use YAML qw/LoadFile/;
-my ($texts, $questions) = LoadFile 'data/storycorps.yaml';
+my ($texts, $questions) = LoadFile $ARGV[0];
 
 uptodatepopulate( 'Text', $texts );
 
