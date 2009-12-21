@@ -46,10 +46,12 @@ sub update : Local {
 	$exerciseId ||= $c->session->{exercise};
 	my $genre = $c->model("DB::Leaguegenre")->find(
 			{ league => $leagueId } )->genre;
-	my $exercises = $c->model('DB::Exercise')->search(
-			{ genre => $genre, }, { order_by => 'id' } );
+	my $exercise = $c->model('DB::Exercise')->find(
+			{ genre => $genre, id => $exerciseId } );
+	$c->stash->{exercise} = $exercise;
 	$c->forward('clozeupdate');
-	$c->forward('questionupdate');
+	$c->forward('questionupdate', $exerciseId);
+	$c->stash->{template} = "play/question.tt2";
 	}
 
 
@@ -63,22 +65,7 @@ sub questionupdate : Local {
 	my ($self, $c, $exerciseId) = @_;
 	my $player = $c->session->{player_id};
 	my $leagueId = $c->session->{league};
-	my $genre = $c->model("DB::Leaguegenre")->find(
-			{ league => $leagueId } )->genre;
-	my $exercises = $c->model('DB::Exercise')->search(
-			{ genre => $genre, }, { order_by => 'id' } );
-	$exerciseId = $c->session->{exercise};
-	my $exercise;
-	if ( defined $exerciseId )
-	{		
-		do { $exercise = $exercises->next }
-					until $exercise->id eq $exerciseId;
-	}
-	else {
-		$exercise = $exercises->single;
-		$c->session->{exercise} = $exercise->id;
-	}
-	$c->forward('update');
+	my $exercise = $c->stash->{exercise};
 	my $question = $exercise->text->questions->single;
 	my $questionWords = $exercise->questionwords;
 	my $answer = $c->request->params->{answer};
@@ -94,15 +81,6 @@ sub questionupdate : Local {
 			question => $question->id,
 			# text => $text->id,
 			correct => $correct });
-		my $nextExercise = $exercises->next;
-		if ( $nextExercise )
-		{
-			$c->session->{exercise} = $nextExercise->id;
-			$c->stash->{next_exercise} = 1;
-		}
-		else {
-			$c->stash->{status_msg} = " GAME OVER. ";
-		}
 		$c->stash->{status_msg} .= 
 				" Your answer: \"$answer\". The correct answer: \"$correctAnswer\".";
 	}
@@ -138,7 +116,6 @@ sub questionupdate : Local {
 	}
 	$c->stash->{question} = \@question;
 	$c->stash->{answer} = $question->answer;
-	$c->stash->{template} = "play/question.tt2";
 }
 
 
@@ -255,7 +232,6 @@ sub clozeupdate : Local {
 	$c->stash->{cloze} = \@cloze;
 	$c->stash->{status_msg} = "$name has $score letters correct";
 	$c->stash->{reversed} = $exerciseType eq "Last"? 1: 0;
-	$c->stash->{template} = 'play/start.tt2';
 }
 
 
