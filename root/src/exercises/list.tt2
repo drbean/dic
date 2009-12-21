@@ -18,3 +18,4 @@
 [% END -%]
 </table>
 
+<h3>Back to <a href=http://web.nuu.edu.tw/~greg/[% genre.ucfirst %].html>soundfiles and commentary</a></h3>

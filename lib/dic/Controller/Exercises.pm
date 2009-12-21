@@ -77,6 +77,7 @@ sub list : Local {
     my %quizscores = map { $_->exercise => $_->get_column('questions') } @quiz;
     $c->stash->{questions} = \%quizscores;
     $c->stash->{league} = $league->name;
+    $c->stash->{genre} = $genre;
     $c->stash->{template} = 'exercises/list.tt2';
 }
 
