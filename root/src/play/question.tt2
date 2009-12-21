@@ -3,24 +3,26 @@
 <ul>
 <li>
 <form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
-Question:
+  <ul><li>Question:
 
-[% FOREACH word IN questionwords -%]
-[% IF word.Newline -%]
-<br>
-[% ELSE -%]
-[%- word -%]
-[% END -%]
-[% END -%]
-
-<p>
-</p>
-Answer:
-<INPUT type="radio" name="answer" value="True"> True
-<INPUT type="radio" name="answer" value="False"> False
-<INPUT type="radio" name="answer" value="Don't know" checked> Don't know
-<input type="submit" name="Submit" value="Sure?">
-</form>
+  [% FOREACH word IN questionwords -%]
+  [% IF word.Newline -%]
+  <br>
+  [% ELSE -%]
+  [%- word -%]
+  [% END -%]
+  [% END -%]
+  
+  </li>
+  <li>
+  Answer:
+  <INPUT type="radio" name="answer" value="True"> True
+  <INPUT type="radio" name="answer" value="False"> False
+  <INPUT type="radio" name="answer" value="Don't know" checked> Don't know
+  <input type="submit" name="Submit" value="Sure?">
+  </form>
+  </li>
+  </ul>
 </li>
 
 <li>
