@@ -47,8 +47,8 @@ sub find : Local {
 				{ tags => $word, api_key =>
 					'ea697995b421c0532215e4a2cbadbe1e' });
 			if ( $r->{error_code} ) {
-				$c->stash->{status_message} =
-							$r->{error_message};
+				$c->stash->{status_msg} =
+							$r->{error_msg};
 				$c->stash->{template} = 'pics/list.tt2';
 				return;
 			}
