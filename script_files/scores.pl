@@ -65,7 +65,7 @@ $, = "\t";
 print "In $dir directory:\n";
 my $scores;
 my @leagues = glob ('*');
-for my $league ( @leagues )
+for my $dir ( @leagues )
 {
 	my $leagueplay = $playset->search({ league => $id });
 	# my @leagueExercises = @exerciseIds;
@@ -109,9 +109,9 @@ for my $league ( @leagues )
 			print $player . "\t";
 			for my $exercise ( @exerciseIds , "Total")
 			{
-				$scores->{$league}->{$id}->{$player}->{$exercise} = '-' if not
-					exists $scores->{$league}->{$id}->{$player}->{$exercise};
-				print $scores->{$league}->{$id}->{$player}->{$exercise} . "\t"; # if defined $scores->{$league}->{$player}->{$exercise};
+				$scores->{$dir}->{$id}->{$player}->{$exercise} = '-' if not
+					exists $scores->{$dir}->{$id}->{$player}->{$exercise};
+				print $scores->{$dir}->{$id}->{$player}->{$exercise} . "\t"; # if defined $scores->{$dir}->{$player}->{$exercise};
 			}
 			print "\n";
 		}
