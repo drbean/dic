@@ -400,6 +400,42 @@ push @$questions,
 [ "intermediate", "relations-1", 5, "all", "The couple are always mature, and never angry.", "False" ],
 [ "intermediate", "relations-1", 6, "all", "The children wanted to leave Dad and be with Mom.", "False" ];
 
+push @$texts,
+[
+        "relations-2",
+        "Mother tells daughter about divorcing husband",
+	"intermediate",
+	"all",
+	"Time now for another moment from StoryCorps. StoryCorps is a national oral history project. Friends and family members talk about their lives in a StoryCorps recording booth. Some of their stories are heard Fridays on Morning Edition.
+
+Judy Allen is sixty-five years old and lives in Portland, Oregon. Her daughter, Kelly Edwards is forty four, and interviewed her mom in the StoryCorps booth at New York's Grand Central Terminal.
+
+Kelly: Describe a memory when you felt independent and empowered.
+Judy: I think the most empowered I've ever felt in my life was when my philandering husband told me he was going to work and I suddenly realized he'd gone to be with his girlfriend. I went to where she was staying, and found his car parked in front of her house, got a great big rock about as big as a bowling ball from somebody's garden, and heaved it through the back window of his car.
+
+That was wonderful. It felt great. And then I started divorce proceedings.
+
+Years later he called.. he sent me a message somehow, and told me that he still had some stuff of mine--books and things--that if I was ever traveling in Alaska, I should stop by and pick them up. And I was doing a business trip to Alaska, so I went up there, made an appointment, went to see him in his office, and he handed me a very heavy box, and said 'There's a lot of heavy stuff--books and stuff--in there'. And so I dragged it and schlepped it through airports all the way home. God, it was heavy. And then I got home and opened it up and, nothing in it but that rock. Which he had saved all those years.
+
+Judy Allen with her daughter Kelly Edwards. If you'd like to learn more about StoryCorps, its national tour and how you can participate, go to npr.org.
+
+StoryCorps is made possible by a grant from Saturn.
+
+This is Morning Edition, from NPR News.
+
+
+",
+"oral|recording booth|Judy|Allen|Kelly|Edwards|Portland|Oregon|Grand Central Terminal|empowered|philandering|heaved|proceedings|Alaska|schlepped|Saturn"
+	];
+
+push @$questions,
+[ "intermediate", "relations-2", 1, "all", "The husband saved the rock that she had put through the window of his car.", "True" ],
+[ "intermediate", "relations-2", 2, "all", "After she found her husband was at his girlfriend's house, she divorced him.", "True" ],
+[ "intermediate", "relations-2", 3, "all", "The mom talks to her daughter about her divorce with her husband.", "True" ],
+[ "intermediate", "relations-2", 4, "all", "In the heavy box was books and things of hers.", "False" ],
+[ "intermediate", "relations-2", 5, "all", "The husband told her there was a rock in the box.", "False" ],
+[ "intermediate", "relations-2", 6, "all", "She suddenly had a heavy feeling when she put the rock through the window.", "False" ];
+
 uptodatepopulate( 'Text', $texts );
 
 uptodatepopulate( 'Question', $questions );
