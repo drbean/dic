@@ -22,8 +22,6 @@ BEGIN {
 
 my @leagueids = qw/GL00029 GL00030 GL00031 GL00034 FLA0016 MIA0017 BMA0099 BMA0100 FLA0030 FLA0027/;
 my $dir = ( File::Spec->splitdir(getcwd) )[-1];
-$dir = qr/^(GL000|FL|MIA|BMA)/ if $dir eq 'dic';
-@leagueids = grep m/$dir/, @leagueids;
 
 no strict qw/subs refs/;
 my $connect_info = "${::name}::Model::DB"->config->{connect_info};
