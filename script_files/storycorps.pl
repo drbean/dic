@@ -431,8 +431,8 @@ This is Morning Edition, from NPR News.
 push @$questions,
 [ "intermediate", "relations-2", 1, "all", "The husband saved the rock that she had put through the window of his car.", "True" ],
 [ "intermediate", "relations-2", 2, "all", "After she found her husband was at his girlfriend's house, she divorced him.", "True" ],
-[ "intermediate", "relations-2", 3, "all", "The mom talks to her daughter about her divorce with her husband.", "True" ],
-[ "intermediate", "relations-2", 4, "all", "In the heavy box was books and things of hers.", "False" ],
+[ "intermediate", "relations-2", 3, "all", "The mom and her daughter talk about her divorce with her husband.", "True" ],
+[ "intermediate", "relations-2", 4, "all", "In the heavy box were her books and things.", "False" ],
 [ "intermediate", "relations-2", 5, "all", "The husband told her there was a rock in the box.", "False" ],
 [ "intermediate", "relations-2", 6, "all", "She suddenly had a heavy feeling when she put the rock through the window.", "False" ];
 
