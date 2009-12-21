@@ -96,7 +96,6 @@ for my $id ( sort @leagueids )
 		$scores->{$id}->{$player}->{$exercise} = $score;
 		$scores->{$id}->{$player}->{Total} += $score;
 	}
-DumpFile 'standings.yaml', $scores;
 	for my $player ( uniq $play->get_column('player')->all )
 	{
 		print $player . "\t";
@@ -112,3 +111,4 @@ DumpFile 'standings.yaml', $scores;
 	}
 	print "\n";
 }
+DumpFile 'standings.yaml', $scores;
