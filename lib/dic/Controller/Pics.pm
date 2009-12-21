@@ -34,7 +34,7 @@ sub find : Local {
 			genre => $genre, id => $wordId })->published;
 	my $pics = $c->model('DB::Pic');
 	$c->stash->{template} = 'pics/list.tt2';
-	my $total = 100;
+	my $total = 400;
 	my @oldurls = $pics->search({ word => $word });
 	unless ( @oldurls ) {
 		my $api = Flickr::API->new({key =>
@@ -51,10 +51,8 @@ sub find : Local {
 		for my $n ( 0 .. $total-1 ) {
 			my $photo = $r->{tree}->{children}->[1]->
 				{children}->[2*$n+1]->{attributes};
-			unless ( defined $photo->{title} ) {
-				$c->stash->{error_msg} = "No picture";
-				return;
-			}
+			my $title = $photo->{title};
+			next unless defined $title and $title =~ m/$word/i;
 			my %row;
 			$row{title} = $photo->{title};
 			$row{id} = undef;
