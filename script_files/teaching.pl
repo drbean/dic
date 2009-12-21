@@ -485,6 +485,40 @@ push @$questions,
 [ "teaching", "aft-8", 5, "all", "The commentary says teachers used moral suasion as a weapon to fight the Saint Paul Board of Education.", "False" ],
 [ "teaching", "aft-8", 6, "all", "The Saint Paul Board of Education forced teachers to move in to schools.", "False" ];
 
+
+push @$texts, [
+        "chinese-1",
+        "Pronunciation and confidence",
+	"teaching",
+	"all",
+	"1:31 Second, focus on your tones. I'm going to repeat this because I wish someone had been firmer with me when I first started. Focus on your tones. I would've saved myself a lot of time and trouble, if I had truly paid a way, attention to the way I was pronouncing words from the very beginning. After my second year of studying, I finally went to China for the first time. It was only then that I realized that all those corrections my teacher kept giving me on my tones were really super-duper. unbelievably important. 
+
+In fact, once in China, after two years of not doing it right, I had to essentially relearn my spoken Chinese and all because I hadn't paid enough attention to memorizing tones in the first place. 
+
+That first summer in China, I had a friend who over enunciated every tone. It drove me bonkers. But after six weeks, his Chinese kicking my Chinese's ass. Big time.
+
+4:09 You can't be that far from your peers, so don't be intimidated by them. I'm going to give you an example. During a summer program I did in southern China, we had a project called Practicum. Every week we went out in groups taking turns surveying people about a topic related to our curriculum. It was supposed to get us interacting with real Chinese people while practicing our new vocabulary and grammar. We would practice speaking when asking questions and practice listening when recording answers. 
+
+This one girl in our class always seemed so impressive to me. She would interview people and sit there looking engaged and involved. One week we were grouped together. It was her turn and she asked her questions one by one. And she, as always, looked immersed in the conversation while her other partners and I were absolutely bewildered not understanding a word being said.
+
+After she finished, she thanked the interviewee and turned back to us. We asked what she had said, explaining that we didn't understand a word of what the woman had told her. She just shrugged her shoulders and said, I don't know. Neither did I. 
+
+Confidence and bravado are easily faked with a nod and a smile. Never be intimidated by what you think someone knows. 
+
+",
+"1:31|tones|focus|firmer|trouble|truly|attention|corrections|super|unbelievably|essentially|relearn|summer|enunciated|bonkers|4:09|peers|intimidated|program|southern|project|Practicum|groups|surveying|topic|curriculum|supposed|interacting|practicing|impressive|interview|engaged|involved|immersed|bewildered|shrugged|Confidence|bravado|faked|intimidated"
+	];
+
+push @$questions,
+
+[ "teaching", "chinese-1", 1, "all", "Rachel's first example is about her friend who paid attention to memorizing tones. ", "True" ],
+[ "teaching", "chinese-1", 2, "all", "The girl in Rachel's class didn't understand but faked it with a nod and a smile.", "True" ],
+[ "teaching", "chinese-1", 3, "all", "Rachel said to study pronouncing and not be intimidated by partners.", "True" ],
+[ "teaching", "chinese-1", 4, "all", "Rachel's friend kicked her, because she hadn't paid attention to studying Chinese.", "False" ],
+[ "teaching", "chinese-1", 5, "all", "One girl was impressive because she understood what the woman said to her.", "False" ],
+[ "teaching", "chinese-1", 6, "all", "Rachel kicked her friend because his Chinese drove her bonkers.", "False" ];
+
+
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
 
