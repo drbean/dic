@@ -74,7 +74,7 @@ sub questionupdate : Local {
 		my $correctAnswer = $question->answer;
 		my $correct = $answer eq $correctAnswer? 1: 0;
 		my $quizplay = $c->model('DB::Quiz');
-		$quizplay->create({
+		$quizplay->update_or_create({
 			league => $leagueId,
 			exercise => $exerciseId,
 			player => $player,
