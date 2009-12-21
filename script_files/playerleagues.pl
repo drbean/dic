@@ -59,7 +59,7 @@ my $leaguegenres = [
 			[ "BMA0099",	"business" ],
 			[ "BMA0100",	"business" ],
 			[ "FLA0030",	"business" ],
-			[ "FLA0027",	"interculture" ],
+			[ "FLA0027",	"intercultural" ],
 		];
 uptodatepopulate( 'Leaguegenre', $leaguegenres );
 
