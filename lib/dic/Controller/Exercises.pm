@@ -10,6 +10,7 @@ use Total;
 use Kwic;
 use Last;
 use Lingua::Stem qw/stem/;
+use Net::FTP;
 
 =head1 NAME
 
@@ -186,11 +187,23 @@ sub questioncreate : Local {
 	my $questions = $text->questions;
 	my @wordRows;
 	my $questionwords = $c->model('DB::Questionword');
+	my $ftp = Net::FTP->new('web.nuu.edu.tw') or die "web.nuu.edu.tw? $@";
+	$ftp->login('greg', '1514') or die "web.nuu.edu.tw login? $@";
+	$ftp->cwd('public_html') or die "web.nuu.edu.tw/~greg/public_html? $@";
+	$ftp->binary;
+	my $voice = 'voice_cmu_us_bdl_arctic_hts';
 	while ( my $question = $questions->next )
 	{		
 		my $questionId = $question->id;
 		die unless defined $questionId;
 		my $content = $question->content;
+		my $remote = "$genre$exerciseId$questionId.mp3";
+		my $local = "/tmp/$remote";
+		system( "echo \"$content\" |
+			text2wave -eval \"($voice)\" -otype wav |
+			lame -h -V 0 - $local" ) == 0 or die "speech file? $!";
+		$ftp->put($local) or die
+			"put $remote on web.nuu.edu.tw? $@";
 		my $answer = $question->answer;
 		my $punctuation = qr/([^A-Za-z0-9\\n]+)/;
 		my @words = split $punctuation, $content;

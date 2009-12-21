@@ -14,6 +14,9 @@
   [% END -%]
   
   </li>
+
+<p><a href="http://web.nuu.edu.tw/~greg/[% genre _ exercise_id _ question_id %].mp3">Listen</a></p>
+
   <li>
   Answer:
   <INPUT type="radio" name="answer" value="True"> True

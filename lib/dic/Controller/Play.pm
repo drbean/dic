@@ -50,6 +50,7 @@ sub update : Local {
 			{ league => $leagueId } )->genre;
 	my $exercise = $c->model('DB::Exercise')->find(
 			{ genre => $genre, id => $exerciseId } );
+	$c->stash->{genre} = $genre;
 	$c->stash->{exercise} = $exercise;
 	my $questions = $exercise->text->questions;
 	my $questionid = $c->session->{question};
@@ -199,6 +200,7 @@ sub questionupdate : Local {
 	my $leagueId = $c->session->{league};
 	my $exercise = $c->stash->{exercise};
 	my $question = $c->stash->{question};
+	$c->stash->{question_id} = $question->id;
 	my $questionWords = $question->words;
 	my $answer = $c->request->params->{answer};
 	if ( $answer )
