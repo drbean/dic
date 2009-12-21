@@ -61,6 +61,7 @@ my $questions = [
 [ "speaking", "tate", 6, "all", "Tate says speakers need to be more mindful of their speaking style and their expertise as speakers.", "False" ],
 
 	];
+
 push @$texts, [
         "chasm",
         "The effect of mispronouncing 'chasm'",
