@@ -16,7 +16,9 @@ Question:
 <p>
 </p>
 Answer:
-<input type="text" name="answer" size="[% answer.length %]" maxlength="[% answer.length %]" value=""/><input type="submit" name="Submit" value="Sure?">
+<INPUT type="radio" name="answer" value="True"> True
+<INPUT type="radio" name="answer" value="False"> False<BR>
+<input type="submit" name="Submit" value="Sure?">
 </form>
 
 
