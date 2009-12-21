@@ -219,7 +219,7 @@ $DB::single=1;
 			
 =head2 delete
 
-Delete an exercise. Delete of Questions and Questionwords done here too.
+Delete an exercise. Delete of Questions and Questionwords done here too. TODO But delete of Questionwords not appearing to be done!
 
 =cut
 
