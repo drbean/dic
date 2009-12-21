@@ -73,7 +73,7 @@ for my $id ( sort @leagueids )
 	if ( $dir eq $id and $league ) {
 		push @leagueExercises, @newExerciseList;
 	}
-	elsif ( $dir eq 'dic' or $dir eq 'target' or $dir eq 'access' ) {
+	elsif ( $dir eq 'dic' or $dir eq 'correct' or $dir eq 'access' ) {
 		my $league = $schema->resultset('League')->find({ id => $id });
 		my $genre = $league->genre->get_column('genre') if $league;
 		my @newExerciseList = $leagueplay->get_column('exercise')->all;
