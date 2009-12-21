@@ -57,7 +57,7 @@ my $leaguegenres = [
 			[ "FLA0015",	"intermediate" ],
 			[ "FLB0002",	"speaking" ],
 			[ "MIA0012",	"business" ],
-			[ "access",	"all" ],
+			[ "access",	"access" ],
 			[ 'visitors',	"demo" ],
 			[ 'dic',	"all" ],
 		];
@@ -210,7 +210,8 @@ uptodatepopulate( 'Member', [ [ qw/league player/ ],
 
 uptodatepopulate( 'Role', [ [ qw/id role/ ], 
 [ 1, "official" ],
-[ 2, "player" ], ] );
+[ 2, "player" ],
+[ 3, "amateur" ], ] );
 
 uptodatepopulate( 'Rolebearer', [ [ qw/player role/ ], 
 				[ 193001, 1 ],

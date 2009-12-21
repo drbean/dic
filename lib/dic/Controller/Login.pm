@@ -122,6 +122,60 @@ sub membership : Local {
 }
 
 
+=head2 access
+
+Let anyone do self-access league dictations after signing in.
+
+=cut
+
+sub access : Path('/access') Args(0) {
+	my ($self, $c) = @_;
+	$c->stash->{template} = 'access.tt2';
+}
+
+
+=head2 sign_in
+
+Create a player entry in Amateur with first 10 chars of email address.
+
+=cut 
+
+sub sign_in : Local
+{
+	my ($self, $c) = @_;
+	my $amateur = $c->request->params;
+	my $email = $amateur->{email};
+$DB::single=1;
+	if ( $email =~ m/^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+$/ ) {
+		$email = substr $email, 0, 10;
+		(my $name = $email) =~ s/^([^@]+)@.*$/$1/;
+		my $time = time;
+		$c->model('DB::Amateur')->update_or_create({
+				email => $email,
+				name => $name,
+				time => $time, });
+		$c->model('DB::Player')->update_or_create({
+				id => $email,
+				name => $name,
+				password => 'opensesame', });
+		$c->model('DB::Member')->update_or_create({
+				player => $email,
+				league => 'access', });
+		my $amateur = 3;
+		$c->model('DB::Rolebearer')->update_or_create({
+				player => $email,
+				role => $amateur, });
+		if ( $c->authenticate({email=>$email, time=>$time}, 'access') ) {
+			$c->session->{player_id}   = $email;
+			$c->session->{league}   = 'access';
+			$c->session->{exercise} = undef;
+			$c->response->redirect( $c->uri_for("/exercises/list") );
+			return;
+		}
+	}
+	else { $c->stash->{error_msg} = "An email address."; }
+	$c->stash->{template} = 'access.tt2';
+}
 =head1 AUTHOR
 
 Dr Bean,,,
