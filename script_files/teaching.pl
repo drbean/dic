@@ -189,7 +189,7 @@ push @$questions,
 
 push @$texts, [
         "discipline",
-        "Good teacher, bad teacher",
+        "Cartoon teacher",
 	"teaching",
 	"all",
 	"Part One.
@@ -222,14 +222,54 @@ Grimes: That's right. You boys use it in shop when you read a blueprint.
 "Part|1:00|7:45|Grimes|mathematics|foundation|slightest|standards|Assistant|ratio|proportional|recipe|flour|blueprint|shop|Student|Students"
 	];
 
+push @$texts, [
+        "cartoon",
+        "Good teacher, bad teacher",
+	"teaching",
+	"all",
+	"Part One.
+0:48 Teacher: (points at student) And you. What were you doing?
+Student: I, I was just ..
+Teacher: Going to what? Throw the eraser I suppose. .. It's a good thing I caught you. I'll make an example out of you. 
+Student: But I ..
+Teacher: That's enough out of you. Leave this room and report to the principal's office immediately.
+Student: (Coughs)
+Teacher: Who did that? .. All right, since you think it's so funny. The whole class can stay in for forty-five minutes this afternoon. Then you'll see how funny it is.
+
+Commentator: This is all wrong. Suppose Mr Grimes had tried another approach.
+
+Part Two.
+
+2:02 Fear is a more desirable molder of behavior than respect. The development of mutual undestanding between teacher and pupils will help eliminate disciplinary problems.
+
+Teacher: Suppose I had a blueprint of a bridge. It's going to be a hundred feet wide. But on this drawing, the bridge is only ten inches wide. Now how many feet would each inch represent? (points gun at student)
+Student: Ten feet.
+Teacher: That's right. Now you're getting it. Let's see if you can do the next one.
+
+Commentator: Classroom control and learning efficiency are products of good teaching. Learning must be made meaningful.
+Teacher: What is the ratio between four and a half yards and one and a half feet?
+Student: Aw, come on. Cut it out.
+Commentator: It must be remembered that some incidents will occur.
+Teacher: The right answer is nine. (Shoots student)
+Commentator: Skill in handling such occurrences prevent their growth into problems.
+Teacher: Well, that was a pretty good catch. For a moment, I thought you'd miss.
+Commentator: A friendly attitude with a sprinkling of humor goes a long way toward winning the regard and cooperation of the class.
+Student: I get the idea now. You know, I'm beginning to get some sense out of this.
+Student: I hope I do better next time.
+Commentator: A dangerous weapon provides its own discipline.
+	
+
+",
+"Part|0:48|2:02|Teacher|Student|Commentator|Grimes|blueprint of a bridge|feet|inches|inch|yards|catch|you'd miss|regard|sprinkling|weapon"
+	];
+
 push @$questions,
-[ "teaching", "discipline", 1, "all", "Grimes is disappointed with the students' low grades on a mathematics test.", "True" ],
-[ "teaching", "discipline", 2, "all", "In Part Two Grimes gets over the poor attitude to the students we see from him in Part One.", "True" ],
-[ "teaching", "discipline", 3, "all", "In Part One Grimes tells the students they don't do enough work, but in Part Two, he tells them about ratio.", "True" ],
-[ "teaching", "discipline", 4, "all", "In Part Two Grimes doesn't tell the students they don't do enough work. He tells them about ratio.", "True" ],
-[ "teaching", "discipline", 5, "all", "In Part Two he does a good job teaching the students, but in Part Two he doesn't do a good job explaining ratio.", "False" ],
-[ "teaching", "discipline", 6, "all", "The attitude of the students to Grimes and of Grimes to the students is good in Part One.", "False" ],
-[ "teaching", "discipline", 7, "all", "The attitude of the students to Grimes and of Grimes to the students is poor in Part Two", "False" ];
+[ "teaching", "cartoon", 1, "all", "The teacher thinks the student he points at is going to do some thing wrong, but he isn't.", "True" ],
+[ "teaching", "cartoon", 2, "all", "The teacher says all the students in the class have to stay in the afternoon, because one student coughed.", "True" ],
+[ "teaching", "cartoon", 3, "all", "The teacher supposes he has to control the students with fear. This is wrong.", "True" ],
+[ "teaching", "cartoon", 4, "all", "The students want to stay in in the afternoon to see how funny a cough is.", "False" ],
+[ "teaching", "cartoon", 5, "all", "The teacher shoots the student because he said the wrong answer.", "False" ],
+[ "teaching", "cartoon", 6, "all", "The teacher controls the students in Part One and Part Two with humor.", "False" ];
 
 uptodatepopulate( 'Text', $texts );
 uptodatepopulate( 'Question', $questions );
