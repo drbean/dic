@@ -46,8 +46,8 @@ sub update : Local {
 	my $player = $c->session->{player_id};
 	my $leagueId = $c->session->{league};
 	$exerciseId ||= $c->session->{exercise};
-	my $genre = $c->model("DB::Leaguegenre")->find(
-			{ league => $leagueId } )->genre;
+	my $genre = $c->model("DB::Leaguegenre")->search(
+			{ league => $leagueId } )->next->genre;
 	my $exercise = $c->model('DB::Exercise')->find(
 		{ genre => $genre, id => $exerciseId } );
 	my $text = $exercise->texts->next->id;
