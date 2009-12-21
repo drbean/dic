@@ -77,7 +77,7 @@ Partly-correct answers are accepted up to the first letter that is wrong.
 
 =cut
  
-sub clozeupdate : Local {
+sub clozeupdate : Private {
 	my ($self, $c, $exerciseId) = @_;
 	my $player = $c->session->{player_id};
 	my $league = $c->session->{league};
@@ -196,7 +196,7 @@ Words correctly answered in the text that are also in a comprehension question a
 
 =cut
  
-sub questionupdate : Local {
+sub questionupdate : Private {
 	my ($self, $c, $exerciseId) = @_;
 	my $player = $c->session->{player_id};
 	my $leagueId = $c->session->{league};

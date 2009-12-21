@@ -107,7 +107,7 @@ Take text from database and output cloze exercise. We create an id for each Word
 
 =cut
 
-sub clozecreate : Local {
+sub clozecreate : Private {
 	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
 	my $text = $c->stash->{text};
 	my $description = $text->description;
@@ -179,7 +179,7 @@ Create comprehension questions. NOT NECESSARY. WILL TRACK LATER: For a set of re
 
 =cut
 
-sub questioncreate : Local {
+sub questioncreate : Private {
 	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
 	my $genre = $c->stash->{genre};
 	my $text = $c->stash->{text};
