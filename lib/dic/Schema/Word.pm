@@ -12,6 +12,8 @@ __PACKAGE__->add_columns(
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "exercise",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
+  "target",
+  { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "id",
   { data_type => "SMALLINT", is_nullable => 0, size => undef },
   "class",
@@ -27,7 +29,7 @@ __PACKAGE__->add_columns(
   "posttext",
   { data_type => "CHAR", is_nullable => 1, size => 50 },
 );
-__PACKAGE__->set_primary_key("genre", "exercise", "id");
+__PACKAGE__->set_primary_key("genre", "exercise", "target", "id");
 
 
 # Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-08-26 18:19:13
