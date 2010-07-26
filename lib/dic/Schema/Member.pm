@@ -37,6 +37,9 @@ __PACKAGE__->belongs_to(league => 'dic::Schema::League', 'league');
 #     3) Column name in *this* table
 __PACKAGE__->belongs_to(player => 'dic::Schema::Player', 'player');
 
+__PACKAGE__->might_have( jigsawrole => 'dic::Schema::Jigsawrole',
+        {'foreign.player' => 'self.player', 'foreign.league' =>'self.league'});
+
 =head1 NAME
 
 DB::Member - A model object representing the JOIN between a player and 

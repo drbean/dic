@@ -1,0 +1,27 @@
+#!perl
+
+use lib 'lib';
+use lib 'web/lib';
+use YAML qw/LoadFile DumpFile/;
+use Grades;
+
+$_REPL->load_plugin('DumpHistory');
+
+my $leagueid = 'GL00012';
+
+my $league = League->new( id => $leagueid );
+my $g = Grades->new( league => $league );
+my $members = $league->members;
+my %m = map { $_->{id} => $_ } @$members;
+
+my $conversations = $g->conversations;
+my @op = map { $g->opponents($_) } @$conversations;
+
+use dic;
+use dic::Model::DB;
+use dic::Schema;
+
+my $d = dic::Schema->connect( 'dbi:SQLite:db/982', '', '' );
+
+my $m = $d->resultset('Member')->search({ league => $leagueid });
+my $q = $d->resultset('Quiz')->search({ league => $leagueid });

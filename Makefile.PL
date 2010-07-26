@@ -5,7 +5,7 @@ use inc::Module::Install;
 name 'dic';
 all_from 'lib/dic.pm';
 
-requires 'Catalyst::Runtime' => '5.80002';
+requires 'Catalyst::Runtime' => '5.7014';
 requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Action::RenderView';

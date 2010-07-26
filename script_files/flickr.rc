@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+
+use YAML qw/Dump LoadFile DumpFile/;
+
+use Flickr::API;
+
+my $api = Flickr::API->new({key =>
+	'ea697995b421c0532215e4a2cbadbe1e',
+	secret => 'ab2024b750a9d1f2' });
+my $tag = "마이애미";
+my $total = 42;
+my $miami = $api->execute_method('flickr.photos.search',
+	{ tags => $tag, per_page => $total, api_key =>
+		'ea697995b421c0532215e4a2cbadbe1e' });
+my $sets = $api->execute_method('flickr.photosets.getList',
+	{ user_id => '8293507@N08', api_key =>
+		'ea697995b421c0532215e4a2cbadbe1e' });
+my $photos = $api->execute_method('flickr.photosets.getPhotos',
+	{ photoset_id => '72157604992992331', extras => 'license,owner_name',
+		api_key => 'ea697995b421c0532215e4a2cbadbe1e' });
+my $methods = $api->execute_method('flickr.reflection.getMethods',
+	{ api_key => 'ea697995b421c0532215e4a2cbadbe1e' });
+

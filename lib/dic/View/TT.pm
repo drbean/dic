@@ -16,13 +16,6 @@ __PACKAGE__->config({
     # DEBUG => 'all'
 });
 
-use Template::Stash;
-
-$Template::Stash::SCALAR_OPS->{ucfirst} = sub {
-	my $string = shift;
-	return ucfirst($string);
-};
-
 =head1 NAME
 
 dic::View::TT - Catalyst TTSite View

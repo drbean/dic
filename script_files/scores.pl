@@ -67,9 +67,10 @@ print "In $dir directory:\n";
 my $scores;
 for my $id ( sort @leagueids )
 {
-	my $leagueplay = $playset->search({ league => $id });
 	# my @leagueExercises = @exerciseIds;
 	my @leagueExercises;
+	push @leagueExercises, @newExerciseList if $dir eq $id and $league;
+	my $leagueplay = $playset->search({ league => $id });
 	if ( $dir eq $id and $league ) {
 		push @leagueExercises, @newExerciseList;
 	}
@@ -79,7 +80,6 @@ for my $id ( sort @leagueids )
 		my @newExerciseList = $leagueplay->get_column('exercise')->all;
 		push @leagueExercises, @newExerciseList;
 	}
-	@leagueExercises = uniq @leagueExercises;
 	@leagueExercises = uniq @leagueExercises;
 	print $id . "\t", @leagueExercises , "Total\n";
 	print "============================================\n";
@@ -104,8 +104,6 @@ for my $id ( sort @leagueids )
 			my $score = $scores->{$id}->{$player}->{$exercise};
 			$score ||= '-';
 			print $score . "\t";
-			delete $scores->{$id}->{$player}->{$exercise} if
-				$scores->{$id}->{$player}->{$exercise} eq '-';
 		}
 		print "\n";
 	}

@@ -20,8 +20,10 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/GL00029 GL00030 GL00031 GL00034 FLA0016 MIA0017 BMA0099 BMA0100 FLA0030 FLA0027/;
+my @leagueids = qw/GL00012 GL00027 MIA0009 BMA0077 BMA0076 FLA0031 FLA0018/;
 my $dir = ( File::Spec->splitdir(getcwd) )[-1];
+$dir = qr/^(GL000|FL|MIA|BMA)/ if $dir eq 'dic';
+@leagueids = grep m/$dir/, @leagueids;
 
 no strict qw/subs refs/;
 my $connect_info = "${::name}::Model::DB"->config->{connect_info};
@@ -31,97 +33,38 @@ use strict;
 
 my $leagues = [
 		[ qw/id name field/ ],
-	[ "GL00029", "GL00029日語文共同學制虛擬班二", "中級英文聽說訓練" ],
-	[ "GL00030", "GL00030日語文共同學制虛擬班二", "中級英文聽說訓練" ],
-	[ "GL00031", "GL00031日語文共同學制虛擬班二", "中級英文聽說訓練" ],
-		[ "CLA0013", "CLA0013日華文大學二甲", "英文聽力及會話" ],
-		[ "FLA0015", "FLA0015夜應外大學二甲", "英語會話(二)" ],
-		[ "FLB0002", "FLB0002夜應外四技四甲", "英語演說" ],
-		[ "MIA0012", "MIA0012日資管大學二甲", "商用英文實務(二)" ],
-		[ "MIA0012", "MIA0012日資管大學二甲", "商用英文實務(二)" ],
-		[ "access", "英語自學室", "Listening" ],
-		[ "visitors", "Visitors", "Demonstration Play" ],
-		[ "dic", "Dictation", "Testing" ],
-	[ "access", "Self-Access Learning", "Listening" ],
+	[ "GL00012", "GL00012日語文共同學制虛擬班二", "中級英文聽說訓練" ],
+	[ "GL00027", "GL00027日語文共同學制虛擬班二", "中級英文聽說訓練" ],
+	[ "FLA0018", "FLA0018夜應外大學二甲", "英語會話" ],
+	[ "MIA0009", "MIA0009日資管大學二甲", "商用英文實務" ],
+	[ "BMA0076", "BMA0076日經管大學二甲", "商用英文實務" ],
+	[ "BMA0077", "BMA0077日經管大學二乙", "商用英文實務" ],
+	[ "FLA0031", "FLA0031夜應外大學二甲", "西洋通俗文化" ],
 	];
 
 uptodatepopulate( 'League', $leagues );
 
 my $leaguegenres = [
 			[ qw/league genre/ ],
-			[ "GL00029",	"intermediate" ],
-			[ "GL00030",	"intermediate" ],
-			[ "GL00031",	"intermediate" ],
-			[ "GL00034",	"intermediate" ],
-			[ "FLA0016",	"intermediate" ],
-			[ "MIA0017",	"business" ],
-			[ "BMA0099",	"business" ],
-			[ "BMA0100",	"business" ],
-			[ "FLA0030",	"business" ],
-			[ "FLA0027",	"intercultural" ],
-			[ "access",	"access" ],
+			[ "GL00012",	"intermediate" ],
+			[ "GL00027",	"intermediate" ],
+			[ "FLA0018",	"intermediate" ],
+			[ "MIA0009",	"business" ],
+			[ "BMA0077",	"business" ],
+			[ "BMA0076",	"business" ],
+			[ "FLA0031",	"friends" ],
 		];
 uptodatepopulate( 'Leaguegenre', $leaguegenres );
 
 my ($leaguefile, $players);
 
-for my $league ( 'GL00029', 'GL00030', 'GL00031', 'GL00034', 'FLA0016', 'MIA0017', 'BMA0099', 'BMA0100', 'FLA0030', 'FLA0027', ) {
+for my $league ( qw/GL00012 GL00027 FLA0018
+					MIA0009 BMA0077 BMA0076 FLA0031/ ) {
 	$leaguefile = LoadFile "/home/drbean/class/$league/league.yaml";
 	push @{$players->{$league}},
 		map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
 					@{$leaguefile->{member}};
 }
-
-push @{$players->{FLB0002}}, [split] for <<FLB0002 =~ m/^.*$/gm;
-N9361738 江映霖	ying
-N9361749 覃少穎	shao
-N9361750 曾思萍	si
-N9461708 張佩玲	pei
-N9461709 陳詩旻	shi
-N9461710 羅亞萍	ya
-N9461719 劉昭驊	zhao
-N9461725 張□明	ming
-N9461729 蔡純茹	chun
-N9461734 張雅臻	ya
-N9461735 張琨耀	kun
-N9461736 彭珠蓮	zhu
-N9461739 林佳汭	jia
-N9461745 陳怡蓁	yi
-N9461747 李安倫	an
-N9461748 陳思羽	si
-N9461751 黃芝鈴	zhi
-N9461753 葉又寧	you
-N9461754 李蕙丞	hui
-N9461756 許芷菱	zhi
-N9461760 吳雲禎	yun
-N9461762 陳震宇	zhen
-N9461764 林俊華	jun
-N9461766 劉毓汶	yu
-U9533039 蕭郁玲	yu
-FLB0002
-
-for my $league ( 'FLA0015', 'MIA0012', 'CLA0013', 'GL00003', 'GL00031' ) {
-	$leaguefile = LoadFile "/home/drbean/class/$league/league.yaml";
-	push @{$players->{$league}}, map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
-					@{$leaguefile->{member}};
-}
-
-push @{$players->{access}}, [split] for <<ACCESS =~ m/^.*$/gm;
-U9424017	黃季雯	Ji
-U9424014	莊詠竹	Yong
-U9621048	劉志偉	Zhi
-U9511049	黃湛明	Zhan
-U9717047	陳YuanWen  YU
-P220513110	程小芳	Xiao
-U9734022	廖子瑜	Zi
-U9734050	黃靖瑋	jing
-ACCESS
-
-push @{$players->{visitors}}, [split] for <<VISITORS =~ m/^.*$/gm;
-1        guest 1
-VISITORS
-
-@{$players->{dic}} = map { @{$players->{$_}} } keys %$players;
 
 push @{$players->{officials}}, [split] for <<OFFICIALS =~ m/^.*$/gm;
 193001	DrBean	ok

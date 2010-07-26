@@ -1,4 +1,4 @@
-#!/usr/bin/env perl
+#!/usr/bin/perl -w
 
 use strict;
 use warnings;
@@ -41,13 +41,14 @@ dic_test.pl [options] uri
 
 Run a Catalyst action from the command line.
 
-=head1 AUTHORS
+=head1 AUTHOR
 
-Catalyst Contributors, see Catalyst.pm
+Sebastian Riedel, C<sri@oook.de>
+Maintained by the Catalyst Core Team.
 
 =head1 COPYRIGHT
 
-This library is free software. You can redistribute it and/or modify
+This library is free software, you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut

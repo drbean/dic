@@ -57,7 +57,7 @@ sub auto : Private {
 
 # Allow unauthenticated users to reach the login page.  This
 # allows anauthenticated users to reach any action in the Login
-# controller.  To lock it down to a single action, we could use:
+# controller.  To lock it down to one action, we could use:
 #   if ($c->action eq $c->controller(’Login’)->action_for(’index’))
 # to only allow unauthenticated access to the C<index> action we
 # added above.

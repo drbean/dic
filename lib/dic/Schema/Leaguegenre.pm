@@ -30,7 +30,7 @@ __PACKAGE__->set_primary_key("league", "genre");
 #     3) Column name in *this* table
 # __PACKAGE__->belongs_to(getleague => 'dic::Schema::League', 'league');
 __PACKAGE__->has_one(getleague => 'dic::Schema::League',
-        { 'foreign.league' => 'self.league'});
+        { 'foreign.id' => 'self.league'});
 
 # has_many():
 #   args:

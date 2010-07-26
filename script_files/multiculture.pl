@@ -23,12 +23,11 @@ my $schema = "${::name}::Schema"->connect( @$connect_info );
 use strict;
 
 my $texts = [
-	[ qw(id description genre target content unclozeables) ],
+	[ qw(id description genre content unclozeables) ],
 	[
         "nyc",
         "New York City multiculturalism",
 	"intercultural",
-	'all',
         "BBC: Let's return now to Leonard Lopate at WNYC.
 
 Lopate: And you know, Madelika, the ... just our daily experience, uh, is a revelation when you think about diversity. My haircutter is from Morocco. My building superintendent is from Albania. My cab driver last night was from the Cote d'Ivoire.
@@ -54,7 +53,6 @@ I mean, if I need a dose of diversity, all I need to do is open my bedroom windo
         "swiss",
         "Multilingualism in Switzerland",
 	"intercultural",
-	'all',
         "10:47 Andrea: But, um, all right, why we are here today. Because I know that, uh, you are into this multi-language, or .. How can we call it?
 10:55 Stephanie: Multi-, multi-, multi-lingual stuff.
 10:58 Andrea: All right.
@@ -77,7 +75,6 @@ I mean, if I need a dose of diversity, all I need to do is open my bedroom windo
         "bilingual",
         "Bilingual Education",
 	"intercultural",
-	'all',
         "Jennifer Low: As graduates of the first Ethnic Studies classes returned to work in their communities, they found cultural training and sensitivity lacking in public schools.
 
 Immigrant students, arriving through the Immigration Act of 1965, were often expected to quickly assimilate and learn in English-Only classrooms. 
@@ -96,7 +93,6 @@ Anita Lau: If you look at the whole history of bilingual education, or education
         "immigration",
         "Anti-Immigration Group Strong",
 	"intercultural",
-	'all',
         "00:49 Dan Stein: I thought it would be good for Julie to tell us a little about what's going on and what Senator Durbin is doing in response to the overwhelming outpouring of calls, faxes and emails that are coming from the American people. How are you doing?
 01:01 Julie Kirchner: Hi, Dan. I'm doing just fine, thank you. 
 01:03 Dan Stein: Hi, what's going on?
@@ -119,7 +115,6 @@ And what's happened today is Senator Durbin has introduced a new amendment. He's
         "shock1",
         "What is culture shock?",
 	"intercultural",
-	'all',
         "Moving on to our topic of the week. What is culture shock? XXXX
 
 I used a couple of sources, as you'll see in the show notes.
@@ -144,7 +139,6 @@ The main idea, or, or my take on culture shock is, basically, that you move from
         "shock2",
         "What is culture shock? (Part 2)",
 	"intercultural",
-	'all',
         "Mostly, I'm talking about culture shock moving from one country to a new country. And you lose all your social cue, cues. All the ideas you had, ways of interacting with people.
 
 Even if the, the language is the same, there's, there's different body language. There's different values and norms and different ways of doing things. Even things that might seem the same are different. Hand gestures are different. And some countries, you might, er, use one very, er, vulgar hand sign and in another country it might be acceptable, or a way of greeting, or saying good luck famously. 
@@ -156,56 +150,56 @@ And it's that, you're taken out of your own environment, out of where you are sa
 You don't know how to, how things work necessarily. You don't know where to ...
 
 ",
-"cue|norms|vulgar|famously|contribute|extensively"
+"cue|norms|vulgar|famously"
 	],
 	];
 	
 uptodatepopulate( 'Text', $texts );
 
 my $questions = [
-			[ qw/genre text id target content answer/ ],
+			[ qw/genre text id content answer/ ],
 
-[ "intercultural", "nyc", 1, "all", "Shan Con likes being in New York, one of the most diverse cities in the world.", "True" ],
-[ "intercultural", "nyc", 2, "all", "Shan Con is from New York City, but he is half-Pakistani, half-Irish.", "True" ],
-[ "intercultural", "nyc", 3, "all", "Lopate's haircutter, building superintendent and cab driver are all not from New York.", "True" ],
-[ "intercultural", "nyc", 4, "all", "Lopate is a hyphenated American and Shan Con is not a hyphenated American.", "False" ],
-[ "intercultural", "nyc", 5, "all", "On the block in Brooklyn where Shan Con lives, there is a laundromat run by Moroccans.", "False" ],
-[ "intercultural", "nyc", 6, "all", "The smell in Shan Con's bedroom is bad, because of the Ukrainian, Korean and Latino combination.", "False" ],
+[ "intercultural", "nyc", 1, "Shan Con likes being in New York, one of the most diverse cities in the world.", "True" ],
+[ "intercultural", "nyc", 2, "Shan Con is from New York City, but he is half-Pakistani, half-Irish.", "True" ],
+[ "intercultural", "nyc", 3, "Lopate's haircutter, building superintendent and cab driver are all not from New York.", "True" ],
+[ "intercultural", "nyc", 4, "Lopate is a hyphenated American and Shan Con is not a hyphenated American.", "False" ],
+[ "intercultural", "nyc", 5, "On the block in Brooklyn where Shan Con lives, there is a laundromat run by Moroccans.", "False" ],
+[ "intercultural", "nyc", 6, "The smell in Shan Con's bedroom is bad, because of the Ukrainian, Korean and Latino combination.", "False" ],
 
-[ "intercultural", "swiss", 1, "all", "There are four official languages in Switzerland, but most people only speak one of those languages.", "True" ],
-[ "intercultural", "swiss", 2, "all", "In Finland, the official language is Finnish, but some people speak Swedish.", "True" ],
-[ "intercultural", "swiss", 3, "all", "Finland and Switzerland are different. There is more than one official language in Switzerland.", "True" ],
-[ "intercultural", "swiss", 4, "all", "Stephanie says that multilingual communities always have people who speak more than one language.", "False" ],
-[ "intercultural", "swiss", 5, "all", "There are three official languages in Switzerland: French, German, and Swiss.", "False" ],
-[ "intercultural", "swiss", 6, "all", "In both Switzerland and Finland, one language is the dominant language.", "False" ],
+[ "intercultural", "swiss", 1, "There are four official languages in Switzerland, but most people only speak one of those languages.", "True" ],
+[ "intercultural", "swiss", 2, "In Finland, the official language is Finnish, but some people speak Swedish.", "True" ],
+[ "intercultural", "swiss", 3, "Finland and Switzerland are different. There is more than one official language in Switzerland.", "True" ],
+[ "intercultural", "swiss", 4, "Stephanie says that multilingual communities always have people who speak more than one language.", "False" ],
+[ "intercultural", "swiss", 5, "There are three official languages in Switzerland: French, German, and Swiss.", "False" ],
+[ "intercultural", "swiss", 6, "In both Switzerland and Finland, one language is the dominant language.", "False" ],
 
-[ "intercultural", "bilingual", 1, "all", "Immigrant children were expected to learn English very quickly.", "True" ],
-[ "intercultural", "bilingual", 2, "all", "Educators found schools would not teach the primary language.", "True" ],
-[ "intercultural", "bilingual", 3, "all", "Bilingual education in the US began in San Francisco's Chinatown.", "True" ],
-[ "intercultural", "bilingual", 4, "all", "Activists in the Lau versus Nichols law case didn't want bilingual education in schools .", "False" ],
-[ "intercultural", "bilingual", 5, "all", "The US Supreme Court struggled to get bilingual education into schools in 1974.", "False" ],
-[ "intercultural", "bilingual", 6, "all", "Activists in the Student Strike wanted bilingual students to assimilate quickly.", "False" ],
+[ "intercultural", "bilingual", 1, "Immigrant children were expected to learn English very quickly.", "True" ],
+[ "intercultural", "bilingual", 2, "Educators found schools would not teach the primary language.", "True" ],
+[ "intercultural", "bilingual", 3, "Bilingual education in the US began in San Francisco's Chinatown.", "True" ],
+[ "intercultural", "bilingual", 4, "Activists in the Lau versus Nichols law case didn't want bilingual education in schools .", "False" ],
+[ "intercultural", "bilingual", 5, "The US Supreme Court struggled to get bilingual education into schools in 1974.", "False" ],
+[ "intercultural", "bilingual", 6, "Activists in the Student Strike wanted bilingual students to assimilate quickly.", "False" ],
 
-[ "intercultural", "immigration", 1, "all", "A lot of people opposed to illegal immigrants called senators in Washington.", "True" ],
-[ "intercultural", "immigration", 2, "all", "FAIR doesn't want the DREAM Act to be introduced.", "True" ],
-[ "intercultural", "immigration", 3, "all", "The phone calls made some senators retreat from support for the DREAM Act", "True" ],
-[ "intercultural", "immigration", 4, "all", "FAIR is unhappy that many people are calling senators' offices.", "False" ],
-[ "intercultural", "immigration", 5, "all", "Senator Durbin had been under pressure, but he is not under pressure today.", "False" ],
-[ "intercultural", "immigration", 6, "all", "The phone calls did not put pressure on Senator Durbin to make the DREAM Act look better.", "False" ],
+[ "intercultural", "immigration", 1, "A lot of people opposed to illegal immigrants called senators in Washington.", "True" ],
+[ "intercultural", "immigration", 2, "FAIR doesn't want the DREAM Act to be introduced.", "True" ],
+[ "intercultural", "immigration", 3, "The phone calls made some senators retreat from support for the DREAM Act", "True" ],
+[ "intercultural", "immigration", 4, "FAIR is unhappy that many people are calling senators' offices.", "False" ],
+[ "intercultural", "immigration", 5, "Senator Durbin had been under pressure, but he is not under pressure today.", "False" ],
+[ "intercultural", "immigration", 6, "The phone calls did not put pressure on Senator Durbin to make the DREAM Act look better.", "False" ],
 
-[ "intercultural", "shock1", 1, "all", "Culture shock is feelings of surprise when moving to a new environment.", "True" ],
-[ "intercultural", "shock1", 2, "all", "When you move to a new environment, the unfamiliar is a shock.", "True" ],
-[ "intercultural", "shock1", 3, "all", "Oberg's take on culture shock was it is almost a disease.", "True" ],
-[ "intercultural", "shock1", 4, "all", "Culture shock is not like the feelings felt when you move from one state to another.", "False" ],
-[ "intercultural", "shock1", 5, "all", "Oberg's main idea was that there is no cure for culture shock.", "False" ],
-[ "intercultural", "shock1", 6, "all", "The impact of moving from one culture to another is differnt from culture shock.", "False" ],
+[ "intercultural", "shock1", 1, "Culture shock is feelings of surprise when moving to a new environment.", "True" ],
+[ "intercultural", "shock1", 2, "When you move to a new environment, the unfamiliar is a shock.", "True" ],
+[ "intercultural", "shock1", 3, "Oberg's take on culture shock was it is almost a disease.", "True" ],
+[ "intercultural", "shock1", 4, "Culture shock is different to the feelings felt when you move from one state to another.", "False" ],
+[ "intercultural", "shock1", 5, "Oberg's main idea was that there is no cure for culture shock.", "False" ],
+[ "intercultural", "shock1", 6, "The impact of moving from one culture to another is differnt from culture shock.", "False" ],
 
-[ "intercultural", "shock2", 1, "all", "Hand gestures that might seem the same are different.", "True" ],
-[ "intercultural", "shock2", 2, "all", "When you travel, if there's different language, it might be a shock.", "True" ],
-[ "intercultural", "shock2", 3, "all", "When you're taken out of a safe, secure environment, the new country might after a while depress you.", "True" ],
-[ "intercultural", "shock2", 4, "all", "Even if you don't know how things work, interacting with people is cool, or the same.", "False" ],
-[ "intercultural", "shock2", 5, "all", "Even if the language is different, the body language and hand gestures are the same in different countries.", "False" ],
-[ "intercultural", "shock2", 6, "all", "When you move to a new environment, initially you feel depression, but after a while, it is cool.", "False" ],
+[ "intercultural", "shock2", 1, "Hand gestures that might seem the same are different.", "True" ],
+[ "intercultural", "shock2", 2, "When you travel, if there's different language, it might be a shock.", "True" ],
+[ "intercultural", "shock2", 3, "When you're taken out of a safe, secure environment, the new country might after a while depress you.", "True" ],
+[ "intercultural", "shock2", 4, "Even if you don't know how things work, interacting with people is cool, or the same.", "False" ],
+[ "intercultural", "shock2", 5, "Even if the language is different, the body language and hand gestures are the same in different countries.", "False" ],
+[ "intercultural", "shock2", 6, "When you move to a new environment, initially you feel depression, but after a while, it is cool.", "False" ],
 
 	];
 

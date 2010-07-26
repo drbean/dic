@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+
+use YAML qw/LoadFile Dump DumpFile/;
+use Net::FTP;
+my $f = Net::FTP->new('web.nuu.edu.tw');
+$f->login('greg','1514');
+$f->cwd('public_html');
+my $l = $f->ls;
+# my @l = grep m/access/, @$l;
+# my @sl = map m/access(.*)$/,  @l;
+# # $f->rename( $l[$_], "access/$sl[$_]" ) for 1 .. $#l;

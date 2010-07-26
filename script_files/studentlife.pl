@@ -68,9 +68,27 @@ my $texts = [
 	],
 	
 	[
+        "eden-1-GL",
+        "Eden",
+	"JUST RIGHT",
+	"all",
+	$eden1,
+	"Dennis Miller|Miller|forensics|Eden|Hartwell|Upton|spaghetti|sauce"
+	],
+
+	[
         "eden-2",
         "The color pink",
 	"access",
+	"all",
+	$eden2,
+	"Miller|Eden|sneakers"
+	],
+
+	[
+        "eden-2-GL",
+        "The color pink",
+	"JUST RIGHT",
 	"all",
 	$eden2,
 	"Miller|Eden|sneakers"
@@ -151,7 +169,7 @@ my $texts = [
 	[
         "family2",
         "Two different households",
-	"access",
+	"elementary",
 	"all",
         "Here are 2 stories about people living in two different houses. How are the people similar and how are they different?
 
@@ -182,38 +200,29 @@ $schema->populate( 'Text', $texts );
 my $questions = [
 			[ qw/genre text id target content answer/ ],
 
-[ "access", "eden-1", 1, "all", "The first student Miller talked with was Eden.", "True" ],
-[ "access", "eden-1", 2, "all", "Eden's favorite food is the spaghetti her mom makes.", "True" ],
-[ "access", "eden-1", 3, "all", "Eden thinks her mom's spaghetti is the best because she makes the best sauce.", "True" ],
-[ "access", "eden-1", 4, "all", "Miller doesn't want to try the spaghetti Eden's mom makes.", "False" ],
-[ "access", "eden-1", 5, "all", "Eden doesn't like the spaghetti her mom makes", "False" ],
-[ "access", "eden-1", 6, "all", "Miller hasn't tried the spaghetti Eden's mom makes.", "True" ],
+[ "JUST RIGHT", "eden-1-GL", 1, "all", "The first student Miller talked with was Eden.", "True" ],
+[ "JUST RIGHT", "eden-1-GL", 2, "all", "Eden's favorite food is the spaghetti her mom makes.", "True" ],
+[ "JUST RIGHT", "eden-1-GL", 3, "all", "Eden thinks her mom's spaghetti is the best because she makes the best sauce.", "True" ],
+[ "JUST RIGHT", "eden-1-GL", 4, "all", "Miller doesn't want to try the spaghetti Eden's mom makes.", "False" ],
+[ "JUST RIGHT", "eden-1-GL", 5, "all", "Eden doesn't like the spaghetti her mom makes", "False" ],
+[ "JUST RIGHT", "eden-1-GL", 6, "all", "Miller hasn't tried the spaghetti Eden's mom makes.", "True" ],
 
-[ "access", "eden-2", 1, "all", "Eden isn't wearing any pink.", "False" ],
-[ "access", "eden-2", 2, "all", "Eden is wearing pink sneakers.", "True" ],
-[ "access", "eden-2", 3, "all", "Eden's roommate decorated her half of the room in pink.", "False" ],
-[ "access", "eden-2", 4, "all", "Eden and her roommate worked out how to decorate the room beforehand.", "True" ],
-[ "access", "eden-2", 5, "all", "Eden thinks her roomate doesn't like pink.", "False" ],
-[ "access", "eden-2", 6, "all", "Eden decorated her half of the room the way she wanted it to be and her roommate decorated her half of the room the way she wanted it to be.", "True" ],
-[ "access", "eden-2", 7, "all", "The two halves of the room are decorated differently.", "True" ],
+[ "JUST RIGHT", "eden-2-GL", 1, "all", "Eden isn't wearing any pink.", "False" ],
+[ "JUST RIGHT", "eden-2-GL", 2, "all", "Eden is wearing pink sneakers.", "True" ],
+[ "JUST RIGHT", "eden-2-GL", 3, "all", "Eden's roommate decorated her half of the room in pink.", "False" ],
+[ "JUST RIGHT", "eden-2-GL", 4, "all", "Eden and her roommate worked out how to decorate the room beforehand.", "True" ],
+[ "JUST RIGHT", "eden-2-GL", 5, "all", "Eden thinks her roomate doesn't like pink.", "False" ],
+[ "JUST RIGHT", "eden-2-GL", 6, "all", "Eden decorated her half of the room the way she wanted it to be and her roommate decorated her half of the room the way she wanted it to be.", "True" ],
+[ "JUST RIGHT", "eden-2-GL", 7, "all", "The two halves of the room are decorated differently.", "True" ],
 
-[ "access", "eden-3", 1, "all", "Eden exchanged emails with her roommate before moving in.", "True" ],
-[ "access", "eden-3", 2, "all", "Miller sent Eden email so he got to know what she likes.", "False" ],
-
-[ "access", "eden-4", 1, "all", "Eden does a lot of stuff.", "True" ],
-[ "access", "eden-4", 2, "all", "Eden doesn't know what she likes.", "False" ],
-
-[ "access", "eden-5", 1, "all", "When Eden's mom said goodbye, Eden felt kind of sad.", "True" ],
-[ "access", "eden-5", 2, "all", "Eden's mom wasn't as hard on her as last year.", "False" ],
-
-[ "access", "family2", 1, "all", "Students in both houses often eat vegetables.", "True" ],
-[ "access", "family2", 2, "all", "None of the people in the second house do housework.", "True" ],
-[ "access" ,"family2", 3, "all", "Two of the people in one of the houses drink.", "True" ],
-[ "access", "family2", 4, "all", "The people in the first house sometimes exercise.", "True" ],
-[ "access", "family2", 5, "all", "Two of the people in one of the houses play computer games.", "True" ],
-[ "access", "family2", 6, "all", "One of the people in the first house smokes.", "False" ],
-[ "access", "family2", 7, "all", "The people in the second house sometimes study.", "True" ],
-[ "access", "family2", 8, "all", "In both houses, some of the people do some good things and some bad things.", "True" ],
+[ "elementary", "family2", 1, "all", "Students in both houses often eat vegetables.", "True" ],
+[ "elementary", "family2", 2, "all", "None of the people in the second house do housework.", "True" ],
+[ "elementary", "family2", 3, "all", "Two of the people in one of the houses drink.", "True" ],
+[ "elementary", "family2", 4, "all", "The people in the first house sometimes exercise.", "True" ],
+[ "elementary", "family2", 5, "all", "Two of the people in one of the houses play computer games.", "True" ],
+[ "elementary", "family2", 6, "all", "One of the people in the first house smokes.", "False" ],
+[ "elementary", "family2", 7, "all", "The people in the second house sometimes study.", "True" ],
+[ "elementary", "family2", 8, "all", "In both houses, some of the people do some good things and some bad things.", "True" ],
 
 	];
 

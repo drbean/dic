@@ -32,18 +32,20 @@ sub list : Local {
 	my ($self, $c, $exerciseId, $keyId) = @_;
 	my $player = $c->session->{player_id};
 	my $league = $c->session->{league};
-	my $genre = $c->model("DB::Leaguegenre")->search
-			( {league => $league} )->next->genre;
+	my $genre = $c->model("DB::Leaguegenre")->find
+			( {league => $league} )->genre;
 	my $exercise = $c->model('DB::Exercise')->find(
 				    {genre=> $genre, id=>$exerciseId});
+	my $jigsawrole = $c->model('DB::Jigsawrole')->find({ league => $league, player=>$player });
+	my $target = $jigsawrole->role;
 	my $contextlength = 16;
 	my $start = $keyId <= $contextlength? 1: $keyId - $contextlength;
 	my $end = $keyId + $contextlength;
 	my $words= $c->model('DB::Word')->search
 			    ({genre => $genre, });
-	my $keywordContext = $words->search( {exercise => $exerciseId},
-				{ where => { id => [ $start .. $end ] },
-				order_by => 'id' } );
+	my $keywordContext = $words->search(
+		{exercise => $exerciseId, target => $target },
+		{ where => { id => [ $start .. $end ] }, order_by => 'id' } );
 	my $playSet = $c->model('DB::Play')->search(
 			{player => $player, exercise => $exerciseId},
 			{ order_by => 'blank' } );
@@ -78,7 +80,8 @@ sub list : Local {
 		else { push @{$context{$prepost}}, $word->published; }
 	}
     $c->stash->{originalposttext} = $context{postkeyword};
-    my $keyword = $words->find( {id => $keyId, exercise => $exerciseId} );
+    my $keyword = $words->find(
+	    {id => $keyId, exercise => $exerciseId, target => $target} );
     my $stem = $keyword->dictionary->stem;
     my @conflates = $c->model( 'DB::Dictionary' )->search({stem => $stem});
     my (@kwics, %tokenCounts, %tokensUnclozed);
@@ -130,6 +133,7 @@ sub list : Local {
     $c->stash->{title} = $exercise->description;
     $c->stash->{id} = $exerciseId;
     $c->stash->{keyId} = $keyId;
+    $c->stash->{target} = $target;
     $c->stash->{reversed} = $exercise->type eq "Last"? 1: 0;
     $c->stash->{template} = 'kwic/list.tt2';
 }

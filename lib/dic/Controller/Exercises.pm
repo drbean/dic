@@ -1,8 +1,8 @@
 package dic::Controller::Exercises;
 
-use Moose;
-BEGIN { extends 'Catalyst::Controller'; }
-
+use strict;
+use warnings;
+use parent 'Catalyst::Controller';
 use Dictionary;
 use FirstLast;
 use Ctest;
@@ -51,13 +51,19 @@ sub list : Local {
     my ($self, $c) = @_;
     my $leagueid = $c->session->{league};
     my $league = $c->model('DB::League')->find({id=>$leagueid});
-    my $genre = $c->model('DB::Leaguegenre')->search({league=>$leagueid})
-    					->next->genre;
+    my $genre = $c->model('DB::Leaguegenre')->next({league=>$leagueid})->genre;
     # my $genre = $league->genre->genre;
     # Retrieve all of the text records as text model objects and store in
     # stash where they can be accessed by the TT template
-    $c->stash->{exercises} = [$c->model('DB::Exercise')->search(
-	    { genre => $genre })];
+    my $exercises = $c->model('DB::Exercise')->search({ genre => $genre });
+    my @exercises;
+    while ( my $exercise = $exercises->next ) {
+	    push @exercises, {
+		    id => $exercise->id,
+		    description => $exercise->description,
+		    type => $exercise->type };
+    }
+    $c->stash->{exercises} = \@exercises;
     # Set the TT template to use.  You will almost always want to do this
     # in your action methods (actions methods respond to user input in
     # your controllers).
@@ -79,7 +85,6 @@ sub list : Local {
     my %quizscores = map { $_->exercise => $_->get_column('questions') } @quiz;
     $c->stash->{questions} = \%quizscores;
     $c->stash->{league} = $league->name;
-    $c->stash->{genre} = $genre;
     $c->stash->{template} = 'exercises/list.tt2';
 }
 
@@ -94,10 +99,6 @@ Create comprehension questions and cloze exercise. If 2 different leagues have t
 
 sub create : Local {
 	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
-	my $text = $c->model('DB::Text')->find( { id=>$textId } );
-	my $genre = $text->genre;
-	$c->stash->{text} = $text;
-	$c->stash->{genre} = $genre;
 	$c->forward('clozecreate');
 	$c->forward('questioncreate');
 	$c->stash->{exercise_id} = $exerciseId;
@@ -110,67 +111,71 @@ Take text from database and output cloze exercise. We create an id for each Word
 
 =cut
 
-sub clozecreate : Private {
+sub clozecreate : Local {
 	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
-	my $text = $c->stash->{text};
-	my $description = $text->description;
-	my $content = $text->content;
-	my $unclozeables = $text->unclozeables;
-	my $genre = $c->stash->{genre};
-	my $index=0;
-	my $clozeObject = $exerciseType->parse($unclozeables, $content);
-	my $cloze = $clozeObject->cloze;
-	my $newWords = $clozeObject->dictionary;
-	my (@wordRows, @dictionaryList, %wordCount, @wordstemRows);
-	my $dictionary = $c->model('DB::Dictionary')->search;
-	my $id = 1;
-	my @columns = $c->model('DB::Word')->result_source->columns;
-	foreach my $word ( @$cloze )
-	{
-		my $token = $word->{published};
-		if ( $token and $newWords->{$token} )
+	my $texts = $c->model('DB::Text')->search( { id=>$textId } );
+	while ( my $text = $texts->next ) {
+		my $description = $text->description;
+		my $content = $text->content;
+		my $unclozeables = $text->unclozeables;
+		my $genre = $text->genre;
+		my $target = $text->target;
+		my $index=0;
+		my $clozeObject = $exerciseType->parse($unclozeables, $content);
+		my $cloze = $clozeObject->cloze;
+		my $newWords = $clozeObject->dictionary;
+		my (@wordRows, @dictionaryList, %wordCount, @wordstemRows);
+		my $dictionary = $c->model('DB::Dictionary')->search;
+		my $id = 1;
+		my @columns = $c->model('DB::Word')->result_source->columns;
+		foreach my $word ( @$cloze )
 		{
-			(my $initial = $token) =~ s/^(.).*$/$1/;
-			my $entry = $dictionary->find(
-				{ genre => $genre, word => $token });
-			my $count = $entry? $entry->count: 0;
-			my $stem = (stem $token)->[0];
-			my $suffix;
-			if ( $stem =~ m/.i$/ )
+			my $token = $word->{published};
+			if ( $token and $newWords->{$token} )
 			{
-				my $istem = $stem;
-				chop $istem;
-				($suffix = lc $token) =~ s/^$istem.(.*)$/$1/;
+				(my $initial = $token) =~ s/^(.).*$/$1/;
+				my $entry = $dictionary->find(
+					{ genre => $genre, word => $token });
+				my $count = $entry? $entry->count: 0;
+				my $stem = (stem $token)->[0];
+				my $suffix;
+				if ( $stem =~ m/.i$/ )
+				{
+					my $istem = $stem;
+					chop $istem;
+					($suffix = lc $token) =~ s/^$istem.(.*)$/$1/;
+				}
+				else { ($suffix = lc $token) =~ s/^$stem(.*)$/$1/; }
+				$dictionary->update_or_create({
+					genre => $genre,
+					word => $token,
+					initial => $initial,
+					stem => $stem || '',
+					suffix => $suffix || '',
+					count =>++$count});
 			}
-			else { ($suffix = lc $token) =~ s/^$stem(.*)$/$1/; }
-			$dictionary->update_or_create({
-				genre => $genre,
-				word => $token,
-				initial => $initial,
-				stem => $stem || '',
-				suffix => $suffix || '',
-				count =>++$count});
+			my $class = ref $word;
+			my %row = map { $_ => $word->{$_} } @columns;
+			$row{genre} = $genre;
+			$row{exercise} = $exerciseId;
+			$row{target} = $target;
+			$row{id} = $id++;
+			$row{class} = $class;
+			push @wordRows, \%row;
 		}
-		my $class = ref $word;
-		my %row = map { $_ => $word->{$_} } @columns;
-		$row{genre} = $genre;
-		$row{exercise} = $exerciseId;
-		$row{id} = $id++;
-		$row{class} = $class;
-		push @wordRows, \%row;
+		$c->model('DB::Word')->populate( \@wordRows );
+		#@dictionaryList = map { m/^(.).*$/;
+		#		{ exercise => $exerciseId, word => $_, initial => $1,
+		#		count => $newWords->{$_} } } keys %$newWords;
+		my $exercise = $c->model('DB::Exercise')->update_or_create({
+					id => $exerciseId,
+					text => $textId,
+					genre => $genre,
+					description => $description,
+					type => $exerciseType
+				});
 	}
-	$c->model('DB::Word')->populate( \@wordRows );
-	#@dictionaryList = map { m/^(.).*$/;
-	#		{ exercise => $exerciseId, word => $_, initial => $1,
-	#		count => $newWords->{$_} } } keys %$newWords;
-	my $exercise = $c->model('DB::Exercise')->create({
-				id => $exerciseId,
-				text => $textId,
-				genre => $genre,
-				description => $description,
-				type => $exerciseType
-			});
-	$c->stash->{exercise} = $exercise;
+	$c->stash->{exercise} = $exerciseId;
 }
 
 
@@ -182,55 +187,62 @@ Create comprehension questions. NOT NECESSARY. WILL TRACK LATER: For a set of re
 
 =cut
 
-sub questioncreate : Private {
+sub questioncreate : Local {
 	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
-	my $genre = $c->stash->{genre};
-	my $text = $c->stash->{text};
-	my $exercise = $c->stash->{exercise};
-	my $questions = $text->questions;
-	my @wordRows;
-	my $questionwords = $c->model('DB::Questionword');
-	my $ftp = Net::FTP->new('web.nuu.edu.tw') or die "web.nuu.edu.tw? $@";
-	$ftp->login('greg', '1514') or die "web.nuu.edu.tw login? $@";
-	$ftp->cwd("public_html/$genre") or die "web.nuu.edu.tw/~greg/public_html? $@";
-	$ftp->binary;
-	my $voice = 'voice_cmu_us_bdl_arctic_hts';
-	while ( my $question = $questions->next )
-	{		
-		my $questionId = $question->id;
-		die unless defined $questionId;
-		my $content = $question->content;
-		my $remote = "$exerciseId$questionId.mp3";
-		my $local = "/tmp/$genre/$remote";
-		system( "echo \"$content\" |
-			text2wave -eval \"($voice)\" -otype wav |
-			lame -h -V 0 - $local" ) == 0 or die "speech file? $!";
-		$ftp->put($local) or die
+	my $texts = $c->model('DB::Text')->search( { id=>$textId } );
+	while ( my $text = $texts->next ) {
+		my $genre = $text->genre;
+		my $target = $text->target;
+		my $questions = $text->questions;
+		my @wordRows;
+		my $ftp = Net::FTP->new('web.nuu.edu.tw') or
+					die "web.nuu.edu.tw? $@";
+		$ftp->login('greg', '1514') or die "web.nuu.edu.tw login? $@";
+		$ftp->cwd("public_html/$genre") or die
+			"web.nuu.edu.tw/~greg/public_html? $@";
+		$ftp->binary;
+		my $voice = 'voice_cmu_us_bdl_arctic_hts';
+		while ( my $question = $questions->next )
+		{		
+			my $questionId = $question->id;
+			die unless defined $questionId;
+			my $content = $question->content;
+			my $remote = "$exerciseId$target$questionId.mp3";
+			my $local = "/tmp/$genre/$remote";
+			system( "echo \"$content\" |
+				text2wave -eval \"($voice)\" -otype wav -o /tmp/question.wav"
+				) == 0 or die "text2wave? $@,";
+			system( "lame -h -V 0 /tmp/question.wav $local" ) == 0 or
+				die "lame $local? $@,";
+			$ftp->put($local) or die
 			"put $remote on web.nuu.edu.tw? $@";
-		my $answer = $question->answer;
-		my $punctuation = qr/([^A-Za-z0-9\\n]+)/;
-		my @words = split $punctuation, $content;
-		my $clozewords = $exercise->words;
-		my $id;
-		foreach my $word ( @words )
-		{
-			my $cloze = $clozewords->search(
-				{ published => $word })->next;
-			my $link = $cloze? $cloze->id: 0;
-			my $row = {
-				genre => $genre,
-				text => $textId,
-				question => $questionId,
-				id => $id++,
-				content => $word,
-				link => $link };
-			push @wordRows, $row;
+			my $answer = $question->answer;
+			my $punctuation = qr/([^A-Za-z0-9\\n]+)/;
+			my @words = split $punctuation, $content;
+			my $clozewords = $c->model('DB::Word')->search(
+				{ genre => $genre, exercise => $exerciseId,
+					target => $target });
+			my $id;
+			foreach my $word ( @words )
+			{
+				my $cloze = $clozewords->search(
+					{ published => $word })->next;
+				my $link = $cloze? $cloze->id: 0;
+				my $row = {
+					genre => $genre,
+					text => $textId,
+					target => $target,
+					question => $questionId,
+					id => $id++,
+					content => $word,
+					link => $link };
+				push @wordRows, $row;
+			}
 		}
+		$c->model('DB::Questionword')->populate( \@wordRows );
 	}
-	$questionwords->populate( \@wordRows );
 }
 			
-
 =head2 delete
 
 Delete an exercise. Delete of Questions and Questionwords done here too. TODO But delete of Questionwords not appearing to be done!

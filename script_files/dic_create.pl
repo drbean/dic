@@ -1,22 +1,10 @@
-#!/usr/bin/env perl
+#!/usr/bin/perl -w
 
 use strict;
 use warnings;
 use Getopt::Long;
 use Pod::Usage;
-eval "use Catalyst::Helper;";
-
-if ($@) {
-  die <<END;
-To use the Catalyst development tools including catalyst.pl and the
-generated script/myapp_create.pl you need Catalyst::Helper, which is
-part of the Catalyst-Devel distribution. Please install this via a
-vendor package or by running one of -
-
-  perl -MCPAN -e 'install Catalyst::Devel'
-  perl -MCPANPLUS -e 'install Catalyst::Devel'
-END
-}
+use Catalyst::Helper;
 
 my $force = 0;
 my $mech  = 0;
@@ -74,13 +62,14 @@ Existing component files are not overwritten.  If any of the component files
 to be created already exist the file will be written with a '.new' suffix.
 This behavior can be suppressed with the C<-force> option.
 
-=head1 AUTHORS
+=head1 AUTHOR
 
-Catalyst Contributors, see Catalyst.pm
+Sebastian Riedel, C<sri@oook.de>
+Maintained by the Catalyst Core Team.
 
 =head1 COPYRIGHT
 
-This library is free software. You can redistribute it and/or modify
+This library is free software, you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut

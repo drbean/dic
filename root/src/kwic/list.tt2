@@ -13,7 +13,7 @@ Back to <a href="[% Catalyst.uri_for('/play/update/') _ id %]">[% title %] Exerc
 [%- UNLESS stopword %]
 <h3>flickr picture of [% word %]</h3>
 
-<p>One word's worth of "[% word %]" pictures is <a href="[% Catalyst.uri_for('/pics/find/') _ id %]/[% keyId %]">how many pictures?</a></p>
+<p>One word's worth of "[% word %]" pictures is <a href="[% Catalyst.uri_for('/pics/find/') _ id %]/[% target %]/[% keyId %]">how many pictures?</a></p>
 [%- END %]
 
 <h3>Other occurences of [% word %]</h3>

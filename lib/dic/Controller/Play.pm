@@ -2,10 +2,8 @@ package dic::Controller::Play;
 
 use strict;
 use warnings;
-# use parent 'Catalyst::Controller';
-# use FirstLast;
-use Moose;
-BEGIN { extends 'Catalyst::Controller'; }
+use parent 'Catalyst::Controller';
+use FirstLast;
 
 =head1 NAME
 
@@ -45,17 +43,19 @@ sub update : Local {
 	my ($self, $c, $exerciseId) = @_;
 	my $player = $c->session->{player_id};
 	my $leagueId = $c->session->{league};
+	my $target = $c->model('DB::Jigsawrole')->find({
+			league => $leagueId, player => $player });
+	my $targetId = $target? $target->role: 'all';
 	$exerciseId ||= $c->session->{exercise};
-	my $genre = $c->model("DB::Leaguegenre")->search(
-			{ league => $leagueId } )->next->genre;
-	my $exercise = $c->model('DB::Exercise')->find(
-		{ genre => $genre, id => $exerciseId } );
-	my $text = $exercise->texts->next->id;
+	my $genre = $c->model("DB::Leaguegenre")->find(
+			{ league => $leagueId } )->genre;
+	my $text = $c->model('DB::Exercise')->find(
+		{ genre => $genre, id => $exerciseId } )->texts->next->id;
 	$c->stash->{genre} = $genre;
-	$c->stash->{exercise} = $exercise;
+	$c->stash->{exercise} = $exerciseId;
 	$c->stash->{text} = $text;
 	my $questions = $c->model('DB::Question')->search({
-			genre => $genre, text => $text, });
+			genre => $genre, text => $text, target => $targetId });
 	my $questionid = $c->session->{question};
 	my $question;
 	if ( defined $questionid ) {
@@ -67,11 +67,34 @@ sub update : Local {
 								)->next;
 		$c->session->{question} = $question->id;
 	}
+	$c->stash->{target} = $targetId;
 	$c->stash->{question} = $question;
-	$c->forward('clozeupdate');
-	$c->forward('questionupdate', $exerciseId);
-	$c->stash->{template} = "play/question.tt2";
+	my $quiz = $c->model('DB::Quiz')->find({ player => $player, league =>
+			$leagueId, exercise => $exerciseId, question => $questionid });
+	if ( $quiz and $quiz->correct == 1 ) {
+		$c->stash->{status_msg} =
+			"Congratulations, $player, on the correct answer for the
+			$exerciseId exercise.
+			<p>Full score for this homework.";
+		$c->stash->{template} = "play/gameover.tt2";
 	}
+	elsif ( $quiz and $quiz->correct == 0 ) {
+		$c->stash->{status_msg} =
+			"$player did not get the correct answer for the
+			$exerciseId exercise.
+			<p>Fill in the remaining letters for a full score 
+				for this homework.";
+		$c->forward('clozeupdate');
+		$c->stash->{template} = "play/start.tt2";
+	}
+	else {
+		$c->forward('clozeupdate');
+		$c->forward('questionupdate', $exerciseId);
+		return if $c->stash->{template} and
+						$c->stash->{template} eq "play/gameover.tt2";
+		$c->stash->{template} = "play/question.tt2";
+	}
+}
 
 
 =head2 clozeupdate
@@ -80,24 +103,24 @@ Partly-correct answers are accepted up to the first letter that is wrong.
 
 =cut
  
-sub clozeupdate : Private {
+sub clozeupdate : Local {
 	my ($self, $c, $exerciseId) = @_;
 	my $player = $c->session->{player_id};
 	my $league = $c->session->{league};
-	my $exercise = $c->stash->{exercise};
-	$exerciseId ||= $exercise->id;
+	$exerciseId ||= $c->session->{exercise};
+	my $target = $c->stash->{target};
 	my $genre = $c->stash->{genre};
-	my $exerciseType = $exercise->type;
+	my $exerciseType = $c->model('DB::Exercise')->find(
+			{ genre => $genre, id =>$exerciseId },)->type;
 	my $textId = $c->stash->{text};
 	my $title = $c->model('DB::Text')->find({
-			id => $textId, })->description;
+			id => $textId, target => $target })->description;
 	my $wordSet = $c->model('DB::Word')->search(
-			{genre => $genre, exercise => $exerciseId},
+			{genre => $genre, exercise => $exerciseId, target => $target},
 			{ order_by => 'id' } );
 	my $playSet = $c->model('DB::Play')->search(
 			{player => $player, exercise => $exerciseId},
 			{ order_by => 'blank' } );
-	my $dictionary = $c->model('DB::Dictionary');
 	my $responses = $c->request->params;
 	my $play =  $c->model('DB::Play');
 	my $score = 0;
@@ -106,13 +129,12 @@ sub clozeupdate : Private {
 	{
 		my $id = $word->id;
 		my $unclozed = $word->unclozed;
+		my $entry = $word->dictionary;
+		my $kwic = ($entry and $entry->count > 1)? 1: 0;
 		my $class = $word->class;
 		my $published = $word->published;
 		if ( $class eq 'Word' )
 		{
-			my $stem = $word->dictionary->stem;
-			my $kwic = ($stem and
-				$dictionary->search({stem => $stem})->count > 1)? 1: 0;
 			if ( $exerciseType eq "FirstLast" )
 			{
 				chop $published unless length $published <= 2;
@@ -188,8 +210,9 @@ sub clozeupdate : Private {
 	$c->stash->{exercise_id} = $exerciseId;
 	$c->stash->{title} = $title;
 	$c->stash->{cloze} = \@cloze;
-	$c->stash->{status_msg} = "$name has $score letters correct";
+	$c->stash->{status_msg} .= "<p>$name has $score letters correct";
 	$c->stash->{reversed} = $exerciseType eq "Last"? 1: 0;
+	$c->stash->{words} = $wordSet;
 }
 
 
@@ -199,11 +222,10 @@ Words correctly answered in the text that are also in a comprehension question a
 
 =cut
  
-sub questionupdate : Private {
+sub questionupdate : Local {
 	my ($self, $c, $exerciseId) = @_;
 	my $player = $c->session->{player_id};
 	my $leagueId = $c->session->{league};
-	my $exercise = $c->stash->{exercise};
 	my $question = $c->stash->{question};
 	$c->stash->{question_id} = $question->id;
 	my $questionWords = $question->words;
@@ -213,7 +235,7 @@ sub questionupdate : Private {
 		my $correctAnswer = $question->answer;
 		my $correct = $answer =~ m/$correctAnswer/i? 1: 0;
 		my $quizplay = $c->model('DB::Quiz');
-		$quizplay->update_or_create({
+		my $quiz = $quizplay->create({
 			league => $leagueId,
 			exercise => $exerciseId,
 			player => $player,
@@ -221,15 +243,19 @@ sub questionupdate : Private {
 			answer => $answer,
 			correct => $correct });
 		if ( $correct ) {
-		$c->stash->{status_msg} .= 
-				" Your answer, \"$answer\" is correct."
+			$c->stash->{status_msg} =
+				"Congratulations, $player, on the correct answer for the
+				$exerciseId exercise.
+				<p>Full score for this homework.";
+			$c->stash->{template} = "play/gameover.tt2";
 		}
 		else {
-			$c->stash->{status_msg} .= " Your answer: \"$answer\".
-				The correct answer: \"$correctAnswer\".";
+			$c->stash->{status_msg} .= " Your answer for the $exerciseId is
+				not correct. You cannot change your answer.";
 		}
+		return;
 	}
-	my $wordSet = $exercise->words;
+	my $wordSet = $c->stash->{words};
 	my $playSet = $c->model('DB::Play')->search(
 			{player => $player, exercise => $exerciseId},
 			{ order_by => 'blank' } );

@@ -1,5 +1,8 @@
 #!perl
 
+# Last Edit;
+# $Id$
+
 use strict;
 use warnings;
 use lib 'lib';
@@ -7,7 +10,7 @@ use lib 'lib';
 use Config::General;
 use Cwd;
 use File::Spec;
-use List::Util qw/first/;
+use List::Util qw/first shuffle/;
 use List::MoreUtils qw/all/;
 use YAML qw/LoadFile/;
 
@@ -17,14 +20,10 @@ BEGIN {
 				unless @MyAppConf == 1;
 	my %config = Config::General->new($MyAppConf[0])->getall;
 	$::name = $config{name};
+	$::leagues = $config{leagues};
 	require "$::name.pm"; $::name->import;
 	require "$::name/Schema.pm"; $::name->import;
 }
-
-my @leagueids = qw/MIA0012/;
-my $dir = ( File::Spec->splitdir(getcwd) )[-1];
-$dir = qr/^(GL000|CLA|FL|MIA)/ if $dir eq 'dic';
-@leagueids = grep m/$dir/, @leagueids;
 
 no strict qw/subs refs/;
 my $connect_info = "${::name}::Model::DB"->config->{connect_info};
@@ -32,36 +31,49 @@ my $connect_info = "${::name}::Model::DB"->config->{connect_info};
 my $schema = "${::name}::Schema"->connect( @$connect_info );
 use strict;
 
+my $genre = $ARGV[0];
+
+my @leagues = $schema->resultset('Leaguegenre')->search({ genre => $genre });
+my @leagueids = map { $_->getleague->id } @leagues;
+die "No leagues in \"$genre\" genre," unless @leagueids;
 my ($groupfile, $players, @allLeaguerolebearers);
-my @roleIds = ( 'A'..'D' );
 
 for my $id ( @leagueids ) {
-	my $league = LoadFile "/home/$ENV{USER}/class/$id/league.yaml";
+	my $dir = "$::leagues/$id";
+	my $league = LoadFile "$dir/league.yaml";
 	my $members = $league->{member};
-	my $lastsession = $league->{series}->[-1];
-	my $groups = LoadFile "/home/$ENV{USER}/class/$id/$lastsession/groups.yaml";
+	my $groupwork = "$dir/$league->{groupwork}";
+	my @subdirs = grep { -d } glob "$groupwork/*";
+	my $lastsession = ( sort
+				{ $b <=> $a } map m/^$groupwork\/(\d+)$/, @subdirs )[-1];
+	my $groups = LoadFile "$groupwork/$lastsession/jigsaw.yaml";
 	my $players = $schema->resultset('Player');
 	my %rolebearers;
 	for my $group ( keys %$groups ) {
-		for my $n ( 0..3 ) {
+		my @roleIds = shuffle ( 'A'..'D' );
+		die "${id}'s $group group?" unless ref $groups->{$group} eq 'ARRAY';
+		my @members = @{$groups->{$group}};
+		for my $n ( 0 .. @members-1 ) {
 			my $name = $groups->{$group}->[$n];
+			next unless $name;
 			my $member = first { $_->{name} eq $name } @$members;
 			my $Chinese = $member->{Chinese};
 			my $count = $players->count( { name=>$Chinese } );
-			die "$count ${name}s in $id league" unless $count==1;
-			my $player = $players->find( { name => $Chinese } );
-			my $id = $player->id;
+			die "$name in $id league $group group not a Player"
+							unless $count;
+			my $playerid = $member->{id};
+			my $player = $players->find( { id => $playerid } );
 			die "2 ${name}s in $id league, 1 in $group" if
-							$rolebearers{$id};
+							$rolebearers{$playerid};
 			my $role = $roleIds[$n];
-			$rolebearers{$id} = [ $id, $role ];
+			$rolebearers{$playerid} = [ $id, $playerid, $role ];
 		}
 		push @allLeaguerolebearers, values %rolebearers;
 	}
 }
 
 
-uptodatepopulate( 'Jigsawrole', [ [ qw/player role/ ], 
+uptodatepopulate( 'Jigsawrole', [ [ qw/league player role/ ], 
 	# [ 193001, 1 ],
 				@allLeaguerolebearers ] );
 
@@ -81,15 +93,15 @@ sub uptodatepopulate
 
 =head1 NAME
 
-script_files/playerleagues.pl.pl - populate leagues, players, members, roles, rolebrarer tables
+script_files/jigsawroles.pl - assign text sections to individual players in group
 
 =head1 SYNOPSIS
 
-perl script_files/playerleagues.pl
+perl script_files/jigsawroles.pl intermediate
 
 =head1 DESCRIPTION
 
-INSERT INTO players (id, name, password) VALUES (?, ?, ?)
+INSERT INTO jigsawroles (league, player, role) VALUES (?, ?, ?)
 
 =head1 AUTHOR
 

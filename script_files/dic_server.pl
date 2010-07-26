@@ -1,10 +1,10 @@
-#!/usr/bin/env perl
+#!perl -w
 
-BEGIN {
+BEGIN { 
     $ENV{CATALYST_ENGINE} ||= 'HTTP';
-    $ENV{CATALYST_SCRIPT_GEN} = 33;
+    $ENV{CATALYST_SCRIPT_GEN} = 31;
     require Catalyst::Engine::HTTP;
-}
+}  
 
 use strict;
 use warnings;
@@ -24,13 +24,12 @@ my $restart_delay     = 1;
 my $restart_regex     = '(?:/|^)(?!\.#).+(?:\.yml$|\.yaml$|\.conf|\.pm)$';
 my $restart_directory = undef;
 my $follow_symlinks   = 0;
-my $background        = 0;
 
 my @argv = @ARGV;
 
 GetOptions(
     'debug|d'             => \$debug,
-    'fork|f'              => \$fork,
+    'fork'                => \$fork,
     'help|?'              => \$help,
     'host=s'              => \$host,
     'port=s'              => \$port,
@@ -40,7 +39,6 @@ GetOptions(
     'restartregex|rr=s'   => \$restart_regex,
     'restartdirectory=s@' => \$restart_directory,
     'followsymlinks'      => \$follow_symlinks,
-    'background'          => \$background,
 );
 
 pod2usage(1) if $help;
@@ -65,7 +63,6 @@ dic->run( $port, $host, {
     restart_regex     => qr/$restart_regex/,
     restart_directory => $restart_directory,
     follow_symlinks   => $follow_symlinks,
-    background        => $background,
 } );
 
 1;
@@ -97,7 +94,6 @@ dic_server.pl [options]
                       (defaults to '[SCRIPT_DIR]/..')
    -follow_symlinks   follow symlinks in search directories
                       (defaults to false. this is a no-op on Win32)
-   -background        run the process in the background
  See also:
    perldoc Catalyst::Manual
    perldoc Catalyst::Manual::Intro
@@ -106,13 +102,14 @@ dic_server.pl [options]
 
 Run a Catalyst Testserver for this application.
 
-=head1 AUTHORS
+=head1 AUTHOR
 
-Catalyst Contributors, see Catalyst.pm
+Sebastian Riedel, C<sri@oook.de>
+Maintained by the Catalyst Core Team.
 
 =head1 COPYRIGHT
 
-This library is free software. You can redistribute it and/or modify
+This library is free software, you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut
