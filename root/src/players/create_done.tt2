@@ -1,0 +1,20 @@
+[% # Set the page title.  META can 'go back' and set values in templates -%]
+[% # that have been processed 'before' this template (here it's for      -%]
+[% # root/lib/site/html and root/lib/site/header).  Note that META on    -%]
+[% # simple strings (e.g., no variable interpolation).                   -%]
+[% META title = 'Player Created' %]
+
+[% # Output information about the record that was added.  First title.       -%]
+<p>Added player [% player.id %] [%player.name %]
+
+[% # Output the leauges for the player that was added -%]
+      [% tt_leagues = [];
+         tt_leagues.push( league.name league.field ) FOREACH league = player.leagues %]
+      [% # Now use a TT 'virtual method' to display the member count in parens   -%]
+      ([% tt_leagues.size %])
+      [% # Use another TT vmethod to join & print the names & comma separators   -%]
+      [% tt_leagues.join(', ') %]
+
+[% # Provide a link back to the player form_create method %]
+[% # 'uri_for()' builds a full URI; e.g., 'http://localhost:3000/leagues/list' -%]
+<p><a href="[% Catalyst.uri_for('/players/form_create') %]">Next player?</a></p>

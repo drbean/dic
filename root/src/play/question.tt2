@@ -1,0 +1,59 @@
+[% META title = "Dictation exercise" -%]
+
+<ul>
+<li>
+<form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
+  <ul><li>Question:
+
+  [% FOREACH word IN questionwords -%]
+  [% IF word.Newline -%]
+  <br>
+  [% ELSE -%]
+  [%- word -%]
+  [% END -%]
+  [% END -%]
+  
+  </li>
+
+<p><a href="http://web.nuu.edu.tw/~greg/[% genre %]/[% exercise_id _ target _ question_id %].mp3">Listen</a></p>
+
+  <li>
+  Answer:
+  <INPUT type="radio" name="answer" value="True"> True
+  <INPUT type="radio" name="answer" value="False"> False
+  <INPUT type="radio" name="answer" value="Don't know" checked> Don't know
+  <input type="submit" name="Submit" value="Sure?">
+  </form>
+  </li>
+  </ul>
+</li>
+
+<li>
+<form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
+[% title %] <input type="submit" name="Submit" value="CheckWords">
+[%# advised not to put objects into templates -%]
+[% FOREACH section IN cloze -%]
+[% IF section.Newline -%]
+<br>
+[% ELSIF section.exists('unclozed') -%]
+[%- UNLESS reversed %]
+	[%- IF section.kwic %]<a href=[% Catalyst.uri_for('/kwic/list/') _ exercise_id _ '/' _ section.id -%]>[% section.unclozed %][% section.answered %]</a>
+[%- ELSE %][% section.unclozed %][% section.answered %][% END -%]
+<input type="text" class="look" name="[% section.id %]" size="[% section.length %]" maxlength="[% section.length %]" value="[% section.remaining %]"/>[% END -%]
+[%- IF reversed -%]
+[% section.answered %]<input type="text" class="look" name="[% section.id %]" size="[% section.length %]" maxlength="[% section.length %]" value="[% section.remaining %]"/>
+	[%- IF section.kwic %]<a href=[% Catalyst.uri_for('/kwic/list/') _ exercise_id _ '/' _ section.id -%]>[% section.unclozed %]</a>
+[%- ELSE %][% section.unclozed %][% END %][% END -%]
+[% ELSE -%]
+[%- section -%]
+[% END -%]
+[% END -%]
+<input type="submit" name="Submit" value="CheckWords">
+</form>
+
+<p>
+Back to <a href="[% Catalyst.uri_for('/exercises/list/') _ id %]">Exercise List</a>
+</p>
+</li>
+
+</ul>

@@ -1,0 +1,12 @@
+[% META title = 'Text List' -%]
+
+<table>
+<tr><th>Name</th><th>Description</th><th>Words</th></tr>
+[% FOREACH text IN texts -%]
+  <tr>
+    <td>[% text.id %]</td>
+    <td>[% text.description %]</td>
+    <td>[% text.unclozeables %]</td>
+  </tr>
+[% END -%]
+</table>

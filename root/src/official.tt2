@@ -1,0 +1,30 @@
+[% META title = 'Official' %]
+
+[% name %], [% id %]! You are an official. Which league are you organizing here?
+
+<!-- Official's form -->
+<form method="post" action=" [% Catalyst.uri_for('/login/official') %] ">
+  <select name="league" size="[% leagues.size %]">
+      [% FOR league IN leagues -%]
+      <option value="[% league.id %]">[% league.name %] [% league.field %]</option>
+      [% END -%]
+  </select>
+
+<p> Which role are you taking?
+  <select name="jigsawrole" size="[% jigsawroles.size %]">
+      [% FOR role IN jigsawroles -%]
+      <option value="[% role %]" [% IF oldrole == role %] selected [% END %]>
+	      [% role %]</option>
+      [% END -%]
+  </select>
+
+<p>
+Type password again:
+  <input type="password" name="password" size="40" />
+</p>
+
+<p>
+  <INPUT type="submit" value="Submit">
+</p>
+
+</form>

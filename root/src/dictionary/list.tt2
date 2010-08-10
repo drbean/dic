@@ -1,0 +1,17 @@
+[% META title = 'Word List' -%]
+
+<p>
+Back to <a href="[% Catalyst.uri_for('/exercises/list') %]">Exercise list</a>
+</p>
+
+<table>
+[% FOREACH word IN words -%]
+  [%- "<tr>\n" IF loop.index % 4 == 0 %]
+    <td><a href="http://www.wordsmyth.net/live/home.php?username=drbean&password=1949&script=search&matchent=[% word.word %]">[% word.word %]</a> ([% word.get_column('sum') %])</td>
+  [%- "<tr>\n" IF loop.index % 4 == 3 %]
+[% END -%]
+</table>
+
+<p>
+Back to <a href="[% Catalyst.uri_for('/exercises/list') %]">Exercise list</a>
+</p>

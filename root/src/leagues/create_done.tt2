@@ -1,0 +1,3 @@
+[% META title = 'League Created' %]
+<p>Added league "[% league.name %] [%league.field %]"
+<p><a href="[% Catalyst.uri_for('/leagues/list') %]">Return to list</a></p>
