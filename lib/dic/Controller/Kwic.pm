@@ -93,22 +93,27 @@ sub list : Local {
 	    my $kwics =  $words->search( {},
         	{ select => [ qw/pretext unclozed clozed posttext/,  ],
         		where => {  class => "Word",
-        			genre => $genre,
-        			published => $token,
-        			-nest => [
-					exercise => { '!=', $exerciseId },
-					id => { '!=', $keyId } ] } } );
-	my $unclozed;
-	while ( my $kwic = $kwics->next )
-	{
-		$unclozed ||= $kwic->unclozed;
-		$tokensUnclozed{$token} ||= $unclozed;
-		push @kwics, { pretext => $kwic->pretext,
-				unclozed => $unclozed,
-				clozed => $kwic->clozed,
-				suffix => $suffix,
-				posttext => $kwic->posttext };
-	}
+        			genre		=> $genre,
+        			published	=> $token,
+					exercise	=> $exerciseId,
+					id			=> { '!=', $keyId }
+						}
+			} );
+		my ($unclozed, %dupes);
+		while ( my $kwic = $kwics->next )
+		{
+			my $pretext = $kwic->pretext;
+			my $posttext = $kwic->posttext;
+			$unclozed ||= $kwic->unclozed;
+			$tokensUnclozed{$token} ||= $unclozed;
+			push @kwics, { pretext => $pretext,
+					unclozed => $unclozed,
+					clozed => $kwic->clozed,
+					suffix => $suffix,
+					posttext => $posttext } unless
+							$dupes{ $pretext . $posttext };
+			$dupes{ $pretext . $posttext }++;
+		}
     }
     my $representativeToken = reduce {
 	    if ($tokenCounts{$a} > $tokenCounts{$b}) {$a}
@@ -118,7 +123,9 @@ sub list : Local {
 		    }
 	    else { $b }
 	    } keys %tokenCounts;
-    my $replength = length $tokensUnclozed{$representativeToken};
+    my $replength = 0;
+	$replength = length $tokensUnclozed{$representativeToken} if 
+		%tokensUnclozed;
     @kwics = map {
 	    my $unclozeshortening = length($_->{unclozed}) - $replength;
 	    $_->{clozed} = substr($_->{unclozed}, -$unclozeshortening,
