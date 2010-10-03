@@ -51,19 +51,8 @@ sub list : Local {
     my ($self, $c) = @_;
     my $leagueid = $c->session->{league};
     my $league = $c->model('DB::League')->find({id=>$leagueid});
-    my $genre = $c->model('DB::Leaguegenre')->next({league=>$leagueid})->genre;
-    # my $genre = $league->genre->genre;
-    # Retrieve all of the text records as text model objects and store in
-    # stash where they can be accessed by the TT template
-    my $exercises = $c->model('DB::Exercise')->search({ genre => $genre });
-    my @exercises;
-    while ( my $exercise = $exercises->next ) {
-	    push @exercises, {
-		    id => $exercise->id,
-		    description => $exercise->description,
-		    type => $exercise->type };
-    }
-    $c->stash->{exercises} = \@exercises;
+    my $genre = $c->model('DB::Leaguegenre')->find({league=>$leagueid})->genre;
+    $c->stash->{exercises} = [$c->model('DB::Exercise')->search({genre => $genre})];
     # Set the TT template to use.  You will almost always want to do this
     # in your action methods (actions methods respond to user input in
     # your controllers).
