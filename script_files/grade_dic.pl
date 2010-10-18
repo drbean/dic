@@ -28,7 +28,7 @@ my $d = dic::Schema->connect( @$connect_info );
 my $members = $d->resultset('Member')->search({ league => $id });
 my $quiz = $d->resultset('Quiz')->search({ exercise => $exercise });
 
-my $standings = LoadFile '/var/www/cgi-bin/target/standings.yaml';
+my $standings = LoadFile '/var/www/cgi-bin/dic/standings.yaml';
 
 my ( $p, $g );
 for my $player ( keys %m ) {
