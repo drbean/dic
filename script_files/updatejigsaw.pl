@@ -43,7 +43,7 @@ my $members = $league->{member};
 my $groupwork = "$dir/$league->{groupwork}";
 my @subdirs = grep { -d } glob "$groupwork/*";
 my $lastsession = ( sort
-			{ $b <=> $a } map m/^$groupwork\/(\d+)$/, @subdirs )[-1];
+			{ $a <=> $b } map m/^$groupwork\/(\d+)$/, @subdirs )[-1];
 my $groups = LoadFile "$groupwork/$lastsession/jigsaw.yaml";
 my $players = $schema->resultset('Player');
 my %rolebearers;
