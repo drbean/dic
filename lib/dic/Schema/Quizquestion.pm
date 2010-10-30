@@ -1,4 +1,4 @@
-package dic::Schema::Quiz;
+package dic::Schema::Quizquestion;
 
 use strict;
 use warnings;
@@ -6,22 +6,18 @@ use warnings;
 use base 'DBIx::Class';
 
 __PACKAGE__->load_components("Core");
-__PACKAGE__->table("quiz");
+__PACKAGE__->table("quizquestions");
 __PACKAGE__->add_columns(
-  "league",
-  { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "exercise",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
-  "player",
+  "target",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
-  "question",
+  "player",
   { data_type => "INT", is_nullable => 0, size => undef },
-  "answer",
-  { data_type => "VARCHAR", is_nullable => 1, size => 15 },
-  "correct",
-  { data_type => "TINYINT", is_nullable => 1, size => undef },
+  "value",
+  { data_type => "VARCHAR", is_nullable => 0, size => 15 },
 );
-__PACKAGE__->set_primary_key('league', 'exercise', 'player', 'question');
+__PACKAGE__->set_primary_key("exercise", "target", "player", );
 
 
 # Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-08-26 18:19:13
@@ -59,11 +55,11 @@ __PACKAGE__->set_primary_key('league', 'exercise', 'player', 'question');
 
 =head1 NAME
 
-DB::Quiz - A model object representing Players answering comprehension          +Questions composed of Questionwords in an Exercise
+DB::Quizquestion - A model object representing the questions players have been assigned in a quiz
 
 =head1 DESCRIPTION
 
-Play rows, identified by league, exercise and player, belong to Players.        +'question' is the ID of the Question (or is it Text) and correct is whether    +the player answered correctly or not (1 or 0).
+Question rows, identified by exercise, target and player, belong to Players. 'value' is the ID of the Question in question.
 
 =cut
 

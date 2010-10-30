@@ -36,6 +36,8 @@ __PACKAGE__->set_primary_key("genre", "id");
 #     3) Column name in *foreign* table
 __PACKAGE__->has_many(words => 'dic::Schema::Word',
         { 'foreign.genre' => 'self.genre', 'foreign.exercise' => 'self.id'});
+__PACKAGE__->has_many(questions => 'dic::Schema::Question',
+        { 'foreign.genre' => 'self.genre', 'foreign.text' => 'self.id', });
 # __PACKAGE__->has_many(questionwords => 'dic::Schema::Questionword',
 #	{ 'foreign.genre' => 'self.genre', 'foreign.text' => 'self.text'});
 

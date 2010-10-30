@@ -50,35 +50,48 @@ sub update : Local {
 	my $genre = $c->model("DB::Leaguegenre")->find(
 			{ league => $leagueId } )->genre;
 	my $text = $c->model('DB::Exercise')->find(
-		{ genre => $genre, id => $exerciseId } )->texts->next->id;
+		{ genre => $genre, id => $exerciseId } );
 	$c->stash->{genre} = $genre;
 	$c->stash->{exercise} = $exerciseId;
-	$c->stash->{text} = $text;
-	my $questions = $c->model('DB::Question')->search({
-			genre => $genre, text => $text, target => $targetId });
-	my $questionid = $c->session->{question};
-	my $question;
-	if ( defined $questionid ) {
-		$question = $questions->find({ id => $questionid });
+	$c->stash->{text} = $text->id;
+	my $myQuestionset = $c->model('DB::Quizquestion')->search({
+			exercise => $exerciseId, target => $targetId });
+	my $myQuestion = $myQuestionset->find({ player => $player });
+	my $quizset = $c->model('DB::Quiz');
+	my $questionset = $text->questions->search({ target => $targetId });
+	my ( $quiz, $question );
+	if ( $myQuestion ) {
+		my $questionId = $myQuestion->value;
+		$quiz = $quizset->find({ player => $player, league =>
+			$leagueId, exercise => $exerciseId, question => $questionId });
+		$question = $questionset->find({ id => $questionId });
 	}
 	else {
-		$question = $questions->search({},
-			 {offset => int(rand($questions->count)), rows => 1}
+		$question = $questionset->search({},
+			 {offset => int(rand($questionset->count)), rows => 1}
 								)->next;
-		$c->session->{question} = $question->id;
+		my $questionId = $question->id;
+		$myQuestion = $myQuestionset->create({
+				exercise => $exerciseId,
+				target => $targetId,
+				player => $player,
+				value => $questionId });		
+		$quiz = $quizset->create({
+				league => $leagueId,
+				exercise => $exerciseId,
+				player => $player,
+				question => $questionId });		
 	}
 	$c->stash->{target} = $targetId;
 	$c->stash->{question} = $question;
-	my $quiz = $c->model('DB::Quiz')->find({ player => $player, league =>
-			$leagueId, exercise => $exerciseId, question => $questionid });
-	if ( $quiz and $quiz->correct == 1 ) {
+	if ( $quiz and defined $quiz->correct and $quiz->correct == 1 ) {
 		$c->stash->{status_msg} =
 			"Congratulations, $player, on the correct answer for the
 			$exerciseId exercise.
 			<p>Full score for this homework.";
 		$c->stash->{template} = "play/gameover.tt2";
 	}
-	elsif ( $quiz and $quiz->correct == 0 ) {
+	elsif ( $quiz and defined $quiz->correct and $quiz->correct == 0 ) {
 		$c->stash->{status_msg} =
 			"$player did not get the correct answer for the
 			$exerciseId exercise.
@@ -235,7 +248,7 @@ sub questionupdate : Local {
 		my $correctAnswer = $question->answer;
 		my $correct = $answer =~ m/$correctAnswer/i? 1: 0;
 		my $quizplay = $c->model('DB::Quiz');
-		my $quiz = $quizplay->create({
+		my $quiz = $quizplay->update({
 			league => $leagueId,
 			exercise => $exerciseId,
 			player => $player,
@@ -252,6 +265,7 @@ sub questionupdate : Local {
 		else {
 			$c->stash->{status_msg} .= " Your answer for the $exerciseId is
 				not correct. You cannot change your answer.";
+			$c->stash->{template} = "play/start.tt2";
 		}
 		return;
 	}
