@@ -248,11 +248,12 @@ sub questionupdate : Local {
 		my $correctAnswer = $question->answer;
 		my $correct = $answer =~ m/$correctAnswer/i? 1: 0;
 		my $quizplay = $c->model('DB::Quiz');
-		my $quiz = $quizplay->update({
+		my $quiz = $quizplay->find({
 			league => $leagueId,
 			exercise => $exerciseId,
 			player => $player,
-			question => $question->id,
+			question => $question->id, });
+		$quiz->update({
 			answer => $answer,
 			correct => $correct });
 		if ( $correct ) {
