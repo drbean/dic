@@ -87,14 +87,14 @@ sub update : Local {
 	if ( $quiz and defined $quiz->correct and $quiz->correct == 1 ) {
 		$c->stash->{status_msg} =
 			"Congratulations, $player, on the correct answer for the
-			$exerciseId exercise.
+			$exerciseId listening question.
 			<p>Full score for this homework.";
 		$c->stash->{template} = "play/gameover.tt2";
 	}
 	elsif ( $quiz and defined $quiz->correct and $quiz->correct == 0 ) {
 		$c->stash->{status_msg} =
 			"$player did not get the correct answer for the
-			$exerciseId exercise.
+			$exerciseId listening question.
 			<p>Fill in the remaining letters for a full score 
 				for this homework.";
 		$c->forward('clozeupdate');
