@@ -12,7 +12,7 @@ use Cwd;
 use File::Spec;
 use List::Util qw/first shuffle/;
 use List::MoreUtils qw/all/;
-use YAML qw/LoadFile/;
+use YAML qw/LoadFile Dump/;
 
 BEGIN {
 	my @MyAppConf = glob( '*.conf' );
@@ -36,7 +36,7 @@ my $genre = $ARGV[0];
 my @leagues = $schema->resultset('Leaguegenre')->search({ genre => $genre });
 my @leagueids = map { $_->getleague->id } @leagues;
 die "No leagues in \"$genre\" genre," unless @leagueids;
-my ($groupfile, $players, @allLeaguerolebearers);
+my ($groupfile, $players, @allLeaguerolebearers, $grouproles);
 
 for my $id ( @leagueids ) {
 	my $dir = "$::leagues/$id";
@@ -44,14 +44,13 @@ for my $id ( @leagueids ) {
 	my $members = $league->{member};
 	my $groupwork = "$dir/$league->{groupwork}";
 	my @subdirs = grep { -d } glob "$groupwork/*";
-	my $lastsession = ( sort
-				{ $b <=> $a } map m/^$groupwork\/(\d+)$/, @subdirs )[-1];
+	my $lastsession = ( sort map m/^$groupwork\/(\d+)$/, @subdirs )[-1];
 	my $groups = LoadFile "$groupwork/$lastsession/jigsaw.yaml";
 	my $players = $schema->resultset('Player');
 	my %rolebearers;
 	for my $group ( keys %$groups ) {
-		# my @roleIds = shuffle ( 'A'..'D' );
-		my @roleIds = ( 'A'..'D' );
+		my @roleIds = shuffle ( 'A'..'D' );
+		# my @roleIds = ( 'A'..'D' );
 		die "${id}'s $group group?" unless ref $groups->{$group} eq 'ARRAY';
 		my @members = @{$groups->{$group}};
 		for my $n ( 0 .. @members-1 ) {
@@ -68,11 +67,13 @@ for my $id ( @leagueids ) {
 							$rolebearers{$playerid};
 			my $role = $roleIds[$n];
 			$rolebearers{$playerid} = [ $id, $playerid, $role ];
+			$grouproles->{$id}->{$group}->{$role} = $name . "\t" . $playerid;
 		}
 		push @allLeaguerolebearers, values %rolebearers;
 	}
 }
 
+print Dump $grouproles;
 
 uptodatepopulate( 'Jigsawrole', [ [ qw/league player role/ ], 
 	# [ 193001, 1 ],
