@@ -54,11 +54,12 @@ sub update : Local {
 	$c->stash->{genre} = $genre;
 	$c->stash->{exercise} = $exerciseId;
 	$c->stash->{text} = $text->id;
-	my $myQuestionset = $c->model('DB::Quizquestion')->search({
+	my ($myQuestionset, $myQuestion, $quizset, $questionset);
+	$myQuestionset = $c->model('DB::Quizquestion')->search({
 			exercise => $exerciseId, target => $targetId });
-	my $myQuestion = $myQuestionset->find({ player => $player });
-	my $quizset = $c->model('DB::Quiz');
-	my $questionset = $text->questions->search({ target => $targetId });
+	$myQuestion = $myQuestionset->find({ player => $player });
+	$quizset = $c->model('DB::Quiz');
+	$questionset = $text->questions->search({ target => $targetId });
 	my ( $quiz, $question );
 	if ( $myQuestion ) {
 		my $questionId = $myQuestion->value;
