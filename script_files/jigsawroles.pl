@@ -49,8 +49,8 @@ for my $id ( @leagueids ) {
 	my $players = $schema->resultset('Player');
 	my %rolebearers;
 	for my $group ( keys %$groups ) {
-		my @roleIds = shuffle ( 'A'..'D' );
-		# my @roleIds = ( 'A'..'D' );
+		# my @roleIds = shuffle ( 'A'..'D' );
+		my @roleIds = ( 'A'..'D' );
 		die "${id}'s $group group?" unless ref $groups->{$group} eq 'ARRAY';
 		my @members = @{$groups->{$group}};
 		for my $n ( 0 .. @members-1 ) {
