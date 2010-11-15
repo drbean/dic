@@ -46,5 +46,4 @@ for my $player ( keys %m ) {
 		$p->{$player}->{letters} > $one? 1: 0;
 }
 
-print Dump $g;
-print Dump $p;
+print Dump { grade => $g, points => $p };
