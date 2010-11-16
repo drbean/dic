@@ -54,62 +54,60 @@ sub update : Local {
 	$c->stash->{genre} = $genre;
 	$c->stash->{exercise} = $exerciseId;
 	$c->stash->{text} = $text->id;
-	$c->stash->{target} = $targetId;
 	my ($myQuestionset, $myQuestion, $quizset, $questionset);
-	#$myQuestionset = $c->model('DB::Quizquestion')->search({
-	#		exercise => $exerciseId, target => $targetId });
-	#$myQuestion = $myQuestionset->find({ player => $player });
-	#$quizset = $c->model('DB::Quiz');
-	#$questionset = $text->questions->search({ target => $targetId });
-	#my ( $quiz, $question );
-	#if ( $myQuestion ) {
-	#	my $questionId = $myQuestion->value;
-	#	$quiz = $quizset->find({ player => $player, league =>
-	#		$leagueId, exercise => $exerciseId, question => $questionId });
-	#	$question = $questionset->find({ id => $questionId });
-	#}
-	#else {
-	#	$question = $questionset->search({},
-	#		 {offset => int(rand($questionset->count)), rows => 1}
-	#							)->next;
-	#	my $questionId = $question->id;
-	#	$myQuestion = $myQuestionset->create({
-	#			exercise => $exerciseId,
-	#			target => $targetId,
-	#			player => $player,
-	#			value => $questionId });		
-	#	$quiz = $quizset->create({
-	#			league => $leagueId,
-	#			exercise => $exerciseId,
-	#			player => $player,
-	#			question => $questionId });		
-	#}
-	#$c->stash->{question} = $question;
-	#if ( $quiz and defined $quiz->correct and $quiz->correct == 1 ) {
-	#	$c->stash->{status_msg} =
-	#		"Congratulations, $player, on the correct answer for the
-	#		$exerciseId listening question.
-	#		<p>Full score for this homework.";
-	#	$c->stash->{template} = "play/gameover.tt2";
-	#}
-	#elsif ( $quiz and defined $quiz->correct and $quiz->correct == 0 ) {
-	#	$c->stash->{status_msg} =
-	#		"$player did not get the correct answer for the
-	#		$exerciseId listening question.
-	#		<p>Fill in the remaining letters for a full score 
-	#			for this homework.";
-	#	$c->forward('clozeupdate');
-	#	$c->stash->{template} = "play/start.tt2";
-	#}
-	#else {
-	#	$c->forward('clozeupdate');
-	#	$c->forward('questionupdate', $exerciseId);
-	#	return if $c->stash->{template} and
-	#					$c->stash->{template} eq "play/gameover.tt2";
-	#	$c->stash->{template} = "play/question.tt2";
-	#}
-	$c->forward('clozeupdate');
-	$c->stash->{template} = "play/start.tt2";
+	$myQuestionset = $c->model('DB::Quizquestion')->search({
+			exercise => $exerciseId, target => $targetId });
+	$myQuestion = $myQuestionset->find({ player => $player });
+	$quizset = $c->model('DB::Quiz');
+	$questionset = $text->questions->search({ target => $targetId });
+	my ( $quiz, $question );
+	if ( $myQuestion ) {
+		my $questionId = $myQuestion->value;
+		$quiz = $quizset->find({ player => $player, league =>
+			$leagueId, exercise => $exerciseId, question => $questionId });
+		$question = $questionset->find({ id => $questionId });
+	}
+	else {
+		$question = $questionset->search({},
+			 {offset => int(rand($questionset->count)), rows => 1}
+								)->next;
+		my $questionId = $question->id;
+		$myQuestion = $myQuestionset->create({
+				exercise => $exerciseId,
+				target => $targetId,
+				player => $player,
+				value => $questionId });		
+		$quiz = $quizset->create({
+				league => $leagueId,
+				exercise => $exerciseId,
+				player => $player,
+				question => $questionId });		
+	}
+	$c->stash->{target} = $targetId;
+	$c->stash->{question} = $question;
+	if ( $quiz and defined $quiz->correct and $quiz->correct == 1 ) {
+		$c->stash->{status_msg} =
+			"Congratulations, $player, on the correct answer for the
+			$exerciseId listening question.
+			<p>Full score for this homework.";
+		$c->stash->{template} = "play/gameover.tt2";
+	}
+	elsif ( $quiz and defined $quiz->correct and $quiz->correct == 0 ) {
+		$c->stash->{status_msg} =
+			"$player did not get the correct answer for the
+			$exerciseId listening question.
+			<p>Fill in the remaining letters for a full score 
+				for this homework.";
+		$c->forward('clozeupdate');
+		$c->stash->{template} = "play/start.tt2";
+	}
+	else {
+		$c->forward('clozeupdate');
+		$c->forward('questionupdate', $exerciseId);
+		return if $c->stash->{template} and
+						$c->stash->{template} eq "play/gameover.tt2";
+		$c->stash->{template} = "play/question.tt2";
+	}
 }
 
 

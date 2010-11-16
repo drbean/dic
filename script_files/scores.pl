@@ -36,28 +36,15 @@ use lib 'lib';
 use Config::General;
 use List::MoreUtils qw/uniq/;
 use YAML qw/DumpFile/;
-use Cwd;
-use File::Spec;
+use Cwd; use File::Basename;
+use dic;
 
-my $dir = ( File::Spec->splitpath(getcwd) )[-1];
-my @MyAppConf = glob( '*.conf' );
-die "Which of @MyAppConf is the configuration file in $dir?"
-			unless @MyAppConf == 1;
-my %config = Config::General->new($MyAppConf[0])->getall;
-my $name = $config{name};
-require $name . ".pm";
-my $model = "${name}::Schema";
-my $modelfile = "$name/Model/DB.pm";
-my $modelmodule = "${name}::Model::DB";
-# require $modelfile;
-
-my $connect_info = $modelmodule->config->{connect_info};
-my $schema = $model->connect( @$connect_info );
-my $playset = $schema->resultset('Play');
-my $league = $schema->resultset('League')->find({ id => $dir });
+my $dir = basename( getcwd );
+my $playset = dic->model('Play');
+my $league = dic->model('League')->find({ id => $dir });
 my $genre = $league->genre->get_column('genre') if $league;
 my @newExerciseList;
-@newExerciseList = uniq $schema->resultset('Exercise')->search({ genre => $genre })->get_column('id')->all if $league;
+@newExerciseList = uniq dic->model('Exercise')->search({ genre => $genre })->get_column('id')->all if $league;
 			 
 my @leagueids = uniq $playset->get_column('league')->all;
 my @exerciseIds = $playset->get_column('exercise')->all;
@@ -75,7 +62,7 @@ for my $id ( sort @leagueids )
 		push @leagueExercises, @newExerciseList;
 	}
 	elsif ( $dir eq 'dic' or $dir eq 'target' or $dir eq 'access' ) {
-		my $league = $schema->resultset('League')->find({ id => $id });
+		my $league = dic->model('League')->find({ id => $id });
 		my $genre = $league->genre->get_column('genre') if $league;
 		my @newExerciseList = $leagueplay->get_column('exercise')->all;
 		push @leagueExercises, @newExerciseList;

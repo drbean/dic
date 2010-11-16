@@ -89,7 +89,7 @@ Create comprehension questions and cloze exercise. If 2 different leagues have t
 sub create : Local {
 	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
 	$c->forward('clozecreate');
-	# $c->forward('questioncreate');
+	$c->forward('questioncreate');
 	$c->stash->{exercise_id} = $exerciseId;
 	$c->stash->{template} = 'exercises/list.tt2';
 }
