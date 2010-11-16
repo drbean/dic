@@ -1,0 +1,19 @@
+[% META title = 'Scores List' -%]
+
+<table>
+  <COL width="40">
+  <tr>
+    <th>Player ID</th>
+[% FOREACH exercise IN exercises %]
+    <th>[% exercise %]</th>
+[% END %]
+  </tr>
+[% FOREACH player IN scores.keys.sort -%]
+  <tr>
+      <td>[% player %]</td>
+  [% FOREACH exercise IN exercises -%]
+      <td>[% IF scores.$player.$exercise %][% scores.$player.$exercise %][% ELSE %]_[% END %]</td>
+  [% END -%]
+  </tr>
+[% END -%]
+</table>

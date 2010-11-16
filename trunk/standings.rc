@@ -1,0 +1,32 @@
+use YAML qw/LoadFile DumpFile/;
+
+my @ids = qw/GL00003 GL00022 GL00031 FLA0015/;
+my %leagues;
+$leagues{$_} = LoadFile "/home/drbean/class/$_/league.yaml" for @ids;
+my %member = map { my $league = $leagues{$_}; $_ => { map { $_->{id} => $_ } @{ $league->{member} } } } @ids;
+
+my $standings = LoadFile '/var/www/cgi-bin/dic/standings.yaml';
+
+my %p = map {
+	my $id = $_;
+	$id => {
+			map {
+				$_ => $standings->{$id}->{$_}->{"relations-2"}
+			} keys %{ $member{$id} }
+		}
+	} @ids;
+
+my %g = map {
+	my $id = $_;
+	$id => {
+			map {
+				$_ => $p{$id}->{$_} > 400? 2: $p{$id}->{$_} > 20? 1: 0
+			} keys %{ $member{$id} }
+		}
+	} @ids;
+
+my $mia = LoadFile "/home/drbean/class/MIA0012/league.yaml";
+my %miamember = map { $_->{id} => $_ } @{ $mia->{member} };
+my $miastandings = LoadFile '/var/www/cgi-bin/correct/standings.yaml';
+my %miap = map { $_ => $miastandings->{MIA0012}->{$_}->{advice} } keys %miamember;
+my %miag = map { $_ => $miap{$_} > 250? 2: $miap{$_} > 20? 1: 0 } keys %miamember;
