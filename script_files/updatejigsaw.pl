@@ -44,7 +44,9 @@ my $groupwork = "$dir/$league->{groupwork}";
 my @subdirs = grep { -d } glob "$groupwork/*";
 my $lastsession = ( sort
 			{ $a <=> $b } map m/^$groupwork\/(\d+)$/, @subdirs )[-1];
-my $groups = LoadFile "$groupwork/$lastsession/jigsaw.yaml";
+my $option = "$groupwork/$lastsession/jigsaw.yaml";
+my $jigsawfile = -e $option? $option: "$groupwork/$lastsession/groups.yaml";
+my $groups = LoadFile $jigsawfile;
 my $players = $schema->resultset('Player');
 my %rolebearers;
 for my $group ( keys %$groups ) {
