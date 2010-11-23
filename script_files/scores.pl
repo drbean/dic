@@ -31,7 +31,7 @@ it under the same terms as Perl itself.
 
 use strict;
 use warnings;
-use lib 'lib';
+use lib '/home/drbean/dic/lib';
 
 use Config::General;
 use List::MoreUtils qw/uniq/;
