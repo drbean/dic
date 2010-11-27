@@ -102,7 +102,7 @@ for my $id ( sort @leagues )
 	$io->append( "\n" );
 }
 
-$io->autoflush;
+$io->close;
 
 my $ftp = Net::FTP->new('web.nuu.edu.tw') or die "web.nuu.edu.tw? $@";
 $ftp->login('greg', '1514') or die "web.nuu.edu.tw login? $@";
