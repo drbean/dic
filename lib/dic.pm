@@ -57,6 +57,7 @@ our $VERSION = '0.04';
 # local deployment.
 
 __PACKAGE__->config( name => 'dic' );
+__PACKAGE__->config( disable_component_resolution_regex_fallback => 1 );
 
 # Start the application
 __PACKAGE__->setup;
@@ -74,7 +75,6 @@ __PACKAGE__->setup;
 #        "/books/delete",
 #        [qw/user admin/],
 #    );
-
 
 
 
