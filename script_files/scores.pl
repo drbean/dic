@@ -40,7 +40,6 @@ use YAML qw/DumpFile/;
 use IO::All;
 use Cwd; use File::Basename;
 use dic;
-use Grades;
 use Net::FTP;
 
 my $id = $ARGV[0] || basename( getcwd );
