@@ -31,48 +31,50 @@ it under the same terms as Perl itself.
 
 use strict;
 use warnings;
-use lib 'lib';
+use FindBin qw/$Bin/;
+use lib "$Bin/../lib";
 
 use Config::General;
-use List::MoreUtils qw/uniq/;
+use List::MoreUtils qw/any uniq/;
 use YAML qw/DumpFile/;
+use IO::All;
 use Cwd; use File::Basename;
 use dic;
+use Grades;
+use Net::FTP;
 
-my $dir = basename( getcwd );
+my $script = Grades::Script->new_with_options;
+my $id = $script->league || basename( getcwd );
+
 my $connect_info = dic::Model::DB->config->{connect_info};
 my $schema = dic::Schema->connect( @$connect_info );
 my $playset = $schema->resultset('Play');
-my $league = $schema->resultset('League')->find({ id => $dir });
+my $league = $schema->resultset('League')->find({ id => $id });
 my $genre = $league->genre->get_column('genre') if $league;
 my @newExerciseList;
 @newExerciseList = uniq $schema->resultset('Exercise')->search({ genre =>
 		$genre })->get_column('id')->all if $league;
 			 
-my @leagueids = uniq $playset->get_column('league')->all;
+my @playingleagues = uniq $playset->get_column('league')->all;
+my @leagues = (any { $_ eq $id } @playingleagues) ? ( $id ): @playingleagues;
 my @exerciseIds = $playset->get_column('exercise')->all;
 @exerciseIds = uniq sort @exerciseIds;
 $, = "\t";
-print "In $dir directory:\n";
+my $remote = "standings.txt";
+my $local = $genre? "/tmp/$genre/$remote": "/tmp/$remote";
+my $io = io($local) or die "No score print to $local? $@";
+$io->print("Standings\n");
 my $scores;
-for my $id ( sort @leagueids )
+for my $id ( sort @leagues )
 {
-	# my @leagueExercises = @exerciseIds;
 	my @leagueExercises;
-	push @leagueExercises, @newExerciseList if $dir eq $id and $league;
+	@leagueExercises = @newExerciseList if $league;
 	my $leagueplay = $playset->search({ league => $id });
-	if ( $dir eq $id and $league ) {
-		push @leagueExercises, @newExerciseList;
-	}
-	elsif ( $dir eq 'dic' or $dir eq 'target' or $dir eq 'access' ) {
-		my $league = $schema->resultset('League')->find({ id => $id });
-		my $genre = $league->genre->get_column('genre') if $league;
-		my @newExerciseList = $leagueplay->get_column('exercise')->all;
-		push @leagueExercises, @newExerciseList;
-	}
+	my $league = $schema->resultset('League')->find({ id => $id });
+	push @leagueExercises, $leagueplay->get_column('exercise')->all;
 	@leagueExercises = uniq @leagueExercises;
-	print $id . "\t", @leagueExercises , "Total\n";
-	print "============================================\n";
+	$io->append( $id . "\t", @leagueExercises , "Total\n" );
+	$io->append( "============================================\n" );
     my $play = $leagueplay->search( undef,
 		{ select => [ 'player', 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/player exercise/],
@@ -88,15 +90,30 @@ for my $id ( sort @leagueids )
 	}
 	for my $player ( uniq $play->get_column('player')->all )
 	{
-		print $player . "\t";
+		$io->append( $player . "\t" );
 		for my $exercise ( @leagueExercises, "Total")
 		{
 			my $score = $scores->{$id}->{$player}->{$exercise};
 			$score ||= '-';
-			print $score . "\t";
+			$io->append( $score . "\t" );
 		}
-		print "\n";
+		$io->append( "\n" );
 	}
-	print "\n";
+	$io->append( "\n" );
 }
-DumpFile 'standings.yaml', $scores;
+
+$io->autoflush;
+
+my $ftp = Net::FTP->new('web.nuu.edu.tw') or die "web.nuu.edu.tw? $@";
+$ftp->login('greg', '1514') or die "web.nuu.edu.tw login? $@";
+if ( $genre ) {
+	$ftp->cwd("public_html/$genre") or die
+		"web.nuu.edu.tw/~greg/public_html/$genre? $@";
+}
+else {
+	$ftp->cwd("public_html") or die
+		"web.nuu.edu.tw/~greg/public_html? $@";
+}
+$ftp->binary;
+$ftp->put($local) or die "put $remote on web.nuu.edu.tw? $@";
+
