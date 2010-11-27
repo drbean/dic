@@ -43,18 +43,19 @@ use dic;
 use Grades;
 use Net::FTP;
 
-my $script = Grades::Script->new_with_options;
-my $id = $script->league || basename( getcwd );
+my $id = $ARGV[0] || basename( getcwd );
 
 my $connect_info = dic::Model::DB->config->{connect_info};
 my $schema = dic::Schema->connect( @$connect_info );
 my $playset = $schema->resultset('Play');
-my $league = $schema->resultset('League')->find({ id => $id });
-my $genre = $league->genre->get_column('genre') if $league;
-my @newExerciseList;
-@newExerciseList = uniq $schema->resultset('Exercise')->search({ genre =>
-		$genre })->get_column('id')->all if $league;
-			 
+my $league;
+$league = $schema->resultset('League')->find({ id => $id }) if $id;
+my ($genre, @newExerciseList);
+if ( $league ) {
+	$genre = $league->genre->get_column('genre');
+	@newExerciseList = uniq $schema->resultset('Exercise')->search({ genre =>
+		$genre })->get_column('id')->all;
+}
 my @playingleagues = uniq $playset->get_column('league')->all;
 my @leagues = (any { $_ eq $id } @playingleagues) ? ( $id ): @playingleagues;
 my @exerciseIds = $playset->get_column('exercise')->all;
