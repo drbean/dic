@@ -45,7 +45,10 @@ for my $id ( @leagueids ) {
 	my $groupwork = "$dir/$league->{groupwork}";
 	my @subdirs = grep { -d } glob "$groupwork/*";
 	my $lastsession = ( sort map m/^$groupwork\/(\d+)$/, @subdirs )[-1];
-	my $groups = LoadFile "$groupwork/$lastsession/jigsaw.yaml";
+	my $jigsawpath = "$groupwork/$lastsession";
+	my $jigsawfile = "$jigsawpath/jigsaw.yaml";
+	my $loadedfile = -e $jigsawfile? $jigsawfile: "$jigsawpath/groups.yaml";
+	my $groups = LoadFile $loadedfile;
 	my $players = $schema->resultset('Player');
 	my %rolebearers;
 	for my $group ( keys %$groups ) {
