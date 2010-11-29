@@ -12,7 +12,7 @@ use Cwd;
 use File::Spec;
 use List::Util qw/first shuffle/;
 use List::MoreUtils qw/all/;
-use YAML qw/LoadFile/;
+use YAML qw/LoadFile Dump/;
 
 BEGIN {
 	my @MyAppConf = glob( '*.conf' );
@@ -49,7 +49,7 @@ my $jigsawfile = "$jigsawpath/jigsaw.yaml";
 my $loadedfile = -e $jigsawfile? $jigsawfile: "$jigsawpath/groups.yaml";
 my $groups = LoadFile $loadedfile;
 my $players = $schema->resultset('Player');
-my %rolebearers;
+my (%rolebearers, $grouproles);
 for my $group ( keys %$groups ) {
 	my @roleIds = shuffle ( 'A'..'D' );
 	die "${leagueid}'s $group group?" unless ref $groups->{$group} eq 'ARRAY';
@@ -68,10 +68,12 @@ for my $group ( keys %$groups ) {
 						$rolebearers{$playerid};
 		my $role = $roleIds[$n];
 		$rolebearers{$playerid} = [ $leagueid, $playerid, $role ];
+		$grouproles->{$leagueid}->{$group}->{$role} = $name . "\t" . $playerid;
 	}
 	push @allLeaguerolebearers, values %rolebearers;
 }
 
+print Dump $grouproles;
 
 uptodatepopulate( 'Jigsawrole', [ [ qw/league player role/ ], 
 	# [ 193001, 1 ],
