@@ -37,7 +37,7 @@ sub list : Local {
 	my $exercise = $c->model('DB::Exercise')->find(
 				    {genre=> $genre, id=>$exerciseId});
 	my $jigsawrole = $c->model('DB::Jigsawrole')->find({ league => $league, player=>$player });
-	my $target = $jigsawrole->role;
+	my $target = $jigsawrole? $jigsawrole->role: 'all';
 	my $contextlength = 16;
 	my $start = $keyId <= $contextlength? 1: $keyId - $contextlength;
 	my $end = $keyId + $contextlength;

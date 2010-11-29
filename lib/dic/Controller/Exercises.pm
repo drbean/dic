@@ -80,17 +80,17 @@ sub list : Local {
 
 =head2 create
 
-http://server.school.edu/dic/exercises/create/textId/exerciseType/exerciseId
+http://server.school.edu/dic/exercises/create/exerciseType/textId
 
 Create comprehension questions and cloze exercise. If 2 different leagues have the same genre, ie their texts are the same, will creating an exercise for one league also create it for the other? Apparently, so. Also, can leagues with different genres use the same texts? Remember texts have genres assigned to them.
 
 =cut
 
 sub create : Local {
-	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
+	my ($self, $c, $exerciseType, $textId) = @_;
 	$c->forward('clozecreate');
 	# $c->forward('questioncreate');
-	$c->stash->{exercise_id} = $exerciseId;
+	$c->stash->{exercise_id} = $textId;
 	$c->stash->{template} = 'exercises/list.tt2';
 }
 			
@@ -101,7 +101,7 @@ Take text from database and output cloze exercise. We create an id for each Word
 =cut
 
 sub clozecreate : Local {
-	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
+	my ($self, $c, $exerciseType, $textId) = @_;
 	my $texts = $c->model('DB::Text')->search( { id=>$textId } );
 	while ( my $text = $texts->next ) {
 		my $description = $text->description;
@@ -146,7 +146,7 @@ sub clozecreate : Local {
 			my $class = ref $word;
 			my %row = map { $_ => $word->{$_} } @columns;
 			$row{genre} = $genre;
-			$row{exercise} = $exerciseId;
+			$row{exercise} = $textId;
 			$row{target} = $target;
 			$row{id} = $id++;
 			$row{class} = $class;
@@ -154,30 +154,30 @@ sub clozecreate : Local {
 		}
 		$c->model('DB::Word')->populate( \@wordRows );
 		#@dictionaryList = map { m/^(.).*$/;
-		#		{ exercise => $exerciseId, word => $_, initial => $1,
+		#		{ exercise => $textId, word => $_, initial => $1,
 		#		count => $newWords->{$_} } } keys %$newWords;
 		my $exercise = $c->model('DB::Exercise')->update_or_create({
-					id => $exerciseId,
+					id => $textId,
 					text => $textId,
 					genre => $genre,
 					description => $description,
 					type => $exerciseType
 				});
 	}
-	$c->stash->{exercise} = $exerciseId;
+	$c->stash->{exercise} = $textId;
 }
 
 
 =head2 questioncreate
 
-http://server.school.edu/dic/exercises/create/textId/exerciseType/exerciseId
+http://server.school.edu/dic/exercises/create/exerciseType/textId
 
-Create comprehension questions. NOT NECESSARY. WILL TRACK LATER: For a set of related exercises on the same material, choose exerciseIds that have a lexicographic order that corresponds to the progression in the material through the different exercises, allowing tracking of the player through the material.
+Create comprehension questions. NOT NECESSARY. WILL TRACK LATER: For a set of related exercises on the same material, choose textIds that have a lexicographic order that corresponds to the progression in the material through the different exercises, allowing tracking of the player through the material.
 
 =cut
 
 sub questioncreate : Local {
-	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
+	my ($self, $c, $exerciseType, $textId) = @_;
 	my $texts = $c->model('DB::Text')->search( { id=>$textId } );
 	while ( my $text = $texts->next ) {
 		my $genre = $text->genre;
@@ -196,7 +196,7 @@ sub questioncreate : Local {
 			my $questionId = $question->id;
 			die unless defined $questionId;
 			my $content = $question->content;
-			my $remote = "$exerciseId$target$questionId.mp3";
+			my $remote = "$textId$target$questionId.mp3";
 			my $local = "/tmp/$genre/$remote";
 			system( "echo \"$content\" |
 				text2wave -eval \"($voice)\" -otype wav -o /tmp/question.wav"
@@ -209,7 +209,7 @@ sub questioncreate : Local {
 			my $punctuation = qr/([^A-Za-z0-9\\n]+)/;
 			my @words = split $punctuation, $content;
 			my $clozewords = $c->model('DB::Word')->search(
-				{ genre => $genre, exercise => $exerciseId,
+				{ genre => $genre, exercise => $textId,
 					target => $target });
 			my $id;
 			foreach my $word ( @words )
