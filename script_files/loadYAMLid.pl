@@ -48,14 +48,18 @@ my $d = $model->connect( @$connect_info );
 
 use YAML qw/LoadFile DumpFile/;
 use IO::All;
-my ($text, $question) = LoadFile $ARGV[0];
-my @text;
-push @text, shift @$text;
-push @text, grep { $_->[0] eq $ARGV[1] } @$text;
-my @qn;
-push @qn, shift @$question;
-push @qn, grep { $_->[1] eq $ARGV[1] } @$question;
+my $textfile = shift @ARGV;
+my ($text, $question) = LoadFile $textfile;
 my $t = $d->resultset('Text');
-$t->populate(\@text);
 my $q = $d->resultset('Question');
-$q->populate(\@qn);
+my @ids = @ARGV;
+for my $id ( @ids ) {
+	my @text;
+	push @text, $text->[0];
+	push @text, grep { $_->[0] eq $id } @$text;
+	my @qn;
+	push @qn, $question->[0];
+	push @qn, grep { $_->[1] eq $id } @$question;
+	$t->populate(\@text);
+	$q->populate(\@qn);
+}
