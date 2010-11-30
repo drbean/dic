@@ -36,10 +36,9 @@ use lib '/home/drbean/dic/lib';
 use Config::General;
 use List::MoreUtils qw/uniq/;
 use YAML qw/DumpFile/;
-use Cwd;
-use File::Spec;
+use Cwd; use File::Basename;
 
-my $dir = ( File::Spec->splitpath(getcwd) )[-1];
+my $dir = basename( getcwd );
 my @MyAppConf = glob( '*.conf' );
 die "Which of @MyAppConf is the configuration file in $dir?"
 			unless @MyAppConf == 1;
@@ -74,7 +73,8 @@ for my $id ( sort @leagueids )
 	if ( $dir eq $id and $league ) {
 		push @leagueExercises, @newExerciseList;
 	}
-	elsif ( $dir eq 'dic' or $dir eq 'target' or $dir eq 'access' ) {
+	elsif ( $dir eq 'dic' or $dir eq 'target' or $dir eq 'access' or
+		$dir eq 'contest' ) {
 		my $league = $schema->resultset('League')->find({ id => $id });
 		my $genre = $league->genre->get_column('genre') if $league;
 		my @newExerciseList = $leagueplay->get_column('exercise')->all;
