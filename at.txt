@@ -1,0 +1,5 @@
+rm db/991 ; perl script_files/deploy.pl && perl script_files/playerleagues.pl && perl script_files/jigsawroles.pl contest
+perl script_files/loadYAMLid.pl ~drbean/class/conversation/contest/dic.yaml desantis kroenke-1 kroenke-2 jackson-1 jackson-2 breakstone schifrin shirley butler pestcontroller undertaker allen relations-1 biodad biomom clay-1 clay-2 connell viviano trinka
+perl script_file/create_exercise.pl Ctest desantis kroenke-1 kroenke-2 jackson-1 jackson-2 breakstone schifrin shirley butler pestcontroller
+perl script_files/create_exercise.pl FirstLast undertaker allen relations-1 biodad biomom
+perl script_files/create_exercise.pl Last clay-1 clay-2 connell viviano trinka
