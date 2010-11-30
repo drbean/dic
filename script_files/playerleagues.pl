@@ -20,9 +20,9 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/GL00006 GL00013 CLA0023 FLA0014 MIA0014 BMA0071 FLA0017 FLA0030/;
+my @leagueids = qw/991contest/;
 my $dir = ( File::Spec->splitdir(getcwd) )[-1];
-$dir = qr/^(GL000|FL|MIA|BMA|CLA)/ if $dir eq 'dic';
+$dir = qr/^(991)/ if $dir eq 'contest';
 @leagueids = grep m/$dir/, @leagueids;
 
 no strict qw/subs refs/;
@@ -33,15 +33,7 @@ use strict;
 
 my $leagues = [
 		[ qw/id name field/ ],
-	[ "GL00006", "GL00006日語文共同學制虛擬班二甲", "中級英文聽說訓練" ],
-	[ "GL00013", "GL00013日語文共同學制虛擬班二乙", "中級英文聽說訓練" ],
-	[ "MIA0014", "MIA0014日資管大學二甲", "商用英文實務(一)" ],
-	[ "BMA0071", "BMA0071日經管大學二甲", "商用英文實務(一)" ],
-	[ "FLA0030", "FLA0030夜應外大學三甲", "英文會話(三)" ],
-	[ "FLA0014", "FLA0014夜應外大學二甲", "英文會話(一)" ],
-	[ "FLA0017", "FLA0017夜應外大學二甲", "跨文化溝通" ],
-	[ "CLA0023", "CLA0023日華文大學二甲", "英文聽力及會話(一)" ],
-
+	[ "991contest", "99 Fall Semester Contest", "Dictation" ],
 
 	];
 
@@ -49,20 +41,13 @@ uptodatepopulate( 'League', $leagues );
 
 my $leaguegenres = [
 			[ qw/league genre/ ],
-			[ "GL00006",	"intermediate" ],
-			[ "GL00013",	"intermediate" ],
-			[ "FLA0014",	"intermediate" ],
-			[ "CLA0023",	"intermediate" ],
-			[ "FLA0017",	"intercultural" ],
-			[ "FLA0030",	"upper" ],
-			[ "MIA0014",	"business" ],
-			[ "BMA0071",	"business" ],
+			[ "991contest",	"contest" ],
 		];
 uptodatepopulate( 'Leaguegenre', $leaguegenres );
 
 my ($leaguefile, $players);
 
-for my $league ( qw/GL00006 GL00013 CLA0023 FLA0014 MIA0014 BMA0071 FLA0017 FLA0030/ ) {
+for my $league ( qw/991contest/ ) {
 	$leaguefile = LoadFile "/home/drbean/class/$league/league.yaml";
 	push @{$players->{$league}},
 		map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
