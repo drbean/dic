@@ -20,7 +20,7 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/991contest/;
+my @leagueids = qw/991contest FLA0030/;
 my $dir = ( File::Spec->splitdir(getcwd) )[-1];
 $dir = qr/^(991)/ if $dir eq 'contest';
 @leagueids = grep m/$dir/, @leagueids;
@@ -34,6 +34,7 @@ use strict;
 my $leagues = [
 		[ qw/id name field/ ],
 	[ "991contest", "99 Fall Semester Contest", "Dictation" ],
+	[ "FLA0030", "Upper class", "Conversation" ],
 
 	];
 
@@ -42,12 +43,13 @@ uptodatepopulate( 'League', $leagues );
 my $leaguegenres = [
 			[ qw/league genre/ ],
 			[ "991contest",	"contest" ],
+			[ "FLA0030",	"upper" ],
 		];
 uptodatepopulate( 'Leaguegenre', $leaguegenres );
 
 my ($leaguefile, $players);
 
-for my $league ( qw/991contest/ ) {
+for my $league ( qw/991contest FLA0030/ ) {
 	$leaguefile = LoadFile "/home/drbean/class/$league/league.yaml";
 	push @{$players->{$league}},
 		map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
