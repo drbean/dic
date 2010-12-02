@@ -1,6 +1,7 @@
 [% META title = "Dictation exercise" -%]
 
 <ul>
+<!--
 <li>
 <form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
   <ul><li>Question: 
@@ -28,6 +29,7 @@
 </form>
 </li>
 
+-->
 <li>
 <form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
 [% title %] <input type="submit" name="Submit" value="CheckWords">
