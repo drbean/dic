@@ -1,0 +1,1 @@
+1-59/2 * * * * perl /var/www/cgi-bin/contest/script_files/scores.pl
