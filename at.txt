@@ -1,4 +1,4 @@
-cat pid.txt | xargs kill -S SIGTERM
+cat pid.txt | xargs kill -s SIGTERM
 rm db/991 ; perl script_files/deploy.pl && perl script_files/playerleagues.pl
 chmod 777 db/ -R; chown apache:apache -R db
 perl script_files/loadYAMLid.pl ~drbean/class/conversation/contest/dic.yaml osborne sargent strozier devries cahn franklinj
