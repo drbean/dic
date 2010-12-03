@@ -7,6 +7,13 @@ perl script_files/create_exercise.pl FirstLast strozier sargent
 perl script_files/create_exercise.pl Last osborne
 perl script_files/dic_fastcgi.pl -l /tmp/contest.socket -n 5 -p pid.txt -d
 perl /home/drbean/class/pagestranscripts/htmlexerciselist.pl -a contest -l contest -s cortez,cahn,franklinj,devries,young,strozier,sargent,osborne > /home/drbean/class/pagestranscripts/DictationContest.html
-lftp -c 'open web.nuu.edu.tw; cd public_html; put /home/drbean/class/pagestranscripts/DictationContest.html'
+lftp -c 'open web.nuu.edu.tw;
+	cd public_html;
+	put /home/drbean/class/pagestranscripts/DictationContest.html;
+	mkdir contest/;
+	cd contest;
+	lcd /home/drbean/soundfiles/storycorps/contest;
+	mput *.mp3'
+
 crontab -u drbean contest.cron
 
