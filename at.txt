@@ -1,7 +1,11 @@
 rm db/991 ; perl script_files/deploy.pl && perl script_files/playerleagues.pl
 chmod 777 db/ -R; chown apache:apache -R db
 perl script_files/loadYAMLid.pl ~drbean/class/conversation/contest/dic.yaml osborne sargent strozier devries cahn franklinj
-perl script_files/create_exercise.pl Ctest osborne franklinj sargent
-perl script_files/create_exercise.pl FirstLast strozier cahn
-perl script_files/create_exercise.pl Last devries
+perl script_files/create_exercise.pl Ctest cortez cahn franklinj devries young
+perl script_files/create_exercise.pl FirstLast strozier sargent
+perl script_files/create_exercise.pl Last osborne
 perl script_files/dic_fastcgi.pl -l /tmp/contest.socket -n 5 -p pid.txt -d
+perl /home/drbean/class/pagestranscripts/htmlexercise.pl cortez cahn franklinj devries young strozier sargent osborne > /home/drbean/class/pagestranscripts/DictationContest.html
+lftp -c 'open web.nuu.edu.tw; cd public_html; put DictationContest.html'
+crontab -u drbean -f crontabstandings.txt
+
