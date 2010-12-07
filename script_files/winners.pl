@@ -59,6 +59,7 @@ my @playingleagues = uniq $playset->get_column('league')->all;
 my @leagues = (any { $_ eq $id } @playingleagues) ? ( $id ): @playingleagues;
 my @exerciseIds = $playset->get_column('exercise')->all;
 @exerciseIds = uniq sort @exerciseIds;
+$, = "\t";
 my $remote = "results.txt";
 my $local = $genre? "/tmp/$genre/$remote": "/tmp/$remote";
 my $io = io($local) or die "No score print to $local? $@";
@@ -74,6 +75,7 @@ for my $id ( sort @leagues )
 	@leagueExercises = uniq @leagueExercises;
 	$io->append( $id, @leagueExercises , "Total\n" );
 	$io->append( "============================================\n" );
+$, = "\t";
     my $play = $leagueplay->search( undef,
 		{ select => [ 'player', 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/player exercise/],
@@ -88,6 +90,7 @@ for my $id ( sort @leagues )
 		$scores->{$id}->{$player}->{Total} += $score;
 	}
 	my %tally;
+	$, = undef;
 	for my $player ( uniq $play->get_column('player')->all )
 	{
 		my $result = $player . "\t";
