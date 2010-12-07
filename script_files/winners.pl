@@ -59,7 +59,6 @@ my @playingleagues = uniq $playset->get_column('league')->all;
 my @leagues = (any { $_ eq $id } @playingleagues) ? ( $id ): @playingleagues;
 my @exerciseIds = $playset->get_column('exercise')->all;
 @exerciseIds = uniq sort @exerciseIds;
-$, = "\t";
 my $remote = "results.txt";
 my $local = $genre? "/tmp/$genre/$remote": "/tmp/$remote";
 my $io = io($local) or die "No score print to $local? $@";
