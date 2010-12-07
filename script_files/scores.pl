@@ -73,7 +73,7 @@ for my $id ( sort @leagues )
 	my $league = $schema->resultset('League')->find({ id => $id });
 	push @leagueExercises, $leagueplay->get_column('exercise')->all;
 	@leagueExercises = uniq @leagueExercises;
-	$io->append( $id . "\t", @leagueExercises , "Total\n" );
+	$io->append( $id, @leagueExercises , "Total\n" );
 	$io->append( "============================================\n" );
     my $play = $leagueplay->search( undef,
 		{ select => [ 'player', 'exercise', { sum => 'correct' } ],
