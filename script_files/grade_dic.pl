@@ -26,13 +26,21 @@ use dic::Model::DB;
 my $connect_info = dic::Model::DB->config->{connect_info};
 my $d = dic::Schema->connect( @$connect_info );
 my $members = $d->resultset('Member')->search({ league => $id });
+my $play = $d->resultset('Play')->search({ exercise => $exercise });
 my $quiz = $d->resultset('Quiz')->search({ exercise => $exercise });
 
 my $standings = LoadFile '/var/www/cgi-bin/dic/standings.yaml';
 
 my ( $p, $g );
 for my $player ( keys %m ) {
-	$p->{$player}->{letters} = $standings->{$id}->{$player}->{$exercise};
+	my $letters = $play->search({ player => $player });
+	my $total = 0;
+	if ( $letters and $letters->isa('DBIx::Class::ResultSet') ) {
+		while ( my $word = $letters->next ) {
+			$total += $word->correct;
+		}
+	}
+	$p->{$player}->{letters} = $total;
 	my $questions = $quiz->search({ player => $player });
 	my $correct = 0;
 	if ( $questions and $questions->isa('DBIx::Class::ResultSet') ) {
