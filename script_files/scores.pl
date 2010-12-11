@@ -59,11 +59,10 @@ my @playingleagues = uniq $playset->get_column('league')->all;
 my @leagues = (any { $_ eq $id } @playingleagues) ? ( $id ): @playingleagues;
 my @exerciseIds = $playset->get_column('exercise')->all;
 @exerciseIds = uniq sort @exerciseIds;
-$, = "\t";
 my $remote = "standings.txt";
 my $local = $genre? "/tmp/$genre/$remote": "/tmp/$remote";
 my $io = io($local) or die "No score print to $local? $@";
-$io->print("Standings\n");
+my $output = "Standings\n";
 my $scores;
 for my $id ( sort @leagues )
 {
@@ -73,8 +72,8 @@ for my $id ( sort @leagues )
 	my $league = $schema->resultset('League')->find({ id => $id });
 	push @leagueExercises, $leagueplay->get_column('exercise')->all;
 	@leagueExercises = uniq @leagueExercises;
-	$io->append( $id . "\t", @leagueExercises , "Total\n" );
-	$io->append( "============================================\n" );
+	$output .= join "\t", $id."\t", @leagueExercises, "Total\n";
+	$output .= "============================================\n";
     my $play = $leagueplay->search( undef,
 		{ select => [ 'player', 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/player exercise/],
@@ -90,18 +89,20 @@ for my $id ( sort @leagues )
 	}
 	for my $player ( uniq $play->get_column('player')->all )
 	{
-		$io->append( $player . "\t" );
+		$output .= $player . "\t";
 		for my $exercise ( @leagueExercises, "Total")
 		{
 			my $score = $scores->{$id}->{$player}->{$exercise};
 			$score ||= '-';
-			$io->append( $score . "\t" );
+			$output .= $score . "\t";
 		}
-		$io->append( "\n" );
+		$output .= "\n";
 	}
-	$io->append( "\n" );
+	$output .= "\n";
 }
 
+io('-')->print( $output );
+$io->print( $output );
 $io->close;
 
 my $ftp = Net::FTP->new('web.nuu.edu.tw') or die "web.nuu.edu.tw? $@";
