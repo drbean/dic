@@ -80,14 +80,14 @@ sub list : Local {
 
 =head2 create
 
-http://server.school.edu/dic/exercises/create/textId/exerciseType/exerciseId
+http://server.school.edu/dic/exercises/create/exerciseType/exerciseId
 
 Create comprehension questions and cloze exercise. If 2 different leagues have the same genre, ie their texts are the same, will creating an exercise for one league also create it for the other? Apparently, so. Also, can leagues with different genres use the same texts? Remember texts have genres assigned to them.
 
 =cut
 
 sub create : Local {
-	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
+	my ($self, $c, $exerciseType, $exerciseId) = @_;
 	$c->forward('clozecreate');
 	$c->forward('questioncreate');
 	$c->stash->{exercise_id} = $exerciseId;
@@ -101,8 +101,8 @@ Take text from database and output cloze exercise. We create an id for each Word
 =cut
 
 sub clozecreate : Local {
-	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
-	my $texts = $c->model('DB::Text')->search( { id=>$textId } );
+	my ($self, $c, $exerciseType, $exerciseId) = @_;
+	my $texts = $c->model('DB::Text')->search( { id=>$exerciseId } );
 	while ( my $text = $texts->next ) {
 		my $description = $text->description;
 		my $content = $text->content;
@@ -158,7 +158,7 @@ sub clozecreate : Local {
 		#		count => $newWords->{$_} } } keys %$newWords;
 		my $exercise = $c->model('DB::Exercise')->update_or_create({
 					id => $exerciseId,
-					text => $textId,
+					text => $exerciseId,
 					genre => $genre,
 					description => $description,
 					type => $exerciseType
@@ -170,15 +170,15 @@ sub clozecreate : Local {
 
 =head2 questioncreate
 
-http://server.school.edu/dic/exercises/create/textId/exerciseType/exerciseId
+http://server.school.edu/dic/exercises/create/exerciseType/exerciseId
 
 Create comprehension questions. NOT NECESSARY. WILL TRACK LATER: For a set of related exercises on the same material, choose exerciseIds that have a lexicographic order that corresponds to the progression in the material through the different exercises, allowing tracking of the player through the material.
 
 =cut
 
 sub questioncreate : Local {
-	my ($self, $c, $textId, $exerciseType, $exerciseId) = @_;
-	my $texts = $c->model('DB::Text')->search( { id=>$textId } );
+	my ($self, $c, $exerciseType, $exerciseId) = @_;
+	my $texts = $c->model('DB::Text')->search( { id=>$exerciseId } );
 	while ( my $text = $texts->next ) {
 		my $genre = $text->genre;
 		my $target = $text->target;
@@ -219,7 +219,7 @@ sub questioncreate : Local {
 				my $link = $cloze? $cloze->id: 0;
 				my $row = {
 					genre => $genre,
-					text => $textId,
+					text => $exerciseId,
 					target => $target,
 					question => $questionId,
 					id => $id++,
