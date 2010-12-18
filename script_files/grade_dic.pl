@@ -29,8 +29,6 @@ my $members = $d->resultset('Member')->search({ league => $id });
 my $play = $d->resultset('Play')->search({ exercise => $exercise });
 my $quiz = $d->resultset('Quiz')->search({ exercise => $exercise });
 
-my $standings = LoadFile '/var/www/cgi-bin/dic/standings.yaml';
-
 my ( $p, $g );
 for my $player ( keys %m ) {
 	my $letters = $play->search({ player => $player });
