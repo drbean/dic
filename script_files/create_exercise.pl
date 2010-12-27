@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 西元2010年11月30日 09時59分46秒
-# Last Edit: 2010 11月 30, 10時36分26秒
+# Last Edit: 2010 12月 25, 19時08分06秒
 # $Id$
 
 =head1 NAME
@@ -116,7 +116,7 @@ run unless caller;
 
 =head1 DESCRIPTION
 
-Create comprehension questions and cloze exercise.
+Create comprehension questions and cloze exercise. TODO comprehension questions.
 
 =cut
 
