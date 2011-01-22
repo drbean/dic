@@ -13,7 +13,7 @@ __PACKAGE__->add_columns(
   "exercise",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "player",
-  { data_type => "INT", is_nullable => 0, size => undef },
+  { data_type => "VARCHAR", is_nullable => 0, size => 10 },
   "blank",
   { data_type => "SMALLINT", is_nullable => 0, size => undef },
   "correct",

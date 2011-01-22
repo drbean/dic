@@ -13,7 +13,7 @@ __PACKAGE__->add_columns(
   "text",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "id",
-  { data_type => "VARCHAR", is_nullable => 0, size => 15 },
+  { data_type => "SMALLINT", is_nullable => 0, size => undef },
   "target",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "content",
