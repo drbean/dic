@@ -7,10 +7,9 @@ use Catalyst;
 use dic;
 
 my $name = dic->config->{database};
-my $db = dic->path_to( 'db', $name );
 
 my $connect_info;
-if ( $^O eq 'linux' ) { $connect_info = [ "dbi:SQLite:$db", '', '', ]; }
+if ( $^O eq 'linux' ) { $connect_info = [ "dbi:Pg:dbname=$name", '', '', ]; }
 
 elsif ( $^O eq 'MSWin32' ) {
 	$connect_info = [ "dbi:ODBC:Driver={SQL Server};Server=LocalServer;Network=DBMSSOCN;Address=127.0.0.1;Database=$name" ];
