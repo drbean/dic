@@ -6,14 +6,13 @@ use base 'Catalyst::Model::DBIC::Schema';
 use Catalyst;
 use dic;
 
-my $name = dic->config->{database};
-my $db = dic->path_to( 'db', $name );
+my $db = dic->config->{database};
 
 my $connect_info;
-if ( $^O eq 'linux' ) { $connect_info = [ "dbi:SQLite:$db", '', '', ]; }
+if ( $^O eq 'linux' ) { $connect_info = [ "dbi:Pg:dbname=$db", '', '', ]; }
 
 elsif ( $^O eq 'MSWin32' ) {
-	$connect_info = [ "dbi:ODBC:Driver={SQL Server};Server=LocalServer;Network=DBMSSOCN;Address=127.0.0.1;Database=$name" ];
+	$connect_info = [ "dbi:ODBC:Driver={SQL Server};Server=LocalServer;Network=DBMSSOCN;Address=127.0.0.1;Database=$db" ];
 	# $connect_info = [ "dbi:ODBC:DSN=dictation" ];
 }
 
