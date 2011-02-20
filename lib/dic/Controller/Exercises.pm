@@ -109,6 +109,13 @@ sub clozecreate : Local {
 		my $unclozeables = $text->unclozeables;
 		my $genre = $text->genre;
 		my $target = $text->target;
+		my $exercise = $c->model('DB::Exercise')->update_or_create({
+					id => $exerciseId,
+					text => $exerciseId,
+					genre => $genre,
+					description => $description,
+					type => $exerciseType
+				});
 		my $index=0;
 		my $clozeObject = $exerciseType->parse($unclozeables, $content);
 		my $cloze = $clozeObject->cloze;
@@ -150,19 +157,11 @@ sub clozecreate : Local {
 			$row{target} = $target;
 			$row{id} = $id++;
 			$row{class} = $class;
-			push @wordRows, \%row;
+			$c->model('DB::Word')->create( \%row );
 		}
-		$c->model('DB::Word')->populate( \@wordRows );
 		#@dictionaryList = map { m/^(.).*$/;
 		#		{ exercise => $exerciseId, word => $_, initial => $1,
 		#		count => $newWords->{$_} } } keys %$newWords;
-		my $exercise = $c->model('DB::Exercise')->update_or_create({
-					id => $exerciseId,
-					text => $exerciseId,
-					genre => $genre,
-					description => $description,
-					type => $exerciseType
-				});
 	}
 	$c->stash->{exercise} = $exerciseId;
 }
@@ -206,8 +205,7 @@ sub questioncreate : Local {
 			$ftp->put($local) or die
 			"put $remote on web.nuu.edu.tw? $@";
 			my $answer = $question->answer;
-			my $punctuation = qr/([^A-Za-z0-9\\n]+)/;
-			my @words = split $punctuation, $content;
+			my @words = split /[ .,;']+/, $content;
 			my $clozewords = $c->model('DB::Word')->search(
 				{ genre => $genre, exercise => $exerciseId,
 					target => $target });
@@ -225,10 +223,9 @@ sub questioncreate : Local {
 					id => $id++,
 					content => $word,
 					link => $link };
-				push @wordRows, $row;
+				$c->model('DB::Questionword')->create( $row );
 			}
 		}
-		$c->model('DB::Questionword')->populate( \@wordRows );
 	}
 }
 			
