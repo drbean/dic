@@ -55,7 +55,7 @@ __PACKAGE__->has_many(words => 'dic::Schema::Questionword',
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *this* table
 __PACKAGE__->belongs_to(get_text => 'dic::Schema::Text',
-        {'foreign.genre' => 'self.genre', 'foreign.id' => 'self.text' });
+        {'foreign.target' => 'self.target', 'foreign.id' => 'self.text' });
 
 =head1 NAME
 
