@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 西元2010年11月30日 09時59分46秒
-# Last Edit: 2011  2月 22, 11時34分07秒
+# Last Edit: 2011  2月 22, 11時35分56秒
 # $Id$
 
 =head1 NAME
@@ -68,8 +68,8 @@ sub run {
 		my (@wordRows, @dictionaryList, %wordCount, @wordstemRows);
 		my $dictionary = $schema->resultset('Dictionary')->search;
 		my $id = 1;
-		my @columns =
-		    $schema->resultset('Word')->result_source->columns;
+		my $wordset = $schema->resultset('Word');
+		my @columns = $wordset->result_source->columns;
 		foreach my $word ( @$cloze )
 		{
 			my $token = $word->{published};
@@ -103,7 +103,7 @@ sub run {
 			$row{target} = $target;
 			$row{id} = $id++;
 			$row{class} = $class;
-			$schema->resultset('DB::Word')->create( \%row );
+			$wordset->create( \%row );
 		}
 		#@dictionaryList = map { m/^(.).*$/;
 		#		{ exercise => $textId, word => $_, initial => $1,
