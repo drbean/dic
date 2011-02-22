@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 西元2010年11月30日 09時59分46秒
-# Last Edit: 2010 12月 25, 19時08分06秒
+# Last Edit: 2011  2月 22, 11時18分18秒
 # $Id$
 
 =head1 NAME
@@ -53,6 +53,14 @@ sub run {
 		my $unclozeables = $text->unclozeables;
 		my $genre = $text->genre;
 		my $target = $text->target;
+		my $exercise =
+		    $schema->resultset('Exercise')->update_or_create({
+					id => $textId,
+					text => $textId,
+					genre => $genre,
+					description => $description,
+					type => $exerciseType
+				});
 		my $index=0;
 		my $clozeObject = $exerciseType->parse($unclozeables, $content);
 		my $cloze = $clozeObject->cloze;
@@ -60,7 +68,8 @@ sub run {
 		my (@wordRows, @dictionaryList, %wordCount, @wordstemRows);
 		my $dictionary = $schema->resultset('Dictionary')->search;
 		my $id = 1;
-		my @columns = $schema->resultset('Word')->result_source->columns;
+		my @columns =
+		    $schema->resultset('Word')->result_source->columns;
 		foreach my $word ( @$cloze )
 		{
 			my $token = $word->{published};
@@ -100,13 +109,6 @@ sub run {
 		#@dictionaryList = map { m/^(.).*$/;
 		#		{ exercise => $textId, word => $_, initial => $1,
 		#		count => $newWords->{$_} } } keys %$newWords;
-		my $exercise = $schema->resultset('Exercise')->update_or_create({
-					id => $textId,
-					text => $textId,
-					genre => $genre,
-					description => $description,
-					type => $exerciseType
-				});
 	}
     }
 }
