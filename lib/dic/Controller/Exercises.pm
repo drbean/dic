@@ -237,8 +237,8 @@ Delete an exercise. Delete of Questions and Questionwords done here too. TODO Bu
 
 sub delete : Local {
 	my ($self, $c, $id) = @_;
-	my $exercise = $c->model('DB::Exercise');
-	my $words = $exercise->find({id => $id})->words;
+	my $exercise = $c->model('DB::Exercise')->find({id => $id});
+	my $words = $exercise->words;
 	my %entries;
 	while (my $word = $words->next)
 	{
@@ -250,7 +250,8 @@ sub delete : Local {
 			$entry->update( {count => --$count} );
 		}
 	}
-	$exercise->search({id => $id})->delete_all;
+	$exercise->questions->delete_all;
+	$exercise->delete;
 	$c->stash->{status_msg} = "Exercise deleted.";
        $c->response->redirect($c->uri_for('list',
                    {status_msg => "Exercise deleted."}));
