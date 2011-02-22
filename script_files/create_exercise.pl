@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 西元2010年11月30日 09時59分46秒
-# Last Edit: 2011  2月 22, 11時18分18秒
+# Last Edit: 2011  2月 22, 11時29分50秒
 # $Id$
 
 =head1 NAME
@@ -103,9 +103,8 @@ sub run {
 			$row{target} = $target;
 			$row{id} = $id++;
 			$row{class} = $class;
-			push @wordRows, \%row;
+			$c->model('DB::Word')->create( \%row );
 		}
-		$schema->resultset('Word')->populate( \@wordRows );
 		#@dictionaryList = map { m/^(.).*$/;
 		#		{ exercise => $textId, word => $_, initial => $1,
 		#		count => $newWords->{$_} } } keys %$newWords;
