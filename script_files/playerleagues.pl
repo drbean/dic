@@ -124,6 +124,8 @@ perl script_files/playerleagues.pl
 
 INSERT INTO players (id, name, password) VALUES (?, ?, ?)
 
+Actually UPDATE or INSERT. So it can be used when new players are added.
+
 =head1 AUTHOR
 
 Dr Bean, C<drbean at (@) cpan dot, yes a dot, org>
