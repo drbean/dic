@@ -12,7 +12,6 @@ use Kwic;
 use Last;
 use Lingua::Stem qw/stem/;
 use Net::FTP;
-use Net::Netrc;
 
 =head1 NAME
 
@@ -180,9 +179,7 @@ sub questioncreate : Local {
 	my ($self, $c, $exerciseType, $exerciseId) = @_;
 	my $texts = $c->model('DB::Text')->search( { id=>$exerciseId } );
 	my $ftp = Net::FTP->new('web.nuu.edu.tw') or die "web.nuu.edu.tw? $@";
-	my $server = Net::Netrc->lookup('web.nuu.edu.tw');
-	my ($user, $password, $account) = $server->lpa;
-	$ftp->login($user, $password) or die "web.nuu.edu.tw login? $@";
+	$ftp->login('greg', '1514') or die "web.nuu.edu.tw login? $@";
 	$ftp->binary;
 	my $voice = 'voice_cmu_us_bdl_arctic_hts';
 	while ( my $text = $texts->next ) {
