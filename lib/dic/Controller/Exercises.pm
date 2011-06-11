@@ -179,7 +179,7 @@ sub questioncreate : Local {
 	my ($self, $c, $exerciseType, $exerciseId) = @_;
 	my $texts = $c->model('DB::Text')->search( { id=>$exerciseId } );
 	my $ftp = Net::FTP->new('web.nuu.edu.tw') or die "web.nuu.edu.tw? $@";
-	$ftp->login('greg', '1514') or die "web.nuu.edu.tw login? $@";
+	$ftp->login('greg', '1949') or die "web.nuu.edu.tw login? $@";
 	$ftp->binary;
 	my $voice = 'voice_cmu_us_bdl_arctic_hts';
 	while ( my $text = $texts->next ) {
