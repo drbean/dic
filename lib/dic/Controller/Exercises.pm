@@ -196,8 +196,11 @@ sub questioncreate : Local {
 			my $content = $question->content;
 			my $remote = "$exerciseId$target$questionId.mp3";
 			my $local = "/tmp/$genre/$remote";
-			system( "echo \"$content\" | text2wave | lame -h -V 0 - $local" )
-					== 0 or die "text2wave, lame $local? $@,";
+			system( "echo \"$content\" |
+				text2wave -eval \"($voice)\" -otype wav -o /tmp/$genre.wav"
+				) == 0 or die "text2wave /tmp/$genre.wav? $@,";
+			system( "lame -h -V 0 /tmp/$genre.wav $local" ) == 0 or
+				die "lame $local? $@,";
 			$ftp->put($local) or die
 			"put $remote on web.nuu.edu.tw? $@";
 			my $answer = $question->answer;
