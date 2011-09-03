@@ -3,7 +3,7 @@ package dic::Controller::Pics;
 use Moose;
 BEGIN { extends 'Catalyst::Controller'; }
 
-use Flickr::API;
+use Flickr::API2;
 
 =head1 NAME
 
@@ -37,7 +37,7 @@ sub find : Local {
 	my $total = 400;
 	my @oldurls = $pics->search({ word => $word });
 	unless ( @oldurls ) {
-		my $api = Flickr::API->new({key =>
+		my $api = Flickr::API2->new({key =>
 			'ea697995b421c0532215e4a2cbadbe1e',
 			secret => 'ab2024b750a9d1f2' });
 		my $r = $api->execute_method('flickr.photos.search',
