@@ -15,12 +15,13 @@ BEGIN {
 	die "Which of @MyAppConf is the configuration file?"
 				unless @MyAppConf == 1;
 	my %config = Config::General->new($MyAppConf[0])->getall;
+	$::leagues = $config{leagues};
 	$::name = $config{name};
 	require "$::name.pm"; $::name->import;
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/GL00005 GL00022 FIA0038 MIA0012 BMA0033 FLA0016 FLA0021 FLA0022 FLA0030/;
+my @leagueids = qw/GL00003 GL00016 FIA0012 MIA0015 BMA0031 FLA0015 FLA0019 FLA0023 FLA0028/;
 
 no strict qw/subs refs/;
 my $connect_info = "${::name}::Model::DB"->config->{connect_info};
@@ -31,7 +32,7 @@ use strict;
 my ($leaguefile, $players);
 my $leagues = [ [ qw/id name field/ ] ];
 for my $league ( @leagueids ) {
-	$leaguefile = LoadFile "/home/drbean/992/$league/league.yaml";
+	$leaguefile = LoadFile "$::leagues/$league/league.yaml";
 	push @$leagues, [ $league, $leaguefile->{league}, $leaguefile->{field} ];
 	push @{$players->{$league}},
 		map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
@@ -42,14 +43,15 @@ uptodatepopulate( 'League', $leagues );
 
 my $leaguegenres = [
 			[ qw/league genre/ ],
-			[ "GL00005",	"intermediate" ],
-			[ "GL00022",	"intermediate" ],
-			[ "FLA0016",	"intermediate" ],
-			[ "FLA0021",	"intermediate" ],
-			[ "FLA0030",	"friends" ],
-			[ "FIA0038",	"business" ],
-			[ "BMA0033",	"business" ],
-			[ "MIA0012",	"business" ],
+			[ "GL00003",	"intermediate" ],
+			[ "GL00016",	"intermediate" ],
+			[ "FLA0015",	"intermediate" ],
+			[ "FLA0023",	"intermediate" ],
+			[ "FLA0019",	"intercultural" ],
+			[ "FLA0028",	"speaking" ],
+			[ "FIA0012",	"business" ],
+			[ "BMA0031",	"business" ],
+			[ "MIA0015",	"business" ],
 		];
 
 uptodatepopulate( 'Leaguegenre', $leaguegenres );

@@ -62,12 +62,14 @@ for my $id ( @leagueids ) {
 			my $member = first { $_->{name} eq $name } @$members;
 			my $Chinese = $member->{Chinese};
 			my $count = $players->count( { name=>$Chinese } );
-			#die "$name in $id league $group group not a Player"
-			#				unless $count;
+			die "$name in $id league $group group not a Player"
+							unless $count;
 			my $playerid = $member->{id};
+			die "$name in $id league $group has $playerid id"
+							unless $playerid;
 			my $player = $players->find( { id => $playerid } );
-			#die "2 ${name}s in $id league, 1 in $group" if
-			#				$rolebearers{$playerid};
+			die "2 ${name}s in $id league, 1 in $group" if
+							$rolebearers{$playerid};
 			my $role = $roleIds[$n];
 			$rolebearers{$playerid} = [ $id, $playerid, $role ];
 			$grouproles->{$id}->{$group}->{$role} = $name . "\t" . $playerid;
