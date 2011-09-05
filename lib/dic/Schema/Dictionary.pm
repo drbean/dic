@@ -27,8 +27,5 @@ __PACKAGE__->set_primary_key("genre", "word");
 # Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-08-26 18:19:13
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:d91UjQuH58wxi2u6MBRYbA
 
-__PACKAGE__->has_many(as => 'dic::Schema::Word',
-        {'foreign.genre' => 'self.genre', 'foreign.published' =>'self.word'});
-
 # You can replace this text with custom content, and it will be preserved on regeneration
 1;
