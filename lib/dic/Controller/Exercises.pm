@@ -66,7 +66,7 @@ sub list : Local {
     my %letterscores = map { $_->exercise => $_->get_column('letters') } @play;
     $c->stash->{letters} = \%letterscores;
     my @quiz = $c->model('DB::Quiz')->search(
-	    { league => $league, player => $player },
+	    { league => $leagueid, player => $player },
 		{ select => [ 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/exercise/],
 		as => [ qw/exercise questions/ ],
@@ -197,7 +197,7 @@ sub questioncreate : Local {
 			my $remote = "$exerciseId$target$questionId.mp3";
 			my $local = "/tmp/$genre/$remote";
 			system( "echo \"$content\" |
-				text2wave -eval \"($voice)\" -otype wav -o /tmp/$genre.wav"
+				text2wave -otype wav -o /tmp/$genre.wav"
 				) == 0 or die "text2wave /tmp/$genre.wav? $@,";
 			system( "lame -h -V 0 /tmp/$genre.wav $local" ) == 0 or
 				die "lame $local? $@,";
@@ -237,12 +237,15 @@ Delete an exercise. Delete of Questions and Questionwords done here too. TODO Bu
 sub delete : Local {
 	my ($self, $c, $id) = @_;
 	my $exercise = $c->model('DB::Exercise')->find({id => $id});
+	my $genre = $exercise->genre;
+	my $dictionary = $c->model('DB::Dictionary')->search(
+			{genre => $genre});
 	my $words = $exercise->words;
 	my %entries;
 	while (my $word = $words->next)
 	{
 		my $token = $word->published;
-		my $entry = $word->dictionary;
+		my $entry = $dictionary->find({ word => $token });
 		if ( $entry )
 		{
 			my $count = $entry->count;
