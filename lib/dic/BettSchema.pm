@@ -1,4 +1,4 @@
-package CompComp::BettSchema;
+package dic::BettSchema;
 
 use strict;
 use warnings;
