@@ -1,4 +1,4 @@
-package dic::Model::bettDB;
+package dic::Model::BettDB;
 
 use strict;
 use base 'Catalyst::Model::DBIC::Schema';
@@ -10,7 +10,7 @@ use base 'Catalyst::Model::DBIC::Schema';
 my $name = "bett001";
 
 __PACKAGE__->config(
-    schema_class => 'dic::bettSchema',
+    schema_class => 'dic::BettSchema',
     connect_info => {
         dsn => "dbi:Pg:dbname=$name",
         user => '',
