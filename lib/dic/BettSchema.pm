@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use FindBin qw/$Bin/;
 
-use lib "$Bin/../../lib";
+use lib "$Bin/../../bett/lib";
 
 use base 'DBIx::Class::Schema';
 
