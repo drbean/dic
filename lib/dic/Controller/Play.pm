@@ -54,6 +54,23 @@ sub update : Local {
 	$c->stash->{genre} = $genre;
 	$c->stash->{exercise} = $exerciseId;
 	$c->stash->{text} = $text->id;
+	my $gameover;
+	for my $allcourse ( 'WH', 'YN', 'S' ) {
+		my $standing = $c->model("bettDB::$allcourse")
+			->find({ player => $player,
+			exercise => $exerciseId,
+			league => $leagueId });
+		next unless $standing;
+		$c->stash($allcourse => $standing);
+		$gameover++ if ( $standing->questionchance < 0 or
+			$standing->answerchance < 0 );
+		$gameover++ if ( $standing->score >=
+			$c->config->{$allcourse}->{win} );
+		if ( $gameover ) {
+			$c->stash->{template} = "gameover.tt2";
+			last;
+		}
+	}
 	my ($myQuestionset, $myQuestion, $quizset, $questionset);
 	$myQuestionset = $c->model('DB::Quizquestion')->search({
 			exercise => $exerciseId, target => $targetId });
@@ -103,10 +120,10 @@ sub update : Local {
 	}
 	else {
 		$c->forward('clozeupdate');
-		$c->forward('questionupdate', $exerciseId);
+		# $c->forward('questionupdate', $exerciseId);
 		return if $c->stash->{template} and
 						$c->stash->{template} eq "play/gameover.tt2";
-		$c->stash->{template} = "play/question.tt2";
+		$c->stash->{template} = "play/start.tt2";
 	}
 }
 
@@ -141,7 +158,6 @@ sub clozeupdate : Local {
 	my $play =  $c->model('DB::Play');
 	my $score = 0;
 	my @cloze = ( { Newline => 1 }, { Newline => 1 } );
-$DB::single=1;
 	while (my $word = $wordSet->next)
 	{
 		my $id = $word->id;
