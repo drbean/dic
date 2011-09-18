@@ -54,78 +54,59 @@ sub update : Local {
 	$c->stash->{genre} = $genre;
 	$c->stash->{exercise} = $exerciseId;
 	$c->stash->{text} = $text->id;
-	$c->stash->{target} = $targetId;
-$DB::single=1;
-	my $gameover;
-	for my $allcourse ( 'WH', 'YN', 'S' ) {
-		my $standing = $c->model("BettDB::$allcourse")
-			->find({ player => $player,
-			exercise => $exerciseId,
-			league => $leagueId });
-		next unless $standing;
-		$c->stash($allcourse => $standing);
-		$gameover++ if ( $standing->questionchance < 0 or
-			$standing->answerchance < 0 );
-		$gameover++ if ( $standing->score >=
-			$c->config->{$allcourse}->{win} );
-		if ( $gameover ) {
-			$c->stash->{template} = "gameover.tt2";
-			last;
-		}
+	my ($myQuestionset, $myQuestion, $quizset, $questionset);
+	$myQuestionset = $c->model('DB::Quizquestion')->search({
+			exercise => $exerciseId, target => $targetId });
+	$myQuestion = $myQuestionset->find({ player => $player });
+	$quizset = $c->model('DB::Quiz');
+	$questionset = $text->questions->search({ target => $targetId });
+	my ( $quiz, $question );
+	if ( $myQuestion ) {
+		my $questionId = $myQuestion->value;
+		$quiz = $quizset->find({ player => $player, league =>
+			$leagueId, exercise => $exerciseId, question => $questionId });
+		$question = $questionset->find({ id => $questionId });
 	}
-	#my ($myQuestionset, $myQuestion, $quizset, $questionset);
-	#$myQuestionset = $c->model('DB::Quizquestion')->search({
-	#		exercise => $exerciseId, target => $targetId });
-	#$myQuestion = $myQuestionset->find({ player => $player });
-	#$quizset = $c->model('DB::Quiz');
-	#$questionset = $text->questions->search({ target => $targetId });
-	#my ( $quiz, $question );
-	#if ( $myQuestion ) {
-	#	my $questionId = $myQuestion->value;
-	#	$quiz = $quizset->find({ player => $player, league =>
-	#		$leagueId, exercise => $exerciseId, question => $questionId });
-	#	$question = $questionset->find({ id => $questionId });
-	#}
-	#else {
-	#	$question = $questionset->search({},
-	#		 {offset => int(rand($questionset->count)), rows => 1}
-	#							)->next;
-	#	my $questionId = $question->id;
-	#	$myQuestion = $myQuestionset->create({
-	#			exercise => $exerciseId,
-	#			target => $targetId,
-	#			player => $player,
-	#			value => $questionId });		
-	#	$quiz = $quizset->create({
-	#			league => $leagueId,
-	#			exercise => $exerciseId,
-	#			player => $player,
-	#			question => $questionId });		
-	#}
-	#$c->stash->{question} = $question;
-	#if ( $quiz and defined $quiz->correct and $quiz->correct == 1 ) {
-	#	$c->stash->{status_msg} =
-	#		"Congratulations, $player, on the correct answer for the
-	#		$exerciseId listening question.
-	#		<p>Full score for this homework.";
-	#	$c->stash->{template} = "play/gameover.tt2";
-	#}
-	#elsif ( $quiz and defined $quiz->correct and $quiz->correct == 0 ) {
-	#	$c->stash->{status_msg} =
-	#		"$player did not get the correct answer for the
-	#		$exerciseId listening question.
-	#		<p>Fill in the remaining letters for a full score 
-	#			for this homework.";
-	#	$c->forward('clozeupdate');
-	#	$c->stash->{template} = "play/start.tt2";
-	#}
-	#else {
-	{
+	else {
+		$question = $questionset->search({},
+			 {offset => int(rand($questionset->count)), rows => 1}
+								)->next;
+		my $questionId = $question->id;
+		$myQuestion = $myQuestionset->create({
+				exercise => $exerciseId,
+				target => $targetId,
+				player => $player,
+				value => $questionId });		
+		$quiz = $quizset->create({
+				league => $leagueId,
+				exercise => $exerciseId,
+				player => $player,
+				question => $questionId });		
+	}
+	$c->stash->{target} = $targetId;
+	$c->stash->{question} = $question;
+	if ( $quiz and defined $quiz->correct and $quiz->correct == 1 ) {
+		$c->stash->{status_msg} =
+			"Congratulations, $player, on the correct answer for the
+			$exerciseId listening question.
+			<p>Full score for this homework.";
+		$c->stash->{template} = "play/gameover.tt2";
+	}
+	elsif ( $quiz and defined $quiz->correct and $quiz->correct == 0 ) {
+		$c->stash->{status_msg} =
+			"$player did not get the correct answer for the
+			$exerciseId listening question.
+			<p>Fill in the remaining letters for a full score 
+				for this homework.";
 		$c->forward('clozeupdate');
-		# $c->forward('questionupdate', $exerciseId);
+		$c->stash->{template} = "play/start.tt2";
+	}
+	else {
+		$c->forward('clozeupdate');
+		$c->forward('questionupdate', $exerciseId);
 		return if $c->stash->{template} and
 						$c->stash->{template} eq "play/gameover.tt2";
-		$c->stash->{template} = "play/start.tt2";
+		$c->stash->{template} = "play/question.tt2";
 	}
 }
 
@@ -146,7 +127,6 @@ sub clozeupdate : Local {
 	my $exerciseType = $c->model('DB::Exercise')->find(
 			{ genre => $genre, id =>$exerciseId },)->type;
 	my $textId = $c->stash->{text};
-$DB::single=1;
 	my $title = $c->model('DB::Text')->find({
 			id => $textId, target => $target })->description;
 	my $wordSet = $c->model('DB::Word')->search(
@@ -161,6 +141,7 @@ $DB::single=1;
 	my $play =  $c->model('DB::Play');
 	my $score = 0;
 	my @cloze = ( { Newline => 1 }, { Newline => 1 } );
+$DB::single=1;
 	while (my $word = $wordSet->next)
 	{
 		my $id = $word->id;

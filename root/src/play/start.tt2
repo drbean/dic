@@ -1,9 +1,7 @@
 [% META title = "Dictation exercise" -%]
 
-<H3><a href="http://sac.nuu.edu.tw/bett/">WRITE a question about the [% exercise_id %] exercise</a></H3>
-
 <form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
-<input type="submit" name="Submit" value="CheckWords">
+<input type="submit" name="Submit" value="Submit">
 [%# advised not to put objects into templates -%]
 [% FOREACH section IN cloze -%]
 [% IF section.Newline -%]
@@ -21,7 +19,7 @@
 [%- section -%]
 [% END -%]
 [% END -%]
-<input type="submit" name="Submit" value="CheckWords">
+<input type="submit" name="Submit" value="Submit">
 </form>
 
 <p>
