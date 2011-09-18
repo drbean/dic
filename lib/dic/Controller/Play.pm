@@ -54,6 +54,8 @@ sub update : Local {
 	$c->stash->{genre} = $genre;
 	$c->stash->{exercise} = $exerciseId;
 	$c->stash->{text} = $text->id;
+	$c->stash->{target} = $targetId;
+$DB::single=1;
 	my $gameover;
 	for my $allcourse ( 'WH', 'YN', 'S' ) {
 		my $standing = $c->model("BettDB::$allcourse")
@@ -100,7 +102,6 @@ sub update : Local {
 	#			player => $player,
 	#			question => $questionId });		
 	#}
-	#$c->stash->{target} = $targetId;
 	#$c->stash->{question} = $question;
 	#if ( $quiz and defined $quiz->correct and $quiz->correct == 1 ) {
 	#	$c->stash->{status_msg} =
@@ -145,6 +146,7 @@ sub clozeupdate : Local {
 	my $exerciseType = $c->model('DB::Exercise')->find(
 			{ genre => $genre, id =>$exerciseId },)->type;
 	my $textId = $c->stash->{text};
+$DB::single=1;
 	my $title = $c->model('DB::Text')->find({
 			id => $textId, target => $target })->description;
 	my $wordSet = $c->model('DB::Word')->search(
