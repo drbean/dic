@@ -1,6 +1,6 @@
 [% META title = "Dictation exercise" -%]
 
-<H3><a href="http://sac.nuu.edu.tw:3000">WRITE a question about the [% exercise_id %] exercise</a></H3>
+<H3><a href="http://sac.nuu.edu.tw/cgi-bin/bett/script/bett_cgi.pl/login">WRITE a question about the [% exercise_id %] exercise</a></H3>
 
 <form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
 <input type="submit" name="Submit" value="CheckWords">
