@@ -53,9 +53,9 @@ sub update : Local {
 		{ genre => $genre, id => $exerciseId } );
 	$c->stash->{genre} = $genre;
 	$c->stash->{exercise} = $exerciseId;
+$DB::single=1;
 	$c->stash->{text} = $text->id;
 	$c->stash->{target} = $targetId;
-$DB::single=1;
 	my $gameover;
 	for my $allcourse ( 'WH', 'YN', 'S' ) {
 		my $standing = $c->model("BettDB::$allcourse")
@@ -125,6 +125,9 @@ $DB::single=1;
 		# $c->forward('questionupdate', $exerciseId);
 		return if $c->stash->{template} and
 						$c->stash->{template} eq "play/gameover.tt2";
+		$c->stash->{player_id} = $player;
+		$c->stash->{password} = $c->model("DB::Player")->find( $player )
+			->password;
 		$c->stash->{template} = "play/start.tt2";
 	}
 }

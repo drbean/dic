@@ -57,6 +57,7 @@ sub index : Path : Args(0) {
 			for my $membership (@memberships) {
 				push @leagues, $membership->league;
 			}
+$DB::single=1;
 			unless ( @leagues == 1 ) {
 				$c->stash->{id}	   = $id;
 				$c->stash->{name}	 = $name;
