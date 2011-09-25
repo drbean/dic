@@ -53,7 +53,6 @@ sub update : Local {
 		{ genre => $genre, id => $exerciseId } );
 	$c->stash->{genre} = $genre;
 	$c->stash->{exercise} = $exerciseId;
-$DB::single=1;
 	$c->stash->{text} = $text->id;
 	$c->stash->{target} = $targetId;
 	my $gameover;
@@ -149,7 +148,6 @@ sub clozeupdate : Local {
 	my $exerciseType = $c->model('DB::Exercise')->find(
 			{ genre => $genre, id =>$exerciseId },)->type;
 	my $textId = $c->stash->{text};
-$DB::single=1;
 	my $title = $c->model('DB::Text')->find({
 			id => $textId, target => $target })->description;
 	my $wordSet = $c->model('DB::Word')->search(
