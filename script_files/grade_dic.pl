@@ -25,22 +25,33 @@ use dic::Model::DB;
 
 my $connect_info = dic::Model::DB->config->{connect_info};
 my $d = dic::Schema->connect( @$connect_info );
+my $genre = $d->resultset('Leaguegenre')->find({league=>$id})->genre;
 my $members = $d->resultset('Member')->search({ league => $id });
 my $play = $d->resultset('Play')->search({ exercise => $exercise });
 my $quiz = $d->resultset('Quiz')->search({ exercise => $exercise });
+my $words = $d->resultset('Word')->search({ exercise => $exercise,
+		genre => $genre });
+my $roles = $d->resultset('Jigsawrole')->search({ league => $id });
 
 my ( $p, $g );
 for my $player ( keys %m ) {
-	my $letters = $play->search({ player => $player });
-	my $total = 0;
+	my $letters = $play->search({ player => $player, league => $id });
+	my $roleset = $roles->find({ player => $player, league => $id });
+	die "Player ${player}'s role in $id league," unless $roleset;
+	my $role = $roleset->role;
+	my ($correct, $total) = (0) x 2;
 	if ( $letters and $letters->isa('DBIx::Class::ResultSet') ) {
-		while ( my $word = $letters->next ) {
-			$total += $word->correct;
+		while ( my $letterset = $letters->next ) {
+			my $id = $letterset->blank;
+			my $word = $words->find({ target => $role, id => $id });
+			$correct += $letterset->correct;
+			$total += length $word->clozed if $word;
 		}
 	}
-	$p->{$player}->{letters} = $total;
+	$p->{$player}->{letters} = $correct;
+	$p->{$player}->{percent} = $total? sprintf('%.0f', 100*$correct/$total): 0;
 	my $questions = $quiz->search({ player => $player });
-	my $correct = 0;
+	$correct = 0;
 	if ( $questions and $questions->isa('DBIx::Class::ResultSet') ) {
 		while ( my $question = $questions->next ) {
 			$correct++ if $question->correct;
@@ -48,8 +59,8 @@ for my $player ( keys %m ) {
 	}
 	$p->{$player}->{questions} = $correct;
 	$g->{$player} = $correct ||
-		$p->{$player}->{letters} >= $two? 2:
-		$p->{$player}->{letters} > $one? 1: 0;
+		$p->{$player}->{percent} >= $two? 2:
+		$p->{$player}->{percent} > $one? 1: 0;
 }
 
 print Dump { exercise => $exercise, grade => $g, points => $p,
