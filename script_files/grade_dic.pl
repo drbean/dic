@@ -35,26 +35,25 @@ my $roles = $d->resultset('Jigsawrole')->search({ league => $id });
 
 my ( $p, $g );
 for my $player ( keys %m ) {
-	my $letters = $play->search({ player => $player, league => $id });
+	my $wordplay = $play->search({ player => $player, league => $id });
 	my $roleset = $roles->find({ player => $player, league => $id });
 	die "Player ${player}'s role in $id league," unless $roleset;
 	my $role = $roleset->role;
 	my ($correct, $total) = (0) x 2;
-	if ( $letters and $letters->isa('DBIx::Class::ResultSet') ) {
-		while ( my $letterset = $letters->next ) {
-			my $id = $letterset->blank;
-			my $word = $words->find({ target => $role, id => $id });
-			$correct += $letterset->correct;
-			$total += length $word->clozed if $word;
-		}
+	my $wordset = $words->search({ target => $role });
+	while ( my $word = $wordset->next ) {
+		my $id = $word->id;
+		my $letters = $wordplay->find({ blank => $id });
+		$correct += $letters->correct if $letters;
+		$total += length $word->clozed;
 	}
 	$p->{$player}->{letters} = $correct;
 	$p->{$player}->{percent} = $total? sprintf('%.0f', 100*$correct/$total): 0;
 	my $questions = $quiz->search({ player => $player });
-	$correct = 0;
+	$correct = undef;
 	if ( $questions and $questions->isa('DBIx::Class::ResultSet') ) {
 		while ( my $question = $questions->next ) {
-			$correct++ if $question->correct;
+			$correct += $question->correct if defined $question->correct;
 		}
 	}
 	$p->{$player}->{questions} = $correct;
