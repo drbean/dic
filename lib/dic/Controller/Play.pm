@@ -45,7 +45,8 @@ sub update : Local {
 	my $leagueId = $c->session->{league};
 	my $target = $c->model('DB::Jigsawrole')->find({
 			league => $leagueId, player => $player });
-	my $targetId = $target? $target->role: 'all';
+	# my $targetId = $target? $target->role: 'all';
+	my $targetId = 'all';
 	$exerciseId ||= $c->session->{exercise};
 	my $genre = $c->model("DB::Leaguegenre")->find(
 			{ league => $leagueId } )->genre;
