@@ -14,18 +14,20 @@ $sender->mailer_args([
 ]);
 
 my $tmpl = Text::Template->new( TYPE => 'FILE', SOURCE => 'flier1.tmpl' );
-my $datahash = { address => 'greg@nuu.edu.tw' };
-my $message = $tmpl->fill_in( hash => $datahash );
 
-$sender->send( $message );
+my @leagues = qw/FLA0023/;
 
-my @leagues = qw/BMA0031/;
 for my $league ( @leagues ) {
+	for my $drbean ( qw/greg@nuu.edu.tw drbean@freeshell.org/ ) {
+		my $datahash = { league => $league, address => $drbean };
+		my $message = $tmpl->fill_in( hash => $datahash );
+		$sender->send( $message );
+	}
 	my $yaml = LoadFile "../../001/$league/league.yaml";
 	my $members = $yaml->{member};
 	my @ids = map { $_->{id} } @$members;
 	for my $id ( @ids ) {
-		my $datahash = { address => "$id\@smail.nuu.edu.tw" };
+		my $datahash = { league => $league, address => "$id\@smail.nuu.edu.tw"};
 		my $message = $tmpl->fill_in( hash => $datahash );
 $DB::single=1;
 		$sender->send( $message );
