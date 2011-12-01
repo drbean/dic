@@ -21,7 +21,7 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/GL00003 GL00016 FIA0012 MIA0015 BMA0031 FLA0015 FLA0019 FLA0023 FLA0028/;
+my @leagueids = qw/GL00003 GL00016 FIA0012 MIA0015 BMA0031 FLA0015 FLA0019 FLA0023 self_access/;
 
 no strict qw/subs refs/;
 my $connect_info = "${::name}::Model::DB"->config->{connect_info};
@@ -48,10 +48,10 @@ my $leaguegenres = [
 			[ "FLA0015",	"intermediate" ],
 			[ "FLA0023",	"intermediate" ],
 			[ "FLA0019",	"intercultural" ],
-			[ "FLA0028",	"speaking" ],
 			[ "FIA0012",	"business" ],
 			[ "BMA0031",	"business" ],
 			[ "MIA0015",	"business" ],
+			[ "self_access",	"access" ],
 		];
 
 uptodatepopulate( 'Leaguegenre', $leaguegenres );
