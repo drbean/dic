@@ -21,7 +21,19 @@ BEGIN {
 	require "$::name/Schema.pm"; $::name->import;
 }
 
-my @leagueids = qw/GL00003 GL00016 FIA0012 MIA0015 BMA0031 FLA0015 FLA0019 FLA0023 self_access/;
+my $leaguegenres = [
+			[ qw/league genre/ ],
+			[ "GL00003",	"intermediate" ],
+			[ "GL00016",	"intermediate" ],
+			[ "FLA0015",	"intermediate" ],
+			[ "FLA0023",	"intermediate" ],
+			[ "FLA0019",	"intercultural" ],
+			[ "FIA0012",	"business" ],
+			[ "BMA0031",	"business" ],
+			[ "MIA0015",	"business" ],
+			[ "self_access",	"access" ],
+		];
+my @leagueids =  map $_->[0], @$leaguegenres[1..$#$leaguegenres];
 
 no strict qw/subs refs/;
 my $connect_info = "${::name}::Model::DB"->config->{connect_info};
@@ -40,19 +52,6 @@ for my $league ( @leagueids ) {
 }
 
 uptodatepopulate( 'League', $leagues );
-
-my $leaguegenres = [
-			[ qw/league genre/ ],
-			[ "GL00003",	"intermediate" ],
-			[ "GL00016",	"intermediate" ],
-			[ "FLA0015",	"intermediate" ],
-			[ "FLA0023",	"intermediate" ],
-			[ "FLA0019",	"intercultural" ],
-			[ "FIA0012",	"business" ],
-			[ "BMA0031",	"business" ],
-			[ "MIA0015",	"business" ],
-			[ "self_access",	"access" ],
-		];
 
 uptodatepopulate( 'Leaguegenre', $leaguegenres );
 
