@@ -26,7 +26,10 @@ my $leaguegenres = [
 			[ "GL00003",	"intermediate" ],
 			[ "GL00016",	"intermediate" ],
 			[ "FLA0015",	"intermediate" ],
-			[ "FLA0023",	"intermediate" ],
+#			[ "FLA0023",	"intermediate" ],
+			[ "FLA0023-fernand",	"intermediate" ],
+			[ "FLA0023-nguyen",	"intermediate" ],
+			[ "FLA0023-mestas",	"intermediate" ],
 			[ "FLA0019",	"intercultural" ],
 			[ "FIA0012",	"business" ],
 			[ "BMA0031",	"business" ],
@@ -43,10 +46,11 @@ use strict;
 
 my ($leaguefile, $players);
 my $leagues = [ [ qw/id name field/ ] ];
-for my $league ( @leagueids ) {
-	$leaguefile = LoadFile "$::leagues/$league/league.yaml";
-	push @$leagues, [ $league, $leaguefile->{league}, $leaguefile->{field} ];
-	push @{$players->{$league}},
+for my $leagueId ( @leagueids ) {
+	( my $id = $leagueId ) =~ s/^([[:alpha:]]+[[:digit:]]+).*$/$1/;
+	$leaguefile = LoadFile "$::leagues/$id/league.yaml";
+	push @$leagues, [ $leagueId, $leaguefile->{league}, $leaguefile->{field} ];
+	push @{$players->{$leagueId}},
 		map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
 					@{$leaguefile->{member}};
 }
