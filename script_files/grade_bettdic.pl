@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 10/21/2011 02:37:36 PM
-# Last Edit: 2011 Oct 26, 09:07:14 PM
+# Last Edit: 2011 Nov 13, 07:51:08 PM
 # $Id$
 
 =head1 NAME
@@ -85,7 +85,8 @@ for my $player ( keys %m ) {
 	die "Player ${player}'s role in $id league," unless $roleset;
 	my $role = $roleset->role;
 	my ($correct, $total) = (0) x 2;
-	my $wordset = $words->search({ target => $role });
+	# my $wordset = $words->search({ target => $role });
+	my $wordset = $words->search({ target => "all" });
 	while ( my $word = $wordset->next ) {
 		my $id = $word->id;
 		my $letters = $wordplay->find({ blank => $id });
