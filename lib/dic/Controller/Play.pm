@@ -73,16 +73,14 @@ sub update : Local {
 			last;
 		}
 	}
-	{
-		$c->forward('clozeupdate');
-		# $c->forward('questionupdate', $exerciseId);
-		return if $c->stash->{template} and
-						$c->stash->{template} eq "play/gameover.tt2";
-		$c->stash->{player_id} = $player;
-		$c->stash->{password} = $c->model("DB::Player")->find( $player )
-			->password;
-		$c->stash->{template} = "play/start.tt2";
-	}
+	$c->forward('clozeupdate');
+	# $c->forward('questionupdate', $exerciseId);
+	return if $c->stash->{template} and
+					$c->stash->{template} eq "play/gameover.tt2";
+	$c->stash->{player_id} = $player;
+	$c->stash->{password} = $c->model("DB::Player")->find( $player )
+		->password;
+	$c->stash->{template} = "play/start.tt2";
 }
 
 
