@@ -1,9 +1,29 @@
 #!/usr/bin/perl 
 
+# Created: 10/21/2011 02:37:36 PM
+# Last Edit: 2012  1月 29, 17時37分41秒
+# $Id$
+
+=head1 NAME
+
+grade_dic.pl - Grade only dic letters written
+
+=head1 VERSION
+
+Version 0.01
+
+=cut
+
 use strict;
 use warnings;
 # use lib qw( /var/www/cgi-bin/target/lib );
 use lib qw( lib );
+
+=head1 SYNOPSIS
+
+perl script_files/grade_dic.pl -l GL00016 -x rueda -o 20 -t 85 > ../001/GL00016/homework/5.yaml
+
+=cut
 
 use YAML qw/LoadFile Dump/;
 
@@ -22,6 +42,12 @@ my %m = map { $_->{id} => $_ } @$m;
 use dic;
 use dic::Schema;
 use dic::Model::DB;
+
+=head1 DESCRIPTION
+
+Above 20 percent, grade of 1. Above 85 percent of the letters, a grade of 2.
+
+=cut
 
 my $connect_info = dic::Model::DB->config->{connect_info};
 my $d = dic::Schema->connect( @$connect_info );
@@ -64,3 +90,20 @@ for my $player ( keys %m ) {
 
 print Dump { exercise => $exercise, grade => $g, points => $p,
 				cutpoints => { one => $one, two => $two } };
+
+=head1 AUTHOR
+
+Dr Bean C<< <drbean at cpan, then a dot, (.), and org> >>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2011 Dr Bean, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
+
+# End of grade_dic.pl
+
+# vim: set ts=8 sts=4 sw=4 noet:
