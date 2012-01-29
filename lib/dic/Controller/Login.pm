@@ -70,7 +70,7 @@ $DB::single=1;
 				if ( defined $c->session->{exercise} ) {
 					my $exercise = $c->session->{exercise};
 					$c->response->redirect(
-						$c->uri_for("/play/update/$exercise"), 303 );
+						$c->uri_for("/play/$exercise"), 303 );
 				}
 				else {
 					$c->response->redirect( $c->uri_for("/exercises/list"),
@@ -137,7 +137,7 @@ sub membership : Local {
 	if ( defined $c->session->{exercise}) {
 		my $exercise = $c->session->{exercise};
 		$c->response->redirect(
-			$c->uri_for( "/play/update/$exercise" ), 303 );
+			$c->uri_for( "/play/$exercise" ), 303 );
 	}
 	else {
 		$c->response->redirect( $c->uri_for("/exercises/list"), 303 );

@@ -7,7 +7,7 @@
  [%- word=box.repeat(keyword.clozed.length) _ keyword.unclozed %]
 [% END %]
 <p>
-Back to <a href="[% Catalyst.uri_for('/play/update/') _ id %]">[% title %] Exercise</a>
+Back to <a href="[% Catalyst.uri_for('/play/') _ id %]">[% title %] Exercise</a>
 </p>
 
 [%- UNLESS stopword %]
@@ -75,5 +75,5 @@ Back to <a href="[% Catalyst.uri_for('/play/update/') _ id %]">[% title %] Exerc
 </table>
 
 <p>
-Back to <a href="[% Catalyst.uri_for('/play/update/') _ id %]">[% title %] Exercise</a>
+Back to <a href="[% Catalyst.uri_for('/play/') _ id %]">[% title %] Exercise</a>
 </p>

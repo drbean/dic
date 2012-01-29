@@ -2,7 +2,7 @@
 
 <ul>
 <li>
-<form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
+<form method="post" action="[% Catalyst.uri_for('/play/') _ exercise_id %]">
   <ul><li>Question: 
 <a href="http://web.nuu.edu.tw/~greg/[% genre %]/[% exercise_id _ target _ question_id %].mp3">Listen</a></p>
 
@@ -29,7 +29,7 @@
 </li>
 
 <li>
-<form method="post" action="[% Catalyst.uri_for('/play/update/') _ exercise_id %]">
+<form method="post" action="[% Catalyst.uri_for('/play/') _ exercise_id %]">
 [% title %] <input type="submit" name="Submit" value="CheckWords">
 [%# advised not to put objects into templates -%]
 [% FOREACH section IN cloze -%]

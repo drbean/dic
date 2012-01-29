@@ -13,7 +13,7 @@
     <td>[% letters.$id %]</td>
     <td>[% questions.$id %]</td>
     <td>
-         <a href="[% Catalyst.uri_for('/play/update/') _ exercise.id %]">Go!</a>
+         <a href="[% Catalyst.uri_for('/play/') _ exercise.id %]">Go!</a>
     </td>
   </tr>
 [% END -%]
