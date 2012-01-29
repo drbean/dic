@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 10/21/2011 02:37:36 PM
-# Last Edit: 2012  1月 29, 17時37分41秒
+# Last Edit: 2012  1月 29, 17時52分19秒
 # $Id$
 
 =head1 NAME
@@ -19,13 +19,13 @@ use warnings;
 # use lib qw( /var/www/cgi-bin/target/lib );
 use lib qw( lib );
 
+use YAML qw/LoadFile Dump/;
+
 =head1 SYNOPSIS
 
 perl script_files/grade_dic.pl -l GL00016 -x rueda -o 20 -t 85 > ../001/GL00016/homework/5.yaml
 
 =cut
-
-use YAML qw/LoadFile Dump/;
 
 use Grades;
 
@@ -45,7 +45,7 @@ use dic::Model::DB;
 
 =head1 DESCRIPTION
 
-Above 20 percent, grade of 1. Above 85 percent of the letters, a grade of 2.
+Above 20 percent, grade of 1. Above 85 percent of the letters, a (perfect) grade of 2.
 
 =cut
 
