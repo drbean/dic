@@ -5,6 +5,10 @@ use warnings;
 use parent 'Catalyst::Controller';
 use FirstLast;
 
+use POSIX;
+use Math::Random;
+
+
 =head1 NAME
 
 dic::Controller::Play - Catalyst Controller
@@ -32,6 +36,65 @@ sub start : Local {
     $c->stash->{template} = 'play/start.tt2';
 }
 
+=head2 setup
+
+Create player's rows in Play table. Words in randomly chosen n-word length cloze sections add up to 1/p of the total clozeable words.
+
+=cut
+ 
+sub setup :Chained('/') :PathPart('play') :CaptureArgs(1) {
+	my ($n,$sd) = (12,2); my $p = 1/4;
+	my ($self, $c, $exerciseId) = @_;
+	my $player = $c->session->{player_id};
+	my $leagueId = $c->session->{league};
+	my $genre = $c->model("DB::Leaguegenre")->find(
+			{ league => $leagueId } )->genre;
+	my $wordSet = $c->model('DB::Word')->search(
+		{genre => $genre, exercise => $exerciseId, class => 'Word' },
+		{ order_by => 'id' } );
+	my $playSet = $c->model('DB::Play')->search(
+			{player => $player, exercise => $exerciseId},
+			{ order_by => 'blank' } );
+	if ( $playSet == 0 ) {
+		my $wordcount = $wordSet->count;
+		my $sections = $p * $wordcount / $n;
+		my $low = 5;
+		my $zoom = 6.8;
+		my $high = ceil ($zoom * (1 - $p) * $wordcount / ($n-1) );
+		my @lengths = random_normal($sections,$n,$sd);
+		my @spaces = random_uniform( $n-1, $low, $high );
+		my $firstspace = random_uniform(1, 0, 10);
+		my ($word, $blank);
+		for ( 1 .. $firstspace ) {
+			$word = $wordSet->next;
+			last unless $word;
+		}
+		$blank = $word->id;
+		foreach my $section ( 1 .. $sections ) {
+			my $length = shift @lengths;
+			foreach my $position ( $blank .. $blank + $length-1 ) {
+				$playSet->create({ player => $player,
+					exercise => $exerciseId,
+					blank => $blank,
+					league => $leagueId,
+					correct => 0 });
+			} continue {
+				$word = $wordSet->next;
+				last unless $word;
+				$blank = $word->id;
+			}
+			my $space = shift @spaces;
+			for ( 1 .. $space ) {
+				$word = $wordSet->next;
+				last unless $word;
+			}
+		}
+	}
+	$c->stash->{exercise} = $exerciseId;
+	$c->stash->{genre} = $genre;
+	$c->stash->{wordset} = $wordSet;
+	$c->stash->{template} = "play/start.tt2";
+}
 
 =head2 update
 
@@ -39,15 +102,15 @@ Check answers, fetch all characters and pass to characters/list.tt2 for display.
 
 =cut
  
-sub update : Local {
-	my ($self, $c, $exerciseId) = @_;
+sub update :Chained('setup') :PathPart('') :CaptureArgs(0) {
+	my ($self, $c) = @_;
 	my $player = $c->session->{player_id};
 	my $leagueId = $c->session->{league};
 	my $target = $c->model('DB::Jigsawrole')->find({
 			league => $leagueId, player => $player });
 	# my $targetId = $target? $target->role: 'all';
 	my $targetId = 'all';
-	$exerciseId ||= $c->session->{exercise};
+	my $exerciseId = $c->stash->{exercise};
 	my $genre = $c->model("DB::Leaguegenre")->find(
 			{ league => $leagueId } )->genre;
 	my $text = $c->model('DB::Exercise')->find(
@@ -73,8 +136,6 @@ sub update : Local {
 			last;
 		}
 	}
-	$c->forward('clozeupdate');
-	# $c->forward('questionupdate', $exerciseId);
 	return if $c->stash->{template} and
 					$c->stash->{template} eq "play/gameover.tt2";
 	$c->stash->{player_id} = $player;
@@ -90,20 +151,18 @@ Partly-correct answers are accepted up to the first letter that is wrong.
 
 =cut
  
-sub clozeupdate : Local {
-	my ($self, $c, $exerciseId) = @_;
+sub clozeupdate :Chained('update') :PathPart('') :Args(0) {
+	my ($self, $c) = @_;
 	my $player = $c->session->{player_id};
 	my $league = $c->session->{league};
-	$exerciseId ||= $c->session->{exercise};
-	my $target = $c->stash->{target};
+	my $exerciseId = $c->stash->{exercise};
 	my $genre = $c->stash->{genre};
 	my $exerciseType = $c->model('DB::Exercise')->find(
 			{ genre => $genre, id =>$exerciseId },)->type;
 	my $textId = $c->stash->{text};
-	my $title = $c->model('DB::Text')->find({
-			id => $textId, target => $target })->description;
+	my $title = $c->model('DB::Text')->find({ id => $textId })->description;
 	my $wordSet = $c->model('DB::Word')->search(
-			{genre => $genre, exercise => $exerciseId, target => $target},
+		{genre => $genre, exercise => $exerciseId },
 			{ order_by => 'id' } );
 	my $playSet = $c->model('DB::Play')->search(
 			{player => $player, exercise => $exerciseId},
@@ -128,19 +187,22 @@ sub clozeupdate : Local {
 			{
 				chop $published unless length $published <= 2;
 			}
-			my $previous = $playSet->find({ blank=>$id });
-			my $correct = $previous? $previous->correct: 0;
+			my $target = $playSet->find({ blank=>$id });
+			my $correct = $target? $target->correct: 0;
 			my $clozed = $word->clozed;
 			my $allLetters = length $clozed;
-			my $answer = substr $clozed, $correct;
 			my $response = $responses->{$id};
-			if ( $correct == $allLetters ) {
+			unless ( $target ) {
+				push @cloze, $unclozed, '*' x length $clozed;
+			}
+			elsif ( $correct == $allLetters ) {
 				$score += $allLetters;
 				push @cloze, $published;
 			}
 			elsif ( $response )
 			{
 				my $letters = length $response;
+				my $answer = substr $clozed, $correct;
 				if ( $response eq $answer )
 				{
 					$correct += $letters;
