@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 10/21/2011 02:37:36 PM
-# Last Edit: 2012  1月 29, 17時52分19秒
+# Last Edit: 2012  1月 29, 20時52分27秒
 # $Id$
 
 =head1 NAME
@@ -45,7 +45,7 @@ use dic::Model::DB;
 
 =head1 DESCRIPTION
 
-Above 20 percent, grade of 1. Above 85 percent of the letters, a (perfect) grade of 2.
+Above 20 percent, grade of 1. Above 85 percent of the letters, a (perfect) grade of 2. No roles. Uses play table, rather than words.
 
 =cut
 
@@ -57,33 +57,20 @@ my $play = $d->resultset('Play')->search({ exercise => $exercise });
 my $quiz = $d->resultset('Quiz')->search({ exercise => $exercise });
 my $words = $d->resultset('Word')->search({ exercise => $exercise,
 		genre => $genre });
-my $roles = $d->resultset('Jigsawrole')->search({ league => $id });
 
 my ( $p, $g );
 for my $player ( keys %m ) {
 	my $wordplay = $play->search({ player => $player, league => $id });
-	my $roleset = $roles->find({ player => $player, league => $id });
-	die "Player ${player}'s role in $id league," unless $roleset;
-	my $role = $roleset->role;
 	my ($correct, $total) = (0) x 2;
-	my $wordset = $words->search({ target => $role });
-	while ( my $word = $wordset->next ) {
-		my $id = $word->id;
+	while ( my $word = $wordplay->next ) {
+		my $id = $word->blank;
 		my $letters = $wordplay->find({ blank => $id });
 		$correct += $letters->correct if $letters;
-		$total += length $word->clozed;
+		$total += length $words->find({id => $id})->published;
 	}
 	$p->{$player}->{letters} = $correct;
 	$p->{$player}->{percent} = $total? sprintf('%.0f', 100*$correct/$total): 0;
-	my $questions = $quiz->search({ player => $player });
-	$correct = undef;
-	if ( $questions and $questions->isa('DBIx::Class::ResultSet') ) {
-		while ( my $question = $questions->next ) {
-			$correct += $question->correct if defined $question->correct;
-		}
-	}
-	$p->{$player}->{questions} = $correct;
-	$g->{$player} = $correct ||
+	$g->{$player} = 
 		$p->{$player}->{percent} >= $two? 2:
 		$p->{$player}->{percent} > $one? 1: 0;
 }
