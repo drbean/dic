@@ -193,7 +193,7 @@ sub clozeupdate :Chained('update') :PathPart('') :Args(0) {
 			my $allLetters = length $clozed;
 			my $response = $responses->{$id};
 			unless ( $target ) {
-				push @cloze, $unclozed, '*' x length $clozed;
+				push @cloze, $unclozed, '□' x length $clozed;
 			}
 			elsif ( $correct == $allLetters ) {
 				$score += $allLetters;
