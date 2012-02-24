@@ -8,14 +8,14 @@ use YAML qw/LoadFile/;
 
 my $sender = Email::Send->new({ mailer => 'SMTP' });
 $sender->mailer_args([ 
-	   Host     => 'email.nuu.edu.tw', # defaults to localhost
+	   Host     => 'mail.nuu.edu.tw', # defaults to localhost
 	   username => 'greg',
 	   password => '',
 ]);
 
 my $tmpl = Text::Template->new( TYPE => 'FILE', SOURCE => 'flier1.tmpl' );
 
-my @leagues = qw/FLA0023/;
+my @leagues = qw/BMA0059 MIA0013 FIA0034/;
 
 for my $league ( @leagues ) {
 	for my $drbean ( qw/greg@nuu.edu.tw drbean@freeshell.org/ ) {
@@ -23,7 +23,7 @@ for my $league ( @leagues ) {
 		my $message = $tmpl->fill_in( hash => $datahash );
 		$sender->send( $message );
 	}
-	my $yaml = LoadFile "../../001/$league/league.yaml";
+	my $yaml = LoadFile "../../002/$league/league.yaml";
 	my $members = $yaml->{member};
 	my @ids = map { $_->{id} } @$members;
 	for my $id ( @ids ) {
