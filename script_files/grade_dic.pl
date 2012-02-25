@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 10/21/2011 02:37:36 PM
-# Last Edit: 2012  1月 29, 20時52分27秒
+# Last Edit: 2012 Feb 24, 10:27:18 PM
 # $Id$
 
 =head1 NAME
@@ -66,7 +66,7 @@ for my $player ( keys %m ) {
 		my $id = $word->blank;
 		my $letters = $wordplay->find({ blank => $id });
 		$correct += $letters->correct if $letters;
-		$total += length $words->find({id => $id})->published;
+		$total += length $words->find({id => $id})->clozed;
 	}
 	$p->{$player}->{letters} = $correct;
 	$p->{$player}->{percent} = $total? sprintf('%.0f', 100*$correct/$total): 0;
