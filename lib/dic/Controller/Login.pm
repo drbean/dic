@@ -57,7 +57,6 @@ sub index : Path : Args(0) {
 			for my $membership (@memberships) {
 				push @leagues, $membership->league;
 			}
-$DB::single=1;
 			unless ( @leagues == 1 ) {
 				$c->stash->{id}	   = $id;
 				$c->stash->{name}	 = $name;
@@ -102,13 +101,15 @@ sub official : Local {
 	my $jigsawrole = $c->request->params->{jigsawrole} || "";
 	my $password = lc $c->request->params->{password} || "";
 	my $username = $c->session->{player_id};
+$DB::single=1;
 	if ( $c->authenticate( {id =>$username, password=>$password} ) ) {
 		# my $officialrole = "official";
 		my $officialrole = 1;
 		if ( $c->check_user_roles($officialrole) ) {
 			$c->session->{league} = $league;
 			$c->model('DB::Jigsawrole')->update_or_create(
-				{ league => $league, player => $username, role => $jigsawrole } );
+				{ league => $league, player => $username, role => $jigsawrole } )
+					if $jigsawrole;
 			$c->response->redirect($c->uri_for("/exercises/list"), 303);
 			return;
 		}
