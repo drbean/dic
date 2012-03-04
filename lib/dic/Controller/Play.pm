@@ -43,7 +43,7 @@ Create player's rows in Play table. Words in randomly chosen n-word length cloze
 =cut
  
 sub setup :Chained('/') :PathPart('play') :CaptureArgs(1) {
-	my ($n,$sd) = (12,2); my $p = 1/4;
+	my ($n,$sd) = (12,2); my $p = 1/5;
 	my ($self, $c, $exerciseId) = @_;
 	my $player = $c->session->{player_id};
 	my $leagueId = $c->session->{league};
@@ -58,21 +58,22 @@ sub setup :Chained('/') :PathPart('play') :CaptureArgs(1) {
 	if ( $playSet == 0 ) {
 		my $wordcount = $wordSet->count;
 		my $sections = $p * $wordcount / $n;
-		my $low = 5;
-		my $zoom = 6.8;
-		my $high = ceil ($zoom * (1 - $p) * $wordcount / ($n-1) );
-		my @lengths = random_normal($sections,$n,$sd);
-		my @spaces = random_uniform( $n-1, $low, $high );
-		my $firstspace = random_uniform(1, 0, 10);
+		my $sectionlength = $wordcount / $sections;
+		my @clozelengths = random_normal($sections,$n,$sd);
 		my ($word, $blank);
-		for ( 1 .. $firstspace ) {
-			$word = $wordSet->next;
-			last unless $word;
-		}
+		$word = $wordSet->next;
 		$blank = $word->id;
 		foreach my $section ( 1 .. $sections ) {
-			my $length = shift @lengths;
-			foreach my $position ( $blank .. $blank + $length-1 ) {
+			my $clozelength = shift @clozelengths;
+			my $end = $blank + $sectionlength - 1;
+			my $leadingspaces = random_uniform_integer(
+				1,1,$sectionlength-$clozelength-1);
+			for ( 1 .. $leadingspaces ) {
+				$word = $wordSet->next;
+				last unless $word;
+			}
+			$blank = $word->id;
+			foreach my $position ( $blank .. $blank + $clozelength - 1 ) {
 				$playSet->create({ player => $player,
 					exercise => $exerciseId,
 					blank => $blank,
@@ -83,10 +84,10 @@ sub setup :Chained('/') :PathPart('play') :CaptureArgs(1) {
 				last unless $word;
 				$blank = $word->id;
 			}
-			my $space = shift @spaces;
-			for ( 1 .. $space ) {
+			until ( $blank >= $end ) {
 				$word = $wordSet->next;
 				last unless $word;
+				$blank = $word->id;
 			}
 		}
 	}
