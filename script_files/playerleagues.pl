@@ -31,7 +31,7 @@ my $leaguegenres = [
 #			[ "FLA0023-nguyen",	"intermediate" ],
 #			[ "FLA0023-mestas",	"intermediate" ],
 			[ "FLA0027",	"media" ],
-			[ "FLA0030",	"pop" ],
+			[ "FLA0030",	"friends" ],
 			[ "FIA0034",	"business" ],
 			[ "BMA0059",	"business" ],
 			[ "MIA0013",	"business" ],
