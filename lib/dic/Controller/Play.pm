@@ -68,12 +68,14 @@ sub setup :Chained('/') :PathPart('play') :CaptureArgs(1) {
 			my $end = $blank + $sectionlength - 1;
 			my $leadingspaces = random_uniform_integer(
 				1,1,$sectionlength-$clozelength-1);
-			for ( 1 .. $leadingspaces ) {
+			my $trailingspaces = $sectionlength - (
+				$leadingspaces + $clozelength -1 );
+			while ( $leadingspaces-- ) {
 				$word = $wordSet->next;
 				last unless $word;
 			}
 			$blank = $word->id;
-			foreach my $position ( $blank .. $blank + $clozelength - 1 ) {
+			while ( $clozelength-- ) {
 				$playSet->create({ player => $player,
 					exercise => $exerciseId,
 					blank => $blank,
@@ -84,10 +86,9 @@ sub setup :Chained('/') :PathPart('play') :CaptureArgs(1) {
 				last unless $word;
 				$blank = $word->id;
 			}
-			until ( $blank >= $end ) {
+			while ( $trailingspaces-- ) {
 				$word = $wordSet->next;
 				last unless $word;
-				$blank = $word->id;
 			}
 		}
 	}
