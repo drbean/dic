@@ -121,20 +121,22 @@ sub update :Chained('setup') :PathPart('') :CaptureArgs(0) {
 	$c->stash->{text} = $text->id;
 	$c->stash->{target} = $targetId;
 	my $gameover;
-	for my $allcourse ( 'WH', 'YN', 'S' ) {
-		my $standing = $c->model("BettDB::$allcourse")
-			->find({ player => $player,
-			exercise => $exerciseId,
-			league => $leagueId });
-		next unless $standing;
-		$c->stash($allcourse => $standing);
-		$gameover++ if ( $standing->questionchance < 0 or
-			$standing->answerchance < 0 );
-		$gameover++ if ( $standing->score >=
-			$c->config->{$allcourse}->{win} );
-		if ( $gameover ) {
-			$c->stash->{template} = "gameover.tt2";
-			last;
+	if ( $c->model("BettDB::Exercise")->find({ id => $exerciseId }) {
+		for my $allcourse ( 'WH', 'YN', 'S' ) {
+			my $standing = $c->model("BettDB::$allcourse")
+				->find({ player => $player,
+				exercise => $exerciseId,
+				league => $leagueId });
+			next unless $standing;
+			$c->stash($allcourse => $standing);
+			$gameover++ if ( $standing->questionchance < 0 or
+				$standing->answerchance < 0 );
+			$gameover++ if ( $standing->score >=
+				$c->config->{$allcourse}->{win} );
+			if ( $gameover ) {
+				$c->stash->{template} = "gameover.tt2";
+				last;
+			}
 		}
 	}
 	return if $c->stash->{template} and
