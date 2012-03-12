@@ -121,7 +121,7 @@ sub update :Chained('setup') :PathPart('') :CaptureArgs(0) {
 	$c->stash->{text} = $text->id;
 	$c->stash->{target} = $targetId;
 	my $gameover;
-	if ( $c->model("BettDB::Exercise")->find({ id => $exerciseId }) {
+	if ( $c->model("BettDB::Exercise")->find({ id => $exerciseId }) ) {
 		for my $allcourse ( 'WH', 'YN', 'S' ) {
 			my $standing = $c->model("BettDB::$allcourse")
 				->find({ player => $player,
