@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 10/21/2011 02:37:36 PM
-# Last Edit: 2012 Feb 24, 10:27:18 PM
+# Last Edit: 2012 May 01, 09:49:19 PM
 # $Id$
 
 =head1 NAME
@@ -30,7 +30,8 @@ perl script_files/grade_dic.pl -l GL00016 -x rueda -o 20 -t 85 > ../001/GL00016/
 use Grades;
 
 my $script = Grades::Script->new_with_options;
-my $id = $script->league;
+my $leagueid = $script->league;
+( my $id = $leagueId ) =~ s/^([[:alpha:]]+[[:digit:]]+).*$/$1/;
 my $exercise = $script->exercise;
 my $two = $script->two;
 my $one = $script->one;
