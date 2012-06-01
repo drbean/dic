@@ -29,6 +29,7 @@ it under the same terms as Perl itself.
 use strict;
 use warnings;
 use lib 'lib';
+use Scalar::Util qw/looks_like_number/;
 
 use Config::General;
 
@@ -56,7 +57,9 @@ my @ids = @ARGV;
 for my $id ( @ids ) {
 	my @text;
 	push @text, $text->[0];
+	delete $text[-1]->[-1] if $text[-1]->[-1] eq 'percent' ; # how much of text
 	push @text, grep { $_->[0] eq $id } @$text;
+	delete $text[-1]->[-1] if looks_like_number $text[-1]->[-1]; # percent
 	my @qn;
 	push @qn, $question->[0];
 	push @qn, grep { $_->[1] eq $id } @$question;
