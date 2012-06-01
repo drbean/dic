@@ -202,7 +202,7 @@ sub clozeupdate :Chained('update') :PathPart('') :Args(0) {
 				$score += $allLetters;
 				push @cloze, $published;
 			}
-			elsif ( $response )
+			elsif ( defined $response )
 			{
 				my $letters = length $response;
 				my $answer = substr $clozed, $correct;
