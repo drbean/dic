@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 10/21/2011 02:37:36 PM
-# Last Edit: 2012 May 01, 09:49:19 PM
+# Last Edit: 2012 May 26, 04:18:53 PM
 # $Id$
 
 =head1 NAME
@@ -31,7 +31,7 @@ use Grades;
 
 my $script = Grades::Script->new_with_options;
 my $leagueid = $script->league;
-( my $id = $leagueId ) =~ s/^([[:alpha:]]+[[:digit:]]+).*$/$1/;
+( my $id = $leagueid ) =~ s/^([[:alpha:]]+[[:digit:]]+).*$/$1/;
 my $exercise = $script->exercise;
 my $two = $script->two;
 my $one = $script->one;
@@ -52,8 +52,8 @@ Above 20 percent, grade of 1. Above 85 percent of the letters, a (perfect) grade
 
 my $connect_info = dic::Model::DB->config->{connect_info};
 my $d = dic::Schema->connect( @$connect_info );
-my $genre = $d->resultset('Leaguegenre')->find({league=>$id})->genre;
-my $members = $d->resultset('Member')->search({ league => $id });
+my $genre = $d->resultset('Leaguegenre')->find({league=>$leagueid})->genre;
+my $members = $d->resultset('Member')->search({ league => $leagueid });
 my $play = $d->resultset('Play')->search({ exercise => $exercise });
 my $quiz = $d->resultset('Quiz')->search({ exercise => $exercise });
 my $words = $d->resultset('Word')->search({ exercise => $exercise,
@@ -61,12 +61,13 @@ my $words = $d->resultset('Word')->search({ exercise => $exercise,
 
 my ( $p, $g );
 for my $player ( keys %m ) {
-	my $wordplay = $play->search({ player => $player, league => $id });
+	my $wordplay = $play->search({ player => $player, league => $leagueid });
 	my ($correct, $total) = (0) x 2;
 	while ( my $word = $wordplay->next ) {
 		my $id = $word->blank;
 		my $letters = $wordplay->find({ blank => $id });
 		$correct += $letters->correct if $letters;
+$DB::single=1 unless $words->find({id => $id});
 		$total += length $words->find({id => $id})->clozed;
 	}
 	$p->{$player}->{letters} = $correct;
