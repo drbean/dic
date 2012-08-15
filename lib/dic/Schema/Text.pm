@@ -31,6 +31,9 @@ __PACKAGE__->set_primary_key("id", "target");
 # Set relationships:
 #
 
+__PACKAGE__->has_one(percent => 'dic::Schema::Percent',
+        { 'foreign.id' => 'self.id', 'foreign.target' => 'self.target', });
+
 # has_many():
 #   args:
 #     1) Name of relationship, DBIC will create accessor with this name
