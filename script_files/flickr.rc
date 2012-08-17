@@ -2,9 +2,9 @@
 
 use YAML qw/Dump LoadFile DumpFile/;
 
-use Flickr::API2;
+use Flickr::API;
 
-my $api = Flickr::API2->new({key =>
+my $api = Flickr::API->new({key =>
 	'ea697995b421c0532215e4a2cbadbe1e',
 	secret => 'ab2024b750a9d1f2' });
 my $tag = "마이애미";

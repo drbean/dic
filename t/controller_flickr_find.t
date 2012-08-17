@@ -12,7 +12,7 @@ use IO::Handle;
 use Pod::Usage;
 
 use lib 'lib';
-use Flickr:API2;
+use Flickr;
 
 run () unless caller;
 
@@ -22,7 +22,7 @@ sub run {
 	pod2usage(-exitstatus => 0, -verbose => 2) if $script->man;
 	my $tag = $script->tags;
 	my $total  = 5;
-	my $api = Flickr::API2->new({key =>
+	my $api = Flickr::API->new({key =>
 		'ea697995b421c0532215e4a2cbadbe1e',
 		secret => 'ab2024b750a9d1f2' });
 	my $r = $api->execute_method('flickr.photos.search',
