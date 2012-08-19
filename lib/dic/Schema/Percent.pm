@@ -6,16 +6,16 @@ use warnings;
 use base 'DBIx::Class';
 
 __PACKAGE__->load_components("Core");
-__PACKAGE__->table("texts");
+__PACKAGE__->table("percent");
 __PACKAGE__->add_columns(
-  "id",
+  "text",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "target",
   { data_type => "VARCHAR", is_nullable => 0, size => 15 },
   "value",
   { data_type => "SMALLINT", is_nullable => 0, size => undef },
 );
-__PACKAGE__->set_primary_key("id", "target");
+__PACKAGE__->set_primary_key("text", "target");
 
 
 # Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-08-26 18:19:13
