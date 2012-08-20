@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-loadYAMLid.pl -- Load one text with questions from a YAML file
+loadYAMLid.pl -- Load a number of text with questions from a YAML file
 
 =head1 SYNOPSIS
 
@@ -10,9 +10,19 @@ loadYAMLid.pl data/business.yaml careercandidate
 
 =head1 DESCRIPTION
 
-Cut and paste from YAML into texts, questions tables 
+Cut and paste from YAML into texts, questions, percent tables 
 
-But be careful with targets
+But be careful with targets.
+
+In order:
+  - id
+  - description
+  - genre
+  - target
+  - content
+  - unclozeables
+  - percent # new
+
 
 =head1 AUTHOR
 
@@ -29,6 +39,7 @@ it under the same terms as Perl itself.
 use strict;
 use warnings;
 use lib 'lib';
+use Scalar::Util qw/looks_like_number/;
 
 use Config::General;
 
@@ -50,16 +61,32 @@ use YAML qw/LoadFile DumpFile/;
 use IO::All;
 my $textfile = shift @ARGV;
 my ($text, $question) = LoadFile $textfile;
+my $target_field = 3;
+my $percent_field = 6;
 my $t = $d->resultset('Text');
 my $q = $d->resultset('Question');
+my $p = $d->resultset('Percent');
 my @ids = @ARGV;
 for my $id ( @ids ) {
-	my @text;
+	my (@text, @qn, @percent);
 	push @text, $text->[0];
-	push @text, grep { $_->[0] eq $id } @$text;
-	my @qn;
+	my ($percent, $target);
+	if ( $text[0]->[$percent_field] and $text[0]->[$percent_field]
+									eq 'percent' ) {
+		$percent = delete $text[0]->[$percent_field];
+		push @percent, [qw/text target value/];
+	}
+	for my $text ( grep { $_->[0] eq $id } @$text ) {
+		push @text, $text;
+		if ( defined $percent ) {
+			$percent = delete $text[-1]->[$percent_field];
+			$target = $text->[$target_field];
+			push @percent, [$id, $target, $percent];
+		}
+	}
 	push @qn, $question->[0];
 	push @qn, grep { $_->[1] eq $id } @$question;
 	$t->populate(\@text);
 	$q->populate(\@qn);
+	$p->populate(\@percent) if defined $percent;
 }
