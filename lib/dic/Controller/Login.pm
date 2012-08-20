@@ -101,7 +101,6 @@ sub official : Local {
 	my $jigsawrole = $c->request->params->{jigsawrole} || "";
 	my $password = lc $c->request->params->{password} || "";
 	my $username = $c->session->{player_id};
-$DB::single=1;
 	if ( $c->authenticate( {id =>$username, password=>$password} ) ) {
 		# my $officialrole = "official";
 		my $officialrole = 1;
@@ -109,7 +108,7 @@ $DB::single=1;
 			$c->session->{league} = $league;
 			$c->model('DB::Jigsawrole')->update_or_create(
 				{ league => $league, player => $username, role => $jigsawrole } )
-					if $jigsawrole;
+					if defined $jigsawrole;
 			$c->response->redirect($c->uri_for("/exercises/list"), 303);
 			return;
 		}
