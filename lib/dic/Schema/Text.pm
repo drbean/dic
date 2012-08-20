@@ -32,7 +32,7 @@ __PACKAGE__->set_primary_key("id", "target");
 #
 
 __PACKAGE__->has_one(percent => 'dic::Schema::Percent',
-        { 'foreign.id' => 'self.id', 'foreign.target' => 'self.target', });
+        { 'foreign.text' => 'self.id', 'foreign.target' => 'self.target', });
 
 # has_many():
 #   args:
