@@ -43,12 +43,13 @@ Create player's rows in Play table. Words in randomly chosen n-word length cloze
 =cut
  
 sub setup :Chained('/') :PathPart('play') :CaptureArgs(1) {
-	my ($n,$sd) = (12,2); my $p = 1/5;
 	my ($self, $c, $exerciseId) = @_;
 	my $player = $c->session->{player_id};
 	my $leagueId = $c->session->{league};
 	my $genre = $c->model("DB::Leaguegenre")->find(
 			{ league => $leagueId } )->genre;
+	my $exercise = $c->model("DB::Exercise")->find(
+			{ genre => $genre, id => $exerciseId } );
 	my $wordSet = $c->model('DB::Word')->search(
 		{genre => $genre, exercise => $exerciseId, class => 'Word' },
 		{ order_by => 'id' } );
@@ -56,25 +57,40 @@ sub setup :Chained('/') :PathPart('play') :CaptureArgs(1) {
 			{player => $player, exercise => $exerciseId},
 			{ order_by => 'blank' } );
 	if ( $playSet == 0 ) {
+		my ($av_length,$sd) = (12,2);
+		my @texts = $exercise->texts;
+		# TODO: match text, target
+		my $cover;
+		my $cover = defined $texts[0]->percent?
+			$texts[0]->percent->value/100: 1;
 		my $wordcount = $wordSet->count;
-		my $sections = $p * $wordcount / $n;
-		my $sectionlength = $wordcount / $sections;
-		my @clozelengths = random_normal($sections,$n,$sd);
+		my $sections = floor( $cover * $wordcount / $av_length );
+		die "Coverage of $cover produces zero sections" if $sections == 0;
+		my $sectionlength = floor( $wordcount / $sections );
+		my @clozelengths = random_normal($sections,$av_length,$sd);
 		my ($word, $blank);
 		$word = $wordSet->next;
 		$blank = $word->id;
-		foreach my $section ( 1 .. $sections ) {
-			my $clozelength = shift @clozelengths;
+		SECTION: foreach my $section ( 1 .. $sections ) {
+			my $clozelength = ceil( shift @clozelengths );
+			if ( $clozelength >= $sectionlength ) {
+				$clozelength = $sectionlength - 1;
+			}
+			my $available_space = floor( $sectionlength - $clozelength ); 
 			my $leadingspaces = random_uniform_integer(
-				1,1,$sectionlength-$clozelength-1);
+				1,1,$available_space);
 			my $trailingspaces = $sectionlength - (
-				$leadingspaces + $clozelength -1 );
-			while ( $leadingspaces-- >= 0 ) {
+				$leadingspaces + $clozelength );
+			my $space_countdown = $leadingspaces;
+			my $cloze_countdown = $clozelength;
+			while ( $space_countdown > 0 ) {
+				$space_countdown--;
 				$word = $wordSet->next;
-				last unless $word;
+				last SECTION unless $word;
 			}
 			$blank = $word->id;
-			while ( $clozelength-- >= 0 ) {
+			last SECTION unless $blank;
+			while ( $cloze_countdown-- >= 0 ) {
 				$playSet->create({ player => $player,
 					exercise => $exerciseId,
 					blank => $blank,
