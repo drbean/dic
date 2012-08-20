@@ -61,14 +61,17 @@ use YAML qw/LoadFile DumpFile/;
 use IO::All;
 my $textfile = shift @ARGV;
 my ($text, $question) = LoadFile $textfile;
+my $genre_field = 2;
 my $target_field = 3;
 my $percent_field = 6;
 my $t = $d->resultset('Text');
 my $q = $d->resultset('Question');
 my $p = $d->resultset('Percent');
+my $g = $d->resultset('Leaguegenre');
+my $j = $d->resultset('Jigsawrole');
 my @ids = @ARGV;
 for my $id ( @ids ) {
-	my (@text, @qn, @percent);
+	my (@text, @qn, @percent, @jigsawrole);
 	push @text, $text->[0];
 	my ($percent, $target);
 	if ( $text[0]->[$percent_field] and $text[0]->[$percent_field]
@@ -83,10 +86,23 @@ for my $id ( @ids ) {
 			$target = $text->[$target_field];
 			push @percent, [$id, $target, $percent];
 		}
+		if ( $text[-1]->[$target_field] eq "all" ) {
+			my @genre = $g->search({ genre => $text[-1]->[$genre_field] });
+			for my $genre ( @genre ) {
+				my $league = $genre->getleague;
+				my $id = $league->id;
+				my $members = $league->members;
+				while ( my $member = $members->next ) {
+					push @jigsawrole, { league => $id,
+						player => $member->player->id, role => "all" };
+				}
+			}
+		}
 	}
 	push @qn, $question->[0];
 	push @qn, grep { $_->[1] eq $id } @$question;
 	$t->populate(\@text);
 	$q->populate(\@qn);
 	$p->populate(\@percent) if defined $percent;
+	$j->populate(\@jigsawrole) if @jigsawrole;
 }
