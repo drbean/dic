@@ -12,6 +12,7 @@ use Kwic;
 use Last;
 use Lingua::Stem qw/stem/;
 use Net::FTP;
+use Encode;
 
 =head1 NAME
 
@@ -117,7 +118,7 @@ sub clozecreate : Local {
 					type => $exerciseType
 				});
 		my $index=0;
-		my $clozeObject = $exerciseType->parse($unclozeables, $content);
+		my $clozeObject = $exerciseType->parse($unclozeables, decode_utf8($content) );
 		my $cloze = $clozeObject->cloze;
 		my $newWords = $clozeObject->dictionary;
 		my (@wordRows, @dictionaryList, %wordCount, @wordstemRows);
