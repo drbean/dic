@@ -1,6 +1,6 @@
 package Ctest;  # assumes Some/Module.pm
 
-# Last Edit: 2009  2月 28, 21時15分05秒
+# Last Edit: 2012 Sep 02, 07:31:15 PM
 # $Id$
 
 use strict;
@@ -46,8 +46,8 @@ sub parse
 	our %dic = ();
 	my $letterGrammar = q[
 		{
-		my $punctuation = qr/[^A-Za-z0-9\\n]+/;
-		my $letter = qr/[A-Za-z0-9]/;
+		my $punctuation = qr/[^\p{Word}\\n]+/u;
+		my $letter = qr/\p{Word}/u;
 		my $skip = '';
 		my @cword;
 		my $inWord = 0;
