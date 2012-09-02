@@ -114,11 +114,12 @@ sub official : Local {
 		}
 		else {
 		# Set an error message
-		$c->stash->{error_msg} = "Bad username or password?";
+		$c->stash->{error_msg} = "Bad official name or password?";
 		$c->stash->{template} = 'login.tt2';
 		}
 	}
 	$c->response->header( 'Cache-Control' => 'no-cache' );
+	$c->stash->{error_msg} = "No $username username or bad password?";
 	$c->stash->{template} = 'login.tt2';
 }
 
