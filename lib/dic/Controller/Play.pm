@@ -60,7 +60,6 @@ sub setup :Chained('/') :PathPart('play') :CaptureArgs(1) {
 		my ($av_length,$sd) = (12,2);
 		my @texts = $exercise->texts;
 		# TODO: match text, target
-		my $cover;
 		my $cover = defined $texts[0]->percent?
 			$texts[0]->percent->value/100: 1;
 		my $wordcount = $wordSet->count;
