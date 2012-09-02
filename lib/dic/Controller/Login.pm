@@ -119,7 +119,7 @@ sub official : Local {
 		}
 	}
 	$c->response->header( 'Cache-Control' => 'no-cache' );
-	$c->stash->{error_msg} = "No $username username or bad password?";
+	$c->stash->{error_msg} = "No '$username' username or bad password?";
 	$c->stash->{template} = 'login.tt2';
 }
 
