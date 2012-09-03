@@ -104,5 +104,7 @@ for my $id ( @ids ) {
 	$t->populate(\@text);
 	$q->populate(\@qn);
 	$p->populate(\@percent) if defined $percent;
-	$j->populate(\@jigsawrole) if @jigsawrole;
+	$j->find_or_create( $_ ) for @jigsawrole;
 }
+
+
