@@ -26,7 +26,7 @@ use Catalyst qw/
     Authorization::Roles
             
     Session
-    Session::Store::FastMmap
+    Session::Store::DBIC
     Session::State::Cookie
     /;
 
