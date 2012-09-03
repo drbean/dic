@@ -27,6 +27,7 @@ my $leaguegenres = [
 			[ "BMA0056",	"business" ],
 			[ "BMA0058",	"business" ],
 			[ "MIA0014",	"business" ],
+			[ "GL00007",	"intermediate" ],
 #			[ "self_access",	"access" ],
 		];
 my @leagueids =  map $_->[0], @$leaguegenres[1..$#$leaguegenres];
