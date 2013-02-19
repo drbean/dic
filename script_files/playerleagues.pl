@@ -23,12 +23,13 @@ BEGIN {
 
 my $leaguegenres = [
 			[ qw/league genre/ ],
-			[ "FIA0033",	"business" ],
-			[ "BMA0056",	"business" ],
-			[ "BMA0058",	"business" ],
-			[ "MIA0014",	"business" ],
-			[ "FLA0016",	"speaking" ],
-			[ "00034522",	"speaking" ],
+			# [ "FIA0033",	"business" ],
+			# [ "BMA0056",	"business" ],
+			# [ "BMA0058",	"business" ],
+			# [ "MIA0014",	"business" ],
+			[ "FLA0037",	"media" ],
+			[ "AFN231",	"literature" ],
+			# [ "00034522",	"speaking" ],
 #			[ "self_access",	"access" ],
 		];
 my @leagueids =  map $_->[0], @$leaguegenres[1..$#$leaguegenres];
