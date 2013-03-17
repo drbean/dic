@@ -63,8 +63,8 @@ __PACKAGE__->set_primary_key("genre", "exercise", "target", "id");
 #     3) Column name in *this* table
 __PACKAGE__->belongs_to(exercise => 'dic::Schema::Exercise',
         {'foreign.genre' => 'self.genre', 'foreign.id' =>'self.exercise'});
-__PACKAGE__->belongs_to(dictionary => 'dic::Schema::Dictionary',
-        {'foreign.genre' => 'self.genre', 'foreign.word' =>'self.published'});
+#__PACKAGE__->belongs_to(dictionary => 'dic::Schema::Dictionary',
+#        {'foreign.genre' => 'self.genre', 'foreign.word' =>'self.published'});
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
