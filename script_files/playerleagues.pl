@@ -29,7 +29,8 @@ my $leaguegenres = [
 			[ "MIA0009",	"business" ],
 			[ "FLA0037",	"media" ],
 			[ "AFN231",	"literature" ],
-			[ "00037155",	"intercultural" ],
+			[ "00037589",	"intercultural" ],
+			[ "00037155",	"media" ],
 #			[ "self_access",	"access" ],
 		];
 my @leagueids =  map $_->[0], @$leaguegenres[1..$#$leaguegenres];
