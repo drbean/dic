@@ -8,14 +8,14 @@ use YAML qw/LoadFile/;
 
 my $sender = Email::Send->new({ mailer => 'Sendmail' });
 $sender->mailer_args([ 
-	   Host     => 'mail.nuu.edu.tw', # defaults to localhost
-	   username => 'greg',
+	   Host     => 'sac.nuu.edu.tw', # defaults to localhost
+	   username => 'drbean',
 	   password => '',
 ]);
 
 my $tmpl = Text::Template->new( TYPE => 'FILE', SOURCE => 'flier1.tmpl' );
 
-my @leagues = qw/FIA0034/;
+my @leagues = qw/MIA0009/;
 
 for my $league ( @leagues ) {
 	for my $drbean ( qw/greg@nuu.edu.tw drbean@freeshell.org/ ) {
