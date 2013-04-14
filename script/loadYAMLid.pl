@@ -105,6 +105,7 @@ for my $id ( @ids ) {
 	$q->populate(\@qn);
 	$p->populate(\@percent) if defined $percent;
 	$j->find_or_create( $_ ) for @jigsawrole;
+	warn "$id text missing" unless @text > 1;
 }
 
 
