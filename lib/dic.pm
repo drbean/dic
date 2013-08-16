@@ -59,6 +59,20 @@ our $VERSION = '0.04';
 __PACKAGE__->config( name => 'dic' );
 __PACKAGE__->config( disable_component_resolution_regex_fallback => 1 );
 
+__PACKAGE__->config->{'Plugin::Authentication'} = {
+   default => {
+       class           => 'SimpleDB',
+       user_model      => 'dicDB::Player',
+       password_type   => 'clear',
+   },
+};
+
+__PACKAGE__->config->{'Plugin::Session'} = {
+                dbic_class      => 'DB::Session',
+                expires => 3600
+};
+
+
 # Start the application
 __PACKAGE__->setup;
 
