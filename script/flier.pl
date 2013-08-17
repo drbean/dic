@@ -23,7 +23,7 @@ for my $league ( @leagues ) {
 		my $message = $tmpl->fill_in( hash => $datahash );
 		$sender->send( $message );
 	}
-	my $yaml = LoadFile "../../012/$league/league.yaml";
+	my $yaml = LoadFile "../../021/$league/league.yaml";
 	my $members = $yaml->{member};
 	my @ids = map { $_->{id} } @$members;
 	for my $id ( @ids ) {
