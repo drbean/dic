@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 西元2010年11月30日 09時59分46秒
-# Last Edit: 2011  2月 22, 11時35分56秒
+# Last Edit: 2013 Aug 17, 04:56:05 PM
 # $Id$
 
 =head1 NAME
@@ -34,7 +34,7 @@ use Net::FTP;
 use dic;
 use dic::Model::DB;
 my $connect_info = dic::Model::DB->config->{connect_info};
-my $schema = dic::Schema->connect( @$connect_info );
+my $schema = dic::Schema->connect( $connect_info );
 
 =head1 SYNOPSIS
 
