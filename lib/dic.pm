@@ -60,11 +60,33 @@ __PACKAGE__->config( name => 'dic' );
 __PACKAGE__->config( disable_component_resolution_regex_fallback => 1 );
 
 __PACKAGE__->config->{'Plugin::Authentication'} = {
-   default => {
-       class           => 'SimpleDB',
-       user_model      => 'dicDB::Player',
-       password_type   => 'clear',
-   },
+	default_realm => 'dbic',
+        dbic => {
+            credential => {
+                class => 'Password',
+                # This is the name of the field in the users table with the
+                # password stored in it
+                password_field => 'password',
+                # We are using an unencrypted password for now
+                password_type => 'clear'
+	    },
+            store => {
+                # Use DBIC to retrieve username, password & role information
+                class => 'DBIx::Class',
+                # This is the model object created by Catalyst::Model::DBIC
+                # from your schema (you created 'MyApp::Schema::User' but as
+                # the Catalyst startup debug messages show, it was loaded as
+                # 'MyApp::Model::DB::Users').
+                # NOTE: Omit 'MyApp::Model' here just as you would when using
+                # '$c->model("DB::Users)'
+                user_class => 'DB::Player',
+                # This is the name of the field in your 'users' table that
+                # contains the user's name
+                id_field => 'id',
+		role_relation => 'getrole',
+		role_field => 'id'
+	    }
+    }
 };
 
 __PACKAGE__->config->{'Plugin::Session'} = {
