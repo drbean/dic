@@ -10,16 +10,14 @@ use File::Spec;
 use List::MoreUtils qw/all/;
 use YAML qw/LoadFile/;
 
-BEGIN {
-	my @MyAppConf = glob( '*.conf' );
-	die "Which of @MyAppConf is the configuration file?"
-				unless @MyAppConf == 1;
-	my %config = Config::General->new($MyAppConf[0])->getall;
-	$::leagues = $config{leagues};
-	$::name = $config{name};
-	require "$::name.pm"; $::name->import;
-	require "$::name/Schema.pm"; $::name->import;
-}
+use dic;
+use dic::Model::DB;
+use dic::Schema;
+
+my %config = Config::General->new( "dic.conf" )->getall;
+my $connect_info = dic::Model::DB->config->{connect_info};
+my $schema = dic::Schema->connect( $connect_info );
+
 
 my $leaguegenres = [
 			[ qw/league genre/ ],
@@ -35,17 +33,12 @@ my $leaguegenres = [
 		];
 my @leagueids =  map $_->[0], @$leaguegenres[1..$#$leaguegenres];
 
-no strict qw/subs refs/;
-my $connect_info = "${::name}::Model::DB"->config->{connect_info};
-# my $connect_info = [ 'dbi:SQLite:db/demo','','' ];
-my $schema = "${::name}::Schema"->connect( @$connect_info );
-use strict;
-
+my $leaguedirs = $config{leagues};
 my ($leaguefile, $players);
 my $leagues = [ [ qw/id name field/ ] ];
 for my $leagueId ( @leagueids ) {
-	( my $id = $leagueId ) =~ s/^([[:alpha:]]+[[:digit:]]+).*$/$1/;
-	$leaguefile = LoadFile "$::leagues/$id/league.yaml";
+	( my $id = $leagueId ) =~ s/^([[[:alpha:]][[:digit:]]]).*$/$1/;
+	$leaguefile = LoadFile "$leaguedirs/$id/league.yaml";
 	push @$leagues, [ $leagueId, $leaguefile->{league}, $leaguefile->{field} ];
 	push @{$players->{$leagueId}},
 		map {[ $_->{id}, $_->{Chinese}, $_->{password} ]}
