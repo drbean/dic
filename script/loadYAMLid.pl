@@ -55,7 +55,7 @@ my $modelmodule = "${name}::Model::DB";
 # require $modelfile;
 
 my $connect_info = $modelmodule->config->{connect_info};
-my $d = $model->connect( @$connect_info );
+my $d = $model->connect( $connect_info );
 
 use YAML qw/LoadFile DumpFile/;
 use IO::All;
