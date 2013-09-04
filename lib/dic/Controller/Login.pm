@@ -39,7 +39,7 @@ sub index : Path : Args(0) {
 			if ( $c->check_user_roles($officialrole) ) {
 				$c->stash->{id}   = $id;
 				$c->stash->{name} = $name;
-				my @leagues = $c->model('DB::League')->search(undef);
+				my @leagues = $c->model('DB::League')->search({});
 				$c->stash->{leagues} = \@leagues;
 				my $jigsawroles = $c->model('DB::Jigsawrole');
 				my $oldrole = $jigsawroles->search( { player => $id } )->next;
