@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 西元2011年02月24日 09時44分23秒
-# Last Edit: 2011 Sep 13, 05:05:39 PM
+# Last Edit: 2013 Sep 10, 03:54:41 PM
 # $Id$
 
 =head1 NAME
@@ -44,7 +44,7 @@ my $id = $script->league;
 my $league = League->new( id => $id );
 
 my $c = dic::Model::DB->config->{connect_info};
-my $s = dic::Schema->connect( @$c );                                           
+my $s = dic::Schema->connect( $c );                                           
 
 my $p = $s->resultset('Player');
 my $m = $league->members;

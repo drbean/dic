@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 10/21/2011 02:37:36 PM
-# Last Edit: 2012 May 26, 04:18:53 PM
+# Last Edit: 2013 Sep 15, 04:15:52 PM
 # $Id$
 
 =head1 NAME
@@ -51,7 +51,7 @@ Above 20 percent, grade of 1. Above 85 percent of the letters, a (perfect) grade
 =cut
 
 my $connect_info = dic::Model::DB->config->{connect_info};
-my $d = dic::Schema->connect( @$connect_info );
+my $d = dic::Schema->connect( $connect_info );
 my $genre = $d->resultset('Leaguegenre')->find({league=>$leagueid})->genre;
 my $members = $d->resultset('Member')->search({ league => $leagueid });
 my $play = $d->resultset('Play')->search({ exercise => $exercise });
