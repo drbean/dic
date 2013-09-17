@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 10/21/2011 02:37:36 PM
-# Last Edit: 2013 Sep 15, 04:15:52 PM
+# Last Edit: 2013 Sep 17, 10:35:32 AM
 # $Id$
 
 =head1 NAME
@@ -46,7 +46,7 @@ use dic::Model::DB;
 
 =head1 DESCRIPTION
 
-Above 20 percent, grade of 1. Above 85 percent of the letters, a (perfect) grade of 2. No roles. Uses play table, rather than words.
+Above 20 percent, grade of hwMax/2. Above 85 percent of the letters, a (perfect) grade of hwMax. No roles. Uses play table, rather than words. If no -o or -t (one and two) options, then correct/total percent of hwMax.
 
 =cut
 
@@ -72,9 +72,15 @@ $DB::single=1 unless $words->find({id => $id});
 	}
 	$p->{$player}->{letters} = $correct;
 	$p->{$player}->{percent} = $total? sprintf('%.0f', 100*$correct/$total): 0;
-	$g->{$player} = 
-		$p->{$player}->{percent} >= $two? 2:
-		$p->{$player}->{percent} > $one? 1: 0;
+	my $hwMax = $l->yaml->{hwMax};
+	if ( defined $one and defined $two ) {
+	    $g->{$player} = 
+		    $p->{$player}->{percent} >= $two? $hwMax:
+		    $p->{$player}->{percent} > $one? $hwMax/2: 0;
+	}
+	else {
+	    $g->{$player} = $hwMax * $p->{$player}->{percent} / 100;
+	}
 }
 
 print Dump { exercise => $exercise, grade => $g, points => $p,
