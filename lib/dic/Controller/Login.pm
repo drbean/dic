@@ -70,7 +70,7 @@ sub index : Path : Args(0) {
 				$c->stash->{template} = 'membership.tt2';
 				return;
 			}
-			$c->session->{league} = $leagues[0]->league->id;
+			$c->session->{league} = $leagues[0]->id;
 			if ( defined $c->session->{exercise} ) {
 				my $exercise = $c->session->{exercise};
 				$c->response->redirect(
