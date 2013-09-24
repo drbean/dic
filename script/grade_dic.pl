@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 10/21/2011 02:37:36 PM
-# Last Edit: 2013 Sep 17, 10:35:32 AM
+# Last Edit: 2013 Sep 21, 11:25:34 AM
 # $Id$
 
 =head1 NAME
@@ -31,7 +31,8 @@ use Grades;
 
 my $script = Grades::Script->new_with_options;
 my $leagueid = $script->league;
-( my $id = $leagueid ) =~ s/^([[:alpha:]]+[[:digit:]]+).*$/$1/;
+# ( my $id = $leagueid ) =~ s/^([[:alpha:]]+[[:digit:]]+).*$/$1/;
+my $id = $leagueid;
 my $exercise = $script->exercise;
 my $two = $script->two;
 my $one = $script->one;
