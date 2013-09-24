@@ -54,29 +54,32 @@ sub index : Path : Args(0) {
 			my @memberships =
 			  $c->model("DB::Member")->search( { player => $id } );
 			my @leagues;
+			my $exercise = $c->session->{exercise} || $c->request->query_params
+					->{exercise};
+			my $genre = $c->model("DB::Exercise")->search( {id => $exercise })
+				->first->genre;
+			$c->session->{genre} = $genre;
 			for my $membership (@memberships) {
-				push @leagues, $membership->league;
+				push @leagues, $membership->league if
+					$membership->league->genre->genre eq $genre;
 			}
-			unless ( @leagues == 1 ) {
+			if ( @leagues > 1 ) {
 				$c->stash->{id}	   = $id;
 				$c->stash->{name}	 = $name;
 				$c->stash->{leagues}  = \@leagues;
 				$c->stash->{template} = 'membership.tt2';
 				return;
 			}
-			else {
-				$c->session->{league} = $leagues[0]->id;
-				if ( defined $c->session->{exercise} ) {
-					my $exercise = $c->session->{exercise};
-					$c->response->redirect(
-						$c->uri_for("/play/$exercise"), 303 );
-				}
-				else {
-					$c->response->redirect( $c->uri_for("/exercises/list"),
-						303 );
-				}
-				return;
+			$c->session->{league} = $leagues[0]->league->id;
+			if ( defined $c->session->{exercise} ) {
+				my $exercise = $c->session->{exercise};
+				$c->response->redirect(
+					$c->uri_for("/play/$exercise"), 303 );
 			}
+			else {
+				$c->response->redirect( $c->uri_for("/exercises/list"), 303 );
+			}
+			return;
 		}
 		else {
 			$c->stash->{error_msg} = "Bad username or password.";
