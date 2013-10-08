@@ -1,6 +1,6 @@
 package Total;  # assumes Some/Module.pm
 
-# Last Edit: 2008 Apr 02, 09:20:07 PM
+# Last Edit: 2013 Oct 08, 08:05:12 PM
 # $Id$
 
 # traditional cloze, unlike ctest, has no letters,
@@ -40,12 +40,14 @@ Parse text and create cloze
 
 sub parse
 {
+	$::RD_HINT=1;
 	my $self = shift;
 	my $unclozeables = shift;
-        our $unclozeable = qr/(?:$unclozeables)/;
+	our $unclozeable = $unclozeables? qr/(?:$unclozeables)/: undef;
 	my $lines = shift;
 	my @text = ();
-	our (%dic, @clozeline) = ();
+	our @clozeline = ();
+	our %dic = ();
 	my $letterGrammar = q[
 		{
 		my $punctuation = qr/[^A-Za-z0-9\\n]+/;
@@ -56,26 +58,41 @@ sub parse
 	}
 		string: token(s) end | <error>
 		token: newline | pass | notlastletter | lastletter | punctuation
-		newline: "\\n" { push @Total::clozeline, Newline->new }
-		pass: <reject: $inWord> m/($Total::unclozeable|\\d+:\\d+)(?=$punctuation|$)/m
-			{ push @Total::clozeline, $item[2]; }
+		newline: <reject: $inWord> "\\n" { push @Total::clozeline, Newline->new }
 		notlastletter: m/$letter(?!$punctuation|$)/m
 			{
 				$cword .= $item[1];
 				$inWord=1;
 			}
-		lastletter: m/$letter(?=$punctuation|$)/m
+		lastletter: <reject: not $inWord> m/$letter(?=$punctuation|$)/m
 			{
 				$cword .= $item[1];
-				push @Total::clozeline, Word->new($cword);
+				push @Total::clozeline, Word->new({
+					published => $cword
+					, unclozed => ''
+					, clozed => $cword
+					, pretext => ''
+					, posttext => ''
+					});
 				$Total::dic{$cword}++;
 				$cword = '';
 				$inWord=0;
 			}
 		punctuation: <reject: $inWord> m/$punctuation/
-			{ push @Total::clozeline, $item[2]; }
+			{ push @Total::clozeline, Unclozeable->new({
+						published => $item[2]
+						}); }
 		end: m/^\Z/
 		]; 
+	if ( $unclozeables )
+	{
+		$letterGrammar .= q[
+		pass: <reject: $inWord> m/($Total::unclozeable|$letter|\\d+:\\d+)(?=$punctuation|$)/m
+			{ push @Total::clozeline, Unclozeable->new
+						({published => $item[2]});
+				$Total::dic{$item[2]}++ if $item[2] =~m/^\w+$/;}
+		]; 
+	}
 	my $letterParser = Parse::RecDescent->new($letterGrammar);
 	defined $letterParser->string($lines) or die "letterparse NOK.";
 	return bless { dictionary => \%Total::dic,
