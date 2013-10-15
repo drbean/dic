@@ -6,7 +6,7 @@ script_files/scores.pl - Dump scores of players in leagues
 
 =head1 SYNOPSIS
 
-script_files/scores.pl
+script_files/scores.pl GL00006
 
  FLA0018		eden-1	eden-2	Total
  ============================================
@@ -45,7 +45,7 @@ use Net::FTP;
 my $id = $ARGV[0] || basename( getcwd );
 
 my $connect_info = dic::Model::DB->config->{connect_info};
-my $schema = dic::Schema->connect( @$connect_info );
+my $schema = dic::Schema->connect( $connect_info );
 my $playset = $schema->resultset('Play');
 my $league;
 $league = $schema->resultset('League')->find({ id => $id }) if $id;
@@ -61,6 +61,18 @@ my @exerciseIds = $playset->get_column('exercise')->all;
 @exerciseIds = uniq sort @exerciseIds;
 my $remote = "standings.txt";
 my $local = $genre? "/tmp/$genre/$remote": "/tmp/$remote";
+
+my $ftp = Net::FTP->new('web.nuu.edu.tw') or die "web.nuu.edu.tw? $@";
+$ftp->login('greg', '') or die "web.nuu.edu.tw login? $@";
+if ( $genre ) {
+	$ftp->cwd("public_html/$genre") or die
+		"web.nuu.edu.tw/~greg/public_html/$genre? $@";
+}
+else {
+	$ftp->cwd("public_html") or die
+		"web.nuu.edu.tw/~greg/public_html? $@";
+}
+
 my $io = io($local) or die "No score print to $local? $@";
 my $output = "Standings\n";
 my $scores;
@@ -72,9 +84,13 @@ for my $id ( sort @leagues )
 	my $league = $schema->resultset('League')->find({ id => $id });
 	push @leagueExercises, $leagueplay->get_column('exercise')->all;
 	@leagueExercises = uniq @leagueExercises;
+	@leagueExercises = qw/courseintro_all mnemosyne_all anki_all/;
 	$output .= join "\t", $id."\t", @leagueExercises, "Total\n";
 	$output .= "============================================\n";
-    my $play = $leagueplay->search( undef,
+    my $play = $leagueplay->search( [
+			{exercise => 'courseintro_all'},
+			{exercise => 'mnemosyne_all'},
+			{exercise => 'anki_all'} ],
 		{ select => [ 'player', 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/player exercise/],
 		as => [ qw/player exercise score/ ],
@@ -99,22 +115,13 @@ for my $id ( sort @leagues )
 		$output .= "\n";
 	}
 	$output .= "\n";
+
+	$io->print( $output );
+
+	$ftp->binary;
 }
 
 io('-')->print( $output );
-$io->print( $output );
 $io->close;
-
-my $ftp = Net::FTP->new('web.nuu.edu.tw') or die "web.nuu.edu.tw? $@";
-$ftp->login('greg', '1514') or die "web.nuu.edu.tw login? $@";
-if ( $genre ) {
-	$ftp->cwd("public_html/$genre") or die
-		"web.nuu.edu.tw/~greg/public_html/$genre? $@";
-}
-else {
-	$ftp->cwd("public_html") or die
-		"web.nuu.edu.tw/~greg/public_html? $@";
-}
-$ftp->binary;
-$ftp->put($local) or die "put $remote on web.nuu.edu.tw? $@";
+	$ftp->put($local) or die "put $remote on web.nuu.edu.tw? $@";
 
