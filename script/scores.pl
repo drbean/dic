@@ -84,13 +84,21 @@ for my $id ( sort @leagues )
 	my $league = $schema->resultset('League')->find({ id => $id });
 	push @leagueExercises, $leagueplay->get_column('exercise')->all;
 	@leagueExercises = uniq @leagueExercises;
-	@leagueExercises = qw/courseintro_all mnemosyne_all anki_all/;
+	@leagueExercises = qw/alex cindy dave jeff kelly mindy neil rena shane vicky/;
 	$output .= join "\t", $id."\t", @leagueExercises, "Total\n";
 	$output .= "============================================\n";
     my $play = $leagueplay->search( [
-			{exercise => 'courseintro_all'},
-			{exercise => 'mnemosyne_all'},
-			{exercise => 'anki_all'} ],
+			{exercise => 'alex'},
+			{exercise => 'cindy'},
+			{exercise => 'dave'},
+			{exercise => 'jeff'},
+			{exercise => 'kelly'},
+			{exercise => 'mindy'},
+			{exercise => 'neil'},
+			{exercise => 'rena'},
+			{exercise => 'shane'},
+			{exercise => 'vicky'},
+			 ],
 		{ select => [ 'player', 'exercise', { sum => 'correct' } ],
 		'group_by' => [qw/player exercise/],
 		as => [ qw/player exercise score/ ],
