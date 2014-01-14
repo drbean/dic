@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 10/21/2011 02:37:36 PM
-# Last Edit: 2013 Sep 21, 11:25:34 AM
+# Last Edit: 2014 Jan 14, 11:49:15 AM
 # $Id$
 
 =head1 NAME
@@ -20,6 +20,7 @@ use warnings;
 use lib qw( lib );
 
 use YAML qw/LoadFile Dump/;
+use List::Util qw/min/;
 
 =head1 SYNOPSIS
 
@@ -38,6 +39,7 @@ my $two = $script->two;
 my $one = $script->one;
 
 my $l = League->new( id => $id );
+my $g = Grades->new({ league => $l }); 
 my $m = $l->members;
 my %m = map { $_->{id} => $_ } @$m;
 
@@ -60,31 +62,40 @@ my $quiz = $d->resultset('Quiz')->search({ exercise => $exercise });
 my $words = $d->resultset('Word')->search({ exercise => $exercise,
 		genre => $genre });
 
-my ( $p, $g );
+my ($p, $gr);
 for my $player ( keys %m ) {
-	my $wordplay = $play->search({ player => $player, league => $leagueid });
-	my ($correct, $total) = (0) x 2;
-	while ( my $word = $wordplay->next ) {
-		my $id = $word->blank;
-		my $letters = $wordplay->find({ blank => $id });
-		$correct += $letters->correct if $letters;
-$DB::single=1 unless $words->find({id => $id});
-		$total += length $words->find({id => $id})->clozed;
+    my $wordplay = $play->search({ player => $player, league => $leagueid });
+    my ($correct, $total) = (0) x 2;
+    while ( my $word = $wordplay->next ) {
+	my $id = $word->blank;
+	my $letters = $wordplay->find({ blank => $id });
+	my $answered;
+	if ( $letters ) {
+	    $answered = $letters->correct;
+	    $correct += $answered;
+	    if ( my $assigned_word = $words->find({id => $id}) ) {
+		$total += length $assigned_word->clozed;
+	    }
+	    else {
+		$total += $answered;
+		warn "No assigned word for player ${player}'s blank $id. Adding $answered correct to both $correct correct and $total total.";
+	    }
 	}
-	$p->{$player}->{letters} = $correct;
-	$p->{$player}->{percent} = $total? sprintf('%.0f', 100*$correct/$total): 0;
-	my $hwMax = $l->yaml->{hwMax};
-	if ( defined $one and defined $two ) {
-	    $g->{$player} = 
-		    $p->{$player}->{percent} >= $two? $hwMax:
-		    $p->{$player}->{percent} > $one? $hwMax/2: 0;
-	}
-	else {
-	    $g->{$player} = $hwMax * $p->{$player}->{percent} / 100;
-	}
+    }
+    $p->{$player}->{letters} = $correct;
+    $p->{$player}->{percent} = $total? sprintf('%.0f', 100*$correct/$total): 0;
+    my $hwMax = $g->hwMax;
+    if ( defined $one and defined $two ) {
+	$gr->{$player} = min ($hwMax,
+	    $p->{$player}->{percent} >= $two? $hwMax:
+		$p->{$player}->{percent} > $one? $hwMax/2: 0 );
+    }
+    else {
+    $gr->{$player} = min ( $hwMax, $hwMax * $p->{$player}->{percent} / 100 );
+    }
 }
 
-print Dump { exercise => $exercise, grade => $g, points => $p,
+print Dump { exercise => $exercise, grade => $gr, points => $p,
 				cutpoints => { one => $one, two => $two } };
 
 =head1 AUTHOR
