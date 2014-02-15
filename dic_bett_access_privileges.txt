@@ -1,0 +1,223 @@
+\z
+                                  Access privileges
+ Schema |     Name      |   Type   |   Access privileges   | Column access privileges 
+--------+---------------+----------+-----------------------+--------------------------
+ public | dictionaries  | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | exercises     | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | jigsawroles   | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=arw/drbean     | 
+ public | leaguegenre   | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | leagues       | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | members       | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | percent       | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | pics          | table    |                       | 
+ public | pics_id_seq   | sequence |                       | 
+ public | play          | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=arw/drbean     | 
+ public | players       | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | questions     | table    |                       | 
+ public | questionwords | table    |                       | 
+ public | quiz          | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | quizquestions | table    |                       | 
+ public | rolebearers   | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | roles         | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | sessions      | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=arwd/drbean    | 
+ public | stopwords     | table    |                       | 
+ public | texts         | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | words         | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+(21 rows)
+
+dic021=# \c dic022
+You are now connected to database "dic022" as user "postgres".
+dic022=# \z
+                                  Access privileges
+ Schema |     Name      |   Type   |   Access privileges   | Column access privileges 
+--------+---------------+----------+-----------------------+--------------------------
+ public | dictionaries  | table    |                       | 
+ public | exercises     | table    |                       | 
+ public | jigsawroles   | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | leaguegenre   | table    |                       | 
+ public | leagues       | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | members       | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | percent       | table    |                       | 
+ public | pics          | table    |                       | 
+ public | pics_id_seq   | sequence |                       | 
+ public | play          | table    |                       | 
+ public | players       | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | questions     | table    |                       | 
+ public | questionwords | table    |                       | 
+ public | quiz          | table    |                       | 
+ public | quizquestions | table    |                       | 
+ public | rolebearers   | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | roles         | table    | drbean=arwdDxt/drbean+| 
+        |               |          | apache=r/drbean       | 
+ public | sessions      | table    |                       | 
+ public | stopwords     | table    |                       | 
+ public | texts         | table    |                       | 
+ public | words         | table    |                       | 
+(21 rows)
+
+dic022=# \c bett021
+You are now connected to database "bett021" as user "postgres".
+bett021=# \z
+                                  Access privileges
+ Schema |     Name     |   Type   |   Access privileges   | Column access privileges 
+--------+--------------+----------+-----------------------+--------------------------
+ public | character    | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=r/drbean       | 
+ public | exercise     | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=r/drbean       | 
+ public | genre        | table    |                       | 
+ public | genre_id_seq | sequence |                       | 
+ public | league       | table    |                       | 
+ public | leaguegenre  | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=r/drbean       | 
+ public | member       | table    |                       | 
+ public | play         | table    |                       | 
+ public | player       | table    |                       | 
+ public | question     | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=ar/drbean      | 
+ public | role         | table    |                       | 
+ public | role_id_seq  | sequence |                       | 
+ public | rolebearer   | table    |                       | 
+ public | s            | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=arw/drbean     | 
+ public | session      | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=arwd/drbean    | 
+ public | tag          | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=arw/drbean     | 
+ public | try          | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=ar/drbean      | 
+ public | wh           | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=arw/drbean     | 
+ public | word         | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=r/drbean       | 
+ public | yn           | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=arw/drbean     | 
+(20 rows)
+
+bett021=# \c bett022
+You are now connected to database "bett022" as user "postgres".
+bett022=# \c bett022z[K
+                                  Access privileges
+ Schema |     Name     |   Type   |   Access privileges   | Column access privileges 
+--------+--------------+----------+-----------------------+--------------------------
+ public | character    | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=r/drbean       | 
+ public | exercise     | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=r/drbean       | 
+ public | genre        | table    |                       | 
+ public | genre_id_seq | sequence |                       | 
+ public | league       | table    |                       | 
+ public | leaguegenre  | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=r/drbean       | 
+ public | member       | table    |                       | 
+ public | play         | table    |                       | 
+ public | player       | table    |                       | 
+ public | question     | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=ar/drbean      | 
+ public | role         | table    |                       | 
+ public | role_id_seq  | sequence |                       | 
+ public | rolebearer   | table    |                       | 
+ public | s            | table    |                       | 
+ public | session      | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=arwd/drbean    | 
+ public | tag          | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=ar/drbean      | 
+ public | try          | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=ar/drbean      | 
+ public | wh           | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=arw/drbean     | 
+ public | word         | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=r/drbean       | 
+ public | yn           | table    | drbean=arwdDxt/drbean+| 
+        |              |          | apache=ar/drbean      | 
+(20 rows)
+
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
+bett022=# 
