@@ -25,9 +25,10 @@ my $leaguegenres = [
 			[ "GL00019",	"conversation" ],
 			[ "FLA0021",	"business" ],
 			[ "FLA0027",	"esp" ],
+			[ "FLA0018",	"conversation" ],
 			[ "AFB1J0",	"call" ],
 			[ "AFBB32",	"conversation" ],
-			[ "40112040",	"conversation" ],
+			[ "40112040",	"intermediate" ],
 			[ "40113024",	"conversation" ],
 #			[ "self_access",	"access" ],
 		];
