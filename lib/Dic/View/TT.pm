@@ -6,8 +6,8 @@ use base 'Catalyst::View::TT';
 __PACKAGE__->config({
     CATALYST_VAR => 'Catalyst',
     INCLUDE_PATH => [
-        dic->path_to( 'root', 'src' ),
-        dic->path_to( 'root', 'lib' )
+        Dic->path_to( 'root', 'src' ),
+        Dic->path_to( 'root', 'lib' )
     ],
     PRE_PROCESS  => 'config/main',
     WRAPPER      => 'site/wrapper',
