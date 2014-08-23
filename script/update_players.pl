@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 西元2011年02月24日 09時44分23秒
-# Last Edit: 2013 Sep 10, 03:54:41 PM
+# Last Edit: 2014  8月 23, 15時16分48秒
 # $Id$
 
 =head1 NAME
@@ -35,16 +35,16 @@ does 'INSERT INTO players, members (id, name, password, league) VALUES (?, ?, ?)
 =cut
 
 use Grades;
-use lib "$Bin/../../dic/lib/";
-use dic;  
-use dic::Model::DB;
+use lib "$Bin/../../Dic/lib/";
+use Dic;  
+use Dic::Model::DB;
 
 my $script = Grades::Script->new_with_options;
 my $id = $script->league;
 my $league = League->new( id => $id );
 
-my $c = dic::Model::DB->config->{connect_info};
-my $s = dic::Schema->connect( $c );                                           
+my $c = Dic::Model::DB->config->{connect_info};
+my $s = Dic::Schema->connect( $c );                                           
 
 my $p = $s->resultset('Player');
 my $m = $league->members;

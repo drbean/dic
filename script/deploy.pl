@@ -8,11 +8,11 @@ use Config::General;
 use Cwd;
 use File::Spec;
 
-use dic::Model::DB;
-use dic::Schema;
+use Dic::Model::DB;
+use Dic::Schema;
 
-my $connect_info = dic::Model::DB->config->{connect_info};
-my $schema = dic::Schema->connect( $connect_info );
+my $connect_info = Dic::Model::DB->config->{connect_info};
+my $schema = Dic::Schema->connect( $connect_info );
 
 $schema->deploy;
 

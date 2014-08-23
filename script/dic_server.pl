@@ -5,7 +5,7 @@ BEGIN {
 }
 
 use Catalyst::ScriptRunner;
-Catalyst::ScriptRunner->run('dic', 'Server');
+Catalyst::ScriptRunner->run('Dic', 'Server');
 
 1;
 

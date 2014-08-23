@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 西元2010年11月30日 09時59分46秒
-# Last Edit: 2013 Sep 08, 01:39:43 PM
+# Last Edit: 2014  8月 23, 15時12分02秒
 # $Id$
 
 =head1 NAME
@@ -15,10 +15,10 @@ use warnings;
 use FindBin qw/$Bin/;
 use lib "$Bin/../lib";
 
-use dic;
-use dic::Model::DB;
-my $connect_info = dic::Model::DB->config->{connect_info};
-my $schema = dic::Schema->connect( $connect_info );
+use Dic;
+use Dic::Model::DB;
+my $connect_info = Dic::Model::DB->config->{connect_info};
+my $schema = Dic::Schema->connect( $connect_info );
 
 =head1 SYNOPSIS
 

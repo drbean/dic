@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 10/21/2011 02:37:36 PM
-# Last Edit: 2011 Nov 13, 07:51:08 PM
+# Last Edit: 2014  8月 23, 15時14分12秒
 # $Id$
 
 =head1 NAME
@@ -46,9 +46,9 @@ use Bett::Schema;
 use Bett::Model::DB;
 
 
-use dic;
-use dic::Schema;
-use dic::Model::DB;
+use Dic;
+use Dic::Schema;
+use Dic::Model::DB;
 
 
 =head1 DESCRIPTION
@@ -68,8 +68,8 @@ $resultset{S} = $bett_d->resultset('S')->search({ league => $id,
 	exercise => $exercise });
 my $bett_config = Bett->config;
 
-my $dic_connect_info = dic::Model::DB->config->{connect_info};
-my $dic_d = dic::Schema->connect( @$dic_connect_info );
+my $dic_connect_info = Dic::Model::DB->config->{connect_info};
+my $dic_d = Dic::Schema->connect( @$dic_connect_info );
 my $genre = $dic_d->resultset('Leaguegenre')->find({league=>$id})->genre;
 my $members = $dic_d->resultset('Member')->search({ league => $id });
 my $play = $dic_d->resultset('Play')->search({ exercise => $exercise });

@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 use Catalyst::ScriptRunner;
-Catalyst::ScriptRunner->run('dic', 'CGI');
+Catalyst::ScriptRunner->run('Dic', 'CGI');
 
 1;
 

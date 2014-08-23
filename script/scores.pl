@@ -39,13 +39,13 @@ use List::MoreUtils qw/any uniq/;
 use YAML qw/DumpFile/;
 use IO::All;
 use Cwd; use File::Basename;
-use dic;
+use Dic;
 use Net::FTP;
 
 my $id = $ARGV[0] || basename( getcwd );
 
-my $connect_info = dic::Model::DB->config->{connect_info};
-my $schema = dic::Schema->connect( $connect_info );
+my $connect_info = Dic::Model::DB->config->{connect_info};
+my $schema = Dic::Schema->connect( $connect_info );
 my $playset = $schema->resultset('Play');
 my $league;
 $league = $schema->resultset('League')->find({ id => $id }) if $id;

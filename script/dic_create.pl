@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Catalyst::ScriptRunner;
-Catalyst::ScriptRunner->run('dic', 'Create');
+Catalyst::ScriptRunner->run('Dic', 'Create');
 
 1;
 

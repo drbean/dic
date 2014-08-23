@@ -10,7 +10,7 @@ script_files/newExercise.pl - Do updating db, creating new exercise
 
 =head1 DESCRIPTION
 
-Create exercise with same name as textname, using create method of dic::Controller::Exercises
+Create exercise with same name as textname, using create method of Dic::Controller::Exercises
 
 =head1 AUTHOR
 

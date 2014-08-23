@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 10/21/2011 02:37:36 PM
-# Last Edit: 2014 Jan 14, 11:49:15 AM
+# Last Edit: 2014  8月 23, 15時14分24秒
 # $Id$
 
 =head1 NAME
@@ -43,9 +43,9 @@ my $g = Grades->new({ league => $l });
 my $m = $l->members;
 my %m = map { $_->{id} => $_ } @$m;
 
-use dic;
-use dic::Schema;
-use dic::Model::DB;
+use Dic;
+use Dic::Schema;
+use Dic::Model::DB;
 
 =head1 DESCRIPTION
 
@@ -53,8 +53,8 @@ Above 20 percent, grade of hwMax/2. Above 85 percent of the letters, a (perfect)
 
 =cut
 
-my $connect_info = dic::Model::DB->config->{connect_info};
-my $d = dic::Schema->connect( $connect_info );
+my $connect_info = Dic::Model::DB->config->{connect_info};
+my $d = Dic::Schema->connect( $connect_info );
 my $genre = $d->resultset('Leaguegenre')->find({league=>$leagueid})->genre;
 my $members = $d->resultset('Member')->search({ league => $leagueid });
 my $play = $d->resultset('Play')->search({ exercise => $exercise });

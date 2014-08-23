@@ -10,13 +10,13 @@ use File::Spec;
 use List::MoreUtils qw/all/;
 use YAML qw/LoadFile/;
 
-use dic;
-use dic::Model::DB;
-use dic::Schema;
+use Dic;
+use Dic::Model::DB;
+use Dic::Schema;
 
 my %config = Config::General->new( "dic.conf" )->getall;
-my $connect_info = dic::Model::DB->config->{connect_info};
-my $schema = dic::Schema->connect( $connect_info );
+my $connect_info = Dic::Model::DB->config->{connect_info};
+my $schema = Dic::Schema->connect( $connect_info );
 
 
 my $leaguegenres = [
