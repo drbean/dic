@@ -1,4 +1,4 @@
-package dic;
+package Dic;
 
 # $Id$
 
@@ -56,7 +56,7 @@ our $VERSION = '0.04';
 # with a external configuration file acting as an override for
 # local deployment.
 
-__PACKAGE__->config( name => 'dic' );
+__PACKAGE__->config( name => 'Dic' );
 __PACKAGE__->config( disable_component_resolution_regex_fallback => 1 );
 
 __PACKAGE__->config->{'Plugin::Authentication'} = {
@@ -116,7 +116,7 @@ __PACKAGE__->setup;
 
 =head1 NAME
 
-dic - Catalyst based application
+Dic - Catalyst based application
 
 =head1 SYNOPSIS
 
@@ -128,7 +128,7 @@ dic - Catalyst based application
 
 =head1 SEE ALSO
 
-L<dic::Controller::Root>, L<Catalyst>
+L<Dic::Controller::Root>, L<Catalyst>
 
 =head1 AUTHOR
 

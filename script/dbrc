@@ -17,11 +17,11 @@ my %m = map { $_->{id} => $_ } @$members;
 my $conversations = $g->conversations;
 my @op = map { $g->opponents($_) } @$conversations;
 
-use dic;
-use dic::Model::DB;
-use dic::Schema;
+use Dic;
+use Dic::Model::DB;
+use Dic::Schema;
 
-my $d = dic::Schema->connect( 'dbi:SQLite:db/982', '', '' );
+my $d = Dic::Schema->connect( 'dbi:SQLite:db/982', '', '' );
 
 my $m = $d->resultset('Member')->search({ league => $leagueid });
 my $q = $d->resultset('Quiz')->search({ league => $leagueid });
