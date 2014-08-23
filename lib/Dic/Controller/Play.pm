@@ -1,4 +1,4 @@
-package dic::Controller::Play;
+package Dic::Controller::Play;
 
 use strict;
 use warnings;
@@ -11,7 +11,7 @@ use Math::Random;
 
 =head1 NAME
 
-dic::Controller::Play - Catalyst Controller
+Dic::Controller::Play - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -390,7 +390,7 @@ sub list : Local {
 
 sub index : Private {
     my ( $self, $c ) = @_;
-    $c->response->body('Matched dic::Controller::Play in Play.');
+    $c->response->body('Matched Dic::Controller::Play in Play.');
 }
 
 

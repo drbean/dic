@@ -1,4 +1,4 @@
-package dic::Schema::Leaguegenre;
+package Dic::Schema::Leaguegenre;
 
 use strict;
 use warnings;
@@ -28,8 +28,8 @@ __PACKAGE__->set_primary_key("league", "genre");
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *this* table
-# __PACKAGE__->belongs_to(getleague => 'dic::Schema::League', 'league');
-__PACKAGE__->has_one(getleague => 'dic::Schema::League',
+# __PACKAGE__->belongs_to(getleague => 'Dic::Schema::League', 'league');
+__PACKAGE__->has_one(getleague => 'Dic::Schema::League',
         { 'foreign.id' => 'self.league'});
 
 # has_many():
@@ -37,7 +37,7 @@ __PACKAGE__->has_one(getleague => 'dic::Schema::League',
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *foreign* table
-#__PACKAGE__->has_many(leagues => 'dic::Schema::Leagues',
+#__PACKAGE__->has_many(leagues => 'Dic::Schema::Leagues',
 #       { 'foreign.id' => 'self.league', 'foreign.id' => 'self.blank'});
 
 =head1 NAME

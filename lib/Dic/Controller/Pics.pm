@@ -1,4 +1,4 @@
-package dic::Controller::Pics;
+package Dic::Controller::Pics;
 
 use Moose;
 BEGIN { extends 'Catalyst::Controller'; }
@@ -7,7 +7,7 @@ use Flickr::API;
 
 =head1 NAME
 
-dic::Controller::Pics - Catalyst Controller
+Dic::Controller::Pics - Catalyst Controller
 
 =head1 DESCRIPTION
 

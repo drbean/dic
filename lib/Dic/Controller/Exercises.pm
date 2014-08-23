@@ -1,4 +1,4 @@
-package dic::Controller::Exercises;
+package Dic::Controller::Exercises;
 
 use strict;
 use warnings;
@@ -16,7 +16,7 @@ use Encode;
 
 =head1 NAME
 
-dic::Controller::Exercises - Catalyst Controller
+Dic::Controller::Exercises - Catalyst Controller
 
 =head1 DESCRIPTION
 

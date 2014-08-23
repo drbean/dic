@@ -1,4 +1,4 @@
-package dic::Schema::Role;
+package Dic::Schema::Role;
 
 use strict;
 use warnings;
@@ -28,7 +28,7 @@ __PACKAGE__->set_primary_key("id");
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *foreign* table
-__PACKAGE__->has_many(rolebearers => 'dic::Schema::Rolebearer', 'role');
+__PACKAGE__->has_many(rolebearers => 'Dic::Schema::Rolebearer', 'role');
 
 # many_to_many():
 #   args:

@@ -1,4 +1,4 @@
-package dic::Schema::Player;
+package Dic::Schema::Player;
 
 use strict;
 use warnings;
@@ -30,9 +30,9 @@ __PACKAGE__->set_primary_key("id");
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *foreign* table
-__PACKAGE__->has_many(member => 'dic::Schema::Member', 'player');
-__PACKAGE__->has_many( play => 'dic::Schema::Play', 'player' );
-__PACKAGE__->has_many( roles => 'dic::Schema::Rolebearer', 'player' );
+__PACKAGE__->has_many(member => 'Dic::Schema::Member', 'player');
+__PACKAGE__->has_many( play => 'Dic::Schema::Play', 'player' );
+__PACKAGE__->has_many( roles => 'Dic::Schema::Rolebearer', 'player' );
 
 # many_to_many():
 #   args:

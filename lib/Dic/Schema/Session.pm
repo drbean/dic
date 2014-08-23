@@ -1,4 +1,4 @@
-package dic::Schema::Session;
+package Dic::Schema::Session;
 
 use strict;
 use warnings;

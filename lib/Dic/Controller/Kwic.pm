@@ -1,4 +1,4 @@
-package dic::Controller::Kwic;
+package Dic::Controller::Kwic;
 
 use strict;
 use warnings;
@@ -9,7 +9,7 @@ use List::Util qw/reduce/;
 
 =head1 NAME
 
-dic::Controller::Kwic - Catalyst Controller
+Dic::Controller::Kwic - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -150,7 +150,7 @@ sub list : Local {
 
 sub index : Private {
     my ( $self, $c ) = @_;
-    $c->response->body('Matched dic::Controller::Players in Players.');
+    $c->response->body('Matched Dic::Controller::Players in Players.');
 }
 
 

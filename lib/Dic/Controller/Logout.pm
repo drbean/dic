@@ -1,4 +1,4 @@
-package dic::Controller::Logout;
+package Dic::Controller::Logout;
 
 use strict;
 use warnings;
@@ -6,7 +6,7 @@ use parent 'Catalyst::Controller';
 
 =head1 NAME
 
-dic::Controller::Logout - Catalyst Controller
+Dic::Controller::Logout - Catalyst Controller
 
 =head1 DESCRIPTION
 

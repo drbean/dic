@@ -1,4 +1,4 @@
-package dic::Schema::Pic;
+package Dic::Schema::Pic;
 
 use strict;
 use warnings;

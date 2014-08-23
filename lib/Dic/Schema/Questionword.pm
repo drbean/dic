@@ -1,4 +1,4 @@
-package dic::Schema::Questionword;
+package Dic::Schema::Questionword;
 
 use strict;
 use warnings;
@@ -29,12 +29,12 @@ __PACKAGE__->set_primary_key("genre", "text", "question", "id", "target");
 # Created by DBIx::Class::Schema::Loader v0.04005 @ 2008-08-26 18:19:13
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xdh5AAQpLC8Xg9MZVkOoJg
 
-__PACKAGE__->belongs_to( get_question => 'dic::Schema::Question',
+__PACKAGE__->belongs_to( get_question => 'Dic::Schema::Question',
 	{ 'foreign.id'=>'self.question', 'foreign.genre'=>'self.genre',
 	'foreign.text'=>'self.text', 'foreign.target' => 'self.target' });
-# __PACKAGE__->belongs_to( get_text => 'dic::Schema::Text', { 'foreign.id'=>'self.question', 'foreign.genre'=>'self.genre', });
+# __PACKAGE__->belongs_to( get_text => 'Dic::Schema::Text', { 'foreign.id'=>'self.question', 'foreign.genre'=>'self.genre', });
 # __PACKAGE__->many_to_many(readers => 'reader', 'reader');
-# __PACKAGE__->has_many(questionwords => 'dic::Schema::Questionword',
+# __PACKAGE__->has_many(questionwords => 'Dic::Schema::Questionword',
 
 =head1 NAME
 

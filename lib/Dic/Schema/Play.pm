@@ -1,4 +1,4 @@
-package dic::Schema::Play;
+package Dic::Schema::Play;
 
 use strict;
 use warnings;
@@ -39,7 +39,7 @@ __PACKAGE__->set_primary_key("exercise", "player", "blank");
 #       'foreign.exercise' => 'self.exercise', 'foreign.id' => 'self.blank'});
 #__PACKAGE__->belongs_to( special => 'DB::Special',
 #       { 'foreign.exercise' => 'self.exercise', 'foreign.id' => 'self.blank'});
-__PACKAGE__->belongs_to( player => 'dic::Schema::Player' );
+__PACKAGE__->belongs_to( player => 'Dic::Schema::Player' );
 
 # has_many():
 #   args:

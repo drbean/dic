@@ -1,4 +1,4 @@
-package dic::Schema::Text;
+package Dic::Schema::Text;
 
 use strict;
 use warnings;
@@ -31,7 +31,7 @@ __PACKAGE__->set_primary_key("id", "target");
 # Set relationships:
 #
 
-__PACKAGE__->has_one(percent => 'dic::Schema::Percent',
+__PACKAGE__->has_one(percent => 'Dic::Schema::Percent',
         { 'foreign.text' => 'self.id', 'foreign.target' => 'self.target', });
 
 # has_many():
@@ -39,7 +39,7 @@ __PACKAGE__->has_one(percent => 'dic::Schema::Percent',
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *foreign* table
-__PACKAGE__->has_many(questions => 'dic::Schema::Question',
+__PACKAGE__->has_many(questions => 'Dic::Schema::Question',
         { 'foreign.genre' => 'self.genre', 'foreign.text' => 'self.id',
 		'foreign.target' => 'self.target', });
 
@@ -54,7 +54,7 @@ __PACKAGE__->has_many(questions => 'dic::Schema::Question',
 
 =head1 NAME
 
-dic::Schema::Texts - A model object representing a dictation text in a competition 
+Dic::Schema::Texts - A model object representing a dictation text in a competition 
 
 =head1 DESCRIPTION
 

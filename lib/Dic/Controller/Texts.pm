@@ -1,4 +1,4 @@
-package dic::Controller::Texts;
+package Dic::Controller::Texts;
 
 use strict;
 use warnings;
@@ -6,7 +6,7 @@ use parent 'Catalyst::Controller';
 
 =head1 NAME
 
-dic::Controller::Texts - Catalyst Controller
+Dic::Controller::Texts - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -24,7 +24,7 @@ Catalyst Controller.
 sub index : Private {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched dic::Controller::Texts in Texts');
+    $c->response->body('Matched Dic::Controller::Texts in Texts');
 }
 
 

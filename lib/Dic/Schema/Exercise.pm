@@ -1,4 +1,4 @@
-package dic::Schema::Exercise;
+package Dic::Schema::Exercise;
 
 use strict;
 use warnings;
@@ -34,13 +34,13 @@ __PACKAGE__->set_primary_key("genre", "id");
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *foreign* table
-__PACKAGE__->has_many(words => 'dic::Schema::Word',
+__PACKAGE__->has_many(words => 'Dic::Schema::Word',
         { 'foreign.genre' => 'self.genre', 'foreign.exercise' => 'self.id'});
-__PACKAGE__->has_many(questions => 'dic::Schema::Question',
+__PACKAGE__->has_many(questions => 'Dic::Schema::Question',
         { 'foreign.genre' => 'self.genre', 'foreign.text' => 'self.id', });
-#__PACKAGE__->has_many(dictionary => 'dic::Schema::Dictionary',
+#__PACKAGE__->has_many(dictionary => 'Dic::Schema::Dictionary',
 #        { 'foreign.genre' => 'self.genre', 'foreign.text' => 'self.id', });
-# __PACKAGE__->has_many(questionwords => 'dic::Schema::Questionword',
+# __PACKAGE__->has_many(questionwords => 'Dic::Schema::Questionword',
 #	{ 'foreign.genre' => 'self.genre', 'foreign.text' => 'self.text'});
 
 
@@ -52,10 +52,10 @@ __PACKAGE__->has_many(questions => 'dic::Schema::Question',
 #   You must already have the has_many() defined to use a many_to_many().
 # __PACKAGE__->many_to_many(questions => 'questions', 'questions');
 
-__PACKAGE__->has_many( texts => 'dic::Schema::Text', { 'foreign.id'=>'self.text' });
+__PACKAGE__->has_many( texts => 'Dic::Schema::Text', { 'foreign.id'=>'self.text' });
 
-# __PACKAGE__->belongs_to( text => 'dic::Schema::Text', { 'foreign.id'=>'self.text' });
-# __PACKAGE__->belongs_to( leagueGenre => 'dic::Schema::Leaguegenre', { 'foreign.id'=>'self.genre' });
+# __PACKAGE__->belongs_to( text => 'Dic::Schema::Text', { 'foreign.id'=>'self.text' });
+# __PACKAGE__->belongs_to( leagueGenre => 'Dic::Schema::Leaguegenre', { 'foreign.id'=>'self.genre' });
 
 # You can replace this text with custom content, and it will be preserved on regeneration
 1;

@@ -1,4 +1,4 @@
-package dic::Controller::Leagues;
+package Dic::Controller::Leagues;
 
 use strict;
 use warnings;
@@ -6,7 +6,7 @@ use parent 'Catalyst::Controller';
 
 =head1 NAME
 
-dic::Controller::Leagues - Catalyst Controller
+Dic::Controller::Leagues - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -24,7 +24,7 @@ Catalyst Controller.
 sub index : Private {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched dic::Controller::Leagues in Leagues.');
+    $c->response->body('Matched Dic::Controller::Leagues in Leagues.');
 }
 
 

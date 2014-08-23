@@ -1,4 +1,4 @@
-package dic::Schema::Dictionary;
+package Dic::Schema::Dictionary;
 
 use strict;
 use warnings;

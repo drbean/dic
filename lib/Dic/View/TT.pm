@@ -1,4 +1,4 @@
-package dic::View::TT;
+package Dic::View::TT;
 
 use strict;
 use base 'Catalyst::View::TT';
@@ -18,11 +18,11 @@ __PACKAGE__->config({
 
 =head1 NAME
 
-dic::View::TT - Catalyst TTSite View
+Dic::View::TT - Catalyst TTSite View
 
 =head1 SYNOPSIS
 
-See L<dic>
+See L<Dic>
 
 =head1 DESCRIPTION
 

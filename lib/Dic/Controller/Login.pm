@@ -1,4 +1,4 @@
-package dic::Controller::Login;
+package Dic::Controller::Login;
 
 # $Id$
 
@@ -8,7 +8,7 @@ use parent 'Catalyst::Controller';
 
 =head1 NAME
 
-dic::Controller::Login - Catalyst Controller
+Dic::Controller::Login - Catalyst Controller
 
 =head1 DESCRIPTION
 

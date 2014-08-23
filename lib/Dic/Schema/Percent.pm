@@ -1,4 +1,4 @@
-package dic::Schema::Percent;
+package Dic::Schema::Percent;
 
 use strict;
 use warnings;
@@ -41,7 +41,7 @@ __PACKAGE__->set_primary_key("text", "target");
 
 =head1 NAME
 
-dic::Schema::Percent - Percentage of the dictation text which each player clozes
+Dic::Schema::Percent - Percentage of the dictation text which each player clozes
 
 =head1 DESCRIPTION
 

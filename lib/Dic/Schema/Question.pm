@@ -1,4 +1,4 @@
-package dic::Schema::Question;
+package Dic::Schema::Question;
 
 use strict;
 use warnings;
@@ -36,7 +36,7 @@ __PACKAGE__->set_primary_key("genre", "text", "id", "target");
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *foreign* table
-__PACKAGE__->has_many(words => 'dic::Schema::Questionword',
+__PACKAGE__->has_many(words => 'Dic::Schema::Questionword',
         { 'foreign.genre' => 'self.genre', 'foreign.text' => 'self.text',
 		'foreign.question' => 'self.id', 'foreign.target' => 'self.target' });
 
@@ -54,7 +54,7 @@ __PACKAGE__->has_many(words => 'dic::Schema::Questionword',
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *this* table
-__PACKAGE__->belongs_to(get_text => 'dic::Schema::Text',
+__PACKAGE__->belongs_to(get_text => 'Dic::Schema::Text',
         {'foreign.target' => 'self.target', 'foreign.id' => 'self.text' });
 
 =head1 NAME

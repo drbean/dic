@@ -1,4 +1,4 @@
-package dic::Schema::Word;
+package Dic::Schema::Word;
 
 use strict;
 use warnings;
@@ -61,9 +61,9 @@ __PACKAGE__->set_primary_key("genre", "exercise", "target", "id");
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *this* table
-__PACKAGE__->belongs_to(exercise => 'dic::Schema::Exercise',
+__PACKAGE__->belongs_to(exercise => 'Dic::Schema::Exercise',
         {'foreign.genre' => 'self.genre', 'foreign.id' =>'self.exercise'});
-#__PACKAGE__->belongs_to(dictionary => 'dic::Schema::Dictionary',
+#__PACKAGE__->belongs_to(dictionary => 'Dic::Schema::Dictionary',
 #        {'foreign.genre' => 'self.genre', 'foreign.word' =>'self.published'});
 
 

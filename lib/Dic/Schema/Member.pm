@@ -1,4 +1,4 @@
-package dic::Schema::Member;
+package Dic::Schema::Member;
 
 use strict;
 use warnings;
@@ -28,16 +28,16 @@ __PACKAGE__->set_primary_key("league", "player");
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *this* table
-__PACKAGE__->belongs_to(league => 'dic::Schema::League', 'league');
+__PACKAGE__->belongs_to(league => 'Dic::Schema::League', 'league');
 
 # belongs_to():
 #   args:
 #     1) Name of relationship, DBIC will create accessor with this name
 #     2) Name of the model class referenced by this relationship
 #     3) Column name in *this* table
-__PACKAGE__->belongs_to(player => 'dic::Schema::Player', 'player');
+__PACKAGE__->belongs_to(player => 'Dic::Schema::Player', 'player');
 
-__PACKAGE__->might_have( jigsawrole => 'dic::Schema::Jigsawrole',
+__PACKAGE__->might_have( jigsawrole => 'Dic::Schema::Jigsawrole',
         {'foreign.player' => 'self.player', 'foreign.league' =>'self.league'});
 
 =head1 NAME

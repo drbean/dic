@@ -1,4 +1,4 @@
-package dic::Schema::Quizquestion;
+package Dic::Schema::Quizquestion;
 
 use strict;
 use warnings;

@@ -1,4 +1,4 @@
-package dic::Controller::Scores;
+package Dic::Controller::Scores;
 
 use strict;
 use warnings;
@@ -9,7 +9,7 @@ use FirstLast;
 
 =head1 NAME
 
-dic::Controller::Scores - Catalyst Controller
+Dic::Controller::Scores - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -60,7 +60,7 @@ sub list : Local {
 
 sub index : Private {
     my ( $self, $c ) = @_;
-    $c->response->body('Matched dic::Controller::Players in Players.');
+    $c->response->body('Matched Dic::Controller::Players in Players.');
 }
 
 

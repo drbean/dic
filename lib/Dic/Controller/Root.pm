@@ -1,4 +1,4 @@
-package dic::Controller::Root;
+package Dic::Controller::Root;
 
 use strict;
 use warnings;
@@ -6,13 +6,13 @@ use parent 'Catalyst::Controller';
 
 #
 # Sets the actions in this controller to be registered with no prefix
-# so they function identically to actions created in dic.pm
+# so they function identically to actions created in Dic.pm
 #
 __PACKAGE__->config->{namespace} = '';
 
 =head1 NAME
 
-dic::Controller::Root - Root Controller for dic
+Dic::Controller::Root - Root Controller for Dic
 
 =head1 DESCRIPTION
 

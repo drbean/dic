@@ -1,4 +1,4 @@
-package dic::Controller::Players;
+package Dic::Controller::Players;
 
 use strict;
 use warnings;
@@ -6,7 +6,7 @@ use parent 'Catalyst::Controller';
 
 =head1 NAME
 
-dic::Controller::Players - Catalyst Controller
+Dic::Controller::Players - Catalyst Controller
 
 =head1 DESCRIPTION
 
