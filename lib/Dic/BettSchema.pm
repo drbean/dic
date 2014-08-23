@@ -1,4 +1,4 @@
-package dic::BettSchema;
+package Dic::BettSchema;
 
 use strict;
 use warnings;

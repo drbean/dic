@@ -268,7 +268,7 @@ sub delete : Local {
 sub index : Private {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched dic::Controller::Players in Players.');
+    $c->response->body('Matched Dic::Controller::Players in Players.');
 }
 
 

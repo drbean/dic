@@ -1,4 +1,4 @@
-package dic::Schema;
+package Dic::Schema;
 
 use strict;
 use warnings;
