@@ -21,15 +21,12 @@ my $schema = Dic::Schema->connect( $connect_info );
 
 my $leaguegenres = [
 			[ qw/league genre/ ],
-			[ "GL00005",	"conversation" ],
-			[ "GL00019",	"conversation" ],
-			[ "FLA0021",	"business" ],
-			[ "FLA0027",	"esp" ],
-			[ "FLA0018",	"conversation" ],
-			[ "AFB1J0",	"call" ],
-			[ "AFBB32",	"conversation" ],
-			[ "40112040",	"intermediate" ],
-			[ "40113024",	"conversation" ],
+			[ "GL00015",	"conversation" ],
+			[ "GL00016",	"conversation" ],
+			[ "FLA0027",	"news" ],
+			# [ "2L1",	"conversation" ],
+			[ "MB1",	"conversation" ],
+			[ "3K0",	"business" ],
 #			[ "self_access",	"access" ],
 		];
 my @leagueids =  map $_->[0], @$leaguegenres[1..$#$leaguegenres];
@@ -78,9 +75,9 @@ foreach my $league ( @leagueids )
 		$members{$player->[0]} =  [ $league, $player->[0] ];
 		$rolebearers{$player->[0]} =  [ $player->[0], 2 ];
 	}
+	$members{193001} = [ $league, 193001 ];
 	push @allLeaguePlayers, values %members;
 	push @allLeaguerolebearers, values %rolebearers;
-	$members{193001} = [ $league, 193001 ];
 }
 uptodatepopulate( 'Member', [ [ qw/league player/ ], 
 				@allLeaguePlayers ] );
