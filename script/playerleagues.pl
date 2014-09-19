@@ -23,7 +23,7 @@ my $leaguegenres = [
 			[ qw/league genre/ ],
 			[ "GL00015",	"conversation" ],
 			[ "GL00016",	"conversation" ],
-			[ "FLA0027",	"news" ],
+			[ "FLA0027",	"media" ],
 			[ "FLA0016",	"conversation" ],
 			[ "2L1",	"conversation" ],
 			[ "MB1",	"conversation" ],
