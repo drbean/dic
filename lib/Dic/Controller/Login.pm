@@ -54,8 +54,8 @@ sub index : Path : Args(0) {
 			my @memberships =
 			  $c->model("DB::Member")->search( { player => $id } );
 			my @leagues;
-			my $exercise = $c->session->{exercise} || $c->request->query_params
-					->{exercise};
+			my $exercise = $c->request->query_params->{exercise} ||
+				$c->session->{exercise};
 			my $genre = $c->model("DB::Exercise")->search( {id => $exercise })
 				->first->genre;
 			$c->session->{genre} = $genre;
