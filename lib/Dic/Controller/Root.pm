@@ -62,7 +62,7 @@ sub auto : Private {
 # to only allow unauthenticated access to the C<index> action we
 # added above.
 	if ($c->controller eq $c->controller('Login')) {
-	   return 1;
+		return 1;
 	}
 
 # If a user doesn’t exist, force login
