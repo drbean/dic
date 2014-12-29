@@ -56,12 +56,14 @@ sub index : Path : Args(0) {
 			my @leagues;
 			my $exercise = $c->request->query_params->{exercise} ||
 				$c->session->{exercise};
-			my $genre = $c->model("DB::Exercise")->search( {id => $exercise })
-				->first->genre;
-			$c->session->{genre} = $genre;
-			for my $membership (@memberships) {
-				push @leagues, $membership->league if
-					$membership->league->genre->genre eq $genre;
+			my @id_dupes = $c->model("DB::Exercise")->search( {id => $exercise });
+			for my $exercise (@id_dupes) {
+				my $genre = $exercise->genre;
+				$c->session->{genre} = $genre;
+				for my $membership (@memberships) {
+					push @leagues, $membership->league if
+						$membership->league->genre->genre eq $genre;
+				}
 			}
 			if ( @leagues > 1 ) {
 				$c->stash->{id}	   = $id;
