@@ -70,7 +70,7 @@ sub auto : Private {
 	   # Dump a log message to the development server debug output
 	   $c->log->debug('***Root::auto User not found, forwarding to /login');
 	   # Redirect the user to the login page
-	   $c->response->redirect($c->uri_for("/login?exercise=$exercise"));
+	   $c->response->redirect($c->uri_for("/login", $c->request->query_params));
 	   # Couldn't get this to work. couldn't find method.
 	   # # Detach to login action with 'exercise' query parameter intact
 	   # $c->detach('/login');
