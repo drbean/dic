@@ -7,7 +7,7 @@ use Catalyst;
 # use Dic;
 
 # my $name = dic->config->{database};
-my $name = "dic031";
+my $name = "dic032";
 
 __PACKAGE__->config(
     schema_class => 'Dic::Schema',
