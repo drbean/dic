@@ -21,13 +21,14 @@ my $schema = Dic::Schema->connect( $connect_info );
 
 my $leaguegenres = [
 			[ qw/league genre/ ],
-			[ "GL00015",	"conversation" ],
-			[ "GL00016",	"conversation" ],
-			[ "FLA0027",	"media" ],
-			[ "FLA0016",	"conversation" ],
-			[ "2L1",	"speaking" ],
-			[ "MB1",	"speaking" ],
-			[ "3K0",	"business" ],
+			[ "FLA0015",	"conversation" ],
+			[ "FLA0017",	"conversation" ],
+			[ "FLA0022",	"business" ],
+			[ "FLA0026",	"esp" ],
+			[ "FLA0027",	"presentation" ],
+			[ "1J0",	"call" ],
+			[ "2L2",	"speaking" ],
+			[ "MB2",	"speaking" ],
 #			[ "self_access",	"access" ],
 		];
 my @leagueids =  map $_->[0], @$leaguegenres[1..$#$leaguegenres];
