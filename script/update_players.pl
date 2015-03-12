@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
 
 # Created: 西元2011年02月24日 09時44分23秒
-# Last Edit: 2014  8月 23, 15時16分48秒
+# Last Edit: 2014 12月 08, 18時55分09秒
 # $Id$
 
 =head1 NAME
@@ -35,7 +35,7 @@ does 'INSERT INTO players, members (id, name, password, league) VALUES (?, ?, ?)
 =cut
 
 use Grades;
-use lib "$Bin/../../Dic/lib/";
+use lib "$Bin/../../dic/lib/";
 use Dic;  
 use Dic::Model::DB;
 
