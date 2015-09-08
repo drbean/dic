@@ -65,6 +65,8 @@ sub index : Path : Args(0) {
 						$membership->league->genre->genre eq $genre;
 				}
 			}
+			die "No exercise with id, \"$exercise\", and genre, \"" .
+				$c->session->{genre} . "\". Please contact Dr Bean." unless @leagues;
 			if ( @leagues > 1 ) {
 				$c->stash->{id}	   = $id;
 				$c->stash->{name}	 = $name;
