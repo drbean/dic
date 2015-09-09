@@ -1,4 +1,4 @@
-package Dic::Controller::Play;
+﻿package Dic::Controller::Play;
 
 use strict;
 use warnings;
