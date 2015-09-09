@@ -14,6 +14,7 @@ __PACKAGE__->config({
     ERROR        => 'error.tt2',
     TIMER        => 0,
     # DEBUG => 'all'
+	ENCODING => 'UTF-8'
 });
 
 =head1 NAME
