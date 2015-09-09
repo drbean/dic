@@ -1,5 +1,6 @@
 ﻿package Dic::Controller::Play;
 
+use utf8;
 use strict;
 use warnings;
 use parent 'Catalyst::Controller';
