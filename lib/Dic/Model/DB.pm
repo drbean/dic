@@ -7,13 +7,13 @@ use Catalyst;
 # use Dic;
 
 # my $name = dic->config->{database};
-my $name = "dic041";
+my $name = "dic082";
 
 __PACKAGE__->config(
     schema_class => 'Dic::Schema',
 
     connect_info => {
-        dsn => "dbi:Pg:dbname=$name",
+        dsn => "dbi:Pg:dbname=$name;port=5434",
         user => '',
         password => '',
     }
